@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.digt.sw_project.dao.Supply_companyMapper">
+
+	<resultMap type="Supply_company" id="Supply_companyResult">
+		<id property="compNo" column="compNo"/>
+		<result property="compName" column="compName"/>
+		<result property="compAddr" column="compAddr"/>
+		<result property="compTel" column="compTel"/>
+	</resultMap>
+	
+	<sql id="selectSql">
+		select compNo,compName,compAddr,compTel from Supply_company
+	</sql>
+	<select id="selectAllCompany" resultMap="Supply_companyResult">
+		<include refid="selectSql"/>
+	</select>
+</mapper>

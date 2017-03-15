@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.digt.mybatis_dev.dao.StudentMapper">
+
+	<sql id="selectSql">
+		select stud_id,name,email,phone ,dob from students
+	</sql>
+	<sql id="whereSql">
+		<where>
+			<if test="studId != null">
+				stud_id = #{studId};
+			</if>
+		</where>
+	</sql>
+	
+	<resultMap type="Student" id="StudentResult">
+		<id property="studId" column="stud_id"/>
+		<result property="name" column="name"/>
+		<result property="email" column="email"/>
+		<result property="phone" column="phone"/>
+		<result property="dob" column="dob"/>
+	</resultMap>
+	
+	<resultMap type="Student" id="StudentResultExtends" extends="StudentResult">
+		<result property="address.addrId" column="addr_id"/>
+		<result property="address.street" column="street"/>
+		<result property="address.city" column="city"/>
+		<result property="address.state" column="state"/>
+		<result property="address.zip" column="zip"/>
+		<result property="address.country" column="country"/>
+	</resultMap>
+	
+	<resultMap type="Student" id="StudentResultAssociation" extends="StudentResult">
+		<association property="address" resultMap="kr.or.digt.mybatis_dev.dao.AddressMapper.AddressResult"></association>
+	</resultMap>
+	
+	<select id="selectStudentByNoAssociationAddress" parameterType="Student" resultMap="StudentResultAssociation">
+		select stud_id,name,email,phone ,dob , a.ADDR_ID, street , city, state, zip, country
+ 		from students s left join addresses a on s.ADDR_ID= a.ADDR_ID
+ 		<include refid="whereSql"/>
+	</select>
+	
+	<select id="selectStudentByNoWithAddress" parameterType="Student" resultMap="StudentResultExtends">
+		 select stud_id,name,email,phone ,dob , a.ADDR_ID, street , city, state, zip, country
+ 		from students s left join addresses a on s.ADDR_ID= a.ADDR_ID
+ 		<include refid="whereSql"/>
+	</select>
+	
+	
+	<select id="selectStudentByNoForResultMap" parameterType="Student" resultMap="StudentResult">
+		<include refid="selectSql"/>
+		<include refid="whereSql"/>
+	</select>
+	<select id="selectStudentByAllForResultMap" resultMap="StudentResult">
+		<include refid="selectSql"/>
+	</select>
+	
+	
+	<!-- hashmap으로 결과리턴 -->
+	<select id="selectStudentByNoForHashMap" parameterType="Student" resultType="map">
+		<include refid="selectSql"/>
+		<include refid="whereSql"/>
+	</select>
+	
+	
+	<select id="selectStudentByAllForHashMap" resultType="map">
+		<include refid="selectSql"/>
+	</select>
+	
+	<update id="updateStudent" parameterType="Student">
+		UPDATE STUDENTS
+		<set>
+			<if test="name != null">name=#{name},</if>
+			<if test="email != null">email=#{email},</if>
+			<if test="phone != null">phone=#{phone},</if>
+			<if test="dob != null">dob=#{dob},</if>
+		</set>
+		WHERE STUD_ID=#{studId}
+	</update>
+	
+	<delete id="deleStudnet" parameterType="Student">
+		DELETE FROM  STUDENTS
+		<where>
+			<if test="studId !=null">
+				STUD_ID=#{studId}
+			</if>
+		</where>
+	</delete>
+	<insert id="insertStudent" parameterType="Student" >
+		insert into Students(stud_id,name,email,phone,dob)
+		<trim prefix="values(" suffix=")" suffixOverrides=",">
+			<if test="studId !=null">
+				#{studId},
+			</if>
+			<if test="name !=null">
+				#{name},
+			</if>
+			<if test="email !=null">
+				#{email},
+			</if>
+			<if test="phone !=null">
+				#{phone},
+			</if>
+			<if test="dob !=null">
+				#{dob},
+			</if>
+		</trim>
+	</insert>
+
+</mapper>
