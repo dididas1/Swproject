@@ -1,5 +1,6 @@
 apply plugin: 'java'
 apply plugin: 'eclipse'
+apply plugin: 'application'
 
 repositories {
     jcenter()
@@ -12,17 +13,27 @@ tasks.withType(JavaCompile){
 
 dependencies {
    
-    // https://mvnrepository.com/artifact/mysql/mysql-connector-java
+   // https://mvnrepository.com/artifact/mysql/mysql-connector-java
     compile group: 'mysql', name: 'mysql-connector-java', version: '5.+' //최신버전
   	// https://mvnrepository.com/artifact/log4j/log4j
 	compile group: 'log4j', name: 'log4j', version: '1.2.17'
 	// https://mvnrepository.com/artifact/org.mybatis/mybatis
 	compile group: 'org.mybatis', name: 'mybatis', version: '3.4.2'
-
-    // Use JUnit test framework
+ // Use JUnit test framework
     testImplementation 'junit:junit:4.12'
 }
 
+
+jar{
+	mainClassName='kr.or.digt.sw_project.SwMain'
+	baseName='SwMain'
+	appendix='bin'
+	version =1.0
+	manifest{
+		attributes 'Title':baseName , 'Version': version, 'Main-Class': mainClassName
+	}
+	dependsOn configurations.runtime
+}
 
 
 

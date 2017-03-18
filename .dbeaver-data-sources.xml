@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <data-sources>
-	<data-source id="mysql5-15aad48bb6a-2fb98a1bfe35dcd8" provider="mysql" driver="mysql5" name="MySQL - sw_project(root)" save-password="true" show-system-objects="true" read-only="false">
-		<connection host="localhost" port="3306" server="" database="sw_project" url="jdbc:mysql://localhost:3306/sw_project" user="root" password="AQsJNFNMSwJl8w==" home="C:\Program Files\MySQL\MySQL Server 5.6" type="dev">
-			<network-handler type="PROXY" id="socks_proxy" enabled="false" save-password="false">
-				<property name="socks-port" value="1080"/>
-			</network-handler>
-			<network-handler type="CONFIG" id="mysql_ssl" enabled="false" save-password="false">
+	<data-source id="mysql5-15ae0a4d509-76405cb662120c15" provider="mysql" driver="mysql5" name="MySQL - mysql(root)" create-date="1489827606904" login-date="1489827625324" save-password="true" show-system-objects="true" read-only="false">
+		<connection host="localhost" port="3306" server="" database="mysql" url="jdbc:mysql://localhost:3306/mysql" user="root" password="AQsJNFNMSwJl8w==" home="C:\Program Files\MySQL\MySQL Server 5.6" type="dev">
+			<network-handler type="CONFIG" id="mysql_ssl" enabled="false" user="" save-password="false">
 				<property name="ssl.public.key.retrieve" value="false"/>
 				<property name="ssl.verify.server" value="true"/>
 				<property name="ssl.require" value="false"/>
 			</network-handler>
-			<network-handler type="TUNNEL" id="ssh_tunnel" enabled="false" save-password="false">
+			<network-handler type="PROXY" id="socks_proxy" enabled="false" user="" save-password="false">
+				<property name="socks-port" value="1080"/>
+			</network-handler>
+			<network-handler type="TUNNEL" id="ssh_tunnel" enabled="false" user="" save-password="false">
 				<property name="sshConnectTimeout" value="10000"/>
 				<property name="port" value="22"/>
 				<property name="authType" value="PASSWORD"/>
 			</network-handler>
 		</connection>
 	</data-source>
-	<data-source id="mysql5-15ab0da0ae9-433a4aa479534f1f" provider="mysql" driver="mysql5" name="MySQL - mybatis(user_mybatis)" save-password="true" show-system-objects="true" read-only="false">
-		<connection host="localhost" port="3306" server="" database="mybatis" url="jdbc:mysql://localhost:3306/mybatis" user="user_mybatis" password="AQsJNFNMSwJl8w==" home="C:\Program Files\MySQL\MySQL Server 5.6" type="dev">
-			<network-handler type="CONFIG" id="mysql_ssl" enabled="false" save-password="false">
+	<data-source id="mysql5-15ae0ab49b4-7e5d17207053a04b" provider="mysql" driver="mysql5" name="MySQL - sw_project(root)" create-date="1489828019583" save-password="true" show-system-objects="true" read-only="false">
+		<connection host="localhost" port="3306" server="" database="sw_project" url="jdbc:mysql://localhost:3306/sw_project" user="root" password="AQsJNFNMSwJl8w==" home="C:\Program Files\MySQL\MySQL Server 5.6" type="dev">
+			<network-handler type="CONFIG" id="mysql_ssl" enabled="false" user="" save-password="false">
 				<property name="ssl.public.key.retrieve" value="false"/>
 				<property name="ssl.verify.server" value="true"/>
 				<property name="ssl.require" value="false"/>
 			</network-handler>
-			<network-handler type="TUNNEL" id="ssh_tunnel" enabled="false" save-password="false">
+			<network-handler type="PROXY" id="socks_proxy" enabled="false" user="" save-password="false">
+				<property name="socks-port" value="1080"/>
+			</network-handler>
+			<network-handler type="TUNNEL" id="ssh_tunnel" enabled="false" user="" save-password="false">
 				<property name="sshConnectTimeout" value="10000"/>
 				<property name="port" value="22"/>
 				<property name="authType" value="PASSWORD"/>
-			</network-handler>
-			<network-handler type="PROXY" id="socks_proxy" enabled="false" save-password="false">
-				<property name="socks-port" value="1080"/>
 			</network-handler>
 		</connection>
 	</data-source>
