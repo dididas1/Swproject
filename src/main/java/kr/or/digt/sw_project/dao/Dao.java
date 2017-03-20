@@ -3,15 +3,19 @@ package kr.or.digt.sw_project.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+
+import com.mysql.fabric.xmlrpc.base.Array;
 
 import kr.or.digt.sw_project.utill.Config;
 import kr.or.digt.sw_project.utill.DBCon;
 
 public class Dao {
 	private static Dao instance = new Dao();
-
 	private Dao() {
 	}
+
+	
 
 	public static Dao getInstance() {
 		return instance;

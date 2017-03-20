@@ -7,6 +7,8 @@ import java.sql.Statement;
 
 import javax.swing.JOptionPane;
 
+import org.apache.ibatis.annotations.Insert;
+
 import kr.or.digt.sw_project.dao.Dao;
 import kr.or.digt.sw_project.utill.Config;
 import kr.or.digt.sw_project.utill.DBCon;
@@ -21,6 +23,9 @@ public class InitSettingService {
 			dao.getUpdateResult("use " + Config.DB_NAME);
 			for(int i=0;i<Config.CREATE_SQL_TABLE.length;i++){
 				dao.getUpdateResult(Config.CREATE_SQL_TABLE[i]);
+			}
+			for(int i=0;i<Config.INSERT_ITEMS.length;i++){
+				dao.getUpdateResult(Config.INSERT_ITEMS[i]);
 			}
 			/*loadPostData();
 			createIndex();*/
@@ -75,3 +80,5 @@ public class InitSettingService {
 
 	}
 }
+
+
