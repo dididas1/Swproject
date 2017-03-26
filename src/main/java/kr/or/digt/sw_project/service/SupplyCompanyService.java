@@ -1,20 +1,19 @@
 package kr.or.digt.sw_project.service;
 
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
 import kr.or.digt.sw_project.connection.MybatisSqlSessionFactory;
-import kr.or.digt.sw_project.connection.Supply_companyMapperImpl;
-import kr.or.digt.sw_project.dto.Supply_company;
+import kr.or.digt.sw_project.connection.SupplyCompanyMapperImpl;
+import kr.or.digt.sw_project.dto.SupplyCompany;
 
-public class Supply_companyService {
+public class SupplyCompanyService {
 	
 	
-	public List<Supply_company> selectAllCompany(){
+	public List<SupplyCompany> selectAllCompany(){
 		try(SqlSession sqlsession = MybatisSqlSessionFactory.opensesstion()){
-			Supply_companyMapperImpl comp = new Supply_companyMapperImpl(sqlsession);
+			SupplyCompanyMapperImpl comp = new SupplyCompanyMapperImpl(sqlsession);
 			return comp.selectAllCompany();
 		}
 

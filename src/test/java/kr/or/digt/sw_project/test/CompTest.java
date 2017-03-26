@@ -6,24 +6,24 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import kr.or.digt.sw_project.dto.Supply_company;
-import kr.or.digt.sw_project.service.Supply_companyService;
+import kr.or.digt.sw_project.dto.SupplyCompany;
+import kr.or.digt.sw_project.service.SupplyCompanyService;
 
 public class CompTest {
-	private static Supply_companyService supply_company;
+	private static SupplyCompanyService supplyCompany;
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		supply_company=  new Supply_companyService();
+		supplyCompany=  new SupplyCompanyService();
 	}
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
-		supply_company = null;
+		supplyCompany = null;
 	}
 
 	@Test
 	public void testall() {
-		List<Supply_company> list  = supply_company.selectAllCompany();
+		List<SupplyCompany> list  = supplyCompany.selectAllCompany();
 		
 		
 	}

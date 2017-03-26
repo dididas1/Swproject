@@ -1,14 +1,14 @@
 package kr.or.digt.sw_project.dto;
 
-public class Supply_company {
+public class SupplyCompany {
 	private String compNo;
 	private String compName;
 	private String compAddr;
 	private String compTel;
 	
-	public Supply_company() {}
+	public SupplyCompany() {}
 
-	public Supply_company(String compNo, String compName, String compAddr, String compTel) {
+	public SupplyCompany(String compNo, String compName, String compAddr, String compTel) {
 		super();
 		this.compNo = compNo;
 		this.compName = compName;

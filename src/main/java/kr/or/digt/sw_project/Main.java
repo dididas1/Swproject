@@ -6,7 +6,7 @@ import javax.swing.JFrame;
 
 import kr.or.digt.sw_project.service.InitSettingService;
 
-public class SwMain extends JFrame {
+public class Main extends JFrame {
 	/**
 	 * Launch the application.
 	 */
@@ -15,7 +15,7 @@ public class SwMain extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					SwMain frame = new SwMain();
+					Main frame = new Main();
 					InitSettingService init = new InitSettingService();
 					init.initSetting();
 				} catch (Exception e) {
@@ -28,7 +28,7 @@ public class SwMain extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public SwMain() {
+	public Main() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		
