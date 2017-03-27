@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.digt.sw_project.dao.SupplyCompanyMapper">
 
-	<resultMap type="Supply_company" id="SupplyCompanyResult">
+	<resultMap type="SupplyCompany" id="SupplyCompanyResult">
 		<id property="compNo" column="compNo"/>
 		<result property="compName" column="compName"/>
 		<result property="compAddr" column="compAddr"/>

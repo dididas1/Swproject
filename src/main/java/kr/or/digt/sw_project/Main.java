@@ -16,8 +16,8 @@ public class Main extends JFrame {
 			public void run() {
 				try {
 					Main frame = new Main();
-					InitSettingService init = new InitSettingService();
-					init.initSetting();
+					/*InitSettingService init = new InitSettingService();
+					init.initSetting();*/
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
