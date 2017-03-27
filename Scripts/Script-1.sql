@@ -89,7 +89,7 @@ CREATE TABLE sale (
 
 #### Create View View_Sale_Detail####
 CREATE VIEW view_sale_detail AS
-   SELECT sale_code,sw_code,
+   SELECT sale_code,
 /*총판매금액*/   sale_price * sale_amount AS total_sale_price,
 /*총공급금액*/   supply_price * sale_amount AS total_supply_price,
 /*마진액*/      (sale_price * sale_amount) - (supply_price*sale_amount) AS margin,    
@@ -435,7 +435,7 @@ SELECT  distinct s.sale_code,sw.sw_name, c.group_name , su.comp_name,
    join view_sale_detail vs on s.sale_code= vs.sale_code 
    join software sw on s.sw_code= sw.sw_code
    join category c on c.group_code= sw.group_code 
-   join delivery d on vs.sw_code= d.sw_code 
+   join delivery d on d.sw_code= sw.sw_code
    join supply_company su on d.comp_code= su.comp_code
    where sw.sw_name="바람의제국";
    
@@ -447,10 +447,10 @@ SELECT distinct s.sale_code,sw.sw_name, ca.group_name, su.comp_name,
 /*판매금액*/ @total_price        := SUM(sd.total_sale_price) total_price,
 /*판매이윤*/ @margin           := SUM(sd.margin) margin
   FROM sale s 
-   join view_sale_detail vs on s.sale_code= vs.sale_code 
+    join view_sale_detail vs on s.sale_code= vs.sale_code 
    join software sw on s.sw_code= sw.sw_code
    join category c on c.group_code= sw.group_code 
-   join delivery d on vs.sw_code= d.sw_code 
+   join delivery d on d.sw_code= sw.sw_code
    join supply_company su on d.comp_code= su.comp_code
    WHERE sw.sw_code =#{swCode};
 

@@ -6,5 +6,5 @@ public class Software {
 	private String swName;
 	private int salePrice;
 	private int swInven;
-	private boolean swIsExist;
+	private boolean swIsSale;
 }

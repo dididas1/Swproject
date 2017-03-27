@@ -12,5 +12,5 @@ public class Sale {
 	private int supplyPrice;
 	private int salePrice;
 	private boolean saleIsExist;
-	private SaleDetail sailDetail; 
+	private SaleDetail saleDetail; 
 }

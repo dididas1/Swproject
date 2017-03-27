@@ -5,5 +5,5 @@ public class SupplyCompany {
 	private String compName;
 	private String compAddr;
 	private String compTel;
-	private boolean isExist;
+	private boolean compIsExist;
 }

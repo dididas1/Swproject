@@ -1,3 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="kr.or.digt.sw_project.dao.SaleMapper"></mapper>
+<mapper namespace="kr.or.digt.sw_project.dao.SaleMapper">
+	<resultMap type="Sale" id="SaleResult">
+		<id property="saleCode" column="sale_code"/>
+		<result property="saleAmount" column="sale_amount"/>
+		<result property="isDeposit" column="isdeposit"/>
+		<result property="orderDate" column="order_date"/>
+		<result property="supplyPrice" column="supply_price"/>
+		<result property="salePrice" column="sale_price"/>
+		<result property="saleIsExist" column="sale_isExist"/>
+		<collection property="client" resultMap="kr.or.digt.sw_project.dao.ClientMapper.ClientResult"/>
+		<collection property="software" resultMap="kr.or.digt.sw_project.dao.SoftwareMapper.SoftwareResult"/>
+		<collection property="saleDetail" resultMap="kr.or.digt.sw_project.dao.SaleDetailMapper.SaleDetailResult"/>
+	</resultMap>
+</mapper>

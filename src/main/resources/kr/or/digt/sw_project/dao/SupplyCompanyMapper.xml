@@ -3,16 +3,12 @@
 <mapper namespace="kr.or.digt.sw_project.dao.SupplyCompanyMapper">
 
 	<resultMap type="SupplyCompany" id="SupplyCompanyResult">
-		<id property="compNo" column="compNo"/>
-		<result property="compName" column="compName"/>
-		<result property="compAddr" column="compAddr"/>
-		<result property="compTel" column="compTel"/>
+		<id property="compCode" column="comp_code"/>
+		<result property="compName" column="comp_name"/>
+		<result property="compAddr" column="comp_addr"/>
+		<result property="compTel" column="comp_tel"/>
+		<result property="compIsExist" column="comp_isExist"/>
 	</resultMap>
 	
-	<sql id="selectSql">
-		select compNo,compName,compAddr,compTel from Supply_company
-	</sql>
-	<select id="selectAllCompany" resultMap="SupplyCompanyResult">
-		<include refid="selectSql"/>
-	</select>
+	
 </mapper>
