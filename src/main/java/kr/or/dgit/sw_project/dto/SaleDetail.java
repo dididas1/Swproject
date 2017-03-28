@@ -1,7 +1,8 @@
 package kr.or.dgit.sw_project.dto;
 
 public class SaleDetail {
-	private Sale saleCode;
+	//판매 세부정보
+	private String saleCode;
 	private int totalSalePrice;
 	private int totalSupplyPrice;
 	private	int margin; 

@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.dgit.sw_project.dao.SoftwareMapper">
-	<resultMap type="Software" id="SoftwareResult">
-		<id property="swCode" column="sw_code"/>
-		<result property="swName" column="sw_name"/>
-		<result property="salePrice" column="sale_price"/>
-		<result property="swInven" column="sw_inven"/>
-		<result property="swIsSale" column="sw_issale"/>
-	</resultMap>
 	
 
 </mapper>

@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.dgit.sw_project.dao.SupplyCompanyMapper">
-	<resultMap type="SupplyCompany" id="SupplyCompanyResult">
-		<id property="compCode" column="comp_code"/>
-		<result property="compName" column="comp_name"/>
-		<result property="compAddr" column="comp_addr"/>
-		<result property="compTel" column="comp_tel"/>
-		<result property="compIsExist" column="comp_isExist"/>
-	</resultMap>
 	
 	
 </mapper>
