@@ -6,8 +6,8 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import kr.or.digt.sw_project.dto.SupplyCompany;
-import kr.or.digt.sw_project.service.SupplyCompanyService;
+import kr.or.dgit.sw_project.dto.SupplyCompany;
+import kr.or.dgit.sw_project.service.SupplyCompanyService;
 
 public class CompTest {
 	private static SupplyCompanyService supplyCompany;

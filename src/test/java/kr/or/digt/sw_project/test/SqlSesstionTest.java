@@ -6,7 +6,7 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import kr.or.digt.sw_project.connection.MybatisSqlSessionFactory;
+import kr.or.dgit.sw_project.connection.MybatisSqlSessionFactory;
 
 public class SqlSesstionTest {
 	private static SqlSessionFactory sqlSessionFactory;

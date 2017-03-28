@@ -305,6 +305,7 @@ SELECT sw_code, group_code, sw_name, sale_price, sw_inven, sw_issale FROM softwa
 SELECT sw_code, group_code, sw_name, sale_price, sw_inven, sw_issale 
 	FROM software 
 	WHERE sw_code="SW001";
+	
 SELECT sw_code, group_code, sw_name, sale_price, sw_inven, sw_issale 
 	FROM software 
 	WHERE sw_code=#{swCode};
@@ -403,15 +404,18 @@ UPDATE sale SET sale_isExist= #{saleDelete}
        
        #### 고객별 판매현황조회 ####
 -- 고객상호명 품목명 주문수량 입금여부 단가 매출금 미수금
-
-select cl.clnt_name, sw.sw_name, s.sale_amount, s.isdeposit, s.sale_price,
+create view vw_client_sale_view as
+select cl.clnt_code,cl.clnt_name, sw.sw_name, s.sale_amount, s.isdeposit, s.sale_price,
 /*매출금*/    sd.total_sale_price, 
 /*미수금*/   sd.receivablePrice
    FROM client cl JOIN sale s ON cl.clnt_code = s.clnt_code 
                JOIN software sw ON s.sw_code = sw.sw_code
-               JOIN view_sale_detail sd ON sd.sale_code = s.sale_code
-   WHERE cl.clnt_code="CL001";
-
+               JOIN view_sale_detail sd ON sd.sale_code = s.sale_code;
+               
+   
+     select * from vw_client_sale_view where clnt_code=#{clnt_code};         
+   
+   
    
 SELECT cl.clnt_name, sw.sw_name, s.sale_amount, s.isdeposit, s.sale_price,
 /*매출금*/    sd.total_sale_price, 
@@ -427,6 +431,7 @@ SELECT cl.clnt_name, sw.sw_name, s.sale_amount, s.isdeposit, s.sale_price,
 #### 소프트웨어별 판매현황조회 ####
 -- 품목명 분류 공급회사명 공급금액 판매금액 판매이윤
 
+ create view vw_sw_sale_view as
 SELECT  distinct s.sale_code,sw.sw_name, c.group_name , su.comp_name,
 /*공급금액*/ (vs.total_supply_price) total_supply_price,
 /*판매금액*/ (vs.total_sale_price) total_price,
@@ -436,12 +441,14 @@ SELECT  distinct s.sale_code,sw.sw_name, c.group_name , su.comp_name,
    join software sw on s.sw_code= sw.sw_code
    join category c on c.group_code= sw.group_code 
    join delivery d on d.sw_code= sw.sw_code
-   join supply_company su on d.comp_code= su.comp_code
-   where sw.sw_name="바람의제국";
+   join supply_company su on d.comp_code= su.comp_code;
    
+   
+   
+  select * from vw_sw_sale_view where sale_code=#{saleCode};
    
   
-   
+  
 SELECT distinct s.sale_code,sw.sw_name, ca.group_name, su.comp_name,
 /*공급금액*/ @total_supply_price := SUM(sd.total_supply_price) total_supply_price,
 /*판매금액*/ @total_price        := SUM(sd.total_sale_price) total_price,
@@ -459,11 +466,12 @@ SELECT distinct s.sale_code,sw.sw_name, ca.group_name, su.comp_name,
 
 #### 날짜별 판매현황조회 ####
 -- 날짜 주문번호  상호 품명 수량 입금여부 
-
+create view day_sale_view as
 SELECT s.order_date, s.sale_code, cl.clnt_name, sw.sw_name, s.sale_amount, s.isdeposit
-   FROM sale s JOIN client cl ON s.clnt_code = cl.clnt_code JOIN software sw ON s.sw_code = sw.sw_code
-   WHERE s.order_date BETWEEN "2009-12-12" AND "2012-12-14"
-   ORDER BY s.sale_code;
+   FROM sale s JOIN client cl ON s.clnt_code = cl.clnt_code JOIN software sw ON s.sw_code = sw.sw_code;
+   
+   select * from day_sale_view  WHERE order_date BETWEEN "2009-12-12" AND "2012-12-14" order by order_date;
+   
    
 SELECT s.order_date, s.sale_code, cl.clnt_name, sw.sw_name, s.sale_amount, s.isdeposit
    FROM sale s JOIN client cl ON s.clnt_code = cl.clnt_code JOIN software sw ON s.sw_code = sw.sw_code
@@ -476,6 +484,7 @@ SELECT s.order_date, s.sale_code, cl.clnt_name, sw.sw_name, s.sale_amount, s.isd
 #### 카테고리별 판매현황조회 ####
 -- 그룹이름 총판매가격 총판매수량
 
+create view category_sale_view as
 SELECT c.group_name,
 /*총판매가격*/   SUM(sd.total_sale_price) c_salePrice, 
 /*총판매수량*/   SUM(s.sale_amount) c_amount
@@ -484,12 +493,13 @@ SELECT c.group_name,
                JOIN view_sale_detail sd ON sd.sale_code = s.sale_code
    GROUP BY c.group_name;
 
-
+select * from category_sale_view;
 
 
 #### SW 전체판매현황 보고서 ####
 -- 날짜 분류 품목명 주문번호 주문수량 판매금액
  
+create view all_sale_report_view as
 SELECT s.order_date, c.group_name, sw.sw_name, s.sale_code, sale_amount,
 /*총 판매금액*/   sd.total_sale_price
    FROM sale s JOIN software sw ON s.sw_code=sw.sw_code 
@@ -497,7 +507,7 @@ SELECT s.order_date, c.group_name, sw.sw_name, s.sale_code, sale_amount,
             JOIN view_sale_detail sd ON sd.sale_code = s.sale_code
    ORDER BY s.order_date DESC;
 
-   
+   select * from all_sale_report_view;
 
 -- 총합계
 
@@ -510,6 +520,7 @@ SELECT sum(total_sale_price)
 #### 거래명세서 ####
 -- 공급회사명 날짜 고객명 품명 단가 주문수량 총판매금액 세금 총납품금액
 
+create view trade_list_view as
 SELECT distinct sd.sale_code,comp_name, s.order_date, c.clnt_name, sw.sw_name, s.sale_price, s.sale_amount,
 /*총판매금액*/   sd.total_sale_price, 
 /*세금*/      sd.tax,   
@@ -518,8 +529,9 @@ SELECT distinct sd.sale_code,comp_name, s.order_date, c.clnt_name, sw.sw_name, s
                      JOIN software sw ON dl.sw_code   = sw.sw_code 
                      JOIN sale s       ON sw.sw_code   = s.sw_code 
                      JOIN client c    ON s.clnt_code  = c.clnt_code
-                        JOIN view_sale_detail sd ON sd.sale_code = s.sale_code
-   ORDER BY su.comp_name;
+                        JOIN view_sale_detail sd ON sd.sale_code = s.sale_code;
+                        
+select * from trade_list_view;
  
 -- 총납품금액 합계
 
@@ -529,11 +541,12 @@ SELECT distinct sd.sale_code,comp_name, s.order_date, c.clnt_name, sw.sw_name, s
 #### 그래프출력 ####
 -- 주문현황 (고객이름 , 고객별 총주문갯수)
 
+create view sale_graph_view as
 SELECT c.clnt_name, SUM(sale_amount) 
    FROM sale s JOIN client c ON s.clnt_code=c.clnt_code
 GROUP BY c.clnt_name;
    
-   
+ select * from sale_graph_view;
    
 
 $$$$$ 트리거 $$$$$

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.dgit.sw_project.dao.DeliveryMapper">
+	<resultMap type="Delivery" id="DeliveryResult">
+		<id property="delCode" column="del_code"/>
+		<result property="supplyPrice" column="supply_price"/>
+		<result property="supplyAmount" column="supply_amount"/>
+		<result property="orderDate" column="order_date"/>
+		<result property="delIsExist" column="del_isExist"/>
+		<collection property="supplyCompany" resultMap="kr.or.digt.sw_project.dao.SupplyCompanyMapper.SupplyCompanyResult"/>
+		<collection property="software" resultMap="kr.or.digt.sw_project.dao.SoftwareMapper.SoftwareResult"/>
+	</resultMap>
+</mapper>
+	

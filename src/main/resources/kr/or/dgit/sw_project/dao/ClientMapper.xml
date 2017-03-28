@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.dgit.sw_project.dao.ClientMapper">
+	<resultMap type="Client" id="ClientResult">
+		<id property="clntCode" column="clnt_code"/>
+		<result property="clntName" column="clnt_name"/>
+		<result property="clntAddr" column="clnt_addr"/>
+		<result property="clntTel" column="clnt_tel"/>
+		<result property="clntIsExist" column="clnt_isExist"/>
+	</resultMap>
+	
+
+</mapper>

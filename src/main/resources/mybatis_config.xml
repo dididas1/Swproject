@@ -8,10 +8,10 @@
 		<setting name="mapUnderscoreToCamelCase" value="true"/>  <!-- 카멜형식으로 자동변경 -->
  	</settings>
  	<typeAliases>
- 		<package name="kr.or.digt.sw_project.dto"/>
+ 		<package name="kr.or.dgit.sw_project.dto"/>
  	</typeAliases>
  	<typeHandlers>
- 		<package name="kr.or.digt.sw_project.dao.typehandlers"/>
+ 		<package name="kr.or.dgit.sw_project.dao.typehandlers"/>
  	</typeHandlers>
 	<environments default="development">
 		<environment id="development">
@@ -25,6 +25,6 @@
 		</environment>
 	</environments>
 	<mappers>
-		<package name="kr.or.digt.sw_project.dao"/>
+		<package name="kr.or.dgit.sw_project.dao"/>
 	</mappers>
 </configuration>
