@@ -6,16 +6,28 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import kr.or.dgit.sw_project.view.ViewDelivery;
+import kr.or.dgit.sw_project.view.ViewList;
+import kr.or.dgit.sw_project.view.ViewSale;
+
 import javax.swing.JMenuBar;
 import javax.swing.JTabbedPane;
 import javax.swing.JButton;
 import javax.swing.JMenu;
 import javax.swing.SwingConstants;
 import java.awt.FlowLayout;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JTextField;
 
-public class Main extends JFrame {
+public class Main extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
+	private JButton btnsale;
+	private JTabbedPane tabbedPane;
+	private JButton btnInsert;
+	private JButton btnInquiry;
 
 	/**
 	 * Launch the application.
@@ -55,32 +67,60 @@ public class Main extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		contentPane.add(tabbedPane, BorderLayout.CENTER);
-		ViewSale vw1= new ViewSale();
-		ViewSale vw2= new ViewSale();
-		tabbedPane.add("시험용2",vw1);
-		ViewSale vw= new ViewSale();
-		tabbedPane.add("시험용",vw);
-		tabbedPane.add("시험용3",vw2);
+		tabbedPane.add("출고", new ViewSale());
+		tabbedPane.add("입고", new ViewDelivery());
+		
 		
 		JPanel panel = new JPanel();
 		FlowLayout flowLayout = (FlowLayout) panel.getLayout();
 		flowLayout.setAlignment(FlowLayout.LEADING);
 		contentPane.add(panel, BorderLayout.NORTH);
 		
-		JButton btnNewButton_3 = new JButton("New button");
-		btnNewButton_3.setHorizontalAlignment(SwingConstants.LEADING);
-		panel.add(btnNewButton_3);
+		btnsale = new JButton("소프트웨어 입출고");
+		btnsale.addActionListener(this);
+		btnsale.setHorizontalAlignment(SwingConstants.LEADING);
+		panel.add(btnsale);
 		
-		JButton btnNewButton_2 = new JButton("New button");
-		panel.add(btnNewButton_2);
+		btnInsert = new JButton("등록메뉴");
+		btnInsert.addActionListener(this);
+		panel.add(btnInsert);
 		
-		JButton btnNewButton_1 = new JButton("New button");
-		panel.add(btnNewButton_1);
+		btnInquiry = new JButton("조회메뉴");
+		btnInquiry.addActionListener(this);
+		panel.add(btnInquiry);
 		
-		JButton btnNewButton = new JButton("New button");
-		panel.add(btnNewButton);
+		btnsale.setEnabled(false);
 	}
 
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnInquiry) {
+			btnInquiryActionPerformed(e);
+		}
+		if (e.getSource() == btnInsert) {
+			btnInsertActionPerformed(e);
+		}
+		if (e.getSource() == btnsale) {
+			btnsaleActionPerformed(e);
+		}
+	}
+	protected void btnsaleActionPerformed(ActionEvent e) {
+		tabbedPane.removeAll();
+		btnInquiry.setEnabled(true);
+		btnsale.setEnabled(false);
+		tabbedPane.add("출고", new ViewSale());
+		tabbedPane.add("입고", new ViewDelivery());
+	}
+	protected void btnInsertActionPerformed(ActionEvent e) {
+		
+		
+		
+	}
+	protected void btnInquiryActionPerformed(ActionEvent e) {
+		tabbedPane.removeAll();
+		btnsale.setEnabled(true);
+		btnInquiry.setEnabled(false);
+		tabbedPane.add("조회", new ViewList());
+	}
 }

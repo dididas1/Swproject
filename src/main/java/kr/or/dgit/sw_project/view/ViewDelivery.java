@@ -1,4 +1,4 @@
-package kr.or.dgit.sw_project;
+package kr.or.dgit.sw_project.view;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -7,8 +7,11 @@ import java.awt.Insets;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-public class ViewSale extends JPanel {
-	public ViewSale() {
+import kr.or.dgit.sw_project.content.ContentDelivery;
+import kr.or.dgit.sw_project.table.TableDelivery;
+
+public class ViewDelivery extends JPanel{
+	public ViewDelivery() {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0}; //각 열의 최소 넓이  
 		gridBagLayout.rowHeights = new int[]{0, 0, 0}; //각 행의 최소 넓이
@@ -16,7 +19,7 @@ public class ViewSale extends JPanel {
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 1.0}; //각 행의 가중치
 		setLayout(gridBagLayout);
 		
-		ContentSale pContent = new ContentSale();
+		ContentDelivery pContent = new ContentDelivery();
 		GridBagConstraints gbc_pContent = new GridBagConstraints();
 		gbc_pContent.insets = new Insets(0, 0, 0, 0);
 		gbc_pContent.fill = GridBagConstraints.NONE;
@@ -62,7 +65,7 @@ public class ViewSale extends JPanel {
 		gbc_btnDelete.gridy = 0;
 		pButton.add(btnDelete, gbc_btnDelete);
 		
-		TableSale pTable = new TableSale();
+		TableDelivery pTable = new TableDelivery();
 		GridBagConstraints gbc_pTable = new GridBagConstraints();
 		gbc_pTable.fill = GridBagConstraints.BOTH;
 		gbc_pTable.gridx = 0;
