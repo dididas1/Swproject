@@ -6,6 +6,7 @@ public class SalebyAllSW {
 	//SW전체 판매현황
 	private Date orderDate;
 	private String groupName;
+	private String swCode;
 	private String swName;
 	private String saleCode;
 	private int saleAmount;
