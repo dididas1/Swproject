@@ -2,24 +2,25 @@ package kr.or.dgit.sw_project;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
 import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
+import javax.swing.JTree;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import kr.or.dgit.sw_project.view.ViewDelivery;
 import kr.or.dgit.sw_project.view.ViewList;
 import kr.or.dgit.sw_project.view.ViewSale;
-
-import javax.swing.JMenuBar;
-import javax.swing.JTabbedPane;
-import javax.swing.JButton;
-import javax.swing.JMenu;
-import javax.swing.SwingConstants;
-import java.awt.FlowLayout;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.JTextField;
+import kr.or.dgit.sw_project.view.ViewSoftware;
+import kr.or.dgit.sw_project.view.ViewSupplyCompany;
 
 public class Main extends JFrame implements ActionListener {
 
@@ -92,6 +93,8 @@ public class Main extends JFrame implements ActionListener {
 		panel.add(btnInquiry);
 		
 		btnsale.setEnabled(false);
+		
+		
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -109,18 +112,23 @@ public class Main extends JFrame implements ActionListener {
 		tabbedPane.removeAll();
 		btnInquiry.setEnabled(true);
 		btnsale.setEnabled(false);
+		btnInsert.setEnabled(true);
 		tabbedPane.add("출고", new ViewSale());
 		tabbedPane.add("입고", new ViewDelivery());
 	}
 	protected void btnInsertActionPerformed(ActionEvent e) {
-		
-		
-		
+		tabbedPane.removeAll();
+		tabbedPane.add("공급회사등록",new ViewSupplyCompany());
+		tabbedPane.addTab("소프트웨어등록", new ViewSoftware());
+		btnInsert.setEnabled(false);
+		btnInquiry.setEnabled(true);
+		btnsale.setEnabled(true);
 	}
 	protected void btnInquiryActionPerformed(ActionEvent e) {
 		tabbedPane.removeAll();
 		btnsale.setEnabled(true);
 		btnInquiry.setEnabled(false);
+		btnInsert.setEnabled(true);
 		tabbedPane.add("조회", new ViewList());
 	}
 }
