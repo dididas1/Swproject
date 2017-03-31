@@ -2,24 +2,18 @@ package kr.or.dgit.sw_project;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
-import kr.or.dgit.sw_project.view.ViewDelivery;
-import kr.or.dgit.sw_project.view.ViewList;
-import kr.or.dgit.sw_project.view.ViewSale;
-
-import javax.swing.JMenuBar;
-import javax.swing.JTabbedPane;
-import javax.swing.JButton;
-import javax.swing.JMenu;
-import javax.swing.SwingConstants;
 import java.awt.FlowLayout;
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JTextField;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 
 public class Main extends JFrame implements ActionListener {
 
@@ -69,8 +63,6 @@ public class Main extends JFrame implements ActionListener {
 		
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		contentPane.add(tabbedPane, BorderLayout.CENTER);
-		tabbedPane.add("출고", new ViewSale());
-		tabbedPane.add("입고", new ViewDelivery());
 		
 		
 		JPanel panel = new JPanel();
@@ -109,8 +101,6 @@ public class Main extends JFrame implements ActionListener {
 		tabbedPane.removeAll();
 		btnInquiry.setEnabled(true);
 		btnsale.setEnabled(false);
-		tabbedPane.add("출고", new ViewSale());
-		tabbedPane.add("입고", new ViewDelivery());
 	}
 	protected void btnInsertActionPerformed(ActionEvent e) {
 		
@@ -121,6 +111,5 @@ public class Main extends JFrame implements ActionListener {
 		tabbedPane.removeAll();
 		btnsale.setEnabled(true);
 		btnInquiry.setEnabled(false);
-		tabbedPane.add("조회", new ViewList());
 	}
 }
