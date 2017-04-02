@@ -12,4 +12,6 @@ public class Delivery {
 	private int supplyAmount;
 	private Date orderDate;
 	private boolean delIsExist;
+	
+	
 }

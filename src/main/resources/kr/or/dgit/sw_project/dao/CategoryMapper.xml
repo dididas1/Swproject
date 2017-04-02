@@ -1,5 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.dgit.sw_project.dao.CategoryMapper">
+
+	<!-- 분류를 resultMap으로 가져옴 -->
+	<resultMap type="Category" id="CategoryResult">
+		<id property="groupCode" column="group_code"/>
+		<result property="groupName" column="group_name"/>
+	</resultMap>
+	
+	<sql id="selectSql">
+		select * from category
+	</sql>
+	
+	<sql id="whereSql">
+		where group_code = #{groupCode}
+	</sql>
+
+	<!-- 분류전체목록 -->
+	<select id="selectAllCategory" resultMap="CategoryResult">
+		<include refid="selectSql"/>
+	</select>
+	
+	<!-- 분류번호당목록 -->
+	<select id="selectByNoCategory" parameterType="Category" resultMap="CategoryResult">
+		<include refid="selectSql"/>
+		<include refid="whereSql"/>
+	</select>
+
+	<!-- 분류 등록 -->
+	<insert id="insertRowCategory" parameterType="Category">
+		insert into category(group_code, group_name) values(#{groupCode}, #{groupName})
+	</insert>
+	
+	<!-- 분류 수정 -->
+	<update id="updateRowCategory" parameterType="Map">
+		UPDATE category SET group_code=#{groupCode1}, group_name=#{groupName} 
+		WHERE group_code=#{groupCode2}
+	</update>
+	
+	<!-- 분류 삭제 -->
+	<delete id="deleteRowCategory" parameterType="Category">
+		DELETE FROM category WHERE group_code=#{groupCode}
+	</delete>
 	
 </mapper>

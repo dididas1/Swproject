@@ -1,5 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.dgit.sw_project.dao.SaleMapper">
-
+	<resultMap type="Sale" id="saleWithSaleDetailResult">
+		<id property="saleCode" column="sale_code"/>
+		<result property="clntCode" column="clnt_code"/>
+		<result property="swCode" column="sw_code"/>
+		<result property="saleAmount" column="sale_amount"/>
+		<result property="isDeposit" column="isdeposit"/>
+		<result property="orderDate" column="order_date"/>
+		<result property="supplyPrice" column="supply_price"/>
+		<result property="salePrice" column="sale_price"/>
+		<result property="saleIsExist" column="sale_isExist"/>
+		<association property="saleDetail" resultMap="kr.or.dgit.sw_project.dao.SaleDetailMapper.saleDetailResult"/>
+	</resultMap>
+	
+	
+	<sql id="selectSale">
+		select s.sale_code, clnt_code, sw_code, sale_amount, isdeposit, order_date, supply_price, sale_price, sale_isExist, total_sale_price, total_supply_price, margin, tax, tax_saleprice, receivablePrice 
+		from sale s join view_sale_detail sv on s.sale_code= sv.sale_code
+	</sql>
+	
+	<select id="allSelectSale" resultMap="saleWithSaleDetailResult">
+		<include refid="selectSale"/>
+	</select>
+	
+	<select id="CodeSelectSaleItem" resultMap="saleWithSaleDetailResult" parameterType="sale">
+		<include refid="selectSale"/>
+		WHERE s.sale_code=#{saleCode}
+	</select>
+	
+	<insert id="insertSale" parameterType="Sale">
+		INSERT INTO sale(sale_code, clnt_code, sw_code, sale_amount, isdeposit, order_date, supply_price, sale_price, sale_isExist)
+	VALUES (#{saleCode}, #{clntCode}, #{swCode}, #{saleAmount}, #{isDeposit}, #{orderDate}, #{supplyPrice}, #{salePrice}, true)
+	</insert>
+	
+	<update id="deleteSale" parameterType="sale">
+		UPDATE sale SET sale_isExist= false
+		WHERE sale_code=#{saleCode};
+	</update>
+	
+	
 </mapper>

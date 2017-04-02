@@ -138,8 +138,7 @@ INSERT INTO category(group_code, group_name) VALUES
 	
 -- 소프트웨어 샘플데이터 입력
 INSERT INTO software(sw_code,group_code,sw_name,sale_price,sw_inven,sw_issale) values
-	("SW004","OF", "zzz", 	48000,   500,   true);
-	/*("SW001","GM", "바람의제국",40000,   2000,  TRUE),
+	("SW001","GM", "바람의제국",40000,   2000,  TRUE),
 	("SW002","OF", "국제무역", 	48000,   500,   FALSE),
 	("SW003","GM", "FIFA2015",	40500, 	 1000 , FALSE),
 	("SW004","GM", "삼국지",	48000, 	 400,   FALSE),
@@ -148,13 +147,11 @@ INSERT INTO software(sw_code,group_code,sw_name,sale_price,sw_inven,sw_issale) v
 	("SW007","GR", "포토샵",	1519000, 400,   FALSE),
 	("SW008","ED", "오토캐드",	978000,	 2,	    FALSE),
 	("SW009","GM", "인디자인", 	218040,	 4000,  FALSE),
-	("SW010","OF", "windows10",	333450,	 40000, TRUE);*/
+	("SW010","OF", "windows10",	333450,	 40000, TRUE);
  delete from software where sw_code="sw004";
 -- 납품현황입력
 INSERT INTO delivery(del_code, comp_code, sw_code, supply_price, supply_amount, order_date, del_isExist) VALUES
-	("DL003", "SC001", "SW002", 20000, 100, now(), TRUE),
-	("DL004", "SC001", "SW003", 30000, 200, now(), TRUE);
-	/*("DL003", "SC003", "SW003", 30000, 100, now(), TRUE),
+	("DL003", "SC003", "SW003", 30000, 100, now(), TRUE),
 	("DL004", "SC004", "SW004", 17000, 150, now(), FALSE),
 	("DL005", "SC005", "SW005", 25000, 200, now(), TRUE),
 	("DL006", "SC006", "SW006", 2000,  100, now(), FALSE),
@@ -162,7 +159,7 @@ INSERT INTO delivery(del_code, comp_code, sw_code, supply_price, supply_amount, 
 	("DL008", "SC002", "SW008", 30000, 100, now(), TRUE),
 	("DL009", "SC003", "SW009", 17000, 150, now(), TRUE),
 	("DL010", "SC004", "SW010", 25000, 200, now(), FALSE),
-	("DL011", "SC001", "SW001", 25000, 400, now(), TRUE)*/
+	("DL011", "SC001", "SW001", 25000, 400, now(), TRUE);
 
 	delete from delivery;
 	
@@ -170,8 +167,6 @@ INSERT INTO delivery(del_code, comp_code, sw_code, supply_price, supply_amount, 
 INSERT INTO sale(sale_code, clnt_code, sw_code, sale_amount, 
 				isdeposit, order_date, supply_price, sale_price, sale_isExist) VALUES  
 	("SL003","CL001","SW003",25, TRUE, "2009-12-13", 25000  , 40000,   TRUE),
-	("SL004","CL003","SW002",25, TRUE, "2010-09-13", 30000  , 48000,   FALSE);
-	/*("SL003","CL002","SW003",20, TRUE, "2010-09-11", 27000  , 40500,   FALSE),
 	("SL004","CL001","SW004",25, TRUE, "2010-10-02", 32000  , 48000,   FALSE),
 	("SL005","CL004","SW005",250,FALSE,"2010-10-02", 35000  , 50750,   FALSE),
 	("SL006","CL006","SW006",2,  FALSE,"2010-10-02", 1370000, 1918000, TRUE),
@@ -180,7 +175,7 @@ INSERT INTO sale(sale_code, clnt_code, sw_code, sale_amount,
 	("SL009","CL006","SW009",2,  TRUE, "2010-10-04", 32000  , 48000,   FALSE),
 	("SL010","CL004","SW010",320,TRUE, "2010-10-04", 980000 , 1519000, FALSE),
 	("SL011","CL004","SW001",100,TRUE, "2010-10-04", 25000  , 40000,   TRUE),
-	("SL012","CL001","SW001",100,TRUE, "2010-10-04", 25000  , 40000,   TRUE);*/
+	("SL012","CL001","SW001",100,TRUE, "2010-10-04", 25000  , 40000,   TRUE);
 			
 
 SELECT * FROM client;
@@ -337,6 +332,7 @@ UPDATE software SET sw_issale=#{swIssale}
 	WHERE sw_code=#{swCode};
 
 
+select * from client;
 
 
 	
@@ -389,6 +385,7 @@ SELECT sale_code, clnt_code,sw_code, sale_amount, supply_price, sale_price, isde
 	WHERE sale_code=#{saleCode};
 
 
+
 -- 입력
 INSERT INTO sale(sale_code, clnt_code, sw_code, sale_amount, isdeposit, order_date, supply_price, sale_price, sale_isExist) 
 	VALUES ("SL999","CL001","SW001",25, TRUE, "2009-12-13", 25000, 40000, TRUE);
@@ -402,7 +399,7 @@ INSERT INTO sale(sale_code, clnt_code, sw_code, sale_amount, isdeposit, order_da
 UPDATE sale SET sale_isExist= #{saleDelete} 
 	WHERE sale_code=#{saleCode};
 
-
+select * from sale;
        
        #### 고객별 판매현황조회 ####
 -- 고객상호명 품목명 주문수량 입금여부 단가 매출금 미수금
@@ -436,7 +433,7 @@ SELECT cl.clnt_name, sw.sw_name, s.sale_amount, s.isdeposit, s.sale_price,
 
  create view vw_sw_sale_view as
  
- SELECT  distinct sw.sw_code,sw.sw_name, c.group_name , su.comp_name,
+ SELECT  distinct s.sale_code, sw.sw_code,sw.sw_name, c.group_name , su.comp_name,
 /*공급금액*/ (vs.total_supply_price) total_supply_price,
 /*판매금액*/ (vs.total_sale_price) total_price,
 /*판매이윤*/ (vs.margin) margin
@@ -445,8 +442,8 @@ SELECT cl.clnt_name, sw.sw_name, s.sale_amount, s.isdeposit, s.sale_price,
    join software sw on s.sw_code= sw.sw_code
    join category c on c.group_code= sw.group_code 
    join delivery d on d.sw_code= sw.sw_code
-   join supply_company su on d.comp_code= su.comp_code;
-   
+   join supply_company su on d.comp_code= su.comp_code
+   where s.sw_code="SW001";
  
    select * from sale;
    
@@ -505,7 +502,7 @@ SELECT c.group_name,
                JOIN view_sale_detail sd ON sd.sale_code = s.sale_code
    GROUP BY c.group_name;
 
-select * from vw_category_sale;
+select group_code,group_name,c_salePrice,c_amount from view_sale_by_category where=#{groupCode};
 
 
 #### SW 전체판매현황 보고서 ####
@@ -519,8 +516,10 @@ SELECT s.order_date, c.group_name, sw.sw_name, s.sale_code, sale_amount,
             JOIN view_sale_detail sd ON sd.sale_code = s.sale_code
    ORDER BY s.order_date DESC;
 
-   select * from vw_all_sale_report;
+   select * from view_sale_report;
 
+   
+   
 -- 총합계
 
 SELECT sum(total_sale_price) 
@@ -544,7 +543,7 @@ SELECT distinct sd.sale_code,comp_name, s.order_date, c.clnt_name, sw.sw_name, s
                      JOIN client c    ON s.clnt_code  = c.clnt_code
                         JOIN view_sale_detail sd ON sd.sale_code = s.sale_code;
                         
-select * from vw_trade_list;
+select sale_code,comp_name,order_date,clnt_name,sw_name,sale_price,sale_amount,total_sale_price,tax,tax_saleprice  from view_bill_list;
  
 -- 총납품금액 합계
 
@@ -559,7 +558,7 @@ SELECT c.clnt_name, SUM(sale_amount)
    FROM sale s JOIN client c ON s.clnt_code=c.clnt_code
 GROUP BY c.clnt_name;
    
- select * from vw_sale_graph;
+ select clnt_name,`SUM(sale_amount)` from view_sale_graph;
    
 
 $$$$$ 트리거 $$$$$
@@ -638,3 +637,13 @@ SELECT DISTINCT s.sale_code, sc.comp_name, s.order_date, c.clnt_name, sw.sw_name
                      	   JOIN client c ON s.clnt_code = c.clnt_code
                      	   JOIN view_sale_detail sd ON sd.sale_code = s.sale_code;
 
+select * from sale s join view_sale_detail sv on s.sale_code= sv.sale_code where s.sale_code="SL999";
+
+
+select * from view_sale_by_orderdate;
+
+select order_date,sale_code,clnt_name,sw_name,sale_amount,isdeposit from view_sale_by_orderdate 
+WHERE order_date BETWEEN #{date} AND #{date}
+order by order_date desc;
+
+select sw_code,sw_name,group_name,comp_name,total_supply_price,total_price,margin from view_sw_sale where sw_code="SW001" order by sw_code;

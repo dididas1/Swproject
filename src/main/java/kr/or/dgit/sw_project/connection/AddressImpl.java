@@ -12,7 +12,7 @@ import kr.or.dgit.sw_project.dto.Address;
 public class AddressImpl implements AddressMapper{
 	private static final Log log = LogFactory.getLog(Address.class);
 	private SqlSession sqlsession;
-	private String namespace ="kr.or.digt.post.dao.PostMapper.";
+	private String namespace ="kr.or.digt.post.dao.AddressMapper.";
 	
 	public AddressImpl(SqlSession sqlsession) {
 		super();

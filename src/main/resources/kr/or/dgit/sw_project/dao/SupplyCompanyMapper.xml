@@ -1,6 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.dgit.sw_project.dao.SupplyCompanyMapper">
+	<resultMap type="SupplyCompany" id="SupplyCompanyResult">
+		<id property="compCode" column="comp_code"/>
+		<result property="compName" column="comp_name"/>
+		<result property="compAddr" column="comp_addr"/>
+		<result property="compTel" column="comp_tel"/>
+		<result property="compIsExist" column="comp_isExist"/>
+	</resultMap>
+	
+	<select id="selectAllCompany"  resultMap="SupplyCompanyResult">
+		SELECT comp_code, comp_name, comp_addr, comp_tel, comp_isExist  from supply_company
+	</select>
+	
+	<select id="findSupplyCompanyByCode" parameterType="SupplyCompany" resultMap="SupplyCompanyResult">
+		SELECT comp_code, comp_name, comp_addr, comp_tel, comp_isExist
+		FROM supply_company 
+		WHERE comp_code=#{compCode}
+	</select>
+	
+	<insert id="insertSupplyCompany" parameterType="SupplyCompany">
+		INSERT INTO supply_company (comp_code, comp_name, comp_addr, comp_tel, comp_isExist)
+		VALUES (#{compCode},#{compName},#{compAddr},#{compTel},#{compIsExist})
+	</insert>
+	
+	<update id="updateSupplyCompany" parameterType="SupplyCompany">
+		UPDATE supply_company
+		SET comp_name=#{compName}, comp_addr=#{compAddr}, comp_tel=#{compTel}, comp_isExist=#{compIsExist} 
+		WHERE comp_code=#{compCode}
+	</update>
+	
+	<update id="deleteLogicallySupplyCompany" parameterType="SupplyCompany">
+		UPDATE supply_company SET comp_isExist=FALSE WHERE comp_code=#{compCode}
+	</update>
 	
 	
 </mapper>
