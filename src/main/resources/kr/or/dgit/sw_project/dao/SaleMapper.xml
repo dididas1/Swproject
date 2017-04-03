@@ -11,6 +11,7 @@
 		<result property="saleIsExist" column="sale_isExist"/>
 		<association property="clntCode" resultMap="kr.or.dgit.sw_project.dao.ClientMapper.ClientResult"/>
 		<association property="swCode" resultMap="kr.or.dgit.sw_project.dao.SoftwareMapper.SoftwareResult"/>
+		<association property="saleDetail" resultMap="kr.or.dgit.sw_project.dao.SaleDetailMapper.saleDetailResult"/>
 	</resultMap>
 	
 	<select id="daySoftwareSaleReport" resultMap="saleWithSaleDetailResult">

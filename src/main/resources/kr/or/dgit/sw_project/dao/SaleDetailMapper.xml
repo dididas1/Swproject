@@ -7,7 +7,7 @@
 		<result property="margin" column="margin"/>
 		<result property="tax" column="tax"/>
 		<result property="taxSaleprice" column="tax_saleprice"/>
-		<result property="receivablePrice" column="receivableprice"/>
+		<result property="receivablePrice" column="receivablePrice"/>
 	</resultMap>
 	
 </mapper>

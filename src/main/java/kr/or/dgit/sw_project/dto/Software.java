@@ -75,6 +75,12 @@ public class Software {
 	public void setSale(List<Sale> sale) {
 		this.sale = sale;
 	}
+	@Override
+	public String toString() {
+		return String.format(
+				"Software [swCode=%s, swName=%s, salePrice=%s, swInven=%s, swIsSale=%s, groupCode=%s, delivery=%s, sale=%s]",
+				swCode, swName, salePrice, swInven, swIsSale, groupCode, delivery, sale);
+	}
 	
 	
 	

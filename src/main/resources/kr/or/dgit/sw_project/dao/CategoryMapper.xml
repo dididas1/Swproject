@@ -6,6 +6,7 @@
 	<resultMap type="Category" id="CategoryResult">
 		<id property="groupCode" column="group_code"/>
 		<result property="groupName" column="group_name"/>
+		<collection property="software" resultMap="kr.or.dgit.sw_project.dao.SoftwareMapper.SoftwareResult"></collection>
 	</resultMap>
 	
 	<sql id="selectSql">

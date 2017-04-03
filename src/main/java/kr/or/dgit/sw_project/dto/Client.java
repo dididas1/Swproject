@@ -83,6 +83,16 @@ public class Client {
 	public void setSale(List<Sale> sale) {
 		this.sale = sale;
 	}
+
+
+	@Override
+	public String toString() {
+		return String.format("Client [clntCode=%s, clntName=%s, clntAddr=%s, clntTel=%s, clntIsExist=%s, sale=%s]",
+				clntCode, clntName, clntAddr, clntTel, clntIsExist, sale);
+	}
+
+
+	
 	
 	
 	

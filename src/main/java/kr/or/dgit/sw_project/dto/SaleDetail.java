@@ -80,6 +80,15 @@ public class SaleDetail {
 	public void setReceivablePrice(int receivablePrice) {
 		this.receivablePrice = receivablePrice;
 	}
+
+	@Override
+	public String toString() {
+		return String.format(
+				"SaleDetail [saleCode=%s, totalSalePrice=%s, totalSupplyPrice=%s, margin=%s, tax=%s, taxSaleprice=%s, receivablePrice=%s, sum_price=%s, sum_supply=%s, sum_amount=%s]",
+				saleCode, totalSalePrice, totalSupplyPrice, margin, tax, taxSaleprice, receivablePrice, sum_price,
+				sum_supply, sum_amount);
+	}
+	
 	
 	
 	

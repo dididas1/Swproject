@@ -9,6 +9,7 @@
     	<result property="orderDate" column="order_date"/>
     	<result property="delIsExist" column="del_isExist"/>
     	<association property="supplyCompany" resultMap="kr.or.dgit.sw_project.dao.SupplyCompanyMapper.SupplyCompanyResult"/>
+    	<association property="software" resultMap="kr.or.dgit.sw_project.dao.SoftwareMapper.SoftwareResult"></association>
     </resultMap>
 		
 

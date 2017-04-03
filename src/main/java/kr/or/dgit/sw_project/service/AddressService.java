@@ -17,10 +17,10 @@ public class AddressService {
 	}
 
 
-	public List<Address> serchSido(Address address){
+	/*public List<Address> serchSido(Address address){
 		try(SqlSession sqlsession = MybatisSqlSessionFactory.opensesstion();){
 			AddressImpl postimpl= new AddressImpl(sqlsession);
 			return postimpl.serchSido(address);
 		}
-	}
+	}*/
 }

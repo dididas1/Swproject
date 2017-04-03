@@ -135,6 +135,16 @@ public class Sale {
 	public void setSaleDetail(SaleDetail saleDetail) {
 		this.saleDetail = saleDetail;
 	}
+
+		
+	
+	
+
+
+
+	public Object[] toArray(){
+		return new Object[]{clntCode.getClntName(),swCode.getSwName(),saleAmount,isDeposit,salePrice,saleDetail.getTotalSalePrice(),saleDetail.getReceivablePrice()};
+	}
 	
 	
 }
