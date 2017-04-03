@@ -9,12 +9,15 @@ public class Software {
 	private int salePrice;
 	private int swInven;
 	private boolean swIsSale;
-	private String groupCode; 
+	private Category groupCode; 
 	private List<Delivery> delivery;
 	private List<Sale> sale;
-	public Software() {}
-	public Software(String swCode, String swName, int salePrice, int swInven, boolean swIsSale, String groupCode,
+	public Software() {
+		super();
+	}
+	public Software(String swCode, String swName, int salePrice, int swInven, boolean swIsSale, Category groupCode,
 			List<Delivery> delivery, List<Sale> sale) {
+		super();
 		this.swCode = swCode;
 		this.swName = swName;
 		this.salePrice = salePrice;
@@ -54,10 +57,10 @@ public class Software {
 	public void setSwIsSale(boolean swIsSale) {
 		this.swIsSale = swIsSale;
 	}
-	public String getGroupCode() {
+	public Category getGroupCode() {
 		return groupCode;
 	}
-	public void setGroupCode(String groupCode) {
+	public void setGroupCode(Category groupCode) {
 		this.groupCode = groupCode;
 	}
 	public List<Delivery> getDelivery() {
@@ -72,7 +75,6 @@ public class Software {
 	public void setSale(List<Sale> sale) {
 		this.sale = sale;
 	}
-	
 	
 	
 	

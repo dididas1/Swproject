@@ -63,6 +63,7 @@
 		<result property="client.clntName" column="sale_code" />
 		<result property="saleDetail.sum_amount" column="comp_name" />
 	</resultMap>
+	
 	<select id="clinetsaleGraph" resultMap="clinetsaleGraphResult">
 		 select clnt_name,`SUM(sale_amount)` from view_sale_graph;
 	</select>
@@ -79,11 +80,6 @@
 		</where>
 	</select>
 	
-	<select id="daySoftwareSaleReport" parameterType="Date" resultMap="daySoftwareSaleReportRestlt">
-		select order_date,sale_code,clnt_name,sw_name,sale_amount,isdeposit from view_sale_by_orderdate 
-		WHERE order_date BETWEEN #{date} AND now()
-		order by order_date desc;
-	</select>
 
 
 	<select id="clinetSoftReport" resultMap="clinetSoftFindResult" parameterType="Client">

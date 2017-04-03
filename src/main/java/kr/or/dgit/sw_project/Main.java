@@ -4,17 +4,23 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import kr.or.dgit.sw_project.connection.SaleMapperImpl;
+import kr.or.dgit.sw_project.dao.SaleMapper;
 import kr.or.dgit.sw_project.dto.Category;
 import kr.or.dgit.sw_project.dto.Client;
 import kr.or.dgit.sw_project.dto.JoinData;
+import kr.or.dgit.sw_project.dto.Sale;
 import kr.or.dgit.sw_project.dto.Software;
 import kr.or.dgit.sw_project.service.JoinDataService;
+import kr.or.dgit.sw_project.service.SaleService;
+import kr.or.dgit.sw_project.service.SoftwareService;
 
 public class Main extends JFrame implements ActionListener {
 
@@ -44,17 +50,15 @@ public class Main extends JFrame implements ActionListener {
 	 * Create the frame.
 	 */
 	public Main() {
-			JoinDataService js= new JoinDataService();
-			Software sw= new Software();
-			List<JoinData> list  = js.softwareFind(sw);
-			Client cl = new Client();
-			list= js.clinetSoftFind(cl);
-			list= js.daySoftwareSaleReport(new Date(2017-04-01));
-			Category ca= new Category();
-			list= js.categorySaleReport(ca);
-			list= js.viewBillList();
-			list= js.clinetsaleGraph();
-		
+			SaleService sv = new SaleService();
+			List<Sale> list  = sv.clientSoftwareReport();
+			list = sv.softwareSaleReport();
+			list= sv.categorySaleReport();
+			list= sv.viewBillList();
+			HashMap<String, String> hash= new HashMap<>();
+			hash.put("order_date", "2010-10-04");
+			hash.put("order_date2", "2017-10-01");
+			list = sv.daySoftwareSaleReport(hash);
 		}
 		
 

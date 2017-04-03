@@ -1,6 +1,7 @@
 package kr.or.dgit.sw_project.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -15,6 +16,45 @@ public class SaleService {
 
 	public static SaleService getInstence() {
 		return instence;
+	}
+	
+	public List<Sale> daySoftwareSaleReport(Map<String, String> param) {
+		try(SqlSession sqlsession = MybatisSqlSessionFactory.opensesstion();){
+			SaleMapperImpl saleimpl= new SaleMapperImpl(sqlsession);
+			return saleimpl.daySoftwareSaleReport(param);
+		}
+		
+	}
+	
+	public List<Sale> viewBillList(){
+		try(SqlSession sqlsession = MybatisSqlSessionFactory.opensesstion();){
+			SaleMapperImpl saleimpl= new SaleMapperImpl(sqlsession);
+			return saleimpl.viewBillList();
+		}
+		
+	}
+	
+	public List<Sale> categorySaleReport() {
+		try(SqlSession sqlsession = MybatisSqlSessionFactory.opensesstion();){
+			SaleMapperImpl saleimpl= new SaleMapperImpl(sqlsession);
+			return saleimpl.categorySaleReport();
+		}
+		
+	}
+	public List<Sale> softwareSaleReport(){
+		try(SqlSession sqlsession = MybatisSqlSessionFactory.opensesstion();){
+			SaleMapperImpl saleimpl= new SaleMapperImpl(sqlsession);
+			return saleimpl.softwareSaleReport();
+		}
+		
+	}
+	
+	
+	public List<Sale> clientSoftwareReport(){
+		try(SqlSession sqlsession = MybatisSqlSessionFactory.opensesstion();){
+			SaleMapperImpl saleimpl= new SaleMapperImpl(sqlsession);
+			return saleimpl.clientSoftwareReport();
+		}
 	}
 	
 	public List<Sale> allSelectSale(){

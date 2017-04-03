@@ -1,6 +1,7 @@
 package kr.or.dgit.sw_project.connection;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.logging.Log;
 import org.apache.ibatis.logging.LogFactory;
@@ -42,6 +43,36 @@ public class SaleMapperImpl implements SaleMapper {
 	public Sale CodeSelectSaleItem(Sale sale) {
 		log.debug("CodeSelectSaleItem()");
 		return sqlsession.selectOne(namespace + "CodeSelectSaleItem",sale);
+	}
+	
+	@Override
+	public List<Sale> clientSoftwareReport() {
+		log.debug("clientSoftwareReport()");
+		return sqlsession.selectList(namespace + "clientSoftwareReport");
+	}
+
+	@Override
+	public List<Sale> softwareSaleReport() {
+		log.debug("softwareSaleReport()");
+		return sqlsession.selectList(namespace + "softwareSaleReport");
+	}
+
+	@Override
+	public List<Sale> categorySaleReport() {
+		log.debug("categorySaleReport()");
+		return sqlsession.selectList(namespace + "categorySaleReport");
+	}
+
+	@Override
+	public List<Sale> viewBillList() {
+		log.debug("viewBillList()");
+		return sqlsession.selectList(namespace + "viewBillList");
+	}
+
+	@Override
+	public List<Sale> daySoftwareSaleReport(Map<String, String> param) {
+		log.debug("daySoftwareSaleReport()");
+		return sqlsession.selectList(namespace + "daySoftwareSaleReport",param);
 	}
 
 }
