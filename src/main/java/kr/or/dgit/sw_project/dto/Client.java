@@ -91,6 +91,10 @@ public class Client {
 				clntCode, clntName, clntAddr, clntTel, clntIsExist, sale);
 	}
 
+	public String toCombobox() {
+		return String.format("%s, (%s)",
+				clntCode, clntName);
+	}
 
 	
 	

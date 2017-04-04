@@ -31,6 +31,14 @@ public class Category {
 	public void setSoftware(List<Software> software) {
 		this.software = software;
 	}
+	@Override
+	public String toString() {
+		return String.format("%s, %s, %s", groupCode, groupName, software);
+	}
+	
+	public String toComboitems() {
+		return String.format("%s, (%s)", groupCode, groupName );
+	}
 	
 	
 }

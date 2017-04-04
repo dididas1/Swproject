@@ -10,6 +10,13 @@ import kr.or.dgit.sw_project.connection.MybatisSqlSessionFactory;
 import kr.or.dgit.sw_project.dto.Category;
 
 public class CategoryService {
+	private static final CategoryService instence= new CategoryService();
+	
+	
+	public static CategoryService getInstence() {
+		return instence;
+	}
+
 	public List<Category> selectAllCategory(){
 		try(SqlSession sqlsession = MybatisSqlSessionFactory.opensesstion()){
 			CategoryMapperImpl comp = new CategoryMapperImpl(sqlsession);

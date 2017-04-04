@@ -27,6 +27,13 @@ public class MainTab extends JFrame implements ActionListener {
 	private JButton btnSupplyComp;
 	private JButton btnSoftWare;
 	private JButton btnClient;
+	private JMenuItem mnSale;
+	private JMenuItem mnDel;
+	private JPanel pButton;
+	private JMenuItem mnClnt;
+	private JButton btnChart;
+	private JButton btnReport;
+	private JMenuItem mnSup;
 
 	public MainTab() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -50,6 +57,30 @@ public class MainTab extends JFrame implements ActionListener {
 		JMenuItem mntmExit = new JMenuItem("종료");
 		mnFile.add(mntmExit);
 		
+		JMenu mnCustomMenu = new JMenu("Window");
+		menuBar.add(mnCustomMenu);
+		
+		JMenu mnCustom = new JMenu("ShowButton");
+		mnCustomMenu.add(mnCustom);
+		
+		mnSale = new JMenuItem("주문관리");
+		mnSale.addActionListener(this);
+		
+		mnSup = new JMenuItem("공급회사관리");
+		mnSup.addActionListener(this);
+		mnCustom.add(mnSup);
+		mnCustom.add(mnSale);
+		
+		mnDel = new JMenuItem("납품관리");
+		mnCustom.add(mnDel);
+		
+		JMenuItem mnSw = new JMenuItem("소프트웨어 관리");
+		mnCustom.add(mnSw);
+		
+		mnClnt = new JMenuItem("고객사관리");
+		mnClnt.addActionListener(this);
+		mnCustom.add(mnClnt);
+		
 		JMenu mnHelp = new JMenu("도움말");
 		menuBar.add(mnHelp);
 		
@@ -67,31 +98,36 @@ public class MainTab extends JFrame implements ActionListener {
 		tabbedPane.add("납품 관리",new ViewDelivery());
 		tabbedPane.add("거래내역 확인",new ViewList());
 		
-		JPanel pButton = new JPanel();
+		pButton = new JPanel();
 		contentPane.add(pButton, BorderLayout.NORTH);
 		
 		btnSupplyComp = new JButton("공급사 관리");
 		btnSupplyComp.addActionListener(this);
-		pButton.add(btnSupplyComp);
 		
 		btnSoftWare = new JButton("S/W 관리");
 		btnSoftWare.addActionListener(this);
-		pButton.add(btnSoftWare);
+		
 		
 		btnClient = new JButton("고객 관리");
 		btnClient.addActionListener(this);
-		pButton.add(btnClient);
 		
-		JButton btnChart = new JButton("통계차트");
-		pButton.add(btnChart);
+		btnChart = new JButton("통계차트");
 		
-		JButton btnReport = new JButton("보고서");
-		pButton.add(btnReport);
+		btnReport = new JButton("보고서");
 		
 		setVisible(true);
 	}
 	
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == mnSup) {
+			actionPerformedMnSup(e);
+		}
+		if (e.getSource() == mnClnt) {
+			actionPerformedMnClnt(e);
+		}
+		if (e.getSource() == mnSale) {
+			actionPerformedMnSale(e);
+		}
 		if (e.getSource() == btnClient) {
 			actionPerformedBtnClient(e);
 		}
@@ -110,5 +146,37 @@ public class MainTab extends JFrame implements ActionListener {
 	}
 	
 	protected void actionPerformedBtnClient(ActionEvent e) {
+	
 	}
+	protected void actionPerformedMnSale(ActionEvent e) {
+	
+		
+	}
+	protected void actionPerformedMnClnt(ActionEvent e) {
+		if(e.getActionCommand().equals("고객사관리")){
+			mnClnt.setText("고객사관리"+" V ");
+			pButton.add(btnClient);
+			pButton.revalidate();
+			pButton.repaint();
+		}else{
+			mnClnt.setText("고객사관리");
+			pButton.remove(btnClient);
+			pButton.revalidate();
+			pButton.repaint();
+			
+		}
+	}
+	protected void actionPerformedMnSup(ActionEvent e) {
+		if(e.getActionCommand().equals("공급회사관리")){
+			mnSup.setText("공급회사관리"+" V ");
+			pButton.add(btnSupplyComp);
+			pButton.revalidate();
+			pButton.repaint();
+		}else{
+			mnSup.setText("공급회사관리");
+			pButton.remove(btnSupplyComp);
+			pButton.revalidate();
+			pButton.repaint();
+	}
+}
 }

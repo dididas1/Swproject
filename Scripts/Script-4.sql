@@ -64,3 +64,14 @@ INSERT INTO sale(sale_code, clnt_code, sw_code, sale_amount,
 	("SL011","CL004","SW001",100,TRUE, "2010-10-04", 25000  , 40000,   TRUE),
 	("SL012","CL001","SW001",100,TRUE, "2010-10-04", 25000  , 40000,   TRUE);
 			
+	
+	select sw.sw_code,sw.group_code,sw.sw_name,sw.sale_price,sw.sw_inven,sw.sw_issale,
+	su.comp_code,su.comp_name,su.comp_addr,su.comp_tel,su.comp_isExist,
+	s.sale_code,s.sw_code,s.clnt_code,s.isdeposit,s.sale_amount,s.sale_price,s.supply_price,s.order_date,s.sale_isExist,
+	cl.clnt_code,cl.clnt_name,cl.clnt_addr,cl.clnt_tel,cl.clnt_isExist
+	from software sw left outer join delivery d on sw.sw_code=d.sw_code left outer join supply_company su on d.comp_code=su.comp_code
+	left outer join sale s on sw.sw_code=s.sw_code left outer join view_sale_detail sv on s.sale_code= sv.sale_code left outer join client cl on s.clnt_code=cl.clnt_code left outer join category c on c.group_code= sw.group_code;
+		
+		
+		
+		

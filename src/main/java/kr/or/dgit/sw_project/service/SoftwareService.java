@@ -9,6 +9,13 @@ import kr.or.dgit.sw_project.connection.SoftwareMapperImpl;
 import kr.or.dgit.sw_project.dto.Software;
 
 public class SoftwareService {
+	private static final SoftwareService instence= new SoftwareService();
+	
+	
+	public static SoftwareService getInstence() {
+		return instence;
+	}
+
 	public List<Software> selectAllSw(){
 		try(SqlSession sqlsession = MybatisSqlSessionFactory.opensesstion()){
 			SoftwareMapperImpl comp = new SoftwareMapperImpl(sqlsession);

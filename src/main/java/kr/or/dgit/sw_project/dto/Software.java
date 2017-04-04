@@ -83,5 +83,7 @@ public class Software {
 	}
 	
 	
-	
+	public String toComboitem() {
+		return String.format("%s, (%s)",swCode, swName);
+	}
 }

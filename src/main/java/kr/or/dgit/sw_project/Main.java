@@ -9,9 +9,11 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import kr.or.dgit.sw_project.dto.Category;
 import kr.or.dgit.sw_project.dto.Client;
 import kr.or.dgit.sw_project.dto.Sale;
 import kr.or.dgit.sw_project.dto.Software;
+import kr.or.dgit.sw_project.service.CategoryService;
 import kr.or.dgit.sw_project.service.ClientService;
 import kr.or.dgit.sw_project.service.SoftwareService;
 
@@ -29,9 +31,9 @@ public class Main extends JFrame implements ActionListener {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					/*MainApp frame= new MainApp();
+					MainApp frame= new MainApp();
 					frame.setVisible(true);
-					*/
+					
 					Main main= new Main();
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -46,7 +48,9 @@ public class Main extends JFrame implements ActionListener {
 	public Main() {
 		SoftwareService sv = new SoftwareService();
 		List<Software> list= sv.allList();
-		
+		List<Client> list1 =ClientService.getInstence().selectAllClnt();
+		List<Software> listsw = SoftwareService.getInstence().selectAllSw();
+		List<Category> listca= CategoryService.getInstence().selectAllCategory();
 		}
 		
 
