@@ -8,17 +8,16 @@
     	<result property="supplyAmount" column="supply_amount"/>
     	<result property="orderDate" column="order_date"/>
     	<result property="delIsExist" column="del_isExist"/>
-    	<association property="supplyCompany" resultMap="kr.or.dgit.sw_project.dao.SupplyCompanyMapper.SupplyCompanyResult"/>
-    	<association property="software" resultMap="kr.or.dgit.sw_project.dao.SoftwareMapper.SoftwareResult"></association>
+    	<association property="supplyCompany" resultMap="kr.or.dgit.sw_project.dao.SupplyCompMapper.SupplyCompanyResult"/>
+    	<association property="software" resultMap="kr.or.dgit.sw_project.dao.SoftwareMapper.SoftwareResult"/>
     </resultMap>
 		
 
 	<!-- Select SQL -->
     <sql id="selectSQL">
-		SELECT del_code, sc.comp_code, sc.comp_name, sw.sw_code, sw.sw_name, supply_price, supply_amount, order_date, del_isExist 
-			FROM delivery del 
-				JOIN software sw ON del.sw_code = sw.sw_code
-				JOIN supply_company sc ON sc.comp_code = del.comp_code
+		SELECT * FROM delivery del 
+			JOIN software sw ON del.sw_code = sw.sw_code
+			JOIN supply_company sc ON sc.comp_code = del.comp_code
 	</sql>
 
 	<!-- Where SQL -->
@@ -35,5 +34,25 @@
     	<include refid="selectSQL" />
     		ORDER BY del_code;
     </select>
+    
+    <!-- Insert item -->
+    <insert id="insertDeliveryItems">
+    	INSERT INTO delivery(del_code, comp_code, sw_code, supply_price, supply_amount, order_date, del_isExist) VALUES
+		(#{delCode}, #{compCode}, #{swCode}, #{supplyPrice}, #{supplyAmount}, #{orderDate}, TRUE)
+    </insert>
+    
+    <!-- Update item -->
+    <update id="UpdateItems">
+    	UPDATE delivery
+		SET  del_code=#{delCode}, sw_code=#{swCode}, supply_price=#{supplyPrice}, supply_amount=#{supplyAmount}, order_date=#{orderDate}, del_isExist=#{delIsExist}
+		WHERE del_code=#{delCode}
+    </update>
+    
+    <!-- Exist item -->
+     <update id="existDeliveryItem">
+    	UPDATE delivery
+		SET  del_isExist=#{delIsExist}
+		WHERE del_code=#{delCode}
+    </update>
 </mapper>
 

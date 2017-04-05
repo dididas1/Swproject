@@ -70,6 +70,7 @@ public class MainTab extends JFrame implements ActionListener {
 		mnSale = new JMenuItem("주문관리");
 		mnSale.addActionListener(this);
 		
+		
 		mnSup = new JMenuItem("공급회사관리");
 		mnSup.addActionListener(this);
 		mnCustom.add(mnSup);
@@ -80,6 +81,7 @@ public class MainTab extends JFrame implements ActionListener {
 		
 		JMenuItem mnSw = new JMenuItem("소프트웨어 관리");
 		mnCustom.add(mnSw);
+		
 		
 		mnClnt = new JMenuItem("고객사관리");
 		mnClnt.addActionListener(this);
@@ -109,59 +111,17 @@ public class MainTab extends JFrame implements ActionListener {
 		contentPane.add(panel, BorderLayout.WEST);
 		panel.setLayout(new BorderLayout(0, 0));
 		
-		JTree tree = new JTree();
-		tree.setModel(new DefaultTreeModel(
-			new DefaultMutableTreeNode("JTree") {
-				{
-					DefaultMutableTreeNode node_1;
-					node_1 = new DefaultMutableTreeNode("colors");
-						node_1.add(new DefaultMutableTreeNode("blue"));
-						node_1.add(new DefaultMutableTreeNode("violet"));
-						node_1.add(new DefaultMutableTreeNode("red"));
-						node_1.add(new DefaultMutableTreeNode("yellow"));
-					add(node_1);
-					node_1 = new DefaultMutableTreeNode("sports");
-						node_1.add(new DefaultMutableTreeNode("basketball"));
-						node_1.add(new DefaultMutableTreeNode("soccer"));
-						node_1.add(new DefaultMutableTreeNode("football"));
-						node_1.add(new DefaultMutableTreeNode("hockey"));
-					add(node_1);
-					node_1 = new DefaultMutableTreeNode("food");
-						node_1.add(new DefaultMutableTreeNode("hot dogs"));
-						node_1.add(new DefaultMutableTreeNode("pizza"));
-						node_1.add(new DefaultMutableTreeNode("ravioli"));
-						node_1.add(new DefaultMutableTreeNode("bananas"));
-					add(node_1);
-					
-				}
-			}
-		));
-		contentPane.add(tree, BorderLayout.WEST);
-		tree.addTreeSelectionListener(new TreeSelectionListener() {
-			
-			@Override
-			public void valueChanged(TreeSelectionEvent e) {
-				DefaultMutableTreeNode node = (DefaultMutableTreeNode)tree.getLastSelectedPathComponent();
-					if (node != null){
-						if(node.getUserObject().equals("blue")){
-							ViewClient vc= new ViewClient();
-							vc.setVisible(true);
-						}
-					
-
-				}
-			}
-		});
-		
 		btnSupplyComp = new JButton("공급사 관리");
 		btnSupplyComp.addActionListener(this);
+		pButton.add(btnSupplyComp);
 		
 		btnSoftWare = new JButton("S/W 관리");
 		btnSoftWare.addActionListener(this);
-		
+		pButton.add(btnSoftWare);
 		
 		btnClient = new JButton("고객 관리");
 		btnClient.addActionListener(this);
+		pButton.add(btnClient);
 		
 		btnChart = new JButton("통계차트");
 		
@@ -198,6 +158,7 @@ public class MainTab extends JFrame implements ActionListener {
 	}
 	
 	protected void actionPerformedBtnClient(ActionEvent e) {
+		ViewClient viewclient = new ViewClient();
 	
 	}
 	protected void actionPerformedMnSale(ActionEvent e) {

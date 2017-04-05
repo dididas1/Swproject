@@ -4,65 +4,21 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
-import kr.or.dgit.sw_project.connection.MybatisSqlSessionFactory;
-import kr.or.dgit.sw_project.connection.SoftwareMapperImpl;
+import kr.or.dgit.sw_project.dao.SoftwareMapper;
+import kr.or.dgit.sw_project.dao.SoftwareMapperImpl;
 import kr.or.dgit.sw_project.dto.Software;
-
+import kr.or.dgit.sw_project.util.MyBatisSqlSessionFactory;
 public class SoftwareService {
-	private static final SoftwareService instence= new SoftwareService();
-	
-	
-	public static SoftwareService getInstence() {
-		return instence;
-	}
-
-	public List<Software> selectAllSw(){
-		try(SqlSession sqlsession = MybatisSqlSessionFactory.opensesstion()){
-			SoftwareMapperImpl comp = new SoftwareMapperImpl(sqlsession);
-			return comp.selectAllSw();
-		}
+	public static final SoftwareService instance = new SoftwareService();
+	private SoftwareService() {}
+	public static SoftwareService getInstance(){
+		return instance;
 	}
 	
-	public Software selectByNoSw(Software software){
-		try(SqlSession sqlsession = MybatisSqlSessionFactory.opensesstion()){
-			SoftwareMapperImpl comp = new SoftwareMapperImpl(sqlsession);
-			return comp.selectByNoSw(software);
-		}
+	public List<Software> selectSoftwareByAll() {
+		try (SqlSession sqlSession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
+			SoftwareMapper softwareMapper = new SoftwareMapperImpl(sqlSession);
+			return softwareMapper.selectSoftwareByAll();
+		} 
 	}
-	
-	public int insertRowSw(Software software){
-		try(SqlSession sqlsession = MybatisSqlSessionFactory.opensesstion()){
-			SoftwareMapperImpl comp = new SoftwareMapperImpl(sqlsession);
-			int res = comp.insertRowSw(software);
-			sqlsession.commit();
-			return res;
-		}
-	}
-	
-	public int updateRowSw(Software software){
-		try(SqlSession sqlsession = MybatisSqlSessionFactory.opensesstion()){
-			SoftwareMapperImpl comp = new SoftwareMapperImpl(sqlsession);
-			int res = comp.updateRowSw(software);
-			sqlsession.commit();
-			return res;
-		}
-	}
-	
-	public int saleStopSw(Software software){
-		try(SqlSession sqlsession = MybatisSqlSessionFactory.opensesstion()){
-			SoftwareMapperImpl comp = new SoftwareMapperImpl(sqlsession);
-			int res = comp.saleStopSw(software);
-			sqlsession.commit();
-			return res;
-		}
-	}
-	
-	public List<Software> allList(){
-		try(SqlSession sqlsession = MybatisSqlSessionFactory.opensesstion()){
-			SoftwareMapperImpl comp = new SoftwareMapperImpl(sqlsession);
-			return comp.allList();
-	}
-		
-}
-	
 }

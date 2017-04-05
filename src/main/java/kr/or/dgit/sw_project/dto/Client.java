@@ -11,18 +11,29 @@ public class Client {
 	private boolean clntIsExist;
 	private List<Sale> sale;
 	
+	
 	public Client() {}
+
 	
+
+	public Client(String clntCode) {
+		this.clntCode = clntCode;
+	}
+
+
+
 	
-	public Client(String clntCode, String clntName, String clntAddr, String clntTel, boolean clntIsExist,
-			List<Sale> sale) {
+
+	
+
+	public Client(String clntCode, String clntName, String clntAddr, String clntTel) {
 		this.clntCode = clntCode;
 		this.clntName = clntName;
 		this.clntAddr = clntAddr;
 		this.clntTel = clntTel;
-		this.clntIsExist = clntIsExist;
-		this.sale = sale;
 	}
+
+	
 
 
 	public String getClntCode() {
@@ -30,9 +41,11 @@ public class Client {
 	}
 
 
+
 	public void setClntCode(String clntCode) {
 		this.clntCode = clntCode;
 	}
+
 
 
 	public String getClntName() {
@@ -40,9 +53,11 @@ public class Client {
 	}
 
 
+
 	public void setClntName(String clntName) {
 		this.clntName = clntName;
 	}
+
 
 
 	public String getClntAddr() {
@@ -50,9 +65,11 @@ public class Client {
 	}
 
 
+
 	public void setClntAddr(String clntAddr) {
 		this.clntAddr = clntAddr;
 	}
+
 
 
 	public String getClntTel() {
@@ -60,9 +77,11 @@ public class Client {
 	}
 
 
+
 	public void setClntTel(String clntTel) {
 		this.clntTel = clntTel;
 	}
+
 
 
 	public boolean isClntIsExist() {
@@ -70,9 +89,11 @@ public class Client {
 	}
 
 
+
 	public void setClntIsExist(boolean clntIsExist) {
 		this.clntIsExist = clntIsExist;
 	}
+
 
 
 	public List<Sale> getSale() {
@@ -80,25 +101,14 @@ public class Client {
 	}
 
 
+
 	public void setSale(List<Sale> sale) {
 		this.sale = sale;
 	}
 
 
-	@Override
-	public String toString() {
-		return String.format("Client [clntCode=%s, clntName=%s, clntAddr=%s, clntTel=%s, clntIsExist=%s, sale=%s]",
-				clntCode, clntName, clntAddr, clntTel, clntIsExist, sale);
-	}
 
-	public String toCombobox() {
-		return String.format("%s, (%s)",
-				clntCode, clntName);
+	public Object[] toArray(){
+		return new Object[]{clntCode,clntName,clntTel,clntAddr};
 	}
-
-	
-	
-	
-	
-	
 }

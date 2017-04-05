@@ -1,60 +1,53 @@
 package kr.or.dgit.sw_project.service;
 
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
-import kr.or.dgit.sw_project.connection.CategoryMapperImpl;
-import kr.or.dgit.sw_project.connection.MybatisSqlSessionFactory;
+import kr.or.dgit.sw_project.dao.CategoryMapper;
+import kr.or.dgit.sw_project.dao.CategoryMapperImpl;
 import kr.or.dgit.sw_project.dto.Category;
-
+import kr.or.dgit.sw_project.util.MyBatisSqlSessionFactory;
 public class CategoryService {
-	private static final CategoryService instence= new CategoryService();
+	public static final CategoryService instance = new CategoryService();
+	private CategoryService() {}
+	public static CategoryService getInstance(){
+		return instance;
+	}
 	
+	public List<Category> selectCategoryByAll() {
+		try (SqlSession sqlSession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
+			CategoryMapper categoryMapper = new CategoryMapperImpl(sqlSession);
+			return categoryMapper.selectCategoryByAll();
+		} 
+	}
 	
-	public static CategoryService getInstence() {
-		return instence;
+
+	public Category selectCategoryByNo(Category category) {
+		try (SqlSession sqlSession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
+			CategoryMapper categoryMapper = new CategoryMapperImpl(sqlSession);
+			return categoryMapper.selectCategoryByNo(category);
+		} 
 	}
 
-	public List<Category> selectAllCategory(){
-		try(SqlSession sqlsession = MybatisSqlSessionFactory.opensesstion()){
-			CategoryMapperImpl comp = new CategoryMapperImpl(sqlsession);
-			return comp.selectAllCategory();
-		}
+	public int insertCategoryItem(Category category) {
+		try (SqlSession sqlSession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
+			CategoryMapper categoryMapper = new CategoryMapperImpl(sqlSession);
+			return categoryMapper.insertCategoryItem(category);
+		} 
 	}
 	
-	public Category selectByNoCategory(Category category){
-		try(SqlSession sqlsession = MybatisSqlSessionFactory.opensesstion()){
-			CategoryMapperImpl comp = new CategoryMapperImpl(sqlsession);
-			return comp.selectByNoCategory(category);
-		}
+	public int updateCategoryItem(Category category) {
+		try (SqlSession sqlSession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
+			CategoryMapper categoryMapper = new CategoryMapperImpl(sqlSession);
+			return categoryMapper.updateCategoryItem(category);
+		} 
 	}
-	
-	public int insertRowCategory(Category category){
-		try(SqlSession sqlsession = MybatisSqlSessionFactory.opensesstion()){
-			CategoryMapperImpl comp = new CategoryMapperImpl(sqlsession);
-			int res = comp.insertRowCategory(category);
-			sqlsession.commit();
-			return res;
-		}
-	}
-	
-	public int updateRowCategory(Map<String, String> category){
-		try(SqlSession sqlsession = MybatisSqlSessionFactory.opensesstion()){
-			CategoryMapperImpl comp = new CategoryMapperImpl(sqlsession);
-			int res = comp.updateRowCategory(category);
-			sqlsession.commit();
-			return res;
-		}
-	}
-	
-	public int deleteRowCategory(Category category){
-		try(SqlSession sqlsession = MybatisSqlSessionFactory.opensesstion()){
-			CategoryMapperImpl comp = new CategoryMapperImpl(sqlsession);
-			int res = comp.deleteRowCategory(category);
-			sqlsession.commit();
-			return res;
-		}
+
+	public int deleteCategoryItem(Category category) {
+		try (SqlSession sqlSession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
+			CategoryMapper categoryMapper = new CategoryMapperImpl(sqlSession);
+			return categoryMapper.deleteCategoryItem(category);
+		} 
 	}
 }

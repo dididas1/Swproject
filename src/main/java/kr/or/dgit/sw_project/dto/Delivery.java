@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 public class Delivery {
-	//스프트웨어 납품
+	//소프트웨어 납품
 	private String delCode; 
 	private SupplyCompany supplyCompany;
 	private Software software;

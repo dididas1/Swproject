@@ -1,84 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="kr.or.dgit.sw_project.dao.SaleMapper">
-	<resultMap type="Sale" id="saleWithSaleDetailResult">
+<mapper	namespace="kr.or.dgit.sw_project.dao.SaleMapper">
+
+	<resultMap type="Sale" id="SaleResult">
 		<id property="saleCode" column="sale_code"/>
 		<result property="saleAmount" column="sale_amount"/>
-		<result property="isDeposit" column="isdeposit"/>
+		<result property="isDeposit" column="is_deposit"/>
 		<result property="orderDate" column="order_date"/>
 		<result property="supplyPrice" column="supply_price"/>
 		<result property="salePrice" column="sale_price"/>
 		<result property="saleIsExist" column="sale_isExist"/>
-		<association property="clntCode" resultMap="kr.or.dgit.sw_project.dao.ClientMapper.ClientResult"/>
-		<association property="swCode" resultMap="kr.or.dgit.sw_project.dao.SoftwareMapper.SoftwareResult"/>
-		<association property="saleDetail" resultMap="kr.or.dgit.sw_project.dao.SaleDetailMapper.saleDetailResult"/>
+		
+		<association property="client" resultMap="kr.or.dgit.sw_project.dao.ClientMapper.ClientResult"/>
+		<association property="software" resultMap="kr.or.dgit.sw_project.dao.SoftwareMapper.SoftwareResult"/>
+		<association property="saleDetail" resultMap="kr.or.dgit.sw_project.dao.SaleDetailMapper.SaleDetailResult"/>
 	</resultMap>
-	
-	<select id="daySoftwareSaleReport" resultMap="saleWithSaleDetailResult">
-		select order_date,sale_code,clnt_name,sw_name,sale_amount,isdeposit from view_sale_by_orderdate 
-		WHERE order_date BETWEEN #{order_date} AND #{order_date2}
-		order by order_date desc;
-	</select>
-	
-	
-	<!--거래명세서 -->
-	<select id="viewBillList" resultMap="saleWithSaleDetailResult">
-		select sale_code,comp_name,order_date,clnt_name,sw_name,sale_price,sale_amount,total_sale_price,tax,tax_saleprice  from view_bill_list;
-	</select>
-	
-	
-	<!-- 고객사별 판매현황조회 -->
-	<select id="clientSoftwareReport" resultMap="saleWithSaleDetailResult" parameterType="Client">
-			select clnt_name, sw_name, sale_amount,isdeposit, sale_price,total_sale_price,receivablePrice
-		from view_client_sale 
-		<where>
-			<if test="clntCode != null">clnt_code=#{clntCode}</if>
-		</where>
-	</select>
-	
-	<!-- 소프트웨어별 판매현황조회 -->
-	<select id="softwareSaleReport" resultMap="saleWithSaleDetailResult" parameterType="Software">
-		select sale_code,sw_code,sw_name,group_name,comp_name,total_supply_price,total_price,margin 
-		from view_sw_sale 
-		<where>
-				<if test="swCode != null">sw_code=#{swCode}</if>
-		</where>
-		 order by sale_code;
-	</select> 
-	
-	
-	<!-- 그룹별 판매현황조회 -->
-	<select id="categorySaleReport" resultMap="saleWithSaleDetailResult" parameterType="Category">
-		select group_code,group_name,c_salePrice,c_amount from view_sale_by_category 
-		<where>
-			<if test="groupCode != null">group_code=#{groupCode}</if>
-		</where>
-	</select>
-	
-	<!-- 
-	<sql id="selectSale">
-		select s.sale_code, clnt_code, sw_code, sale_amount, isdeposit, order_date, supply_price, sale_price, sale_isExist, total_sale_price, total_supply_price, margin, tax, tax_saleprice, receivablePrice 
-		from sale s join view_sale_detail sv on s.sale_code= sv.sale_code
+	 
+	<!-- Select SQL -->
+    <sql id="selectSQL">
+	SELECT * FROM sale s
+			JOIN software sw ON s.sw_code = sw.sw_code
+			JOIN client cl ON cl.clnt_code = s.clnt_code
+			JOIN category cat ON sw.group_code = cat.group_code
+			JOIN view_sale_detail sd ON s.sale_code = sd.sale_code	
 	</sql>
-	
-	<select id="allSelectSale" resultMap="saleWithSaleDetailResult">
-		<include refid="selectSale"/>
-	</select>
-	
-	<select id="CodeSelectSaleItem" resultMap="saleWithSaleDetailResult" parameterType="sale">
-		<include refid="selectSale"/>
-		WHERE s.sale_code=#{saleCode}
-	</select>
-	
-	<insert id="insertSale" parameterType="Sale">
-		INSERT INTO sale(sale_code, clnt_code, sw_code, sale_amount, isdeposit, order_date, supply_price, sale_price, sale_isExist)
-	VALUES (#{saleCode}, #{clntCode}, #{swCode}, #{saleAmount}, #{isDeposit}, #{orderDate}, #{supplyPrice}, #{salePrice}, true)
-	</insert>
-	
-	<update id="deleteSale" parameterType="sale">
-		UPDATE sale SET sale_isExist= false
+
+	<!-- Where SQL -->
+	<sql id="whereSQL">
+		<where>
+			<if test="saleCode != null">
+			</if>
+		</where>
+	</sql>
+	    
+    <!-- Select By All --> 
+    <select id="selectSaleByAll" resultMap="SaleResult">
+    	<include refid="selectSQL" />
+    </select>
+    
+     <!-- Select By No --> 
+    <select id="selectSaleByNo" resultMap="SaleResult">
+    	<include refid="selectSQL" />
+    	<include refid="whereSQL"/>
+    </select>
+    
+    <!-- Insert Item -->
+    <insert id="insertSaleItem">
+    	INSERT INTO sale(sale_code, clnt_code, sw_code, sale_amount, isdeposit, order_date, supply_price, sale_price, sale_isExist) VALUES  
+	    (#{saleCode},#{clntCode},#{swCode},#{saleAmount}, #{isdeposit}, #{orderDate}, #{supplyPrice}  , #{salePrice},   TRUE);
+    </insert>
+    
+    <!-- Update Item -->
+    <update id="updateSaleItem">
+    	UPDATE sale
+		SET sale_code=#{saleCode},clnt_code=#{clntCode}, sw_code=#{swCode}, sale_amount=#{saleAmount}, isdeposit=#{isdeposit}, 
+		order_date=#{orderDate}, supply_price=#{supplyPrice}, sale_price=#{salePrice}, sale_isExist=#{saleIsExist}
 		WHERE sale_code=#{saleCode};
-	</update>
-	 -->
-	
+     </update>
+     
+     <!-- Exist item -->
+     <update id="existSaleItem">
+     	UPDATE sale
+		SET sale_isExist=#{saleIsExist}
+		WHERE sale_code=#{saleCode};
+     </update>
 </mapper>
+

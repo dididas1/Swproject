@@ -37,12 +37,8 @@ public class ContentList extends JPanel implements ActionListener{
 		setLayout(gridBagLayout);
 		
 		ComboPanel<String> tfpSwName = new ComboPanel();
-		List<Software> listsw = SoftwareService.getInstence().selectAllSw();
 		Vector<String> comboitemsw = new Vector<>();
 		comboitemsw.add("선택해주세요");
-		for(int i=0;i<listsw.size();i++){
-			comboitemsw.add(listsw.get(i).toComboitem());
-		}
 		tfpSwName.setComboData(comboitemsw);
 		tfpSwName.setTitle("품목명");
 		GridBagConstraints gbc_tfpSwName = new GridBagConstraints();
@@ -63,12 +59,8 @@ public class ContentList extends JPanel implements ActionListener{
 
 		ComboPanel<String> tfpClntName = new ComboPanel();
 		tfpClntName.setTitle("고객상호");
-		List<Client> list = ClientService.getInstence().selectAllClnt();
 		Vector<String> comboitem = new Vector<>();
 		comboitem.add("선택해주세요");
-		for(int i=0;i<list.size();i++){
-			comboitem.add(list.get(i).toCombobox());
-		}
 		tfpClntName.setComboData(comboitem);
 		GridBagConstraints gbc_tfpClntName = new GridBagConstraints();
 		gbc_tfpClntName.insets = new Insets(0, 0, 0, 0);
@@ -87,12 +79,8 @@ public class ContentList extends JPanel implements ActionListener{
 		
 		ComboPanel<String> tfpGroup = new ComboPanel();
 		tfpGroup.setTitle("그룹별");
-		List<Category> listca = CategoryService.getInstence().selectAllCategory();
 		Vector<String> comboitemca = new Vector<>();
 		comboitemca.add("선택해주세요");
-		for(int i=0;i<listca.size();i++){
-			comboitemca.add(listca.get(i).toComboitems());
-		}
 		tfpGroup.setComboData(comboitemca);
 		GridBagConstraints gbc_tfpGroup = new GridBagConstraints();
 		gbc_tfpGroup.insets = new Insets(0, 0, 0, 0);
@@ -126,6 +114,5 @@ public class ContentList extends JPanel implements ActionListener{
 		
 	}
 	protected void actionPerformedBtnClntAllFind(ActionEvent e) {
-		TableList.getInstence().setTableData();
 	}
 }

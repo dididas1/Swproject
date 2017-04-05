@@ -7,13 +7,10 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.ParseException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
 
 import erp_myframework.TextFiledPanel;
@@ -87,14 +84,16 @@ public class MainApp extends JFrame implements ActionListener {
 		panelButton.add(btnExit);
 	}
 	
+
+	
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnLogIn) {
-			actionPerformedBtnLogIn(e);
+			btnLogInActionPerformed(e);
 		}
 	}
-	
-	protected void actionPerformedBtnLogIn(ActionEvent e) {
+	protected void btnLogInActionPerformed(ActionEvent e) {
 		MainTab tabbedSale = new MainTab();
 		dispose();
 	}
 }
+

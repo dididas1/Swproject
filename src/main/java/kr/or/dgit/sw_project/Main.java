@@ -1,26 +1,22 @@
 package kr.or.dgit.sw_project;
 
 import java.awt.EventQueue;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.text.ParseException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
-import kr.or.dgit.sw_project.dto.Category;
+import de.javasoft.plaf.synthetica.SyntheticaAluOxideLookAndFeel;
+import de.javasoft.plaf.synthetica.SyntheticaLookAndFeel;
 import kr.or.dgit.sw_project.dto.Client;
-import kr.or.dgit.sw_project.dto.Sale;
-import kr.or.dgit.sw_project.dto.Software;
-import kr.or.dgit.sw_project.service.CategoryService;
 import kr.or.dgit.sw_project.service.ClientService;
-import kr.or.dgit.sw_project.service.SaleService;
-import kr.or.dgit.sw_project.service.SoftwareService;
 
-public class Main extends JFrame implements ActionListener {
+public class Main extends JFrame   {
 
 	private JPanel contentPane;
 	private JButton btnsale;
@@ -33,11 +29,15 @@ public class Main extends JFrame implements ActionListener {
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				try {
-					MainApp frame= new MainApp();
-					frame.setVisible(true);
-					
-					Main main= new Main();
+				try {  
+					try {
+						UIManager.setLookAndFeel(new SyntheticaAluOxideLookAndFeel());
+						SyntheticaLookAndFeel.setFont("Gulim", 12);
+						MainApp frame = new MainApp();
+						frame.setVisible(true);
+					} catch (UnsupportedLookAndFeelException | ParseException e) {
+						e.printStackTrace();
+					}
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -49,23 +49,9 @@ public class Main extends JFrame implements ActionListener {
 	 * Create the frame.
 	 */
 	public Main() {
-		SoftwareService sv = new SoftwareService();
-		List<Software> list= sv.allList();
-		List<Client> list1 =ClientService.getInstence().selectAllClnt();
-		List<Software> listsw = SoftwareService.getInstence().selectAllSw();
-		List<Category> listca= CategoryService.getInstence().selectAllCategory();
-		
-		Map<String, String> hash = new HashMap<>();
-		hash.put("order_date", "1999-01-11");
-		hash.put("order_date2", "2010-01-11");		
-		SaleService.getInstence().daySoftwareSaleReport(hash);
-		}
 		
 
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
+	
 }

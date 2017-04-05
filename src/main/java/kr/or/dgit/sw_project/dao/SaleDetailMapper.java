@@ -1,5 +1,9 @@
 package kr.or.dgit.sw_project.dao;
 
-public interface SaleDetailMapper {
+import java.util.List;
 
+import kr.or.dgit.sw_project.dto.SaleDetail;
+
+public interface SaleDetailMapper {
+	List<SaleDetail> selectSaleDetailByAll();
 }
