@@ -3,7 +3,9 @@ package kr.or.dgit.sw_project;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -15,6 +17,7 @@ import kr.or.dgit.sw_project.dto.Sale;
 import kr.or.dgit.sw_project.dto.Software;
 import kr.or.dgit.sw_project.service.CategoryService;
 import kr.or.dgit.sw_project.service.ClientService;
+import kr.or.dgit.sw_project.service.SaleService;
 import kr.or.dgit.sw_project.service.SoftwareService;
 
 public class Main extends JFrame implements ActionListener {
@@ -51,6 +54,11 @@ public class Main extends JFrame implements ActionListener {
 		List<Client> list1 =ClientService.getInstence().selectAllClnt();
 		List<Software> listsw = SoftwareService.getInstence().selectAllSw();
 		List<Category> listca= CategoryService.getInstence().selectAllCategory();
+		
+		Map<String, String> hash = new HashMap<>();
+		hash.put("order_date", "1999-01-11");
+		hash.put("order_date2", "2010-01-11");		
+		SaleService.getInstence().daySoftwareSaleReport(hash);
 		}
 		
 

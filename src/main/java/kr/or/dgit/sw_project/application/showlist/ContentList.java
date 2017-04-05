@@ -35,9 +35,11 @@ public class ContentList extends JPanel implements ActionListener{
 		gridBagLayout.columnWeights = new double[]{0.0, 0.0};
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0};
 		setLayout(gridBagLayout);
-		ComboPanel tfpSwName = new ComboPanel();
+		
+		ComboPanel<String> tfpSwName = new ComboPanel();
 		List<Software> listsw = SoftwareService.getInstence().selectAllSw();
 		Vector<String> comboitemsw = new Vector<>();
+		comboitemsw.add("선택해주세요");
 		for(int i=0;i<listsw.size();i++){
 			comboitemsw.add(listsw.get(i).toComboitem());
 		}
@@ -64,7 +66,7 @@ public class ContentList extends JPanel implements ActionListener{
 		List<Client> list = ClientService.getInstence().selectAllClnt();
 		Vector<String> comboitem = new Vector<>();
 		comboitem.add("선택해주세요");
-		for(int i=1;i<list.size();i++){
+		for(int i=0;i<list.size();i++){
 			comboitem.add(list.get(i).toCombobox());
 		}
 		tfpClntName.setComboData(comboitem);
@@ -87,6 +89,7 @@ public class ContentList extends JPanel implements ActionListener{
 		tfpGroup.setTitle("그룹별");
 		List<Category> listca = CategoryService.getInstence().selectAllCategory();
 		Vector<String> comboitemca = new Vector<>();
+		comboitemca.add("선택해주세요");
 		for(int i=0;i<listca.size();i++){
 			comboitemca.add(listca.get(i).toComboitems());
 		}
