@@ -13,19 +13,18 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import erp_myframework.TextFiledPanel;
-import kr.or.dgit.sw_project.dto.Address;
+import erp_myframework.TextFieldPanel;
 import kr.or.dgit.sw_project.dto.Client;
 import kr.or.dgit.sw_project.service.ClientService;
 
 public class ContentClient extends JPanel {
 	private JTextField textField;
-	private TextFiledPanel tfpClientCode;
-	private TextFiledPanel tfpClientName;
-	private TextFiledPanel tfpCleintTel;
-	private TextFiledPanel tfpClientAddr;
+	private TextFieldPanel tfpClientCode;
+	private TextFieldPanel tfpClientName;
+	private TextFieldPanel tfpCleintTel;
+	private TextFieldPanel tfpClientAddr;
 	private JButton button;
-	private TextFiledPanel tfadr;
+	private TextFieldPanel tfadr;
 	public ContentClient() {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] {300, 50, 50};
@@ -46,7 +45,7 @@ public class ContentClient extends JPanel {
 		gbc_label.gridwidth = 2;
 		add(label, gbc_label);
 		
-		tfpClientCode = new TextFiledPanel();
+		tfpClientCode = new TextFieldPanel();
 		tfpClientCode.setTitle("고객사 번호");
 		tfpClientCode.gettF().setEditable(false);
 		GridBagConstraints gbc_tfpClientCode = new GridBagConstraints(); 
@@ -57,7 +56,7 @@ public class ContentClient extends JPanel {
 		add(tfpClientCode, gbc_tfpClientCode);
 		
 		
-		tfpClientName = new TextFiledPanel();
+		tfpClientName = new TextFieldPanel();
 		tfpClientName.setTitle("고객사 이름");
 		GridBagConstraints gbc_tfpClientName = new GridBagConstraints();
 		gbc_tfpClientName.fill = GridBagConstraints.HORIZONTAL;
@@ -67,7 +66,7 @@ public class ContentClient extends JPanel {
 		add(tfpClientName, gbc_tfpClientName);
 		
 		
-		tfpCleintTel = new TextFiledPanel();
+		tfpCleintTel = new TextFieldPanel();
 		tfpCleintTel.setTitle("  전 화 번 호");
 		GridBagConstraints gbc_tfpCleintTel = new GridBagConstraints();
 		gbc_tfpCleintTel.insets = new Insets(0, 0, 5, 5);
@@ -76,7 +75,7 @@ public class ContentClient extends JPanel {
 		gbc_tfpCleintTel.gridy = 3;
 		add(tfpCleintTel, gbc_tfpCleintTel);
 		
-		tfpClientAddr = new TextFiledPanel();
+		tfpClientAddr = new TextFieldPanel();
 		tfpClientAddr.setTitle("주          소");
 		GridBagConstraints gbc_tfpClientAddr = new GridBagConstraints();
 		gbc_tfpClientAddr.fill = GridBagConstraints.HORIZONTAL;
@@ -92,7 +91,7 @@ public class ContentClient extends JPanel {
 		gbc_button.gridy = 4;
 		add(button, gbc_button);
 		
-		tfadr= new TextFiledPanel();
+		tfadr= new TextFieldPanel();
 		tfadr.setTitle("");
 		GridBagConstraints gbc_tfadr = new GridBagConstraints();
 		gbc_tfadr.fill = GridBagConstraints.HORIZONTAL;
@@ -129,8 +128,8 @@ public class ContentClient extends JPanel {
 	
 	public boolean isEmptyCheck(){ // 빈공간체크
 		for(Component c: getComponents()){
-			if(c instanceof TextFiledPanel){
-				TextFiledPanel tfp= (TextFiledPanel) c;
+			if(c instanceof TextFieldPanel){
+				TextFieldPanel tfp= (TextFieldPanel) c;
 				if(tfp.isEmpty()){
 					return true;
 				}

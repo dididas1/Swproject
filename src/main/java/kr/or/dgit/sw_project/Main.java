@@ -2,8 +2,6 @@ package kr.or.dgit.sw_project;
 
 import java.awt.EventQueue;
 import java.text.ParseException;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -13,8 +11,6 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 import de.javasoft.plaf.synthetica.SyntheticaAluOxideLookAndFeel;
 import de.javasoft.plaf.synthetica.SyntheticaLookAndFeel;
-import kr.or.dgit.sw_project.dto.Client;
-import kr.or.dgit.sw_project.service.ClientService;
 
 public class Main extends JFrame   {
 

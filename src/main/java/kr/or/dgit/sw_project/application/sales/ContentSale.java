@@ -1,30 +1,15 @@
 package kr.or.dgit.sw_project.application.sales;
 
-import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
 
 import erp_myframework.CheckBoxPanel;
 import erp_myframework.ComboPanel;
-import erp_myframework.TextFiledPanel;
-import javafx.application.Platform;
-import javafx.embed.swing.JFXPanel;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
-import javafx.util.StringConverter;
-import javafx.util.converter.LocalDateStringConverter;
+import erp_myframework.TextFieldPanel;
 
 public class ContentSale extends JPanel {
 	public ContentSale() {
@@ -36,7 +21,7 @@ public class ContentSale extends JPanel {
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0};
 		setLayout(gridBagLayout);
 		
-		TextFiledPanel tfpSaleCode = new TextFiledPanel();
+		TextFieldPanel tfpSaleCode = new TextFieldPanel();
 		tfpSaleCode.setTitle("주문번호");
 		GridBagConstraints gbc_tfpSaleCode = new GridBagConstraints(); 
 		gbc_tfpSaleCode.fill = GridBagConstraints.HORIZONTAL; 
@@ -54,7 +39,7 @@ public class ContentSale extends JPanel {
 		gbc_tfpSwName.gridy = 1;
 		add(tfpSwName, gbc_tfpSwName);
 		
-		TextFiledPanel tfpSaleAmount = new TextFiledPanel();
+		TextFieldPanel tfpSaleAmount = new TextFieldPanel();
 		tfpSaleAmount.setTitle("주문수량");
 		GridBagConstraints gbc_tfpSaleAmount = new GridBagConstraints();
 		gbc_tfpSaleAmount.fill = GridBagConstraints.HORIZONTAL;
@@ -72,7 +57,7 @@ public class ContentSale extends JPanel {
 		gbc_tfpClntName.gridy = 2;
 		add(tfpClntName, gbc_tfpClntName);
 		
-		TextFiledPanel tfpOrderDate = new TextFiledPanel();
+		TextFieldPanel tfpOrderDate = new TextFieldPanel();
 		tfpOrderDate.setTitle("주문일자");
 		GridBagConstraints gbc_tfpOrderDate = new GridBagConstraints();
 		gbc_tfpOrderDate.fill = GridBagConstraints.HORIZONTAL;
