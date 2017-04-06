@@ -87,7 +87,7 @@ public class ContentSoftware extends JPanel implements MouseListener {
 
 		tfpIsSale = new RadioPanel();
 		tfpIsSale.setTitle("판매여부");
-		tfpIsSale.setRaidoItems("판매","판매중지");
+		tfpIsSale.setRadioItems("판매","판매중지");
 		GridBagConstraints gbc_tfpIsSale = new GridBagConstraints();
 		gbc_tfpIsSale.insets = new Insets(0, 0, 0, 5);
 		gbc_tfpIsSale.fill = GridBagConstraints.HORIZONTAL;

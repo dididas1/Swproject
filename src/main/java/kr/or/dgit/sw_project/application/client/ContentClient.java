@@ -47,7 +47,7 @@ public class ContentClient extends JPanel {
 		
 		tfpClientCode = new TextFiledPanel();
 		tfpClientCode.setTitle("고객사 번호");
-		tfpClientCode.getTf().setEditable(false);
+		tfpClientCode.gettF().setEditable(false);
 		GridBagConstraints gbc_tfpClientCode = new GridBagConstraints(); 
 		gbc_tfpClientCode.fill = GridBagConstraints.HORIZONTAL; 
 		gbc_tfpClientCode.insets = new Insets(0, 0, 5, 5);
@@ -111,11 +111,11 @@ public class ContentClient extends JPanel {
 		tfpCleintTel.setTfValue("");
 		tfpClientName.requestFocus();
 	}
-	public Client getObject(){ //text필드 값받아옴 address수정필요
-		String clntCode = tfpClientCode.getTfvalue();
-		String clntName = tfpClientName.getTfvalue();
-		String clntAddr = tfpClientAddr.getTfvalue();
-		String clntTel = tfpCleintTel.getTfvalue();
+	public Client getObject(){ //text필드 값받아옴
+		String clntCode = tfpClientCode.getTfValue();
+		String clntName = tfpClientName.getTfValue();
+		String clntAddr = tfpClientAddr.getTfValue();
+		String clntTel = tfpCleintTel.getTfValue();
 		return new Client(clntCode, clntName,clntAddr, clntTel);
 	}
 	
@@ -130,7 +130,7 @@ public class ContentClient extends JPanel {
 		for(Component c: getComponents()){
 			if(c instanceof TextFiledPanel){
 				TextFiledPanel tfp= (TextFiledPanel) c;
-				if(tfp.isEmptyCheck()){
+				if(tfp.isEmpty()){
 					return true;
 				}
 			}

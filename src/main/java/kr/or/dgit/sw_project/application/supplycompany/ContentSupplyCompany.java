@@ -39,7 +39,7 @@ public class ContentSupplyCompany extends JPanel {
 		
 		tfpSupplyCompanyCode = new TextFiledPanel();
 		tfpSupplyCompanyCode.setTitle("회사번호");
-		tfpSupplyCompanyCode.getTf().setEditable(false);
+		tfpSupplyCompanyCode.gettF().setEditable(false);
 		GridBagConstraints gbc_tfpSupplyCompanyCode = new GridBagConstraints(); 
 		gbc_tfpSupplyCompanyCode.fill = GridBagConstraints.HORIZONTAL; 
 		gbc_tfpSupplyCompanyCode.insets = new Insets(0, 0, 5, 5);
@@ -104,10 +104,10 @@ public class ContentSupplyCompany extends JPanel {
 		tfpSupplyCompanyName.requestFocus();
 	}
 	public SupplyCompany getObject(){ //text필드 값받아옴 address수정필요
-		String compCode = tfpSupplyCompanyCode.getTfvalue();
-		String compName = tfpSupplyCompanyName.getTfvalue();
-		String address = tfpSupplyCompanyAd.getTfvalue();
-		String compTel = tfpSupplyCompanyTel.getTfvalue();
+		String compCode = tfpSupplyCompanyCode.getTfValue();
+		String compName = tfpSupplyCompanyName.getTfValue();
+		String address = tfpSupplyCompanyAd.getTfValue();
+		String compTel = tfpSupplyCompanyTel.getTfValue();
 		return new SupplyCompany(compCode, compName, address, compTel);
 	}
 	
@@ -122,7 +122,7 @@ public class ContentSupplyCompany extends JPanel {
 		for(Component c: getComponents()){
 			if(c instanceof TextFiledPanel){
 				TextFiledPanel tfp= (TextFiledPanel) c;
-				if(tfp.isEmptyCheck()){
+				if(tfp.isEmpty()){
 					return true;
 				}
 			}

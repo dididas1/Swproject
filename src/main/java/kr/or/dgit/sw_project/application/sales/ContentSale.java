@@ -102,7 +102,7 @@ public class ContentSale extends JPanel {
 		for(Component c: getComponents()){
 			if(c instanceof TextFiledPanel){
 				TextFiledPanel tfp= (TextFiledPanel) c;
-				if(tfp.isEmptyCheck()){
+				if(tfp.isEmpty()){
 					return true;
 				}
 			}
