@@ -153,6 +153,9 @@ public class ViewClient extends JFrame implements ActionListener {
 				pContent.initSetting();
 			}else{
 				JOptionPane.showMessageDialog(null, "취소되었습니다");
+				pContent.initSetting();
+				btnInsert.setText("입력");
+				btnDelete.setEnabled(false);
 			}
 
 
@@ -175,11 +178,16 @@ public class ViewClient extends JFrame implements ActionListener {
 			ClientService.getInstance().existClntItem(pContent.getObject());
 			pTable.setTableData();
 			pContent.initSetting();
+			btnInsert.setText("입력");
+			btnDelete.setEnabled(false);
 		}else{
-			JOptionPane.showMessageDialog(null, "취소되었습니다");
+				JOptionPane.showMessageDialog(null, "취소되었습니다");
+			
 		}
 	}
 	protected void btnCancleActionPerformed(ActionEvent e) { //취소버튼
 		pContent.initSetting();
+		btnInsert.setText("입력");
+		btnDelete.setEnabled(false);
 	}
 }

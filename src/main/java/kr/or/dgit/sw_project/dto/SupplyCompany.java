@@ -99,4 +99,8 @@ public class SupplyCompany {
 		return new Object[]{compCode,compName,address,compTel};
 		
 	}
+	
+	public String toCombobox(){
+		return String.format("%s %s", compCode,compName);
+	}
 }

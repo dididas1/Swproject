@@ -90,4 +90,8 @@ public class Software {
 		return String.format("%s, %s, %s, %s, %s, %s, %s, %s, %s",
 				swCode, swName, category, salePrice, swInven, swImg, swIsSale, delivery, sale);
 	}
+	
+	public String toCombobox(){
+		return String.format("%s %s", swCode,swName);
+	}
 }

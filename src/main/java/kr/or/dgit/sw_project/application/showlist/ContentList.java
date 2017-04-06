@@ -5,6 +5,8 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
@@ -12,6 +14,7 @@ import java.util.Vector;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
+import javax.swing.plaf.multi.MultiSeparatorUI;
 
 import erp_myframework.ComboPanel;
 import kr.or.dgit.sw_project.dto.Category;
@@ -37,10 +40,17 @@ public class ContentList extends JPanel implements ActionListener{
 		setLayout(gridBagLayout);
 		
 		ComboPanel<String> tfpSwName = new ComboPanel();
+		List<Software> list= SoftwareService.getInstance().selectSoftwareByAll();
 		Vector<String> comboitemsw = new Vector<>();
 		comboitemsw.add("선택해주세요");
+		for(int i=0;i<list.size();i++){
+			if(list.get(i).isSwIsSale()){
+				comboitemsw.add(list.get(i).toCombobox());
+			}
+		}
 		tfpSwName.setComboData(comboitemsw);
 		tfpSwName.setTitle("품목명");
+	
 		GridBagConstraints gbc_tfpSwName = new GridBagConstraints();
 		gbc_tfpSwName.fill = GridBagConstraints.HORIZONTAL;
 		gbc_tfpSwName.insets = new Insets(0, 0, 0, 0);
@@ -59,9 +69,15 @@ public class ContentList extends JPanel implements ActionListener{
 
 		ComboPanel<String> tfpClntName = new ComboPanel();
 		tfpClntName.setTitle("고객상호");
-		Vector<String> comboitem = new Vector<>();
-		comboitem.add("선택해주세요");
-		tfpClntName.setComboData(comboitem);
+		List<Client> listCl= ClientService.getInstance().selectClientByAll();
+		Vector<String> comboitemCl = new Vector<>();
+		comboitemCl.add("선택해주세요");
+		for(int i=0;i<listCl.size();i++){
+			if(listCl.get(i).isClntIsExist()){
+				comboitemCl.add(listCl.get(i).toCombobox());
+			}
+		}
+		tfpClntName.setComboData(comboitemCl);
 		GridBagConstraints gbc_tfpClntName = new GridBagConstraints();
 		gbc_tfpClntName.insets = new Insets(0, 0, 0, 0);
 		gbc_tfpClntName.fill = GridBagConstraints.HORIZONTAL;
@@ -79,9 +95,13 @@ public class ContentList extends JPanel implements ActionListener{
 		
 		ComboPanel<String> tfpGroup = new ComboPanel();
 		tfpGroup.setTitle("그룹별");
-		Vector<String> comboitemca = new Vector<>();
-		comboitemca.add("선택해주세요");
-		tfpGroup.setComboData(comboitemca);
+		List<Category> listGr= CategoryService.getInstance().selectCategoryByAll();
+		Vector<String> comboitemGr = new Vector<>();
+		comboitemGr.add("선택해주세요");
+		for(int i=0;i<listGr.size();i++){
+				comboitemGr.add(listGr.get(i).toCombobox());
+		}
+		tfpGroup.setComboData(comboitemGr);
 		GridBagConstraints gbc_tfpGroup = new GridBagConstraints();
 		gbc_tfpGroup.insets = new Insets(0, 0, 0, 0);
 		gbc_tfpGroup.fill = GridBagConstraints.HORIZONTAL;

@@ -21,6 +21,12 @@ import erp_myframework.TextFiledPanel;
 @SuppressWarnings("serial")
 public class ContentSoftware extends JPanel implements MouseListener {
 	private JLabel lblImage;
+	private TextFiledPanel tfpSWCode;
+	private TextFiledPanel tfpSWName;
+	private TextFiledPanel tfpSwPrice;
+	private ComboPanel tfpCompName;
+	private ComboPanel tfpGroupName;
+	private RadioPanel tfpIsSale;
 
 	public ContentSoftware() {
 		setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
@@ -31,16 +37,16 @@ public class ContentSoftware extends JPanel implements MouseListener {
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0};
 		setLayout(gridBagLayout);
 		
-		TextFiledPanel tfpSWCode = new TextFiledPanel();
+		tfpSWCode = new TextFiledPanel();
 		tfpSWCode.setTitle("제품번호");
-		GridBagConstraints gbc_tfptfpSWCode = new GridBagConstraints(); 
-		gbc_tfptfpSWCode.fill = GridBagConstraints.HORIZONTAL; 
-		gbc_tfptfpSWCode.insets = new Insets(0, 0, 5, 5);
-		gbc_tfptfpSWCode.gridx = 1;
-		gbc_tfptfpSWCode.gridy = 1;
-		add(tfpSWCode, gbc_tfptfpSWCode);
+		GridBagConstraints gbc_tfpSWCode = new GridBagConstraints(); 
+		gbc_tfpSWCode.fill = GridBagConstraints.HORIZONTAL; 
+		gbc_tfpSWCode.insets = new Insets(0, 0, 5, 5);
+		gbc_tfpSWCode.gridx = 1;
+		gbc_tfpSWCode.gridy = 1;
+		add(tfpSWCode, gbc_tfpSWCode);
 		
-		TextFiledPanel tfpSWName = new TextFiledPanel();
+		tfpSWName = new TextFiledPanel();
 		tfpSWName.setTitle("제품명");
 		GridBagConstraints gbc_tfpSWName = new GridBagConstraints();
 		gbc_tfpSWName.fill = GridBagConstraints.HORIZONTAL;
@@ -49,16 +55,16 @@ public class ContentSoftware extends JPanel implements MouseListener {
 		gbc_tfpSWName.gridy = 2;
 		add(tfpSWName, gbc_tfpSWName);
 		
-		TextFiledPanel tfpSwPrice = new TextFiledPanel();
+		tfpSwPrice = new TextFiledPanel();
 		tfpSwPrice.setTitle("판매가격");
-		GridBagConstraints gbc_tfptfpSwPrice = new GridBagConstraints();
-		gbc_tfptfpSwPrice.fill = GridBagConstraints.HORIZONTAL;
-		gbc_tfptfpSwPrice.insets = new Insets(0, 0, 0, 5);
-		gbc_tfptfpSwPrice.gridx = 1;
-		gbc_tfptfpSwPrice.gridy = 3;
-		add(tfpSwPrice, gbc_tfptfpSwPrice);
+		GridBagConstraints gbc_tfpSwPrice = new GridBagConstraints();
+		gbc_tfpSwPrice.fill = GridBagConstraints.HORIZONTAL;
+		gbc_tfpSwPrice.insets = new Insets(0, 0, 0, 5);
+		gbc_tfpSwPrice.gridx = 1;
+		gbc_tfpSwPrice.gridy = 3;
+		add(tfpSwPrice, gbc_tfpSwPrice);
 		
-		ComboPanel tfpCompName = new ComboPanel();
+		tfpCompName = new ComboPanel();
 		tfpCompName.setTitle("공급회사");
 		GridBagConstraints gbc_tfpCompName = new GridBagConstraints();
 		gbc_tfpCompName.fill = GridBagConstraints.HORIZONTAL;
@@ -67,7 +73,7 @@ public class ContentSoftware extends JPanel implements MouseListener {
 		gbc_tfpCompName.gridy = 1;
 		add(tfpCompName, gbc_tfpCompName);
 				
-		ComboPanel tfpGroupName = new ComboPanel();
+		tfpGroupName = new ComboPanel();
 		tfpGroupName.setTitle("분류");
 		GridBagConstraints gbc_tfpGroupName = new GridBagConstraints();
 		gbc_tfpGroupName.insets = new Insets(0, 0, 5, 5);
@@ -76,9 +82,9 @@ public class ContentSoftware extends JPanel implements MouseListener {
 		gbc_tfpGroupName.gridy = 2;
 		add(tfpGroupName, gbc_tfpGroupName);
 
-		RadioPanel tfpIsSale = new RadioPanel();
+		tfpIsSale = new RadioPanel();
 		tfpIsSale.setTitle("판매여부");
-		tfpIsSale.setRadioItems("판매","판매중지");
+		tfpIsSale.setRaidoItems("판매","판매중지");
 		GridBagConstraints gbc_tfpIsSale = new GridBagConstraints();
 		gbc_tfpIsSale.insets = new Insets(0, 0, 0, 5);
 		gbc_tfpIsSale.fill = GridBagConstraints.HORIZONTAL;
@@ -113,4 +119,6 @@ public class ContentSoftware extends JPanel implements MouseListener {
 	protected void mousePressedLblImage(MouseEvent e) {
 		JOptionPane.showMessageDialog(null, "파일추저지롱~");
 	}
+	
+	
 }

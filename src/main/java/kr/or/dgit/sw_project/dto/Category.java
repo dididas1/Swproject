@@ -36,4 +36,8 @@ public class Category {
 	public String toString() {
 		return String.format("%s, %s, %s", groupCode, groupName, software);
 	}
+	
+	public String toCombobox(){
+		return String.format("%s %s", groupCode,groupName);
+	}
 }

@@ -1,32 +1,29 @@
 package kr.or.dgit.sw_project.application.sales;
 
-import java.awt.Font;
+import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.util.List;
 
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
 
 import erp_myframework.CheckBoxPanel;
 import erp_myframework.ComboPanel;
 import erp_myframework.TextFiledPanel;
-import javafx.application.Platform;
-import javafx.embed.swing.JFXPanel;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
-import javafx.util.StringConverter;
-import javafx.util.converter.LocalDateStringConverter;
+import kr.or.dgit.sw_project.dto.Client;
+import kr.or.dgit.sw_project.dto.Sale;
+import kr.or.dgit.sw_project.service.ClientService;
+import kr.or.dgit.sw_project.service.SaleService;
 
 public class ContentSale extends JPanel {
+	private TextFiledPanel tfpSaleCode;
+	private ComboPanel tfpSwName;
+	private TextFiledPanel tfpSaleAmount;
+	private ComboPanel tfpClntName;
+	private TextFiledPanel tfpOrderDate;
+	private CheckBoxPanel tfpIsExist;
 	public ContentSale() {
 		setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -36,7 +33,7 @@ public class ContentSale extends JPanel {
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0};
 		setLayout(gridBagLayout);
 		
-		TextFiledPanel tfpSaleCode = new TextFiledPanel();
+		tfpSaleCode = new TextFiledPanel();
 		tfpSaleCode.setTitle("주문번호");
 		GridBagConstraints gbc_tfpSaleCode = new GridBagConstraints(); 
 		gbc_tfpSaleCode.fill = GridBagConstraints.HORIZONTAL; 
@@ -45,7 +42,7 @@ public class ContentSale extends JPanel {
 		gbc_tfpSaleCode.gridy = 1;
 		add(tfpSaleCode, gbc_tfpSaleCode);
 		
-		ComboPanel tfpSwName = new ComboPanel();
+		tfpSwName = new ComboPanel();
 		tfpSwName.setTitle("품목명");
 		GridBagConstraints gbc_tfpSwName = new GridBagConstraints();
 		gbc_tfpSwName.fill = GridBagConstraints.HORIZONTAL;
@@ -54,7 +51,7 @@ public class ContentSale extends JPanel {
 		gbc_tfpSwName.gridy = 1;
 		add(tfpSwName, gbc_tfpSwName);
 		
-		TextFiledPanel tfpSaleAmount = new TextFiledPanel();
+		tfpSaleAmount = new TextFiledPanel();
 		tfpSaleAmount.setTitle("주문수량");
 		GridBagConstraints gbc_tfpSaleAmount = new GridBagConstraints();
 		gbc_tfpSaleAmount.fill = GridBagConstraints.HORIZONTAL;
@@ -63,7 +60,7 @@ public class ContentSale extends JPanel {
 		gbc_tfpSaleAmount.gridy = 2;
 		add(tfpSaleAmount, gbc_tfpSaleAmount);
 		
-		ComboPanel tfpClntName = new ComboPanel();
+		tfpClntName = new ComboPanel();
 		tfpClntName.setTitle("고객상호명");
 		GridBagConstraints gbc_tfpClntName = new GridBagConstraints();
 		gbc_tfpClntName.insets = new Insets(0, 0, 0, 0);
@@ -72,7 +69,7 @@ public class ContentSale extends JPanel {
 		gbc_tfpClntName.gridy = 2;
 		add(tfpClntName, gbc_tfpClntName);
 		
-		TextFiledPanel tfpOrderDate = new TextFiledPanel();
+		tfpOrderDate = new TextFiledPanel();
 		tfpOrderDate.setTitle("주문일자");
 		GridBagConstraints gbc_tfpOrderDate = new GridBagConstraints();
 		gbc_tfpOrderDate.fill = GridBagConstraints.HORIZONTAL;
@@ -81,7 +78,7 @@ public class ContentSale extends JPanel {
 		gbc_tfpOrderDate.gridy = 3;
 		add(tfpOrderDate, gbc_tfpOrderDate);
 		
-		CheckBoxPanel tfpIsExist = new CheckBoxPanel();
+		tfpIsExist = new CheckBoxPanel();
 		tfpIsExist.setTitle("입금여부");
 		GridBagConstraints gbc_tfpIsExist = new GridBagConstraints();
 		gbc_tfpIsExist.insets = new Insets(0, 0, 0, 0);
@@ -89,5 +86,27 @@ public class ContentSale extends JPanel {
 		gbc_tfpIsExist.gridx = 1;
 		gbc_tfpIsExist.gridy = 3;
 		add(tfpIsExist, gbc_tfpIsExist);
+	}
+	
+	public void initSetting(){ //코드 자동세팅 다른필드 초기화
+		List<Sale> list =SaleService.getInstance().selectSaleByAll();
+		tfpSaleCode.setTfValue(String.format("CL%03d", list.size()+1));
+		tfpSwName.setSelectedItem(0);
+		tfpSaleAmount.setTfValue("");
+		tfpClntName.setSelectedItem(0);
+		tfpOrderDate.setTfValue("");
+		tfpSaleAmount.requestFocus();
+	}
+	
+	public boolean isEmptyCheck(){ // 빈공간체크
+		for(Component c: getComponents()){
+			if(c instanceof TextFiledPanel){
+				TextFiledPanel tfp= (TextFiledPanel) c;
+				if(tfp.isEmptyCheck()){
+					return true;
+				}
+			}
+		}return false;
+		
 	}
 }

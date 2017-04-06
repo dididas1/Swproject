@@ -15,9 +15,30 @@ public class Sale {
 	private int salePrice;
 	private boolean saleIsExist;
 	private SaleDetail saleDetail;
+	
+	
+	
+	public Sale(String saleCode, Client client, Software software, int saleAmount, boolean isDeposit, Date orderDate,
+			int supplyPrice, int salePrice, boolean saleIsExist, SaleDetail saleDetail) {
+		super();
+		this.saleCode = saleCode;
+		this.client = client;
+		this.software = software;
+		this.saleAmount = saleAmount;
+		this.isDeposit = isDeposit;
+		this.orderDate = orderDate;
+		this.supplyPrice = supplyPrice;
+		this.salePrice = salePrice;
+		this.saleIsExist = saleIsExist;
+		this.saleDetail = saleDetail;
+	}
+	
+	
+
 	public String getSaleCode() {
 		return saleCode;
 	}
+	
 	public void setSaleCode(String saleCode) {
 		this.saleCode = saleCode;
 	}
@@ -81,6 +102,7 @@ public class Sale {
 				saleCode, client, software, saleAmount, isDeposit, orderDate, supplyPrice, salePrice, saleIsExist,
 				saleDetail);
 	}
+	
 
 	
 }

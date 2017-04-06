@@ -39,7 +39,8 @@
 	
 	<!-- insert item -->
 	<insert id="insetClntItem" parameterType="Client">
-		INSERT INTO client(clnt_code,clnt_name,clnt_tel,clnt_addr,clnt_isExist) VALUES (#{clntCode},#{clntName},#{clntTel},#{clntAddr},true)
+		INSERT INTO client(clnt_code,clnt_name,clnt_tel,clnt_addr,clnt_isExist) 
+		VALUES (#{clntCode},#{clntName},#{clntTel},#{clntAddr},true)
 	</insert>
 	
 	<!-- update item -->

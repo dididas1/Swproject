@@ -14,7 +14,6 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import erp_myframework.TextFiledPanel;
-import kr.or.dgit.sw_project.dto.Address;
 import kr.or.dgit.sw_project.dto.Client;
 import kr.or.dgit.sw_project.service.ClientService;
 
@@ -48,7 +47,7 @@ public class ContentClient extends JPanel {
 		
 		tfpClientCode = new TextFiledPanel();
 		tfpClientCode.setTitle("고객사 번호");
-		tfpClientCode.gettF().setEditable(false);
+		tfpClientCode.getTf().setEditable(false);
 		GridBagConstraints gbc_tfpClientCode = new GridBagConstraints(); 
 		gbc_tfpClientCode.fill = GridBagConstraints.HORIZONTAL; 
 		gbc_tfpClientCode.insets = new Insets(0, 0, 5, 5);
@@ -113,10 +112,10 @@ public class ContentClient extends JPanel {
 		tfpClientName.requestFocus();
 	}
 	public Client getObject(){ //text필드 값받아옴 address수정필요
-		String clntCode = tfpClientCode.getTfValue();
-		String clntName = tfpClientName.getTfValue();
-		String clntAddr = tfpClientAddr.getTfValue();
-		String clntTel = tfpCleintTel.getTfValue();
+		String clntCode = tfpClientCode.getTfvalue();
+		String clntName = tfpClientName.getTfvalue();
+		String clntAddr = tfpClientAddr.getTfvalue();
+		String clntTel = tfpCleintTel.getTfvalue();
 		return new Client(clntCode, clntName,clntAddr, clntTel);
 	}
 	
@@ -131,7 +130,7 @@ public class ContentClient extends JPanel {
 		for(Component c: getComponents()){
 			if(c instanceof TextFiledPanel){
 				TextFiledPanel tfp= (TextFiledPanel) c;
-				if(tfp.isEmpty()){
+				if(tfp.isEmptyCheck()){
 					return true;
 				}
 			}

@@ -90,6 +90,7 @@ public class ViewSupplyCompany extends JFrame implements ActionListener{
 		pButton.add(btnInsert, gbc_btnInsert);
 
 		btnCancle = new JButton("취소");
+		btnCancle.addActionListener(this);
 		GridBagConstraints gbc_btnCancle = new GridBagConstraints();
 		gbc_btnCancle.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnCancle.insets = new Insets(0, 0, 0, 0);
@@ -161,6 +162,9 @@ public class ViewSupplyCompany extends JFrame implements ActionListener{
 					pContent.initSetting();
 				}else{
 					JOptionPane.showMessageDialog(null, "취소되었습니다");
+					pContent.initSetting();
+					btnInsert.setText("입력");
+					btnDelete.setEnabled(false);
 				}
 			}
 
@@ -174,6 +178,8 @@ public class ViewSupplyCompany extends JFrame implements ActionListener{
 				pContent.initSetting();
 			}else{
 				JOptionPane.showMessageDialog(null, "취소되었습니다");
+				btnInsert.setText("입력");
+				btnDelete.setEnabled(false);
 			}
 
 
@@ -202,6 +208,8 @@ public class ViewSupplyCompany extends JFrame implements ActionListener{
 	}
 	protected void btnCancleActionPerformed(ActionEvent e) { //취소버튼
 		pContent.initSetting();
+		btnInsert.setText("입력");
+		btnDelete.setEnabled(false);
 	}
 
 

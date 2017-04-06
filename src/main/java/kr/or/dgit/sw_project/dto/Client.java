@@ -111,4 +111,8 @@ public class Client {
 	public Object[] toArray(){
 		return new Object[]{clntCode,clntName,clntTel,clntAddr};
 	}
+	
+	public String toCombobox(){
+		return String.format("%s %s", clntCode,clntName);
+	}
 }
