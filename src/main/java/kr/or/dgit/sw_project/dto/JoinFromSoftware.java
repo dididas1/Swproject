@@ -6,10 +6,14 @@ public class JoinFromSoftware {
 	private Software software;
 	private SupplyCompany supplyCompany;
 	private Category category;
-	private List<Delivery> delivery;
-	private List<Sale> sale;
+	private Delivery delivery;
+	private Sale sale;
 	private SaleDetail saleDetail;
 	
+	
+	public JoinFromSoftware() {
+	}
+
 	public Software getSoftware() {
 		return software;
 	}
@@ -34,22 +38,22 @@ public class JoinFromSoftware {
 		this.category = category;
 	}
 	
-	public List<Delivery> getDelivery() {
+	public Delivery getDelivery() {
 		return delivery;
 	}
-	
-	public void setDelivery(List<Delivery> delivery) {
+
+	public void setDelivery(Delivery delivery) {
 		this.delivery = delivery;
 	}
-	
-	public List<Sale> getSale() {
+
+	public Sale getSale() {
 		return sale;
 	}
-	
-	public void setSale(List<Sale> sale) {
+
+	public void setSale(Sale sale) {
 		this.sale = sale;
 	}
-	
+
 	public SaleDetail getSaleDetail() {
 		return saleDetail;
 	}
@@ -62,5 +66,14 @@ public class JoinFromSoftware {
 	public String toString() {
 		return String.format("%s, %s, %s, %s, %s, %s",
 			software, supplyCompany, category, delivery, sale, saleDetail);
+	}
+	public Object[] toSoftReport() {
+		return new Object[]{sale.getSaleCode(),software.getSwName(), category.getGroupName(), supplyCompany.getCompName(),  
+				String.format("%,d", saleDetail.getTotalSupplyPrice()),String.format("%,d", saleDetail.getTotalSalePrice()),String.format("%,d", saleDetail.getMargin())};
+	}
+	
+	public Object[] toClntReport() {
+		return new Object[]{sale.getClient().getClntName(),software.getSwName(), sale.getSaleAmount(), sale.isDeposit(),  
+				String.format("%,d", sale.getSalePrice()),String.format("%,d", saleDetail.getTotalSalePrice()),String.format("%,d", saleDetail.getReceivablePrice())};
 	}
 }

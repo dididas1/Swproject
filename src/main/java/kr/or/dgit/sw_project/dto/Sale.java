@@ -18,6 +18,12 @@ public class Sale {
 	
 	
 	
+	
+	public Sale() {
+	}
+
+
+
 	public Sale(String saleCode, Client client, Software software, int saleAmount, boolean isDeposit, Date orderDate,
 			int supplyPrice, int salePrice, boolean saleIsExist, SaleDetail saleDetail) {
 		super();

@@ -5,14 +5,19 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.List;
 import java.util.Vector;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 
 import erp_myframework.ComboPanel;
+import javafx.scene.control.ComboBox;
 import javafx.scene.input.ScrollEvent.VerticalTextScrollUnits;
 import kr.or.dgit.sw_project.dto.Category;
 import kr.or.dgit.sw_project.dto.Client;
@@ -21,7 +26,7 @@ import kr.or.dgit.sw_project.service.CategoryService;
 import kr.or.dgit.sw_project.service.ClientService;
 import kr.or.dgit.sw_project.service.SoftwareService;
 
-public class ContentList extends JPanel implements ActionListener{
+public class ContentList extends JPanel {
 	private JButton btnGroupAllFind;
 	private JButton btnSwAllFind;
 	private JButton btnClntAllFind;
@@ -37,13 +42,7 @@ public class ContentList extends JPanel implements ActionListener{
 		setLayout(gridBagLayout);
 		
 		ComboPanel<String> tfpSwName = new ComboPanel();
-		List<Software> list= SoftwareService.getInstance().selectSoftwareByAll();
-		Vector<String> comboitemsw = new Vector<>();
-		comboitemsw.add("선택해주세요");
-		for(int i=0;i<list.size();i++){
-				comboitemsw.add(list.get(i).toCombobox());
-		}
-		tfpSwName.setComboData(comboitemsw);
+		List<Software> list=  SoftwareService.getInstance().selectSoftwareByAll();
 		tfpSwName.setTitle("품목명");
 	
 		GridBagConstraints gbc_tfpSwName = new GridBagConstraints();
@@ -54,14 +53,13 @@ public class ContentList extends JPanel implements ActionListener{
 		add(tfpSwName, gbc_tfpSwName);
 		
 		btnSwAllFind = new JButton("전체");
-		btnSwAllFind.addActionListener(this);
 		GridBagConstraints gbc_btnSwAllFind = new GridBagConstraints();
 		gbc_btnSwAllFind.insets = new Insets(0, 0, 0, 0);
 		gbc_btnSwAllFind.gridx = 2;
 		gbc_btnSwAllFind.gridy = 1;
 		add(btnSwAllFind, gbc_btnSwAllFind);
 		
-
+		
 		ComboPanel<String> tfpClntName = new ComboPanel();
 		tfpClntName.setTitle("고객상호");
 		List<Client> listCl= ClientService.getInstance().selectClientByAll();
@@ -79,7 +77,6 @@ public class ContentList extends JPanel implements ActionListener{
 		add(tfpClntName, gbc_tfpClntName);
 		
 		btnClntAllFind = new JButton("전체");
-		btnClntAllFind.addActionListener(this);
 		GridBagConstraints gbc_btnClntAllFind = new GridBagConstraints();
 		gbc_btnClntAllFind.insets = new Insets(0, 0, 0, 0);
 		gbc_btnClntAllFind.gridx = 2;
@@ -110,29 +107,28 @@ public class ContentList extends JPanel implements ActionListener{
 		add(btnGroupAllFind, gbc_btnGroupAllFind);
 	}
 	
-	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == btnClntAllFind) {
-			actionPerformedBtnClntAllFind(e);
-		}
-		if (e.getSource() == btnSwAllFind) {
-			btnSwAllFindActionPerformed(e);
-		}
-	}
 	
-	public Vector<String> setComboData(List<Object> items){
-		Vector<String> datas= new Vector<>();
-		for(int i=0;i<items.size();i++){
-			datas.add(items.get(i).toString());
+
+
+	public JButton getBtnGroupAllFind() {
+		return btnGroupAllFind;
 	}
-		return datas;
-}
+
+
+
+	public JButton getBtnSwAllFind() {
+		return btnSwAllFind;
+	}
+
+
+
+	public JButton getBtnClntAllFind() {
+		return btnClntAllFind;
+	}
+
+
 
 	
 	
 	
-	protected void btnSwAllFindActionPerformed(ActionEvent e) {
-		
-	}
-	protected void actionPerformedBtnClntAllFind(ActionEvent e) {
-	}
 }

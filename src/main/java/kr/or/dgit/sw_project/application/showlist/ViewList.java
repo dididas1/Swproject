@@ -4,13 +4,14 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-public class ViewList extends JPanel{
+public class ViewList extends JPanel {
 	private ContentList pContent;
 	private TableList pTable;
 
@@ -49,7 +50,10 @@ public class ViewList extends JPanel{
 		gbc_pTable.gridx = 0;
 		gbc_pTable.gridy = 2;
 		add(pTable, gbc_pTable);
+	
 	}
+
+	
 	
 	
 

@@ -1,6 +1,6 @@
 DROP DATABASE erp;
 CREATE DATABASE erp;
-USE erp;
+USE sw_project;
 
 -- 거래회사
 -- clnt_code, clnt_name, clnt_addr, clnt_tel, clnt_isExist
@@ -164,8 +164,10 @@ INSERT INTO delivery(del_code, comp_code, sw_code, supply_price, supply_amount, 
 
 -- 거래내역 샘플데이터 입력
 INSERT INTO sale(sale_code, clnt_code, sw_code, sale_amount, 
-				isdeposit, order_date, supply_price, sale_price, sale_isExist) VALUES  
-	("SL001","CL001","SW001",25, TRUE, "2009-12-13", 25000  , 40000,   TRUE),
+				isdeposit, order_date, supply_price, sale_price, sale_isExist) VALUES  ("SL013","CL002","SW002",100,TRUE, "2010-10-04", 50000  , 60000 ,  TRUE);
+				
+				
+	/*("SL001","CL001","SW001",25, TRUE, "2009-12-13", 25000  , 40000,   TRUE),
 	("SL002","CL003","SW002",25, TRUE, "2010-09-13", 30000  , 48000,   FALSE),
 	("SL003","CL002","SW003",20, TRUE, "2010-09-11", 27000  , 40500,   FALSE),
 	("SL004","CL001","SW004",25, TRUE, "2010-10-02", 32000  , 48000,   FALSE),
@@ -176,9 +178,9 @@ INSERT INTO sale(sale_code, clnt_code, sw_code, sale_amount,
 	("SL009","CL006","SW009",2,  TRUE, "2010-10-04", 32000  , 48000,   FALSE),
 	("SL010","CL004","SW010",320,TRUE, "2010-10-04", 980000 , 1519000, FALSE),
 	("SL011","CL004","SW001",100,TRUE, "2010-10-04", 25000  , 40000,   TRUE),
-	("SL012","CL001","SW001",100,TRUE, "2010-10-04", 25000  , 40000,   TRUE),
-	("SL013","CL002","SW002",100,TRUE, "2010-10-04", 50000  , 60000 ,  TRUE)
-	;
+	("SL012","CL001","SW001",100,TRUE, "2010-10-04", 25000  , 40000,   TRUE),*/
+	
+
 
 SELECT * FROM client;
 SELECT * FROM sale;

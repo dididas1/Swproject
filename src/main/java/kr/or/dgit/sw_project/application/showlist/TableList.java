@@ -9,7 +9,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import kr.or.dgit.sw_project.dto.JoinFromSoftware;
 import kr.or.dgit.sw_project.dto.Sale;
+import kr.or.dgit.sw_project.service.JoinFromSoftwareService;
 import kr.or.dgit.sw_project.service.SaleService;
 
 public class TableList extends JPanel{
@@ -30,20 +32,26 @@ public class TableList extends JPanel{
 		scrollPane.setViewportView(table);
 		
 	}	
-	/*public void setTableData(){
-		table.setModel(new DefaultTableModel(getRowdata(), getColumm()));
-	}*/
+	public void setTableData(int s){
+		table.setModel(new DefaultTableModel(getRowdata(s), getColumm()));
+	}
 	
 	public Object[] getColumm() {
-		return new String[]{"고객상호명","품목명","주문수량","입금여부","단가","매출금","미수금"};
+		return new String[]{"판매코드","품목명 ","분류 ","공급회사명 ","공급금액 ","판매금액 ","판매이윤"};
 		
 	}
-	/*public Object[][] getRowdata() {
-		List<Sale> list= SaleService.getInstence().clientSoftwareReport();
+	public Object[][] getRowdata(int s) {
+		List<JoinFromSoftware> list= JoinFromSoftwareService.getInstance().selectJoinFromSoftwareByAll();
 		Object[][] datas= new Object[list.size()][];
 		for(int i=0;i<datas.length;i++){
-			datas[i]=list.get(i);
+			if(s==1){
+				datas[i]=list.get(i).toClntReport();
+			}else if(s==2){
+				datas[i]=list.get(i).toSoftReport();
+			}
 		}
 		return datas;
-	}*/
+	}
+	
+
 }
