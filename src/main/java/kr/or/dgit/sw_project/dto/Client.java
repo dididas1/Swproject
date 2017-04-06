@@ -11,20 +11,11 @@ public class Client {
 	private boolean clntIsExist;
 	private List<Sale> sale;
 	
-	
 	public Client() {}
-
-	
 
 	public Client(String clntCode) {
 		this.clntCode = clntCode;
 	}
-
-
-
-	
-
-	
 
 	public Client(String clntCode, String clntName, String clntAddr, String clntTel) {
 		this.clntCode = clntCode;
@@ -33,82 +24,55 @@ public class Client {
 		this.clntTel = clntTel;
 	}
 
-	
-
-
 	public String getClntCode() {
 		return clntCode;
 	}
-
-
 
 	public void setClntCode(String clntCode) {
 		this.clntCode = clntCode;
 	}
 
-
-
 	public String getClntName() {
 		return clntName;
 	}
-
-
 
 	public void setClntName(String clntName) {
 		this.clntName = clntName;
 	}
 
-
-
 	public String getClntAddr() {
 		return clntAddr;
 	}
-
-
 
 	public void setClntAddr(String clntAddr) {
 		this.clntAddr = clntAddr;
 	}
 
-
-
 	public String getClntTel() {
 		return clntTel;
 	}
-
-
 
 	public void setClntTel(String clntTel) {
 		this.clntTel = clntTel;
 	}
 
-
-
 	public boolean isClntIsExist() {
 		return clntIsExist;
 	}
-
-
 
 	public void setClntIsExist(boolean clntIsExist) {
 		this.clntIsExist = clntIsExist;
 	}
 
-
-
 	public List<Sale> getSale() {
 		return sale;
 	}
-
-
 
 	public void setSale(List<Sale> sale) {
 		this.sale = sale;
 	}
 
-
-
-	public Object[] toArray(){
+	public Object[] toArrayForTable(){
 		return new Object[]{clntCode,clntName,clntTel,clntAddr};
 	}
 }

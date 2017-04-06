@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.border.EmptyBorder;
 
+import kr.or.dgit.sw_project.application.client.ViewClient;
 import kr.or.dgit.sw_project.application.delivery.ViewDelivery;
 import kr.or.dgit.sw_project.application.sales.ViewSale;
 import kr.or.dgit.sw_project.application.showlist.ViewList;
@@ -100,13 +101,16 @@ public class MainTab extends JFrame implements ActionListener {
 			actionPerformedBtnSupplyComp(e);
 		}
 	}
+	
 	protected void actionPerformedBtnSupplyComp(ActionEvent e) {
 		ViewSupplyCompany viewSupplyCompany = new ViewSupplyCompany(); 
 	}
+	
 	protected void actionPerformedBtnSoftWare(ActionEvent e) {
 		ViewSoftware viewSoftware = new ViewSoftware();
 	}
 	
 	protected void actionPerformedBtnClient(ActionEvent e) {
+		ViewClient viewclient = new ViewClient();
 	}
 }

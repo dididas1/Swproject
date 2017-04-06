@@ -12,11 +12,9 @@ import kr.or.dgit.sw_project.dto.Client;
 import kr.or.dgit.sw_project.service.ClientService;
 
 public class TableClient extends JPanel {
-	private static final TableClient instence = new TableClient();
-	public static TableClient getInstence() {
-		return instence;
-	}
 	private JTable table;
+	private List<Client> list;
+	
 	public TableClient() {
 		setLayout(new BorderLayout(0, 0));
 		
@@ -27,28 +25,41 @@ public class TableClient extends JPanel {
 		scrollPane.setViewportView(table);
 	}	
 	
+	/*************************** load Table ***************************/  
+	public void setTableData(){ //테이블 데이터입력
+		table.setModel(new DefaultTableModel(getRowDate(), getColumm()));
+	}
+	
+	private Object[] getColumm() { //컬럼입력
+		return new String[]{"고객사 코드","고객사 이름","고객사 전화번호","고객사 주소"};
+	}
+
+	private Object[][] getRowDate() { //테이블 로우값입력 isExist가 ture인 항목에대해서만 값받아옴
+		List<Client> listForTable = list;
+		for (int i = listForTable.size()-1; i >= 0; i--) {
+			if (!listForTable.get(i).isClntIsExist()) {
+				listForTable.remove(i);
+			}
+		}
+		
+		Object[][] datas = new Object[listForTable.size()][];
+		for (int i = 0; i < datas.length; i++) {
+			datas[i] = listForTable.get(i).toArrayForTable();
+		}
+		return datas;
+	}
+
+	/*****************************************************************/
+	
 	public JTable getTable() {
 		return table;
 	}
+	
+	public void setList(List<Client> list) {
+		this.list = list;
+	}
 
-	public void setTableData(){  //테이블 데이터입력
-		table.setModel(new DefaultTableModel(getRowdata(), getColumm()));
-	}
-	
-	public Object[] getColumm() { //컬럼입력
-		return new String[]{"고객사코드","고객사이름","고객사전화번호","고객사주소"};
-	}
-	
-	public Object[][] getRowdata() { //테이블 로우값입력 isExist가 ture인 항목에대해서만 값받아옴
-		List<Client> list= ClientService.getInstance().selectClientByAll();
-		Object[][] datas= new Object[list.size()][];
-		int index= 0;
-		for(int i=0;i<datas.length;i++){
-			if(list.get(i).isClntIsExist()){
-				datas[index]=list.get(i).toArray();
-				index++;
-			}
-		}
-		return datas;
+	public List<Client> getList(){
+		return list;
 	}
 }
