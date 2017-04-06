@@ -29,12 +29,12 @@ dependencies {
 }
 
 jar{
-	mainClassName='kr.or.dgit.sw_project.Main'
-	baseName='Main'
+	mainClassName='kr.or.dgit.sw_project.MainApp'
+	baseName='SoftWare Management'
 	appendix='bin'
 	version =1.0
 	manifest{
-		attributes 'Title':baseName , 'Version': version, 'Main-Class': mainClassName
+		attributes 'Title':baseName, 'Version': version, 'Main-Class': mainClassName
 	}
 	dependsOn configurations.runtime
 }

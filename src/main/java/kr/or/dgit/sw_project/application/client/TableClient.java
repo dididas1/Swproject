@@ -12,9 +12,7 @@ import kr.or.dgit.sw_project.dto.Client;
 import kr.or.dgit.sw_project.service.ClientService;
 
 public class TableClient extends JPanel {
-	private static final TableClient instence= new TableClient();
-	
-	
+	private static final TableClient instence = new TableClient();
 	public static TableClient getInstence() {
 		return instence;
 	}
@@ -27,17 +25,11 @@ public class TableClient extends JPanel {
 		
 		table = new JTable();
 		scrollPane.setViewportView(table);
-		
-		
 	}	
 	
-	
-
 	public JTable getTable() {
 		return table;
 	}
-
-
 
 	public void setTableData(){  //테이블 데이터입력
 		table.setModel(new DefaultTableModel(getRowdata(), getColumm()));
@@ -45,8 +37,8 @@ public class TableClient extends JPanel {
 	
 	public Object[] getColumm() { //컬럼입력
 		return new String[]{"고객사코드","고객사이름","고객사전화번호","고객사주소"};
-		
 	}
+	
 	public Object[][] getRowdata() { //테이블 로우값입력 isExist가 ture인 항목에대해서만 값받아옴
 		List<Client> list= ClientService.getInstance().selectClientByAll();
 		Object[][] datas= new Object[list.size()][];

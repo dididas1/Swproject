@@ -11,14 +11,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
-import javax.swing.JTree;
 import javax.swing.border.EmptyBorder;
-import javax.swing.event.TreeSelectionEvent;
-import javax.swing.event.TreeSelectionListener;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeModel;
 
-import kr.or.dgit.sw_project.application.client.ViewClient;
 import kr.or.dgit.sw_project.application.delivery.ViewDelivery;
 import kr.or.dgit.sw_project.application.sales.ViewSale;
 import kr.or.dgit.sw_project.application.showlist.ViewList;
@@ -31,13 +25,6 @@ public class MainTab extends JFrame implements ActionListener {
 	private JButton btnSupplyComp;
 	private JButton btnSoftWare;
 	private JButton btnClient;
-	private JMenuItem mnSale;
-	private JMenuItem mnDel;
-	private JPanel pButton;
-	private JMenuItem mnClnt;
-	private JButton btnChart;
-	private JButton btnReport;
-	private JMenuItem mnSup;
 
 	public MainTab() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -61,32 +48,6 @@ public class MainTab extends JFrame implements ActionListener {
 		JMenuItem mntmExit = new JMenuItem("종료");
 		mnFile.add(mntmExit);
 		
-		JMenu mnCustomMenu = new JMenu("Window");
-		menuBar.add(mnCustomMenu);
-		
-		JMenu mnCustom = new JMenu("ShowButton");
-		mnCustomMenu.add(mnCustom);
-		
-		mnSale = new JMenuItem("주문관리");
-		mnSale.addActionListener(this);
-		
-		
-		mnSup = new JMenuItem("공급회사관리");
-		mnSup.addActionListener(this);
-		mnCustom.add(mnSup);
-		mnCustom.add(mnSale);
-		
-		mnDel = new JMenuItem("납품관리");
-		mnCustom.add(mnDel);
-		
-		JMenuItem mnSw = new JMenuItem("소프트웨어 관리");
-		mnCustom.add(mnSw);
-		
-		
-		mnClnt = new JMenuItem("고객사관리");
-		mnClnt.addActionListener(this);
-		mnCustom.add(mnClnt);
-		
 		JMenu mnHelp = new JMenu("도움말");
 		menuBar.add(mnHelp);
 		
@@ -102,14 +63,10 @@ public class MainTab extends JFrame implements ActionListener {
 		
 		tabbedPane.add("주문 관리",new ViewSale());
 		tabbedPane.add("납품 관리",new ViewDelivery());
-		tabbedPane.add("거래내역 확인",new ViewList());
+		tabbedPane.add("거래내역 조회",new ViewList());
 		
-		pButton = new JPanel();
+		JPanel pButton = new JPanel();
 		contentPane.add(pButton, BorderLayout.NORTH);
-		
-		JPanel panel = new JPanel();
-		contentPane.add(panel, BorderLayout.WEST);
-		panel.setLayout(new BorderLayout(0, 0));
 		
 		btnSupplyComp = new JButton("공급사 관리");
 		btnSupplyComp.addActionListener(this);
@@ -123,23 +80,16 @@ public class MainTab extends JFrame implements ActionListener {
 		btnClient.addActionListener(this);
 		pButton.add(btnClient);
 		
-		btnChart = new JButton("통계차트");
+		JButton btnChart = new JButton("통계차트");
+		pButton.add(btnChart);
 		
-		btnReport = new JButton("보고서");
+		JButton btnReport = new JButton("보고서");
+		pButton.add(btnReport);
 		
 		setVisible(true);
 	}
 	
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == mnSup) {
-			actionPerformedMnSup(e);
-		}
-		if (e.getSource() == mnClnt) {
-			actionPerformedMnClnt(e);
-		}
-		if (e.getSource() == mnSale) {
-			actionPerformedMnSale(e);
-		}
 		if (e.getSource() == btnClient) {
 			actionPerformedBtnClient(e);
 		}
@@ -158,38 +108,5 @@ public class MainTab extends JFrame implements ActionListener {
 	}
 	
 	protected void actionPerformedBtnClient(ActionEvent e) {
-		ViewClient viewclient = new ViewClient();
-	
 	}
-	protected void actionPerformedMnSale(ActionEvent e) {
-	
-		
-	}
-	protected void actionPerformedMnClnt(ActionEvent e) {
-		if(e.getActionCommand().equals("고객사관리")){
-			mnClnt.setText("고객사관리"+" V ");
-			pButton.add(btnClient);
-			pButton.revalidate();
-			pButton.repaint();
-		}else{
-			mnClnt.setText("고객사관리");
-			pButton.remove(btnClient);
-			pButton.revalidate();
-			pButton.repaint();
-			
-		}
-	}
-	protected void actionPerformedMnSup(ActionEvent e) {
-		if(e.getActionCommand().equals("공급회사관리")){
-			mnSup.setText("공급회사관리"+" V ");
-			pButton.add(btnSupplyComp);
-			pButton.revalidate();
-			pButton.repaint();
-		}else{
-			mnSup.setText("공급회사관리");
-			pButton.remove(btnSupplyComp);
-			pButton.revalidate();
-			pButton.repaint();
-	}
-}
 }

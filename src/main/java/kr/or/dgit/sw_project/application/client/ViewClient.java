@@ -26,6 +26,7 @@ public class ViewClient extends JFrame implements ActionListener {
 	private JButton btnDelete;
 	private ContentClient pContent;
 	private TableClient pTable;
+	
 	public ViewClient() {
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setBounds(100, 100, 450, 500);
@@ -98,7 +99,6 @@ public class ViewClient extends JFrame implements ActionListener {
 		gbc_pTable.gridy = 2;
 		getContentPane().add(pTable, gbc_pTable);
 		pTable.getTable().addMouseListener(new MouseAdapter() {
-
 			@Override
 			public void mouseClicked(MouseEvent e) { //테이블 클릭시 작동
 				Client cl = getClntDataObject();
@@ -107,10 +107,8 @@ public class ViewClient extends JFrame implements ActionListener {
 				btnInsert.setText("수정");
 				super.mouseClicked(e);
 			}
-
 		});
 		pTable.setTableData();
-
 
 		setVisible(true);
 	}
@@ -126,7 +124,8 @@ public class ViewClient extends JFrame implements ActionListener {
 			btnInsertActionPerformed(e);
 		}
 	}
-	protected void btnInsertActionPerformed(ActionEvent e) { //입력  수정 테이블 인덱스 클릭시 수정으로 변함
+	
+	protected void btnInsertActionPerformed(ActionEvent e) { //입력 수정 테이블 인덱스 클릭시 수정으로 변함
 		if(e.getActionCommand().equals("입력")){
 			if(pContent.isEmptyCheck()){
 				JOptionPane.showMessageDialog(null, "공란이 있습니다");
@@ -142,8 +141,6 @@ public class ViewClient extends JFrame implements ActionListener {
 					JOptionPane.showMessageDialog(null, "취소되었습니다");
 				}
 			}
-
-
 		}else if(e.getActionCommand().equals("수정")){ //수정으로 변경
 			int ok=JOptionPane.showConfirmDialog(null, "수정하시겠습니까?");
 			if(ok==0){
@@ -154,10 +151,7 @@ public class ViewClient extends JFrame implements ActionListener {
 			}else{
 				JOptionPane.showMessageDialog(null, "취소되었습니다");
 			}
-
-
 		}
-
 	}
 
 	public Client getClntDataObject() { //클릭된 인덱스의 코드를 받아와 클라이언트 넘버검색후 리턴
@@ -167,7 +161,6 @@ public class ViewClient extends JFrame implements ActionListener {
 		Client cl = ClientService.getInstance().selectByNoClnt(new Client(no));
 		return cl;
 	}
-
 
 	protected void btnDeleteActionPerformed(ActionEvent e) { //삭제구현
 		int ok=JOptionPane.showConfirmDialog(null, "삭제하겠습니까?");
@@ -179,6 +172,7 @@ public class ViewClient extends JFrame implements ActionListener {
 			JOptionPane.showMessageDialog(null, "취소되었습니다");
 		}
 	}
+	
 	protected void btnCancleActionPerformed(ActionEvent e) { //취소버튼
 		pContent.initSetting();
 	}

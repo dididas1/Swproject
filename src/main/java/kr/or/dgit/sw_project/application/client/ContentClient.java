@@ -26,6 +26,7 @@ public class ContentClient extends JPanel {
 	private TextFiledPanel tfpClientAddr;
 	private JButton button;
 	private TextFiledPanel tfadr;
+	
 	public ContentClient() {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] {300, 50, 50};
@@ -56,7 +57,6 @@ public class ContentClient extends JPanel {
 		gbc_tfpClientCode.gridy = 1;
 		add(tfpClientCode, gbc_tfpClientCode);
 		
-		
 		tfpClientName = new TextFiledPanel();
 		tfpClientName.setTitle("고객사 이름");
 		GridBagConstraints gbc_tfpClientName = new GridBagConstraints();
@@ -65,7 +65,6 @@ public class ContentClient extends JPanel {
 		gbc_tfpClientName.gridx = 0;
 		gbc_tfpClientName.gridy = 2;
 		add(tfpClientName, gbc_tfpClientName);
-		
 		
 		tfpCleintTel = new TextFiledPanel();
 		tfpCleintTel.setTitle("  전 화 번 호");
@@ -101,9 +100,8 @@ public class ContentClient extends JPanel {
 		gbc_tfadr.gridy = 5;
 		add(tfadr, gbc_tfadr);
 		initSetting();
-		
-		
 	}
+	
 	public void initSetting(){ //코드 자동세팅 다른필드 초기화
 		List<Client> list =ClientService.getInstance().selectClientByAll();
 		tfpClientCode.setTfValue(String.format("CL%03d", list.size()+1));
@@ -112,6 +110,7 @@ public class ContentClient extends JPanel {
 		tfpCleintTel.setTfValue("");
 		tfpClientName.requestFocus();
 	}
+	
 	public Client getObject(){ //text필드 값받아옴 address수정필요
 		String clntCode = tfpClientCode.getTfValue();
 		String clntName = tfpClientName.getTfValue();
@@ -136,8 +135,5 @@ public class ContentClient extends JPanel {
 				}
 			}
 		}return false;
-		
 	}
-	
-	
 }
