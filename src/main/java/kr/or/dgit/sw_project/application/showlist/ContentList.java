@@ -5,18 +5,15 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
-import javax.swing.plaf.multi.MultiSeparatorUI;
 
 import erp_myframework.ComboPanel;
+import javafx.scene.input.ScrollEvent.VerticalTextScrollUnits;
 import kr.or.dgit.sw_project.dto.Category;
 import kr.or.dgit.sw_project.dto.Client;
 import kr.or.dgit.sw_project.dto.Software;
@@ -44,9 +41,7 @@ public class ContentList extends JPanel implements ActionListener{
 		Vector<String> comboitemsw = new Vector<>();
 		comboitemsw.add("선택해주세요");
 		for(int i=0;i<list.size();i++){
-			if(list.get(i).isSwIsSale()){
 				comboitemsw.add(list.get(i).toCombobox());
-			}
 		}
 		tfpSwName.setComboData(comboitemsw);
 		tfpSwName.setTitle("품목명");
@@ -73,9 +68,7 @@ public class ContentList extends JPanel implements ActionListener{
 		Vector<String> comboitemCl = new Vector<>();
 		comboitemCl.add("선택해주세요");
 		for(int i=0;i<listCl.size();i++){
-			if(listCl.get(i).isClntIsExist()){
 				comboitemCl.add(listCl.get(i).toCombobox());
-			}
 		}
 		tfpClntName.setComboData(comboitemCl);
 		GridBagConstraints gbc_tfpClntName = new GridBagConstraints();
@@ -126,7 +119,14 @@ public class ContentList extends JPanel implements ActionListener{
 		}
 	}
 	
-	
+	public Vector<String> setComboData(List<Object> items){
+		Vector<String> datas= new Vector<>();
+		for(int i=0;i<items.size();i++){
+			datas.add(items.get(i).toString());
+	}
+		return datas;
+}
+
 	
 	
 	

@@ -27,6 +27,7 @@
     <!-- Select By All --> 
     <select id="selectSupplyCompByAll" resultMap="SupplyCompanyResult">
     	<include refid="selectSQL" />
+    		where comp_isExist = true
     		ORDER BY comp_code;
     </select>
     

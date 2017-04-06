@@ -1,12 +1,15 @@
 package kr.or.dgit.sw_project.application.software;
 
+import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -96,6 +99,7 @@ public class ContentSoftware extends JPanel implements MouseListener {
 		lblImage.setPreferredSize(new Dimension(130, 80));
 		lblImage.setHorizontalAlignment(SwingConstants.CENTER);
 		lblImage.addMouseListener(this);
+		lblImage.setIcon(new ImageIcon("sw_project/src/main/resources/softwareimage/DGIT_Logo.png"));
 
 		GridBagConstraints gbc_lblImage = new GridBagConstraints();
 		gbc_lblImage.fill = GridBagConstraints.BOTH;

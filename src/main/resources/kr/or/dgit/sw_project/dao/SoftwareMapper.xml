@@ -32,6 +32,7 @@
     <!-- Select By All --> 
     <select id="selectSoftwareByAll" resultMap="SoftwareResult">
     	<include refid="selectSQL" />
+    	 	where sw_isSale= true
     		ORDER BY sw_code;
     </select>
     
