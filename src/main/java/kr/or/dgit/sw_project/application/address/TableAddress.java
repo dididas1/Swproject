@@ -1,4 +1,4 @@
-package kr.or.dgit.sw_project.application.client;
+package kr.or.dgit.sw_project.application.address;
 
 import java.awt.BorderLayout;
 import java.util.List;
@@ -8,14 +8,13 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import kr.or.dgit.sw_project.dto.Client;
-import kr.or.dgit.sw_project.service.ClientService;
+import kr.or.dgit.sw_project.dto.Address;
 
-public class TableClient extends JPanel {
+public class TableAddress extends JPanel {
 	private JTable table;
-	private List<Client> list;
+	private List<Address> list;
 	
-	public TableClient() {
+	public TableAddress() {
 		setLayout(new BorderLayout(0, 0));
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -31,20 +30,13 @@ public class TableClient extends JPanel {
 	}
 	
 	private Object[] getColumm() { //컬럼입력
-		return new String[]{"고객사 코드","고객사 이름","고객사 전화번호","고객사 주소"};
+		return new String[]{"우편 번호","시/도","시/군/구","건물",""};
 	}
 
-	private Object[][] getRowDate() { //테이블 로우값입력 isExist가 true인 항목에대해서만 값받아옴
-		List<Client> listForTable = list;
-		for (int i = listForTable.size()-1; i >= 0; i--) {
-			if (!listForTable.get(i).isClntIsExist()) {
-				listForTable.remove(i);
-			}
-		}
-		
-		Object[][] datas = new Object[listForTable.size()][];
+	private Object[][] getRowDate() { 
+		Object[][] datas = new Object[list.size()][];
 		for (int i = 0; i < datas.length; i++) {
-			datas[i] = listForTable.get(i).toArrayForTable();
+			datas[i] = list.get(i).toArray();
 		}
 		return datas;
 	}
@@ -55,11 +47,11 @@ public class TableClient extends JPanel {
 		return table;
 	}
 	
-	public void setList(List<Client> list) {
+	public void setList(List<Address> list) {
 		this.list = list;
 	}
 
-	public List<Client> getList(){
+	public List<Address> getList(){
 		return list;
 	}
 }

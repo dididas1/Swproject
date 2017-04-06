@@ -5,6 +5,13 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -16,13 +23,6 @@ import javax.swing.border.EmptyBorder;
 
 import kr.or.dgit.sw_project.dto.Client;
 import kr.or.dgit.sw_project.service.ClientService;
-
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.Collection;
-import java.util.List;
-import java.awt.event.ActionEvent;
 
 public class ViewClient extends JFrame implements ActionListener {
 	private JPanel contentPane;
@@ -117,16 +117,19 @@ public class ViewClient extends JFrame implements ActionListener {
 		gbc_pTable.gridx = 0;
 		gbc_pTable.gridy = 3;
 		getContentPane().add(pTable, gbc_pTable);
+		
 		pTable.getTable().addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) { //테이블 클릭시 작동
-				Object client = pTable.getTable().getValueAt(pTable.getTable().getSelectedRow(), 0);
-				System.out.println();
-				;
-				pContent.setContent(client);
-				btnDelete.setEnabled(true);
-				btnInsert.setText("수정");
+			public void mousePressed(MouseEvent e) { //테이블 클릭시 작동
+				selectedRow();
 				super.mouseClicked(e);
+			}
+		});
+		
+		pTable.getTable().addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) { //테이블 키보드 방향키 이동시 작동
+				selectedRow();
 			}
 		});
 		
@@ -135,7 +138,23 @@ public class ViewClient extends JFrame implements ActionListener {
 		pTable.setTableData();
 		setVisible(true);
 	}
-
+	
+	private void selectedRow() {
+		String selectedCode = (String) pTable.getTable().getValueAt(pTable.getTable().getSelectedRow(), 0);
+		
+		int selectedIdx = 0;
+		for(int i=0; i<list.size()-1; i++){
+			if(list.get(i).getClntCode().equals(selectedCode)){
+				selectedIdx=i;
+				break;
+			}
+		}
+		
+		Client client = list.get(selectedIdx);
+		pContent.setContent(client);
+		btnDelete.setEnabled(true);
+		btnInsert.setText("수정");
+	}
 	/*************************** actionPerformed ***************************/  
 
 	public void actionPerformed(ActionEvent e) {
@@ -198,7 +217,7 @@ public class ViewClient extends JFrame implements ActionListener {
 		list = ClientService.getInstance().selectClientByAll();
 	}
 	
-	public Client getClntDataObject() { //클릭된 인덱스의 코드를 받아 clntCode 검색후 리턴
+	/*public Client getClntDataObject() { //클릭된 인덱스의 코드를 받아 clntCode 검색후 리턴
 		int selectedidx= pTable.getTable().getSelectedRow();
 		if(selectedidx==-1)
 			return null;
@@ -206,6 +225,6 @@ public class ViewClient extends JFrame implements ActionListener {
 		String no = (String) pTable.getTable().getValueAt(selectedidx, 0);
 		Client client = ClientService.getInstance().selectByNoClnt(new Client(no));
 		return client;
-	}
+	}*/
 	/****************************************************************/
 }
