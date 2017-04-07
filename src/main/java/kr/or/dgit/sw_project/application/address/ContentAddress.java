@@ -21,7 +21,6 @@ import kr.or.dgit.sw_project.service.AddrService;
 public class ContentAddress extends JPanel {
 
 
-	private ComboPanel<String> tfpSiGunGu;
 	private ComboPanel<String> tfpSiDo;
 	private TextFieldPanel tfpDoro;
 
@@ -47,31 +46,12 @@ public class ContentAddress extends JPanel {
 		}
 		tfpSiDo.setComboData(cbSiDo);
 		tfpSiDo.setTitle("도/특별/광역시");
-		tfpSiDo.getTf().addItemListener(new ItemListener() {
-			
-			@Override
-			public void itemStateChanged(ItemEvent e) {
-				setCobobox((String) tfpSiDo.getSelectItem());
-			}
-		});;
-
 		GridBagConstraints gbc_tfpSiDo = new GridBagConstraints();
 		gbc_tfpSiDo.fill = GridBagConstraints.HORIZONTAL;
 		gbc_tfpSiDo.insets = new Insets(0, 0, 5, 5);
 		gbc_tfpSiDo.gridx = 0;
 		gbc_tfpSiDo.gridy = 1;
 		add(tfpSiDo, gbc_tfpSiDo);
-
-
-		tfpSiGunGu = new ComboPanel<>();
-		tfpSiGunGu.setTitle("시/군/구");
-		tfpSiGunGu.getTf().addItem("선택해주세요");
-		GridBagConstraints gbc_tfpSiGunGu = new GridBagConstraints();
-		gbc_tfpSiGunGu.insets = new Insets(0, 0, 5, 5);
-		gbc_tfpSiGunGu.fill = GridBagConstraints.HORIZONTAL;
-		gbc_tfpSiGunGu.gridx = 0;
-		gbc_tfpSiGunGu.gridy = 2;
-		add(tfpSiGunGu, gbc_tfpSiGunGu);
 
 		tfpDoro = new TextFieldPanel();
 		tfpDoro.setTitle("도로명");
@@ -83,13 +63,23 @@ public class ContentAddress extends JPanel {
 		add(tfpDoro, gbc_panel);
 	}
 
+
+	public ComboPanel<String> getTfpSiDo() {
+		return tfpSiDo;
+	}
+
+	public TextFieldPanel getTfpDoro() {
+		return tfpDoro;
+	}
+	
+	
 	public void clear() {
-		tfpSiGunGu.setSelectedItem(0);
 		tfpSiDo.setSelectedItem(0);
 		tfpDoro.setTfValue("");
 	}
 
-	public void setCobobox(String Comboitems){
+	// 콤보박스에서 아이템선택하면 String 값으로 가져와서 검색후 시군구 콤보박스에 add아이템  안씀 주석...
+	/*public void setCobobox(String Comboitems){
 		tfpSiGunGu.getTf().removeAllItems();
 		Vector<String> cbSiGunGu= new Vector<>();
 		List<Address> list = AddrService.getInstance().selectSigungu(new Address(Comboitems));
@@ -102,5 +92,5 @@ public class ContentAddress extends JPanel {
 		}
 		tfpSiGunGu.setComboData(cbSiGunGu);
 	}
-
+*/
 }

@@ -94,7 +94,7 @@ public class Address {
 	}
 	
 	public Object[] toArray() {
-		return new Object[]{ zipCode, sido + sigungu+ doro+  building1+ building2};
+		return new Object[]{ zipCode, sido +" "+ sigungu , doro+" "+ building1+" " + building2};
 	}
 	
 	

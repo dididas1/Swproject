@@ -23,6 +23,8 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import kr.or.dgit.sw_project.application.client.ContentClient;
+import kr.or.dgit.sw_project.application.supplycompany.ContentSupplyCompany;
 import kr.or.dgit.sw_project.dto.Address;
 import kr.or.dgit.sw_project.dto.Client;
 import kr.or.dgit.sw_project.service.AddrService;
@@ -35,6 +37,8 @@ public class ViewAddress extends JFrame implements ActionListener {
 	private JButton btnDelete;
 	private ContentAddress pContent;
 	private TableAddress pTable;
+	private ContentClient contentClient;
+	private ContentSupplyCompany contentSupplyCompany;
 	
 	private List<Address> list;
 	
@@ -112,13 +116,58 @@ public class ViewAddress extends JFrame implements ActionListener {
 		gbc_pTable.gridx = 0;
 		gbc_pTable.gridy = 3;
 		getContentPane().add(pTable, gbc_pTable);
+		pTable.getTable().addMouseListener(new MouseAdapter() {
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				//
+				if(!(contentClient==null)){
+					ClntSetAddr(getSelectedObject());
+				}
+				else if(!(contentSupplyCompany==null)){
+					CompSetAddr(getSelectedObject());
+				}
+				super.mousePressed(e);
+			}
+			
+			
+		});
 		
 		list=Collections.EMPTY_LIST;
 		pTable.setList(list);
 		pTable.setTableData();
 		setVisible(true);
 	}
-
+	
+	// 클릭된주소값넘김
+	public String[] getSelectedObject() {
+		int selectedidx= pTable.getTable().getSelectedRow();
+		if(selectedidx==-1)return null;
+		String zipcode= pTable.getTable().getValueAt(selectedidx, 1).toString();
+		String sido= pTable.getTable().getValueAt(selectedidx, 2).toString();
+		return new String[]{zipcode,sido};
+	}
+	//클라이언트 텍스트필드에 세팅
+	public void ClntSetAddr(String[] addr){
+		contentClient.getTfpClientAddr().setTfValue(addr[0]);
+		contentClient.getTfadr().setTfValue(addr[1]);
+	}
+	//공급회사 텍스트필드에 세팅
+	public void CompSetAddr(String[] addr){
+		contentSupplyCompany.getTfpSupplyCompanyAd().setTfValue(addr[0]);
+		contentSupplyCompany.getTfadr().setTfValue(addr[1]);
+	}
+	
+	//클라이언트 주소값받아옴
+	public void setClntDao(ContentClient contentClient){
+		this.contentClient= contentClient;
+	}
+	
+	//공급회사 주소값받아옴
+	public void setCompDao(ContentSupplyCompany contentSupplyCompany){
+		this.contentSupplyCompany= contentSupplyCompany;
+	}
+	
 	/*************************** actionPerformed ***************************/  
 
 	public void actionPerformed(ActionEvent e) {
@@ -132,7 +181,8 @@ public class ViewAddress extends JFrame implements ActionListener {
 	}
 
 	private void btnSearchActionPerformed(ActionEvent e) { //입력 수정 테이블 인덱스 클릭시 수정으로 변함
-		list = AddrService.getInstance().searchSido(new Address());
+		list = AddrService.getInstance().searchSido(new Address((String) pContent.getTfpSiDo().getSelectItem(),pContent.getTfpDoro().getTfValue()));
+		pTable.setList(list);
 		pTable.setTableData();
 	}
 

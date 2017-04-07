@@ -15,6 +15,7 @@ import javax.swing.border.EtchedBorder;
 
 import erp_myframework.TextFieldPanel;
 import kr.or.dgit.sw_project.application.address.ViewAddress;
+import kr.or.dgit.sw_project.dto.Address;
 import kr.or.dgit.sw_project.dto.Client;
 import kr.or.dgit.sw_project.service.ClientService;
 
@@ -26,6 +27,7 @@ public class ContentClient extends JPanel implements ActionListener {
 	private TextFieldPanel tfpClientAddr;
 	private JButton button;
 	private TextFieldPanel tfadr;
+	private ViewAddress viewaddrss = new ViewAddress();
 	
 	public ContentClient() {
 		setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
@@ -93,7 +95,29 @@ public class ContentClient extends JPanel implements ActionListener {
 		gbc_tfadr.gridy = 5;
 		add(tfadr, gbc_tfadr);
 		initSetting();
+		
 	}
+	
+	
+	
+
+
+	public TextFieldPanel getTfpClientAddr() {
+		return tfpClientAddr;
+	}
+
+
+
+
+
+	public TextFieldPanel getTfadr() {
+		return tfadr;
+	}
+
+
+
+
+
 	//???
 	public void initSetting(){ //코드 자동세팅 다른필드 초기화
 		List<Client> list = ClientService.getInstance().selectClientByAll();
@@ -114,7 +138,7 @@ public class ContentClient extends JPanel implements ActionListener {
 		tfpClientName.requestFocus();
 	}
 	
-	public Client getObject(){ //text필드 값받아옴 address수정필요
+	public Client getObject(){ 
 		String clntCode = tfpClientCode.getTfValue();
 		String clntName = tfpClientName.getTfValue();
 		String clntAddr = tfpClientAddr.getTfValue();
@@ -146,6 +170,7 @@ public class ContentClient extends JPanel implements ActionListener {
 		}
 	}
 	protected void actionPerformedButton(ActionEvent e) {
-		ViewAddress addr= new ViewAddress();
+		viewaddrss.setClntDao(this);
+		viewaddrss.setVisible(true);
 	}
 }
