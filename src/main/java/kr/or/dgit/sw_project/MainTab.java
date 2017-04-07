@@ -11,12 +11,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
-import javax.swing.JTree;
 import javax.swing.border.EmptyBorder;
-import javax.swing.event.TreeSelectionEvent;
-import javax.swing.event.TreeSelectionListener;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeModel;
 
 import kr.or.dgit.sw_project.application.category.ViewCategory;
 import kr.or.dgit.sw_project.application.client.ViewClient;
@@ -106,13 +101,14 @@ public class MainTab extends JFrame implements ActionListener {
 		tabbedPane.add("납품 관리",new ViewDelivery());
 		tabbedPane.add("거래내역 확인",new ViewList());
 
-		pButton = new JPanel();
+		JPanel pButton = new JPanel();
 		contentPane.add(pButton, BorderLayout.NORTH);
 
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.WEST);
 		panel.setLayout(new BorderLayout(0, 0));
 
+		
 		btnSupplyComp = new JButton("공급사 관리");
 		btnSupplyComp.addActionListener(this);
 		pButton.add(btnSupplyComp);
@@ -133,19 +129,17 @@ public class MainTab extends JFrame implements ActionListener {
 
 		btnReport = new JButton("보고서");
 
+		
+		JButton btnChart = new JButton("통계차트");
+		pButton.add(btnChart);
+		
+		JButton btnReport = new JButton("보고서");
+		pButton.add(btnReport);
+		
 		setVisible(true);
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == mnSup) {
-			actionPerformedMnSup(e);
-		}
-		if (e.getSource() == mnClnt) {
-			actionPerformedMnClnt(e);
-		}
-		if (e.getSource() == mnSale) {
-			actionPerformedMnSale(e);
-		}
 		if (e.getSource() == btnClient) {
 			actionPerformedBtnClient(e);
 		}
@@ -159,9 +153,11 @@ public class MainTab extends JFrame implements ActionListener {
 			actionPerformedBtnSupplyComp(e);
 		}
 	}
+	
 	protected void actionPerformedBtnSupplyComp(ActionEvent e) {
 		ViewSupplyCompany viewSupplyCompany = new ViewSupplyCompany(); 
 	}
+	
 	protected void actionPerformedBtnSoftWare(ActionEvent e) {
 		ViewSoftware viewSoftware = new ViewSoftware();
 	}
@@ -171,38 +167,10 @@ public class MainTab extends JFrame implements ActionListener {
 	}
 	protected void actionPerformedBtnClient(ActionEvent e) {
 		ViewClient viewclient = new ViewClient();
-
 	}
 	protected void actionPerformedMnSale(ActionEvent e) {
 
 
 	}
-	protected void actionPerformedMnClnt(ActionEvent e) {
-		if(e.getActionCommand().equals("고객사관리")){
-			mnClnt.setText("고객사관리"+" V ");
-			pButton.add(btnClient);
-			pButton.revalidate();
-			pButton.repaint();
-		}else{
-			mnClnt.setText("고객사관리");
-			pButton.remove(btnClient);
-			pButton.revalidate();
-			pButton.repaint();
-
-		}
-	}
-	protected void actionPerformedMnSup(ActionEvent e) {
-		if(e.getActionCommand().equals("공급회사관리")){
-			mnSup.setText("공급회사관리"+" V ");
-			pButton.add(btnSupplyComp);
-			pButton.revalidate();
-			pButton.repaint();
-		}else{
-			mnSup.setText("공급회사관리");
-			pButton.remove(btnSupplyComp);
-			pButton.revalidate();
-			pButton.repaint();
-		}
-	}
-	
 }
+

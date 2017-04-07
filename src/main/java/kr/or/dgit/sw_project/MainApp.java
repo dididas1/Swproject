@@ -7,12 +7,17 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
 
+import de.javasoft.plaf.synthetica.SyntheticaAluOxideLookAndFeel;
+import de.javasoft.plaf.synthetica.SyntheticaLookAndFeel;
 import erp_myframework.TextFieldPanel;
 
 @SuppressWarnings("serial")
@@ -23,9 +28,15 @@ public class MainApp extends JFrame implements ActionListener {
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				try {
-					/*MainApp frame= new MainApp();
-					frame.setVisible(true);*/
+				try {  
+					try {
+						UIManager.setLookAndFeel(new SyntheticaAluOxideLookAndFeel());
+						SyntheticaLookAndFeel.setFont("Gulim", 12);
+						MainApp frame = new MainApp();
+						frame.setVisible(true);
+					} catch (UnsupportedLookAndFeelException | ParseException e) {
+						e.printStackTrace();
+					}
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -86,12 +97,12 @@ public class MainApp extends JFrame implements ActionListener {
 	
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnLogIn) {
-			btnLogInActionPerformed(e);
+			actionPerformedBtnLogIn(e);
 		}
 	}
-	protected void btnLogInActionPerformed(ActionEvent e) {
+	
+	protected void actionPerformedBtnLogIn(ActionEvent e) {
 		MainTab tabbedSale = new MainTab();
 		dispose();
 	}
 }
-

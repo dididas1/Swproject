@@ -87,4 +87,10 @@ public class Address {
 	public Object[] toarray() {
 		return new Object[]{ zipCode, sido + sigungu+ doro+  building1+ building2};
 	}
+
+	public Object[] toArray() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
