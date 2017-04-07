@@ -29,7 +29,7 @@ public class MemberShipService {
 		} 
 	}
 
-	public int insetMembersItem(Members members) {
+	public int insertMembersItem(Members members) {
 		try (SqlSession sqlSession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
 			MemberShipMapper MemberShipMapper = new MemberShipMapperImpl(sqlSession);
 			int res= MemberShipMapper.insetMembersItem(members);

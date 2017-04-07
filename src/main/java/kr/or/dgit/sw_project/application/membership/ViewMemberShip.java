@@ -23,32 +23,32 @@ import javax.swing.border.EmptyBorder;
 
 import kr.or.dgit.sw_project.dto.Client;
 import kr.or.dgit.sw_project.service.ClientService;
+import kr.or.dgit.sw_project.service.MemberShipService;
 
 public class ViewMemberShip extends JFrame implements ActionListener {
 	private JPanel contentPane;
 	private JButton btnInsert;
 	private JButton btnCancle;
-	private JButton btnDelete;
 	private ContentMemberShip pContent;
 	
 	private List<Client> list;
 	
 	public ViewMemberShip() {
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		setBounds(100, 100, 500, 800);
+		setBounds(100, 100, 400, 400);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0}; //각 열의 최소 넓이  
+		gridBagLayout.columnWidths = new int[]{0, 0}; //각 열의 최소 넓이  
 		gridBagLayout.rowHeights = new int[]{0, 0, 0}; //각 행의 최소 넓이
 		gridBagLayout.columnWeights = new double[]{1.0, Double.MIN_VALUE}; //각 열의 가중치
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0}; //각 행의 가중치
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0}; //각 행의 가중치
 		getContentPane().setLayout(gridBagLayout);
 
-		JLabel label = new JLabel("고객사 관리");
+		JLabel label = new JLabel("회원 가입");
 		label.setEnabled(false);
 		label.setHorizontalAlignment(SwingConstants.CENTER);
 		label.setFont(new Font("\uC778\uD130\uD30C\uD06C\uACE0\uB515 B", label.getFont().getStyle(), label.getFont().getSize() + 5));
@@ -77,13 +77,13 @@ public class ViewMemberShip extends JFrame implements ActionListener {
 		getContentPane().add(pButton, gbc_pButton);
 
 		GridBagLayout gbl_pButton = new GridBagLayout();
-		gbl_pButton.columnWidths = new int[] {100, 100, 100};
+		gbl_pButton.columnWidths = new int[] {100, 100};
 		gbl_pButton.rowHeights = new int[]{55, 0};
-		gbl_pButton.columnWeights = new double[]{0.0, 0.0, 0.0};
+		gbl_pButton.columnWeights = new double[]{0.0, 0.0};
 		gbl_pButton.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		pButton.setLayout(gbl_pButton);
 
-		btnInsert = new JButton("입력");
+		btnInsert = new JButton("가입");
 		btnInsert.addActionListener(this);
 		GridBagConstraints gbc_btnInsert = new GridBagConstraints();
 		gbc_btnInsert.fill = GridBagConstraints.HORIZONTAL;
@@ -100,15 +100,6 @@ public class ViewMemberShip extends JFrame implements ActionListener {
 		gbc_btnCancle.gridx = 1;
 		gbc_btnCancle.gridy = 0;
 		pButton.add(btnCancle, gbc_btnCancle);
-
-		btnDelete = new JButton("삭제");
-		btnDelete.addActionListener(this);
-		btnDelete.setEnabled(false);
-		GridBagConstraints gbc_btnDelete = new GridBagConstraints();
-		gbc_btnDelete.fill = GridBagConstraints.HORIZONTAL;
-		gbc_btnDelete.gridx = 2;
-		gbc_btnDelete.gridy = 0;
-		pButton.add(btnDelete, gbc_btnDelete);
 
 		setVisible(true);
 	}
@@ -127,13 +118,13 @@ public class ViewMemberShip extends JFrame implements ActionListener {
 
 	private void btnInsertActionPerformed(ActionEvent e) { //입력 수정 테이블 인덱스 클릭시 수정으로 변함
 		if(JOptionPane.showConfirmDialog(null, "입력하시겠습니까?")==JOptionPane.YES_OPTION){
-			ClientService.getInstance().insetClntItem(pContent.getObject());
-			pContent.initSetting();
+			MemberShipService.getInstance().insertMembersItem(pContent.getObject());
+			pContent.clear();
 		}
 	}
 
 	private void btnCancleActionPerformed(ActionEvent e) { //취소버튼
-		pContent.initSetting();
+		pContent.clear();
 	}
 	/***********************************************************************/
 }

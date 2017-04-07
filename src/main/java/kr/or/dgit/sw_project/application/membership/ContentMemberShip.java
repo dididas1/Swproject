@@ -1,128 +1,93 @@
 package kr.or.dgit.sw_project.application.membership;
 
 import java.awt.Component;
-import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.util.List;
 
-import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
 
 import erp_myframework.TextFieldPanel;
-import kr.or.dgit.sw_project.dto.Client;
-import kr.or.dgit.sw_project.service.ClientService;
+import kr.or.dgit.sw_project.dto.Members;
 
 public class ContentMemberShip extends JPanel {
-	private JTextField textField;
-	private TextFieldPanel tfpClientCode;
-	private TextFieldPanel tfpClientName;
-	private TextFieldPanel tfpClientTel;
-	private TextFieldPanel tfpClientAddr;
-	private JButton button;
-	private TextFieldPanel tfadr;
+	private TextFieldPanel tfpMemberID;
+	private TextFieldPanel tfpPassword;
+	private TextFieldPanel tfpCheckPassword;
+	private TextFieldPanel tfpMemberName;
+	private TextFieldPanel tfpEmail;
 	
 	public ContentMemberShip() {
 		setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[] {300, 50, 50};
-		gridBagLayout.rowHeights = new int[] {30, 30, 30, 30, 30, 30};
-		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+		gridBagLayout.columnWidths = new int[] {300, 50};
+		gridBagLayout.rowHeights = new int[] {30, 30, 30, 30, 30};
+		gridBagLayout.columnWeights = new double[]{1.0, 0.0, 0.0};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0};
 		setLayout(gridBagLayout);
 		
-		tfpClientCode = new TextFieldPanel();
-		tfpClientCode.setTitle("고객사 번호");
-		tfpClientCode.getTf().setEditable(false);
-		GridBagConstraints gbc_tfpClientCode = new GridBagConstraints(); 
-		gbc_tfpClientCode.fill = GridBagConstraints.HORIZONTAL; 
-		gbc_tfpClientCode.insets = new Insets(0, 0, 5, 5);
-		gbc_tfpClientCode.gridx = 0;
-		gbc_tfpClientCode.gridy = 1;
-		add(tfpClientCode, gbc_tfpClientCode);
+		tfpMemberID = new TextFieldPanel();
+		tfpMemberID.setTitle("아이디");
+		GridBagConstraints gbc_tfpMemberID = new GridBagConstraints(); 
+		gbc_tfpMemberID.fill = GridBagConstraints.HORIZONTAL; 
+		gbc_tfpMemberID.insets = new Insets(0, 0, 5, 5);
+		gbc_tfpMemberID.gridx = 0;
+		gbc_tfpMemberID.gridy = 0;
+		add(tfpMemberID, gbc_tfpMemberID);
 		
-		tfpClientName = new TextFieldPanel();
-		tfpClientName.setTitle("고객사 이름");
-		GridBagConstraints gbc_tfpClientName = new GridBagConstraints();
-		gbc_tfpClientName.fill = GridBagConstraints.HORIZONTAL;
-		gbc_tfpClientName.insets = new Insets(0, 0, 5, 5);
-		gbc_tfpClientName.gridx = 0;
-		gbc_tfpClientName.gridy = 2;
-		add(tfpClientName, gbc_tfpClientName);
+		tfpMemberName = new TextFieldPanel();
+		tfpMemberName.setTitle("이름");
+		GridBagConstraints gbc_tfpMemberName = new GridBagConstraints();
+		gbc_tfpMemberName.fill = GridBagConstraints.HORIZONTAL;
+		gbc_tfpMemberName.insets = new Insets(0, 0, 5, 5);
+		gbc_tfpMemberName.gridx = 0;
+		gbc_tfpMemberName.gridy = 1;
+		add(tfpMemberName, gbc_tfpMemberName);
 		
-		tfpClientTel = new TextFieldPanel();
-		tfpClientTel.setTitle("전화번호");
-		GridBagConstraints gbc_tfpClientTel = new GridBagConstraints();
-		gbc_tfpClientTel.insets = new Insets(0, 0, 5, 5);
-		gbc_tfpClientTel.fill = GridBagConstraints.HORIZONTAL;
-		gbc_tfpClientTel.gridx = 0;
-		gbc_tfpClientTel.gridy = 3;
-		add(tfpClientTel, gbc_tfpClientTel);
+		tfpPassword = new TextFieldPanel();
+		tfpPassword.setTitle("비밀번호");
+		GridBagConstraints gbc_tfpPassword = new GridBagConstraints();
+		gbc_tfpPassword.fill = GridBagConstraints.HORIZONTAL;
+		gbc_tfpPassword.insets = new Insets(0, 0, 5, 5);
+		gbc_tfpPassword.gridx = 0;
+		gbc_tfpPassword.gridy = 2;
+		add(tfpPassword, gbc_tfpPassword);
 		
-		tfpClientAddr = new TextFieldPanel();
-		tfpClientAddr.setTitle("주소");
-		GridBagConstraints gbc_tfpClientAddr = new GridBagConstraints();
-		gbc_tfpClientAddr.fill = GridBagConstraints.HORIZONTAL;
-		gbc_tfpClientAddr.insets = new Insets(0, 0, 5, 5);
-		gbc_tfpClientAddr.gridx = 0;
-		gbc_tfpClientAddr.gridy = 4;
-		add(tfpClientAddr, gbc_tfpClientAddr);
+		tfpCheckPassword = new TextFieldPanel();
+		tfpCheckPassword.setTitle("비밀번호 확인");
+		GridBagConstraints gbc_tfpCheckPassword = new GridBagConstraints();
+		gbc_tfpCheckPassword.insets = new Insets(0, 0, 5, 5);
+		gbc_tfpCheckPassword.fill = GridBagConstraints.HORIZONTAL;
+		gbc_tfpCheckPassword.gridx = 0;
+		gbc_tfpCheckPassword.gridy = 3;
+		add(tfpCheckPassword, gbc_tfpCheckPassword);
 		
-		button = new JButton("우편번호 검색");
-		GridBagConstraints gbc_button = new GridBagConstraints();
-		gbc_button.insets = new Insets(0, 0, 5, 5);
-		gbc_button.gridx = 1;
-		gbc_button.gridy = 4;
-		add(button, gbc_button);
-		
-		tfadr= new TextFieldPanel();
-		tfadr.setTitle("상세 주소");
-		GridBagConstraints gbc_tfadr = new GridBagConstraints();
-		gbc_tfadr.fill = GridBagConstraints.HORIZONTAL;
-		gbc_tfadr.insets = new Insets(0, 0, 5, 5);
-		gbc_tfadr.gridx = 0;
-		gbc_tfadr.gridy = 5;
-		add(tfadr, gbc_tfadr);
-		initSetting();
-	}
-	//???
-	public void initSetting(){ //코드 자동세팅 다른필드 초기화
-		List<Client> list = ClientService.getInstance().selectClientByAll();
-
-		list.get(list.size() - 1).getClntCode();
-		String value = String.format("CL%03d",
-			Integer.parseInt(list.get(list.size() - 1).getClntCode().substring(2)) + 1);
-
-		tfpClientCode.setTfValue(value);
-		tfpClientCode.getTf().setFocusable(false);
-		clear();
+		tfpEmail= new TextFieldPanel();
+		tfpEmail.setTitle("E-Mail");
+		GridBagConstraints gbc_tfpEmail = new GridBagConstraints();
+		gbc_tfpEmail.fill = GridBagConstraints.HORIZONTAL;
+		gbc_tfpEmail.insets = new Insets(0, 0, 5, 5);
+		gbc_tfpEmail.gridx = 0;
+		gbc_tfpEmail.gridy = 4;
+		add(tfpEmail, gbc_tfpEmail);
 	}
 	
 	public void clear(){
-		tfpClientName.setTfValue("");
-		tfpClientAddr.setTfValue("");
-		tfpClientTel.setTfValue("");
-		tfpClientName.requestFocus();
+		tfpMemberID.setTfValue("");
+		tfpPassword.setTfValue("");
+		tfpCheckPassword.setTfValue("");
+		tfpMemberName.setTfValue("");
+		tfpEmail.setTfValue("");
+		tfpMemberID.requestFocus();
 	}
 	
-	public Client getObject(){ //text필드 값받아옴 address수정필요
-		String clntCode = tfpClientCode.getTfValue();
-		String clntName = tfpClientName.getTfValue();
-		String clntAddr = tfpClientAddr.getTfValue();
-		String clntTel = tfpClientTel.getTfValue();
-		return new Client(clntCode, clntName, clntAddr, clntTel);
-	}
-	
-	public void setContent(Client clinet){ //text필드에 값세팅
-		tfpClientCode.setTfValue(clinet.getClntCode());
-		tfpClientName.setTfValue(clinet.getClntName());
-		tfpClientTel.setTfValue(clinet.getClntTel());
-		tfpClientAddr.setTfValue(clinet.getClntAddr());
+	public Members getObject(){ //text필드 값받아옴 
+		String memId = tfpMemberID.getTfValue();
+		String memName = tfpPassword.getTfValue();
+		String memPassword = tfpCheckPassword.getTfValue();
+		String memMail = tfpMemberName.getTfValue();
+		return new Members(memId, memName, memPassword, memMail);
 	}
 	
 	public boolean isEmptyCheck(){ //빈공간체크

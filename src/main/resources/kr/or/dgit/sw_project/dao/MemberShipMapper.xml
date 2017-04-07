@@ -41,7 +41,7 @@
 	<!-- Insert Item -->
 	<insert id="insetMembersItem" parameterType="Members">
 		INSERT INTO members(mem_id, mem_name, mem_password, mem_mail, mem_Permission, mem_isExist)
-			VALUES(#(memId),#(memName),#(memPassword),#(memMail), #(mem_Permission), #(memIsExist), true);
+			VALUES(#(memId),#(memName),#(memPassword),#(memMail), "personnel", #(memIsExist), true);
 	</insert>
 	
 	<!-- Update Item -->

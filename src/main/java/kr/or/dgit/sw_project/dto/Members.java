@@ -14,6 +14,14 @@ public class Members {
 		this.memPassword = memPassword;
 	}
 	
+	public Members(String memId, String memName, String memPassword, String memMail) {
+		super();
+		this.memId = memId;
+		this.memName = memName;
+		this.memPassword = memPassword;
+		this.memMail = memMail;
+	}
+
 	public String getMemId() {
 		return memId;
 	}

@@ -20,6 +20,7 @@ import javax.swing.border.EmptyBorder;
 import de.javasoft.plaf.synthetica.SyntheticaAluOxideLookAndFeel;
 import de.javasoft.plaf.synthetica.SyntheticaLookAndFeel;
 import erp_myframework.TextFieldPanel;
+import kr.or.dgit.sw_project.application.membership.ViewMemberShip;
 import kr.or.dgit.sw_project.dto.Members;
 import kr.or.dgit.sw_project.service.MemberShipService;
 
@@ -32,6 +33,7 @@ public class MainApp extends JFrame implements ActionListener {
 	private JButton btnLogIn;
 	private TextFieldPanel panelID;
 	private TextFieldPanel panelPassword;
+	private JButton btnSignIn;
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -95,14 +97,18 @@ public class MainApp extends JFrame implements ActionListener {
 			
 		panelButton.add(btnLogIn);
 		
-		JButton btnCancel = new JButton("Cancel");
-		panelButton.add(btnCancel);
+		btnSignIn = new JButton("Sign-In");
+		btnSignIn.addActionListener(this);
+		panelButton.add(btnSignIn);
 		
 		JButton btnExit = new JButton("Exit");
 		panelButton.add(btnExit);
 	}
 	
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnSignIn) {
+			actionPerformedBtnSignIn(e);
+		}
 		if (e.getSource() == btnLogIn) {
 			actionPerformedBtnLogIn(e);
 		}
@@ -118,5 +124,9 @@ public class MainApp extends JFrame implements ActionListener {
 		}else{
 			JOptionPane.showMessageDialog(null, "회원 정보가 존재하지 않습니다.");
 		}
+	}
+	
+	protected void actionPerformedBtnSignIn(ActionEvent e) {
+		ViewMemberShip viewMemberShip = new ViewMemberShip();
 	}
 }
