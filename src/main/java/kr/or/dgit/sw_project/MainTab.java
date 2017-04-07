@@ -40,7 +40,6 @@ public class MainTab extends JFrame implements ActionListener {
 	private JButton btnReport;
 	private JMenuItem mnSup;
 	private JButton btnCategory;
-	private JButton button;
 
 	public MainTab() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -130,10 +129,6 @@ public class MainTab extends JFrame implements ActionListener {
 		btnClient.addActionListener(this);
 		pButton.add(btnClient);
 
-		button = new JButton("분류관리");
-		button.addActionListener(this);
-		pButton.add(button);
-
 		btnChart = new JButton("통계차트");
 
 		btnReport = new JButton("보고서");
@@ -142,9 +137,6 @@ public class MainTab extends JFrame implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == button) {
-			actionPerformedButton(e);
-		}
 		if (e.getSource() == mnSup) {
 			actionPerformedMnSup(e);
 		}
@@ -184,10 +176,6 @@ public class MainTab extends JFrame implements ActionListener {
 	protected void actionPerformedMnSale(ActionEvent e) {
 
 
-	}
-	
-	protected void actionPerformedButton(ActionEvent e) {
-		ViewCategory viewcategory = new ViewCategory();
 	}
 	protected void actionPerformedMnClnt(ActionEvent e) {
 		if(e.getActionCommand().equals("고객사관리")){

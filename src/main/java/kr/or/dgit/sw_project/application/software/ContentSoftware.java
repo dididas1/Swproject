@@ -1,19 +1,13 @@
 package kr.or.dgit.sw_project.application.software;
 
-import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-<<<<<<< HEAD
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
-=======
->>>>>>> refs/remotes/origin/kdu_sw_project
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -27,9 +21,9 @@ import erp_myframework.TextFieldPanel;
 @SuppressWarnings("serial")
 public class ContentSoftware extends JPanel implements MouseListener {
 	private JLabel lblImage;
-	private TextFiledPanel tfpSWCode;
-	private TextFiledPanel tfpSWName;
-	private TextFiledPanel tfpSwPrice;
+	private TextFieldPanel tfpSWCode;
+	private TextFieldPanel tfpSWName;
+	private TextFieldPanel tfpSwPrice;
 	private ComboPanel tfpCompName;
 	private ComboPanel tfpGroupName;
 	private RadioPanel tfpIsSale;
@@ -43,7 +37,7 @@ public class ContentSoftware extends JPanel implements MouseListener {
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0};
 		setLayout(gridBagLayout);
 		
-		tfpSWCode = new TextFiledPanel();
+		tfpSWCode = new TextFieldPanel();
 		TextFieldPanel tfpSWCode = new TextFieldPanel();
 		tfpSWCode.setTitle("제품번호");
 		GridBagConstraints gbc_tfpSWCode = new GridBagConstraints(); 
@@ -53,7 +47,7 @@ public class ContentSoftware extends JPanel implements MouseListener {
 		gbc_tfpSWCode.gridy = 1;
 		add(tfpSWCode, gbc_tfpSWCode);
 		
-		tfpSWName = new TextFiledPanel();
+		tfpSWName = new TextFieldPanel();
 		TextFieldPanel tfpSWName = new TextFieldPanel();
 		tfpSWName.setTitle("제품명");
 		GridBagConstraints gbc_tfpSWName = new GridBagConstraints();
@@ -63,7 +57,7 @@ public class ContentSoftware extends JPanel implements MouseListener {
 		gbc_tfpSWName.gridy = 2;
 		add(tfpSWName, gbc_tfpSWName);
 		
-		tfpSwPrice = new TextFiledPanel();
+		tfpSwPrice = new TextFieldPanel();
 		TextFieldPanel tfpSwPrice = new TextFieldPanel();
 		tfpSwPrice.setTitle("판매가격");
 		GridBagConstraints gbc_tfpSwPrice = new GridBagConstraints();

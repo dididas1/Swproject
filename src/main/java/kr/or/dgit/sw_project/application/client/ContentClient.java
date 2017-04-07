@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import erp_myframework.TextFieldPanel;
 import kr.or.dgit.sw_project.dto.Client;
 import kr.or.dgit.sw_project.service.ClientService;
 

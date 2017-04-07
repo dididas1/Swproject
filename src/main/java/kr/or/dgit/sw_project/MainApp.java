@@ -13,6 +13,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import erp_myframework.TextFieldPanel;
+
 @SuppressWarnings("serial")
 public class MainApp extends JFrame implements ActionListener {
 

@@ -11,8 +11,14 @@ public class Software {
 	private int swInven;
 	private String swImg;
 	private boolean swIsSale;
-	private List<Delivery> delivery;
-	private List<Sale> sale;
+	private Delivery delivery;
+	private Sale sale;
+	
+	
+	public Software() {
+		super();
+	}
+
 	public String getSwCode() {
 		return swCode;
 	}
@@ -65,26 +71,29 @@ public class Software {
 		this.swIsSale = swIsSale;
 	}
 	
-	public List<Delivery> getDelivery() {
-		return delivery;
-	}
-	
-	public void setDelivery(List<Delivery> delivery) {
-		this.delivery = delivery;
-	}
-	
-	public List<Sale> getSale() {
-		return sale;
-	}
-	
-	public void setSale(List<Sale> sale) {
-		this.sale = sale;
-	}
 	
 	public void setSwCode(String swCode) {
 		this.swCode = swCode;
 	}
 	
+	
+	
+	public Delivery getDelivery() {
+		return delivery;
+	}
+
+	public void setDelivery(Delivery delivery) {
+		this.delivery = delivery;
+	}
+
+	public Sale getSale() {
+		return sale;
+	}
+
+	public void setSale(Sale sale) {
+		this.sale = sale;
+	}
+
 	@Override
 	public String toString() {
 		return String.format("%s, %s, %s, %s, %s, %s, %s, %s, %s",

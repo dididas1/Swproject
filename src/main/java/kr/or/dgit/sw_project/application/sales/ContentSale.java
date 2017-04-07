@@ -5,22 +5,22 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.util.List;
+
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 
 import erp_myframework.CheckBoxPanel;
 import erp_myframework.ComboPanel;
-import erp_myframework.TextFiledPanel;
+import erp_myframework.TextFieldPanel;
 import kr.or.dgit.sw_project.dto.Sale;
 import kr.or.dgit.sw_project.service.SaleService;
-import erp_myframework.TextFieldPanel;
 
 public class ContentSale extends JPanel {
-	private TextFiledPanel tfpSaleCode;
+	private TextFieldPanel tfpSaleCode;
 	private ComboPanel tfpSwName;
-	private TextFiledPanel tfpSaleAmount;
+	private TextFieldPanel tfpSaleAmount;
 	private ComboPanel tfpClntName;
-	private TextFiledPanel tfpOrderDate;
+	private TextFieldPanel tfpOrderDate;
 	private CheckBoxPanel tfpIsExist;
 	public ContentSale() {
 		setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
@@ -31,7 +31,7 @@ public class ContentSale extends JPanel {
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0};
 		setLayout(gridBagLayout);
 		
-		tfpSaleCode = new TextFiledPanel();
+		tfpSaleCode = new TextFieldPanel();
 		TextFieldPanel tfpSaleCode = new TextFieldPanel();
 		tfpSaleCode.setTitle("주문번호");
 		GridBagConstraints gbc_tfpSaleCode = new GridBagConstraints(); 
@@ -50,7 +50,7 @@ public class ContentSale extends JPanel {
 		gbc_tfpSwName.gridy = 1;
 		add(tfpSwName, gbc_tfpSwName);
 		
-		tfpSaleAmount = new TextFiledPanel();
+		tfpSaleAmount = new TextFieldPanel();
 		TextFieldPanel tfpSaleAmount = new TextFieldPanel();
 		tfpSaleAmount.setTitle("주문수량");
 		GridBagConstraints gbc_tfpSaleAmount = new GridBagConstraints();
@@ -69,7 +69,7 @@ public class ContentSale extends JPanel {
 		gbc_tfpClntName.gridy = 2;
 		add(tfpClntName, gbc_tfpClntName);
 		
-		tfpOrderDate = new TextFiledPanel();
+		tfpOrderDate = new TextFieldPanel();
 		TextFieldPanel tfpOrderDate = new TextFieldPanel();
 		tfpOrderDate.setTitle("주문일자");
 		GridBagConstraints gbc_tfpOrderDate = new GridBagConstraints();
@@ -101,8 +101,8 @@ public class ContentSale extends JPanel {
 	
 	public boolean isEmptyCheck(){ // 빈공간체크
 		for(Component c: getComponents()){
-			if(c instanceof TextFiledPanel){
-				TextFiledPanel tfp= (TextFiledPanel) c;
+			if(c instanceof TextFieldPanel){
+				TextFieldPanel tfp= (TextFieldPanel) c;
 				if(tfp.isEmpty()){
 					return true;
 				}

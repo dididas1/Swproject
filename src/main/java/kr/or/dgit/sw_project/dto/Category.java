@@ -6,8 +6,14 @@ public class Category {
 	//분류
 	private String groupCode;
 	private String groupName;
-	private List<Software> software;
+	private Software software;
 	
+	
+	
+	public Category() {
+		super();
+	}
+
 	public Category(String groupCode) {
 		this.groupCode = groupCode;
 	}
@@ -33,11 +39,12 @@ public class Category {
 		this.groupName = groupName;
 	}
 	
-	public List<Software> getSoftware() {
+
+	public Software getSoftware() {
 		return software;
 	}
-	
-	public void setSoftware(List<Software> software) {
+
+	public void setSoftware(Software software) {
 		this.software = software;
 	}
 
@@ -47,7 +54,8 @@ public class Category {
 	}
 	public String toCombobox(){
 		return String.format("%s %s", groupCode,groupName);
-
+	}
+	
 	public String[] toArray() {
 		return new String[]{groupCode,groupName};
 	}
