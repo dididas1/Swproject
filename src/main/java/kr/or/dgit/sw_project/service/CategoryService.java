@@ -1,6 +1,7 @@
 package kr.or.dgit.sw_project.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -22,7 +23,6 @@ public class CategoryService {
 		} 
 	}
 	
-
 	public Category selectCategoryByNo(Category category) {
 		try (SqlSession sqlSession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
 			CategoryMapper categoryMapper = new CategoryMapperImpl(sqlSession);
@@ -33,21 +33,27 @@ public class CategoryService {
 	public int insertCategoryItem(Category category) {
 		try (SqlSession sqlSession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
 			CategoryMapper categoryMapper = new CategoryMapperImpl(sqlSession);
-			return categoryMapper.insertCategoryItem(category);
+			int res = categoryMapper.insertCategoryItem(category);
+			sqlSession.commit();
+			return res;
 		} 
 	}
 	
-	public int updateCategoryItem(Category category) {
+	public int updateCategoryItem(Map<String, Object> category) {
 		try (SqlSession sqlSession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
 			CategoryMapper categoryMapper = new CategoryMapperImpl(sqlSession);
-			return categoryMapper.updateCategoryItem(category);
+			int res = categoryMapper.updateCategoryItem(category);
+			sqlSession.commit();
+			return res;
 		} 
 	}
 
 	public int deleteCategoryItem(Category category) {
 		try (SqlSession sqlSession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
 			CategoryMapper categoryMapper = new CategoryMapperImpl(sqlSession);
-			return categoryMapper.deleteCategoryItem(category);
+			int res = categoryMapper.deleteCategoryItem(category);
+			sqlSession.commit();
+			return res;
 		} 
 	}
 }

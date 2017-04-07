@@ -76,4 +76,5 @@ public class JoinFromSoftware {
 		return new Object[]{sale.getClient().getClntName(),software.getSwName(), sale.getSaleAmount(), sale.isDeposit(),  
 				String.format("%,d", sale.getSalePrice()),String.format("%,d", saleDetail.getTotalSalePrice()),String.format("%,d", saleDetail.getReceivablePrice())};
 	}
+	
 }

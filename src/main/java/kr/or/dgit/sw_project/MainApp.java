@@ -13,8 +13,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import erp_myframework.TextFiledPanel;
-
 @SuppressWarnings("serial")
 public class MainApp extends JFrame implements ActionListener {
 
@@ -46,7 +44,7 @@ public class MainApp extends JFrame implements ActionListener {
 		gbl_contentPane.rowWeights = new double[]{1.0, 1.0, 1.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
-		TextFiledPanel panelID = new TextFiledPanel();
+		TextFieldPanel panelID = new TextFieldPanel();
 		panelID.setTitle("ID");
 		GridBagConstraints gbc_panelID = new GridBagConstraints();
 		gbc_panelID.insets = new Insets(0, 0, 5, 0);
@@ -55,7 +53,7 @@ public class MainApp extends JFrame implements ActionListener {
 		gbc_panelID.gridy = 0;
 		contentPane.add(panelID, gbc_panelID);
 		
-		TextFiledPanel panelPassword = new TextFiledPanel();
+		TextFieldPanel panelPassword = new TextFieldPanel();
 		panelPassword.setTitle("Password");
 		GridBagConstraints gbc_panelPassword = new GridBagConstraints();
 		gbc_panelPassword.insets = new Insets(0, 0, 5, 0);
@@ -83,8 +81,6 @@ public class MainApp extends JFrame implements ActionListener {
 		JButton btnExit = new JButton("Exit");
 		panelButton.add(btnExit);
 	}
-	
-
 	
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnLogIn) {

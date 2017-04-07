@@ -1,33 +1,28 @@
 package kr.or.dgit.sw_project.application.supplycompany;
 
 import java.awt.Component;
-import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.util.List;
 
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
 
-import erp_myframework.TextFiledPanel;
-import kr.or.dgit.sw_project.dto.Client;
+import erp_myframework.TextFieldPanel;
 import kr.or.dgit.sw_project.dto.SupplyCompany;
-import kr.or.dgit.sw_project.service.ClientService;
 import kr.or.dgit.sw_project.service.SupplyCompService;
 
 public class ContentSupplyCompany extends JPanel {
 	private JTextField textField;
-	private TextFiledPanel tfpSupplyCompanyName;
-	private TextFiledPanel tfpSupplyCompanyCode;
-	private TextFiledPanel tfpSupplyCompanyAd;
-	private TextFiledPanel tfpSupplyCompanyTel;
+	private TextFieldPanel tfpSupplyCompanyName;
+	private TextFieldPanel tfpSupplyCompanyCode;
+	private TextFieldPanel tfpSupplyCompanyAd;
+	private TextFieldPanel tfpSupplyCompanyTel;
 	private JButton button;
-	private TextFiledPanel tfadr;
+	private TextFieldPanel tfadr;
 	public ContentSupplyCompany() {
 		setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -37,7 +32,7 @@ public class ContentSupplyCompany extends JPanel {
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 		setLayout(gridBagLayout);
 		
-		tfpSupplyCompanyCode = new TextFiledPanel();
+		tfpSupplyCompanyCode = new TextFieldPanel();
 		tfpSupplyCompanyCode.setTitle("회사번호");
 		tfpSupplyCompanyCode.gettF().setEditable(false);
 		GridBagConstraints gbc_tfpSupplyCompanyCode = new GridBagConstraints(); 
@@ -47,7 +42,7 @@ public class ContentSupplyCompany extends JPanel {
 		gbc_tfpSupplyCompanyCode.gridy = 1;
 		add(tfpSupplyCompanyCode, gbc_tfpSupplyCompanyCode);
 		
-		tfpSupplyCompanyName = new TextFiledPanel();
+		tfpSupplyCompanyName = new TextFieldPanel();
 		tfpSupplyCompanyName.setTitle("회사명");
 		GridBagConstraints gbc_tfpSupplyCompanyName = new GridBagConstraints();
 		gbc_tfpSupplyCompanyName.fill = GridBagConstraints.HORIZONTAL;
@@ -56,7 +51,7 @@ public class ContentSupplyCompany extends JPanel {
 		gbc_tfpSupplyCompanyName.gridy = 2;
 		add(tfpSupplyCompanyName, gbc_tfpSupplyCompanyName);
 		
-		tfpSupplyCompanyTel = new TextFiledPanel();
+		tfpSupplyCompanyTel = new TextFieldPanel();
 		tfpSupplyCompanyTel.setTitle("전화번호");
 		GridBagConstraints gbc_tfpSupplyCompanyTel = new GridBagConstraints();
 		gbc_tfpSupplyCompanyTel.insets = new Insets(0, 0, 5, 5);
@@ -65,7 +60,7 @@ public class ContentSupplyCompany extends JPanel {
 		gbc_tfpSupplyCompanyTel.gridy = 3;
 		add(tfpSupplyCompanyTel, gbc_tfpSupplyCompanyTel);
 		
-		tfpSupplyCompanyAd = new TextFiledPanel();
+		tfpSupplyCompanyAd = new TextFieldPanel();
 		tfpSupplyCompanyAd.setTitle("주소");
 		GridBagConstraints gbc_tfpSupplyCompanyAd = new GridBagConstraints();
 		gbc_tfpSupplyCompanyAd.fill = GridBagConstraints.HORIZONTAL;
@@ -81,7 +76,7 @@ public class ContentSupplyCompany extends JPanel {
 		gbc_button.gridy = 4;
 		add(button, gbc_button);
 		
-		tfadr= new TextFiledPanel();
+		tfadr= new TextFieldPanel();
 		tfadr.setTitle("상세 주소");
 		GridBagConstraints gbc_tfadr = new GridBagConstraints();
 		gbc_tfadr.fill = GridBagConstraints.HORIZONTAL;
@@ -120,8 +115,8 @@ public class ContentSupplyCompany extends JPanel {
 	
 	public boolean isEmptyCheck(){ // 빈공간체크
 		for(Component c: getComponents()){
-			if(c instanceof TextFiledPanel){
-				TextFiledPanel tfp= (TextFiledPanel) c;
+			if(c instanceof TextFieldPanel){
+				TextFieldPanel tfp= (TextFieldPanel) c;
 				if(tfp.isEmpty()){
 					return true;
 				}
