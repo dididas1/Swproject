@@ -120,7 +120,7 @@ public class ViewAddress extends JFrame implements ActionListener {
 
 			@Override
 			public void mousePressed(MouseEvent e) {
-				//
+				// 입력되어질창 판단
 				if(!(contentClient==null)){
 					ClntSetAddr(getSelectedObject());
 				}

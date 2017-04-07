@@ -143,7 +143,7 @@ public class ContentSupplyCompany extends JPanel implements ActionListener {
 			buttonActionPerformed(e);
 		}
 	}
-	
+	//어드레스창열기
 	protected void buttonActionPerformed(ActionEvent e) {
 		viewAddress.setCompDao(this);
 		viewAddress.setVisible(true);

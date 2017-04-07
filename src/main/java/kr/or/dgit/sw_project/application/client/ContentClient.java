@@ -169,6 +169,7 @@ public class ContentClient extends JPanel implements ActionListener {
 			actionPerformedButton(e);
 		}
 	}
+	//어드레스창 열기
 	protected void actionPerformedButton(ActionEvent e) {
 		viewaddrss.setClntDao(this);
 		viewaddrss.setVisible(true);
