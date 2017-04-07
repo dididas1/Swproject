@@ -6,6 +6,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -15,8 +16,9 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
 
 import erp_myframework.ComboPanel;
-import erp_myframework.RadioPanel;
 import erp_myframework.TextFieldPanel;
+import kr.or.dgit.sw_project.dto.JoinFromSoftware;
+import kr.or.dgit.sw_project.service.JoinFromSoftwareService;
 
 @SuppressWarnings("serial")
 public class ContentSoftware extends JPanel implements MouseListener {
@@ -36,7 +38,6 @@ public class ContentSoftware extends JPanel implements MouseListener {
 		setLayout(gridBagLayout);
 		
 		tfpSWCode = new TextFieldPanel();
-		TextFieldPanel tfpSWCode = new TextFieldPanel();
 		tfpSWCode.setTitle("제품번호");
 		GridBagConstraints gbc_tfpSWCode = new GridBagConstraints(); 
 		gbc_tfpSWCode.fill = GridBagConstraints.HORIZONTAL; 
@@ -52,7 +53,6 @@ public class ContentSoftware extends JPanel implements MouseListener {
 		add(tfpSWCode, gbc_tfptfpSWCode);
 		
 		tfpSWName = new TextFieldPanel();
-		TextFieldPanel tfpSWName = new TextFieldPanel();
 		tfpSWName.setTitle("제품명");
 		GridBagConstraints gbc_tfpSWName = new GridBagConstraints();
 		gbc_tfpSWName.fill = GridBagConstraints.HORIZONTAL;
@@ -62,7 +62,6 @@ public class ContentSoftware extends JPanel implements MouseListener {
 		add(tfpSWName, gbc_tfpSWName);
 		
 		tfpSwPrice = new TextFieldPanel();
-		TextFieldPanel tfpSwPrice = new TextFieldPanel();
 		tfpSwPrice.setTitle("판매가격");
 		GridBagConstraints gbc_tfpSwPrice = new GridBagConstraints();
 		gbc_tfpSwPrice.fill = GridBagConstraints.HORIZONTAL;
@@ -78,7 +77,6 @@ public class ContentSoftware extends JPanel implements MouseListener {
 		add(tfpSwPrice, gbc_tfptfpSwPrice);
 		
 		tfpGroupName = new ComboPanel();
-		ComboPanel tfpGroupName = new ComboPanel();
 		tfpGroupName.setTitle("분류");
 		GridBagConstraints gbc_tfpGroupName = new GridBagConstraints();
 		gbc_tfpGroupName.insets = new Insets(0, 0, 5, 5);
@@ -87,7 +85,6 @@ public class ContentSoftware extends JPanel implements MouseListener {
 		gbc_tfpGroupName.gridy = 4;
 		add(tfpGroupName, gbc_tfpGroupName);
 
-		
 		lblImage = new JLabel("");
 		lblImage.setPreferredSize(new Dimension(130, 80));
 		lblImage.setHorizontalAlignment(SwingConstants.CENTER);
@@ -103,6 +100,12 @@ public class ContentSoftware extends JPanel implements MouseListener {
 		add(lblImage, gbc_lblImage);
 	}
 
+	public void getTfNo(int saleNoCnt){
+		List<JoinFromSoftware> list = JoinFromSoftwareService.getInstance().selectJoinFromSoftwareByAll();
+		String value = String.format("SW%03d", list.size()+1);
+		tfpSWCode.setTfValue(value);
+	}
+	
 	public void mouseClicked(MouseEvent e) {}
 	public void mouseEntered(MouseEvent e) {}
 	public void mouseExited(MouseEvent e) {}
