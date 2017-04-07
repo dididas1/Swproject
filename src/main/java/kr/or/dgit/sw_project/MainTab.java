@@ -18,6 +18,7 @@ import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
+import kr.or.dgit.sw_project.application.category.ViewCategory;
 import kr.or.dgit.sw_project.application.client.ViewClient;
 import kr.or.dgit.sw_project.application.delivery.ViewDelivery;
 import kr.or.dgit.sw_project.application.sales.ViewSale;
@@ -38,6 +39,7 @@ public class MainTab extends JFrame implements ActionListener {
 	private JButton btnChart;
 	private JButton btnReport;
 	private JMenuItem mnSup;
+	private JButton btnCategory;
 
 	public MainTab() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -119,6 +121,10 @@ public class MainTab extends JFrame implements ActionListener {
 		btnSoftWare.addActionListener(this);
 		pButton.add(btnSoftWare);
 		
+		btnCategory = new JButton("S/W 분류 관리");
+		btnCategory.addActionListener(this);
+		pButton.add(btnCategory);
+		
 		btnClient = new JButton("고객 관리");
 		btnClient.addActionListener(this);
 		pButton.add(btnClient);
@@ -146,6 +152,9 @@ public class MainTab extends JFrame implements ActionListener {
 		if (e.getSource() == btnSoftWare) {
 			actionPerformedBtnSoftWare(e);
 		}
+		if (e.getSource() == btnCategory) {
+			actionPerformedBtnCategory(e);
+		}
 		if (e.getSource() == btnSupplyComp) {
 			actionPerformedBtnSupplyComp(e);
 		}
@@ -156,7 +165,10 @@ public class MainTab extends JFrame implements ActionListener {
 	protected void actionPerformedBtnSoftWare(ActionEvent e) {
 		ViewSoftware viewSoftware = new ViewSoftware();
 	}
-	
+	protected void actionPerformedBtnCategory(ActionEvent e) {
+		ViewCategory viewCategory = new ViewCategory();
+		
+	}
 	protected void actionPerformedBtnClient(ActionEvent e) {
 		ViewClient viewclient = new ViewClient();
 	

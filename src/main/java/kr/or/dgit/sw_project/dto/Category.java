@@ -8,6 +8,15 @@ public class Category {
 	private String groupName;
 	private List<Software> software;
 	
+	public Category(String groupCode) {
+		this.groupCode = groupCode;
+	}
+
+	public Category(String groupCode, String groupName) {
+		this.groupCode = groupCode;
+		this.groupName = groupName;
+	}
+
 	public String getGroupCode() {
 		return groupCode;
 	}
@@ -35,5 +44,9 @@ public class Category {
 	@Override
 	public String toString() {
 		return String.format("%s, %s, %s", groupCode, groupName, software);
+	}
+
+	public String[] toArray() {
+		return new String[]{groupCode,groupName};
 	}
 }

@@ -1,6 +1,7 @@
 package kr.or.dgit.sw_project.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.logging.Log;
 import org.apache.ibatis.logging.LogFactory;
@@ -36,7 +37,7 @@ public class CategoryMapperImpl implements CategoryMapper{
 	}
 
 	@Override
-	public int updateCategoryItem(Category category) {
+	public int updateCategoryItem(Map<String, Object> category) {
 		log.debug("updateCategoryItem()");
 		return sqlSession.update(nameSpace + "updateCategoryItem",category);
 	}

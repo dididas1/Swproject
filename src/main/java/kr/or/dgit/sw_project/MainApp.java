@@ -84,8 +84,6 @@ public class MainApp extends JFrame implements ActionListener {
 		panelButton.add(btnExit);
 	}
 	
-
-	
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnLogIn) {
 			btnLogInActionPerformed(e);
