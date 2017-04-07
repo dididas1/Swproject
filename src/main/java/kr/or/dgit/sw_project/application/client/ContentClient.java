@@ -12,10 +12,14 @@ import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 
 import erp_myframework.TextFieldPanel;
+import kr.or.dgit.sw_project.application.address.ViewAddress;
+import kr.or.dgit.sw_project.dto.Address;
 import kr.or.dgit.sw_project.dto.Client;
 import kr.or.dgit.sw_project.service.ClientService;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
-public class ContentClient extends JPanel {
+public class ContentClient extends JPanel implements ActionListener {
 	private JTextField textField;
 	private TextFieldPanel tfpClientCode;
 	private TextFieldPanel tfpClientName;
@@ -73,6 +77,7 @@ public class ContentClient extends JPanel {
 		add(tfpClientAddr, gbc_tfpClientAddr);
 		
 		button = new JButton("우편번호 검색");
+		button.addActionListener(this);
 		GridBagConstraints gbc_button = new GridBagConstraints();
 		gbc_button.insets = new Insets(0, 0, 5, 5);
 		gbc_button.gridx = 1;
@@ -135,5 +140,13 @@ public class ContentClient extends JPanel {
 				}
 			}
 		}return false;
+	}
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == button) {
+			actionPerformedButton(e);
+		}
+	}
+	protected void actionPerformedButton(ActionEvent e) {
+		ViewAddress addr= new ViewAddress();
 	}
 }

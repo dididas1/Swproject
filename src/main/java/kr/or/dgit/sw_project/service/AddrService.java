@@ -22,4 +22,11 @@ public class AddrService {
 			return addrMapper.searchSido(address);
 		}
 	}
+	
+	public List<Address> selectSigungu(Address address) {
+		try(SqlSession sqlsession = MyBatisSqlSessionFactory.openSession();){
+			AddrMapper addrMapper = new AddrMapperImpl(sqlsession);
+			return addrMapper.selectSigungu(address);
+		}
+	}
 }

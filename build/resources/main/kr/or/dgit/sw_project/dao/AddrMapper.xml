@@ -16,4 +16,9 @@
 			FROM Address 
 			WHERE sido = #{sido} AND doro = #{doro};
 	</select>
+	
+	<select id="selectSigungu" parameterType="Address" resultMap="AddrResult">
+		SELECT distinct sigungu	FROM Address
+		WHERE sido = #{sido}
+	</select>
 </mapper>
