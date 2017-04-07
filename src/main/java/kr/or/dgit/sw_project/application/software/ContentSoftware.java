@@ -7,8 +7,11 @@ import java.awt.Insets;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.List;
+import java.util.Vector;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -17,7 +20,9 @@ import javax.swing.border.EtchedBorder;
 
 import erp_myframework.ComboPanel;
 import erp_myframework.TextFieldPanel;
+import kr.or.dgit.sw_project.dto.Category;
 import kr.or.dgit.sw_project.dto.JoinFromSoftware;
+import kr.or.dgit.sw_project.service.CategoryService;
 import kr.or.dgit.sw_project.service.JoinFromSoftwareService;
 
 @SuppressWarnings("serial")
@@ -27,6 +32,7 @@ public class ContentSoftware extends JPanel implements MouseListener {
 	private TextFieldPanel tfpSWName;
 	private TextFieldPanel tfpSwPrice;
 	private ComboPanel tfpGroupName;
+	private JComboBox tfpGroupNameBox;
 
 	public ContentSoftware() {
 		setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
@@ -39,6 +45,8 @@ public class ContentSoftware extends JPanel implements MouseListener {
 		
 		tfpSWCode = new TextFieldPanel();
 		tfpSWCode.setTitle("제품번호");
+		tfpSWCode.gettF().setFocusable(false);
+		tfpSWCode.gettF().setEditable(false);
 		GridBagConstraints gbc_tfpSWCode = new GridBagConstraints(); 
 		gbc_tfpSWCode.fill = GridBagConstraints.HORIZONTAL; 
 		gbc_tfpSWCode.insets = new Insets(0, 0, 5, 5);
@@ -100,10 +108,24 @@ public class ContentSoftware extends JPanel implements MouseListener {
 		add(lblImage, gbc_lblImage);
 	}
 
-	public void getTfNo(int saleNoCnt){
+	public void getTfNo(){
 		List<JoinFromSoftware> list = JoinFromSoftwareService.getInstance().selectJoinFromSoftwareByAll();
 		String value = String.format("SW%03d", list.size()+1);
 		tfpSWCode.setTfValue(value);
+	}
+	
+	public void setComboBox(){
+		List<Category> list = CategoryService.getInstance().selectCategoryByAll();
+		String[][] getComboObj = new String[list.size()][];
+		String[] comboObj = new String[list.size()];
+		Vector<String> setComboObj = new Vector<>();
+		
+		for(int i=0 ; i<list.size() ; i++){
+			getComboObj[i] = list.get(i).toArray();
+			comboObj[i] = getComboObj[i][1];
+			setComboObj.add(comboObj[i]);
+		}
+		tfpGroupName.setComboData(setComboObj);
 	}
 	
 	public void mouseClicked(MouseEvent e) {}
@@ -119,6 +141,4 @@ public class ContentSoftware extends JPanel implements MouseListener {
 	protected void mousePressedLblImage(MouseEvent e) {
 		JOptionPane.showMessageDialog(null, "파일추저지롱~");
 	}
-	
-	
 }

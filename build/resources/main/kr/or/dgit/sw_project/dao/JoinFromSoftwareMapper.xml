@@ -19,13 +19,15 @@
 			LEFT OUTER JOIN category cat ON sw.group_code = cat.group_code
 			LEFT OUTER JOIN sale s ON sw.sw_code = s.sw_code
 			LEFT OUTER JOIN view_sale_detail sd ON s.sale_code = sd.sale_code -->
+			
 		<!-- SELECT sw.sw_name, del.del_code, s.sale_code, cat.group_name, sc.comp_name, sd.total_supply_price FROM software sw
 			JOIN delivery del ON sw.sw_code = del.sw_code
 			JOIN supply_company sc ON sc.comp_code = del.comp_code
 			JOIN category cat ON sw.group_code = cat.group_code
 			JOIN sale s ON sw.sw_code = s.sw_code
 			JOIN view_sale_detail sd ON s.sale_code = sd.sale_code; -->
-			SELECT DISTINCT s.sale_code , s.clnt_code,s.sw_code,s.sale_amount,s.isdeposit,s.order_date,s.supply_price,s.sale_price,s.sale_isExist,
+			
+		<!-- SELECT DISTINCT s.sale_code , s.clnt_code,s.sw_code,s.sale_amount,s.isdeposit,s.order_date,s.supply_price,s.sale_price,s.sale_isExist,
 			sw.sw_code,sw.group_code,sw.sw_name,sw.sale_price,sw.sw_inven,sw.sw_issale,
 			sc.comp_code,sc.comp_name,sc.comp_addr,sc.comp_tel,sc.comp_isExist,
 			cat.group_code,cat.group_name,
@@ -36,7 +38,13 @@
 			LEFT OUTER JOIN category cat ON sw.group_code = cat.group_code
 			LEFT OUTER JOIN sale s ON sw.sw_code = s.sw_code
 			LEFT OUTER JOIN view_sale_detail sd ON s.sale_code = sd.sale_code
-			order by s.sale_code
+			order by s.sale_code -->
+			
+			SELECT DISTINCT sw.sw_code, cat.group_name, sw.sw_name, s.supply_price, s.sale_price
+			FROM software sw
+			LEFT OUTER JOIN category cat ON sw.group_code = cat.group_code
+			LEFT OUTER JOIN sale s ON sw.sw_code = s.sw_code
+			order by sw.sw_code
 	</sql>
 
     <!-- Select By All --> 

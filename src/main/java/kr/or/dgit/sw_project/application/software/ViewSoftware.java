@@ -98,6 +98,9 @@ public class ViewSoftware extends JFrame {
 		gbc_pTable.gridy = 3;
 		getContentPane().add(pTable, gbc_pTable);
 
+		pContent.getTfNo();
+		pContent.setComboBox();
+		
 		pTable.setTableData();
 		setVisible(true);
 	}
