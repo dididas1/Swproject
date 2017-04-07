@@ -17,9 +17,9 @@ import kr.or.dgit.sw_project.service.SaleService;
 
 public class ContentSale extends JPanel {
 	private TextFieldPanel tfpSaleCode;
-	private ComboPanel tfpSwName;
+	private ComboPanel<String> tfpSwName;
 	private TextFieldPanel tfpSaleAmount;
-	private ComboPanel tfpClntName;
+	private ComboPanel<String> tfpClntName;
 	private TextFieldPanel tfpOrderDate;
 	private CheckBoxPanel tfpIsExist;
 	public ContentSale() {
@@ -41,7 +41,7 @@ public class ContentSale extends JPanel {
 		gbc_tfpSaleCode.gridy = 1;
 		add(tfpSaleCode, gbc_tfpSaleCode);
 		
-		tfpSwName = new ComboPanel();
+		tfpSwName = new ComboPanel<>();
 		tfpSwName.setTitle("품목명");
 		GridBagConstraints gbc_tfpSwName = new GridBagConstraints();
 		gbc_tfpSwName.fill = GridBagConstraints.HORIZONTAL;
@@ -60,7 +60,7 @@ public class ContentSale extends JPanel {
 		gbc_tfpSaleAmount.gridy = 2;
 		add(tfpSaleAmount, gbc_tfpSaleAmount);
 		
-		tfpClntName = new ComboPanel();
+		tfpClntName = new ComboPanel<>();
 		tfpClntName.setTitle("고객상호명");
 		GridBagConstraints gbc_tfpClntName = new GridBagConstraints();
 		gbc_tfpClntName.insets = new Insets(0, 0, 0, 0);
@@ -103,7 +103,7 @@ public class ContentSale extends JPanel {
 		for(Component c: getComponents()){
 			if(c instanceof TextFieldPanel){
 				TextFieldPanel tfp= (TextFieldPanel) c;
-				if(tfp.isEmpty()){
+				if(tfp.isEmptyCheck()){
 					return true;
 				}
 			}

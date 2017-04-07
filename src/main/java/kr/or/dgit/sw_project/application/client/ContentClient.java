@@ -4,6 +4,8 @@ import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -13,11 +15,8 @@ import javax.swing.border.EtchedBorder;
 
 import erp_myframework.TextFieldPanel;
 import kr.or.dgit.sw_project.application.address.ViewAddress;
-import kr.or.dgit.sw_project.dto.Address;
 import kr.or.dgit.sw_project.dto.Client;
 import kr.or.dgit.sw_project.service.ClientService;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class ContentClient extends JPanel implements ActionListener {
 	private JTextField textField;
@@ -39,7 +38,7 @@ public class ContentClient extends JPanel implements ActionListener {
 		
 		tfpClientCode = new TextFieldPanel();
 		tfpClientCode.setTitle("고객사 번호");
-		tfpClientCode.gettF().setEditable(false);
+		tfpClientCode.getTf().setEditable(false);
 		GridBagConstraints gbc_tfpClientCode = new GridBagConstraints(); 
 		gbc_tfpClientCode.fill = GridBagConstraints.HORIZONTAL; 
 		gbc_tfpClientCode.insets = new Insets(0, 0, 5, 5);
@@ -104,7 +103,7 @@ public class ContentClient extends JPanel implements ActionListener {
 			Integer.parseInt(list.get(list.size() - 1).getClntCode().substring(2)) + 1);
 
 		tfpClientCode.setTfValue(value);
-		tfpClientCode.gettF().setFocusable(false);
+		tfpClientCode.getTf().setFocusable(false);
 		clear();
 	}
 	
@@ -135,7 +134,7 @@ public class ContentClient extends JPanel implements ActionListener {
 		for(Component c : getComponents()){
 			if(c instanceof TextFieldPanel){
 				TextFieldPanel tfp = (TextFieldPanel) c;
-				if(tfp.isEmpty()){
+				if(tfp.isEmptyCheck()){
 					return true;
 				}
 			}
