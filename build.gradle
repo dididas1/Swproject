@@ -33,8 +33,8 @@ dependencies {
 }
 
 jar{
-	//mainClassName='kr.or.dgit.sw_project.MainApp'
-	mainClassName='kr.or.dgit.sw_project.TestMain'
+	mainClassName='kr.or.dgit.sw_project.MainApp'
+	//mainClassName='kr.or.dgit.sw_project.TestMain'
 	baseName='SoftWare Management'
 	appendix='bin'
 	version =1.0
@@ -43,6 +43,3 @@ jar{
 	}
 	dependsOn configurations.runtime
 }
-
-
-

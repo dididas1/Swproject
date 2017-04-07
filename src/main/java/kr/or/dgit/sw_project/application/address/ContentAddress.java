@@ -3,31 +3,20 @@ package kr.or.dgit.sw_project.application.address;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Vector;
 
-import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 
 import erp_myframework.ComboPanel;
-import kr.or.dgit.sw_project.dto.Category;
-import kr.or.dgit.sw_project.dto.Client;
-import kr.or.dgit.sw_project.dto.Software;
-import kr.or.dgit.sw_project.service.CategoryService;
-import kr.or.dgit.sw_project.service.ClientService;
-import kr.or.dgit.sw_project.service.SoftwareService;
-import erp_myframework.TextFiledPanel;
+import erp_myframework.TextFieldPanel;
 
 public class ContentAddress extends JPanel{
 	
 	
 	private ComboPanel<String> tfpSiGunGu;
 	private ComboPanel<String> tfpSiDo;
-	private TextFiledPanel tfpDoro;
+	private TextFieldPanel tfpDoro;
 
 	public ContentAddress() {
 		setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
@@ -63,7 +52,7 @@ public class ContentAddress extends JPanel{
 		gbc_tfpSiGunGu.gridy = 2;
 		add(tfpSiGunGu, gbc_tfpSiGunGu);
 		
-		tfpDoro = new TextFiledPanel();
+		tfpDoro = new TextFieldPanel();
 		tfpDoro.setTitle("도로명");
 		GridBagConstraints gbc_panel = new GridBagConstraints();
 		gbc_panel.insets = new Insets(0, 0, 5, 5);

@@ -12,7 +12,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
 
 import erp_myframework.ComboPanel;
-import erp_myframework.TextFiledPanel;
+import erp_myframework.TextFieldPanel;
 
 public class ContentDelivery extends JPanel {
 	private final ButtonGroup buttonGroup = new ButtonGroup();
@@ -26,7 +26,7 @@ public class ContentDelivery extends JPanel {
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0};
 		setLayout(gridBagLayout);
 		
-		TextFiledPanel tfpDelCode = new TextFiledPanel();
+		TextFieldPanel tfpDelCode = new TextFieldPanel();
 		tfpDelCode.setTitle("납품번호");
 		GridBagConstraints gbc_tfpDelCode = new GridBagConstraints(); 
 		gbc_tfpDelCode.fill = GridBagConstraints.HORIZONTAL; 
@@ -44,7 +44,7 @@ public class ContentDelivery extends JPanel {
 		gbc_tfpDeSwName.gridy = 1;
 		add(tfpDeSwName, gbc_tfpDeSwName);
 		
-		TextFiledPanel tfpDelAmount = new TextFiledPanel();
+		TextFieldPanel tfpDelAmount = new TextFieldPanel();
 		tfpDelAmount.setTitle("납품수량");
 		GridBagConstraints gbc_tfpDelAmount = new GridBagConstraints();
 		gbc_tfpDelAmount.fill = GridBagConstraints.HORIZONTAL;
@@ -62,7 +62,7 @@ public class ContentDelivery extends JPanel {
 		gbc_tfpCompName.gridy = 2;
 		add(tfpCompName, gbc_tfpCompName);
 		
-		TextFiledPanel tfpDelOrderDate = new TextFiledPanel();
+		TextFieldPanel tfpDelOrderDate = new TextFieldPanel();
 		tfpDelOrderDate.setTitle("납품일자");
 		GridBagConstraints gbc_tfpDelOrderDate = new GridBagConstraints();
 		gbc_tfpDelOrderDate.fill = GridBagConstraints.HORIZONTAL;
@@ -71,7 +71,7 @@ public class ContentDelivery extends JPanel {
 		gbc_tfpDelOrderDate.gridy = 3;
 		add(tfpDelOrderDate, gbc_tfpDelOrderDate);
 		
-		TextFiledPanel tfpSupplyAmount = new TextFiledPanel();
+		TextFieldPanel tfpSupplyAmount = new TextFieldPanel();
 		tfpSupplyAmount.setTitle("공급가격");
 		GridBagConstraints gbc_tfpIsExist = new GridBagConstraints();
 		gbc_tfpIsExist.insets = new Insets(0, 0, 0, 0);

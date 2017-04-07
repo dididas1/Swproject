@@ -14,18 +14,18 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
 
-import erp_myframework.TextFiledPanel;
+import erp_myframework.TextFieldPanel;
 import kr.or.dgit.sw_project.dto.Client;
 import kr.or.dgit.sw_project.service.ClientService;
 
 public class ContentClient extends JPanel {
 	private JTextField textField;
-	private TextFiledPanel tfpClientCode;
-	private TextFiledPanel tfpClientName;
-	private TextFiledPanel tfpClientTel;
-	private TextFiledPanel tfpClientAddr;
+	private TextFieldPanel tfpClientCode;
+	private TextFieldPanel tfpClientName;
+	private TextFieldPanel tfpClientTel;
+	private TextFieldPanel tfpClientAddr;
 	private JButton button;
-	private TextFiledPanel tfadr;
+	private TextFieldPanel tfadr;
 	
 	public ContentClient() {
 		setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
@@ -36,9 +36,9 @@ public class ContentClient extends JPanel {
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 		setLayout(gridBagLayout);
 		
-		tfpClientCode = new TextFiledPanel();
+		tfpClientCode = new TextFieldPanel();
 		tfpClientCode.setTitle("고객사 번호");
-		tfpClientCode.gettF().setEditable(false);
+		tfpClientCode.getTf().setEditable(false);
 		GridBagConstraints gbc_tfpClientCode = new GridBagConstraints(); 
 		gbc_tfpClientCode.fill = GridBagConstraints.HORIZONTAL; 
 		gbc_tfpClientCode.insets = new Insets(0, 0, 5, 5);
@@ -46,7 +46,7 @@ public class ContentClient extends JPanel {
 		gbc_tfpClientCode.gridy = 1;
 		add(tfpClientCode, gbc_tfpClientCode);
 		
-		tfpClientName = new TextFiledPanel();
+		tfpClientName = new TextFieldPanel();
 		tfpClientName.setTitle("고객사 이름");
 		GridBagConstraints gbc_tfpClientName = new GridBagConstraints();
 		gbc_tfpClientName.fill = GridBagConstraints.HORIZONTAL;
@@ -55,7 +55,7 @@ public class ContentClient extends JPanel {
 		gbc_tfpClientName.gridy = 2;
 		add(tfpClientName, gbc_tfpClientName);
 		
-		tfpClientTel = new TextFiledPanel();
+		tfpClientTel = new TextFieldPanel();
 		tfpClientTel.setTitle("전화번호");
 		GridBagConstraints gbc_tfpClientTel = new GridBagConstraints();
 		gbc_tfpClientTel.insets = new Insets(0, 0, 5, 5);
@@ -64,7 +64,7 @@ public class ContentClient extends JPanel {
 		gbc_tfpClientTel.gridy = 3;
 		add(tfpClientTel, gbc_tfpClientTel);
 		
-		tfpClientAddr = new TextFiledPanel();
+		tfpClientAddr = new TextFieldPanel();
 		tfpClientAddr.setTitle("주소");
 		GridBagConstraints gbc_tfpClientAddr = new GridBagConstraints();
 		gbc_tfpClientAddr.fill = GridBagConstraints.HORIZONTAL;
@@ -80,7 +80,7 @@ public class ContentClient extends JPanel {
 		gbc_button.gridy = 4;
 		add(button, gbc_button);
 		
-		tfadr= new TextFiledPanel();
+		tfadr= new TextFieldPanel();
 		tfadr.setTitle("상세 주소");
 		GridBagConstraints gbc_tfadr = new GridBagConstraints();
 		gbc_tfadr.fill = GridBagConstraints.HORIZONTAL;
@@ -99,7 +99,7 @@ public class ContentClient extends JPanel {
 			Integer.parseInt(list.get(list.size() - 1).getClntCode().substring(2)) + 1);
 
 		tfpClientCode.setTfValue(value);
-		tfpClientCode.gettF().setFocusable(false);
+		tfpClientCode.getTf().setFocusable(false);
 		clear();
 	}
 	
@@ -127,9 +127,9 @@ public class ContentClient extends JPanel {
 	
 	public boolean isEmptyCheck(){ //빈공간체크
 		for(Component c : getComponents()){
-			if(c instanceof TextFiledPanel){
-				TextFiledPanel tfp = (TextFiledPanel) c;
-				if(tfp.isEmpty()){
+			if(c instanceof TextFieldPanel){
+				TextFieldPanel tfp = (TextFieldPanel) c;
+				if(tfp.isEmptyCheck()){
 					return true;
 				}
 			}
