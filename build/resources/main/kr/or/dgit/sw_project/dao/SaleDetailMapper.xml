@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper	namespace="kr.or.dgit.sw_project.dao.SaleDetailMapper">
+
+	<resultMap type="SaleDetail" id="SaleDetailResult">
+		<id property="saleCode" column="sale_code"/>
+		<result property="totalSalePrice" column="total_sale_price"/>
+		<result property="totalSupplyPrice" column="total_supply_price"/>
+		<result property="margin" column="margin"/>
+		<result property="tax" column="tax"/>
+		<result property="taxSaleprice" column="tax_saleprice"/>
+		<result property="receivablePrice" column="receivablePrice"/>
+	</resultMap>
+	 
+	<!-- Select SQL -->
+    <sql id="selectSQL">
+		SELECT * FROM view_sale_detail
+	</sql>
+
+	<!-- Where SQL -->
+	<sql id="whereSQL">
+		<where>
+			<if test="clntCode != null">
+			</if>
+		</where>
+	</sql>
+	    
+    <!-- Select By All --> 
+    <select id="selectSaleDetailByAll" resultMap="SaleDetailResult">
+    	<include refid="selectSQL" />
+    </select>
+</mapper>
+

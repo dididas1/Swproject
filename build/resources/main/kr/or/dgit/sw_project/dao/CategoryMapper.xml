@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper	namespace="kr.or.dgit.sw_project.dao.CategoryMapper">
+
+	<resultMap type="Category" id="CategoryResult">
+		<id property="groupCode" column="group_code"/>
+		<result property="groupName" column="group_name"/>
+	</resultMap>
+	 
+	<!-- Select SQL -->
+    <sql id="selectSQL">
+		SELECT group_code, group_name FROM category
+	</sql>
+
+	<!-- Where SQL -->
+	<sql id="whereSQL">
+		<where>
+			<if test="groupCode != null">
+				group_code=#{groupCode}
+			</if>
+		</where>
+	</sql>
+	    
+    <!-- Select By All --> 
+    <select id="selectCategoryByAll" resultMap="CategoryResult">
+    	<include refid="selectSQL" />
+    		ORDER BY group_code;
+    </select>
+    
+    <!-- select by No -->
+    <select id="selectCategoryByNo" parameterType="Category" resultMap="CategoryResult">
+		<include refid="selectSQL"/>
+		<include refid="whereSQL"/>
+	</select>
+	
+	<!-- inset category -->
+	<insert id="insertCategoryItem" parameterType="Category">
+		insert into category(group_code, group_name) values(#{groupCode}, #{groupName})
+	</insert>
+	
+	<!-- update item -->
+	<update id="updateCategoryItem" parameterType="Map">
+		UPDATE category SET group_code=#{groupCode1}, group_name=#{groupName} 
+		WHERE group_code=#{groupCode2}
+	</update>
+	
+	<!-- delete item -->
+	<delete id="deleteCategoryItem" parameterType="Category">
+		DELETE FROM category WHERE group_code=#{groupCode}
+	</delete>
+	
+</mapper>
+

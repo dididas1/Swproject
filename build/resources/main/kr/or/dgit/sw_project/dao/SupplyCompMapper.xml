@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper	namespace="kr.or.dgit.sw_project.dao.SupplyCompMapper">
+   
+	<resultMap type="SupplyCompany" id="SupplyCompanyResult">
+    	<id property="compCode" column="comp_code"/>
+    	<result property="compName" column="comp_name"/>
+    	<result property="address" column="comp_addr"/>
+    	<result property="compTel" column="comp_tel"/>
+    	<result property="compIsExist" column="comp_isExist"/>
+    </resultMap>
+    
+	<!-- Select SQL -->
+    <sql id="selectSQL">
+		SELECT comp_code,comp_name,comp_tel,comp_isExist,comp_addr FROM supply_company 
+	</sql>
+
+	<!-- Where SQL -->
+	<sql id="whereSQL">
+		<where>
+			<if test="compCode != null">
+				comp_code=#{compCode};
+			</if>
+		</where>
+	</sql>
+	    
+    <!-- Select By All --> 
+    <select id="selectSupplyCompByAll" resultMap="SupplyCompanyResult">
+    	<include refid="selectSQL" />
+    		where comp_isExist = true
+    		ORDER BY comp_code;
+    </select>
+    
+   	<!-- Select By NO -->
+    <select id="selectCompByNo" parameterType="SupplyCompany" resultMap="SupplyCompanyResult">
+		<include refid="selectSQL"/>
+		<include refid="whereSQL"/>
+	</select>
+	
+	<!-- Insert Item -->
+	<insert id="insertCompItem" parameterType="SupplyCompany">
+		INSERT INTO supply_company (comp_code, comp_name, comp_addr, comp_tel, comp_isExist)
+		VALUES (#{compCode},#{compName},#{compAddr},#{compTel},#{compIsExist})
+	</insert>
+	
+	<!-- Update Item -->
+	<update id="updateCompItem" parameterType="SupplyCompany">
+		UPDATE supply_company
+		SET comp_name=#{compName}, comp_addr=#{compAddr}, comp_tel=#{compTel}, comp_isExist=#{compIsExist} 
+		WHERE comp_code=#{compCode}
+	</update>
+	
+	<!-- Exist Item -->
+	<update id="existCompItem" parameterType="SupplyCompany">
+		UPDATE supply_company SET comp_isExist=FALSE WHERE comp_code=#{compCode}
+	</update>
+    
+</mapper>
+

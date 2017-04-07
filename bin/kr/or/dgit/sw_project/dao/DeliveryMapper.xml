@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper	namespace="kr.or.dgit.sw_project.dao.DeliveryMapper">
+    
+    <resultMap type="Delivery" id="DeliveryResult">
+    	<id property="delCode" column="del_code"/>
+    	<result property="supplyPrice" column="supply_price"/>
+    	<result property="supplyAmount" column="supply_amount"/>
+    	<result property="orderDate" column="order_date"/>
+    	<result property="delIsExist" column="del_isExist"/>
+    	<association property="supplyCompany" resultMap="kr.or.dgit.sw_project.dao.SupplyCompMapper.SupplyCompanyResult"/>
+    	<association property="software" resultMap="kr.or.dgit.sw_project.dao.SoftwareMapper.SoftwareResult"/>
+    </resultMap>
+		
+
+	<!-- Select SQL -->
+    <sql id="selectSQL">
+		SELECT * FROM delivery del 
+			JOIN software sw ON del.sw_code = sw.sw_code
+			JOIN supply_company sc ON sc.comp_code = del.comp_code
+	</sql>
+
+	<!-- Where SQL -->
+	<sql id="whereSQL">
+		<where>
+			<if test="delCode != null">
+				del_code=#{delCode}
+			</if>
+		</where>
+	</sql>
+	    
+    <!-- Select By All --> 
+    <select id="selectDeliveryByAll" resultMap="DeliveryResult">
+    	<include refid="selectSQL" />
+    		ORDER BY del_code;
+    </select>
+    
+    <!-- Insert item -->
+    <insert id="insertDeliveryItems">
+    	INSERT INTO delivery(del_code, comp_code, sw_code, supply_price, supply_amount, order_date, del_isExist) VALUES
+		(#{delCode}, #{compCode}, #{swCode}, #{supplyPrice}, #{supplyAmount}, #{orderDate}, TRUE)
+    </insert>
+    
+    <!-- Update item -->
+    <update id="UpdateItems">
+    	UPDATE delivery
+		SET  del_code=#{delCode}, sw_code=#{swCode}, supply_price=#{supplyPrice}, supply_amount=#{supplyAmount}, order_date=#{orderDate}, del_isExist=#{delIsExist}
+		WHERE del_code=#{delCode}
+    </update>
+    
+    <!-- Exist item -->
+     <update id="existDeliveryItem">
+    	UPDATE delivery
+		SET  del_isExist=#{delIsExist}
+		WHERE del_code=#{delCode}
+    </update>
+</mapper>
+
