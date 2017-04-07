@@ -12,9 +12,7 @@ import javax.swing.border.EtchedBorder;
 import erp_myframework.CheckBoxPanel;
 import erp_myframework.ComboPanel;
 import erp_myframework.TextFiledPanel;
-import kr.or.dgit.sw_project.dto.Client;
 import kr.or.dgit.sw_project.dto.Sale;
-import kr.or.dgit.sw_project.service.ClientService;
 import kr.or.dgit.sw_project.service.SaleService;
 
 public class ContentSale extends JPanel {
