@@ -86,7 +86,14 @@ public class MainTab extends JFrame implements ActionListener {
 		
 		JButton btnReport = new JButton("보고서");
 		pButton.add(btnReport);
-		
+
+		if(MainApp.permission.equals("personnel")){
+			btnChart.setEnabled(false);
+			btnReport.setEnabled(false);
+			btnSupplyComp.setEnabled(false);
+			btnSoftWare.setEnabled(false);
+			btnClient.setEnabled(false);
+		}
 		setVisible(true);
 	}
 	

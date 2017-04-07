@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper	namespace="kr.or.dgit.sw_project.dao.MemberShipMapper">
+
+	<resultMap type="Members" id="MembersResult">
+		<id property="memId" column="mem_id"/>
+		<result property="memName" column="mem_name"/>
+		<result property="memPassword" column="mem_password"/>
+		<result property="memMail" column="mem_mail"/>
+		<result property="memPermission" column="mem_Permission"/>
+		<result property="memIsExist" column="mem_isExist"/>
+	</resultMap>
+	 
+	<!-- Select SQL -->
+    <sql id="selectSQL">
+		SELECT mem_id, mem_name, mem_mail, mem_Permission, mem_isExist
+			FROM members;
+	</sql>
+
+	<!-- Where SQL -->
+	<sql id="whereSQL">
+		<where>
+			<if test="memId != null">
+				mem_id=#{memId}
+			</if>
+		</where>
+	</sql>
+	    
+    <!-- Select By All --> 
+    <select id="selectMembersByAll" resultMap="MembersResult">
+    	<include refid="selectSQL" />
+	   		ORDER BY mem_id
+    </select>
+    
+    <!-- Select By No-->
+    <select id="selectMembersByID" parameterType="Members" resultMap="MembersResult">
+		<include refid="selectSQL"/>
+		<include refid="whereSQL" />
+	</select>
+	
+	<!-- Insert Item -->
+	<insert id="insetMembersItem" parameterType="Members">
+		INSERT INTO members(mem_id, mem_name, mem_password, mem_mail, mem_Permission, mem_isExist)
+			VALUES(#(memId),#(memName),#(memPassword),#(memMail), #(mem_Permission), #(memIsExist), true);
+	</insert>
+	
+	<!-- Update Item -->
+	<update id="updateMembersItem" parameterType="Members">
+		UPDATE Members
+		<set>
+			<if test="memId != null">mem_id=#{memId},</if>
+			<if test="memName != null">mem_name=#{memName},</if>
+			<if test="memPassword != null">mem_password=#{memPassword},</if>
+			<if test="memMail != null">mem_mail=#{memMail},</if>
+			<if test="memPermission != null">mem_permission=#{memPermission},</if>
+			<if test="memIsExist != null">mem_isExist={memIsExist}</if>
+		</set>
+		<include refid="whereSQL"/>
+	</update>
+	
+	<!-- Not Exist Item -->
+	<update id="existMembersItem" parameterType="Members">
+		UPDATE Members SET members_isExist=FALSE 
+			<include refid="whereSQL" />
+	</update>
+	
+	<!-- Select For LogIn -->
+	<select id="selectMembersForLogIn" resultMap="MembersResult">
+    	SELECT mem_id, mem_permission FROM members 
+			WHERE mem_id=#{memId} AND mem_password=#{memPassword}
+	</select>
+</mapper>
