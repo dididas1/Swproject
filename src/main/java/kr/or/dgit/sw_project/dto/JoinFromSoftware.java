@@ -63,4 +63,5 @@ public class JoinFromSoftware {
 		return String.format("%s, %s, %s, %s, %s, %s",
 			software, supplyCompany, category, delivery, sale, saleDetail);
 	}
+	
 }

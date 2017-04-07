@@ -48,6 +48,7 @@ public class ContentCategory extends JPanel {
 		add(tfpCategoryName, gbc_tfpCategoryName);
 		
 		initSetting();
+		setVisible(true);
 	}
 	
 	public void initSetting(){ //초기화
