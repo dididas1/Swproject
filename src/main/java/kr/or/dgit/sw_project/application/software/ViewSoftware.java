@@ -14,9 +14,14 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import kr.or.dgit.sw_project.dto.Category;
+import kr.or.dgit.sw_project.dto.Software;
 import kr.or.dgit.sw_project.service.CategoryService;
+import kr.or.dgit.sw_project.service.SoftwareService;
 
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
@@ -109,12 +114,34 @@ public class ViewSoftware extends JFrame implements ActionListener {
 		gbc_pTable.gridx = 0;
 		gbc_pTable.gridy = 3;
 		getContentPane().add(pTable, gbc_pTable);
+		pTable.getTable().addMouseListener(new MouseAdapter() {
+
+			@Override
+			public void mouseClicked(MouseEvent e) { //테이블 클릭시 작동
+				Object[] swObj = getSoftwareDataObject();
+				pContent.setObject(swObj);
+				btnDelete.setEnabled(true);
+				btnInsert.setText("수정");
+				super.mouseClicked(e);
+			}
+
+		});
 
 		pContent.getTfNo();
 		pContent.setComboBox();
 		
 		pTable.setTableData();
 		setVisible(true);
+	}
+	
+	public Object[] getSoftwareDataObject() { //클릭된 인덱스의 코드를 받아와 클라이언트 넘버검색후 리턴
+		int cCnt = pTable.getTable().getColumnCount();
+		int selIns = pTable.getTable().getSelectedRow();
+		Object[] softwareObj = new Object[cCnt];
+		for(int i=0 ; i<cCnt ; i++){
+			softwareObj[i] = pTable.getTable().getValueAt(selIns, i);
+		}
+		return softwareObj;
 	}
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnDelete) {
@@ -139,10 +166,19 @@ public class ViewSoftware extends JFrame implements ActionListener {
 			}
 		}
 	}
-	protected void actionPerformedBtnCancle(ActionEvent e) {
-		
-	}
 	protected void actionPerformedBtnDelete(ActionEvent e) {
+		int ok=JOptionPane.showConfirmDialog(null, "삭제하겠습니까?");
+		if(ok==0){
+			SoftwareService.getInstance().deleteSoftwareItem(pContent.getSoftwareCode());
+			pTable.setTableData();
+			pContent.initSetting();
+			btnInsert.setText("입력");
+		}else{
+			JOptionPane.showMessageDialog(null, "취소되었습니다");
+			btnInsert.setText("입력");
+		}
+	}
+	protected void actionPerformedBtnCancle(ActionEvent e) {
 		pContent.initSetting();
 		btnInsert.setText("입력");
 		btnDelete.setEnabled(false);

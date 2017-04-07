@@ -23,6 +23,7 @@ import erp_myframework.ComboPanel;
 import erp_myframework.TextFieldPanel;
 import kr.or.dgit.sw_project.dto.Category;
 import kr.or.dgit.sw_project.dto.JoinFromSoftware;
+import kr.or.dgit.sw_project.dto.Software;
 import kr.or.dgit.sw_project.service.CategoryService;
 import kr.or.dgit.sw_project.service.JoinFromSoftwareService;
 import kr.or.dgit.sw_project.service.SoftwareService;
@@ -130,11 +131,23 @@ public class ContentSoftware extends JPanel implements MouseListener {
 		tfpGroupName.setComboData(setComboObj);
 	}
 	
+	public Software getSoftwareCode(){ //text필드 값받아옴
+		String swCode = tfpSWCode.getTfValue();
+		return new Software(swCode);
+	}
+	
 	public void initSetting(){ //초기화
 		tfpSWName.requestFocus();
 		tfpSWName.setTfValue("");
 		tfpSwPrice.setTfValue("");
 		tfpGroupName.setComboData(null);
+	}
+	
+	public void setObject(Object[] swObj){ //text필드에 값세팅
+		tfpSWCode.setTfValue(String.valueOf(swObj[0]));
+		tfpGroupName.setSelectedItem(swObj[1]);
+		tfpSWName.setTfValue(String.valueOf(swObj[2]));
+		tfpSwPrice.setTfValue(String.valueOf(swObj[3]));
 	}
 	
 	public void getObject(){

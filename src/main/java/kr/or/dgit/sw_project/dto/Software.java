@@ -1,7 +1,5 @@
 package kr.or.dgit.sw_project.dto;
 
-import java.util.List;
-
 public class Software {
 	//소프트웨어 등록
 	private String swCode;
@@ -15,9 +13,10 @@ public class Software {
 	private Delivery delivery;
 	private Sale sale;
 	
+	public Software() {}
 	
-	public Software() {
-		super();
+	public Software(String swCode) {
+		this.swCode = swCode;
 	}
 	
 	public String getGroupCode() {

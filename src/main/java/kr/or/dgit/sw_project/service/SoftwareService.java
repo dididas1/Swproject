@@ -35,14 +35,18 @@ public class SoftwareService {
 	public int updateSoftwareItem(Software item) {
 		try (SqlSession sqlSession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
 			SoftwareMapper softwareMapper = new SoftwareMapperImpl(sqlSession);
-			return softwareMapper.updateSoftwareItem(item);
+			int res = softwareMapper.updateSoftwareItem(item);
+			sqlSession.commit();
+			return res;
 		} 
 	}
 	
 	public int deleteSoftwareItem(Software item) {
 		try (SqlSession sqlSession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
 			SoftwareMapper softwareMapper = new SoftwareMapperImpl(sqlSession);
-			return softwareMapper.deleteSoftwareItem(item);
+			int res = softwareMapper.deleteSoftwareItem(item);
+			sqlSession.commit();
+			return res;
 		} 
 	}
 }
