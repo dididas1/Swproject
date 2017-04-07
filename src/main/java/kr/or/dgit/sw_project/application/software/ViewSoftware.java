@@ -22,6 +22,8 @@ import kr.or.dgit.sw_project.service.SoftwareService;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.HashMap;
+import java.util.Map;
 import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
@@ -102,6 +104,7 @@ public class ViewSoftware extends JFrame implements ActionListener {
 		
 		btnDelete = new JButton("삭제");
 		btnDelete.addActionListener(this);
+		btnDelete.setEnabled(false);
 		GridBagConstraints gbc_btnDelete = new GridBagConstraints();
 		gbc_btnDelete.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnDelete.gridx = 2;
@@ -127,7 +130,7 @@ public class ViewSoftware extends JFrame implements ActionListener {
 
 		});
 
-		pContent.getTfNo();
+		pContent.getSwCode();
 		pContent.setComboBox();
 		
 		pTable.setTableData();
@@ -161,6 +164,23 @@ public class ViewSoftware extends JFrame implements ActionListener {
 				pContent.getObject();
 				pTable.setTableData();
 				pContent.initSetting();
+				pContent.getSwCode();
+			}else{
+				JOptionPane.showMessageDialog(null, "취소되었습니다");
+			}
+		}else if(e.getActionCommand().equals("수정")){ //수정으로 변경
+			int ok=JOptionPane.showConfirmDialog(null, "수정하시겠습니까?");
+			if(ok==0){
+				/*Category su = getCategoryDataObject();
+				Map<String, Object> param = new HashMap<String, Object>();
+				param.put("groupCode1",pContent.getCategoryCode());
+				param.put("groupCode2",su.getGroupCode());
+				param.put("groupName",pContent.getCategoryName());
+				CategoryService.getInstance().updateCategoryItem(param);*/
+				btnInsert.setText("입력");
+				pTable.setTableData();
+				pContent.initSetting();
+				btnDelete.setEnabled(false);
 			}else{
 				JOptionPane.showMessageDialog(null, "취소되었습니다");
 			}
@@ -173,6 +193,8 @@ public class ViewSoftware extends JFrame implements ActionListener {
 			pTable.setTableData();
 			pContent.initSetting();
 			btnInsert.setText("입력");
+			btnDelete.setEnabled(false);
+			pContent.getSwCode();
 		}else{
 			JOptionPane.showMessageDialog(null, "취소되었습니다");
 			btnInsert.setText("입력");
@@ -182,5 +204,6 @@ public class ViewSoftware extends JFrame implements ActionListener {
 		pContent.initSetting();
 		btnInsert.setText("입력");
 		btnDelete.setEnabled(false);
+		pContent.getSwCode();
 	}
 }

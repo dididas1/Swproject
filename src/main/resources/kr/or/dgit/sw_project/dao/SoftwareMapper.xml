@@ -47,7 +47,7 @@
 	</insert>
 	
 	<!-- update item -->
-	<update id="updateSoftwareItem" parameterType="Software">
+	<update id="updateSoftwareItem" parameterType="hashmap">
 		UPDATE software
 		<set>
 			<if test="swName != null">sw_name=#{swName},</if>

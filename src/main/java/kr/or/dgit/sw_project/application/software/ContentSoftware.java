@@ -111,7 +111,7 @@ public class ContentSoftware extends JPanel implements MouseListener {
 		add(lblImage, gbc_lblImage);
 	}
 
-	public void getTfNo(){
+	public void getSwCode(){
 		List<JoinFromSoftware> list = JoinFromSoftwareService.getInstance().selectJoinFromSoftwareByAll();
 		String value = String.format("SW%03d", list.size()+1);
 		tfpSWCode.setTfValue(value);
@@ -140,7 +140,7 @@ public class ContentSoftware extends JPanel implements MouseListener {
 		tfpSWName.requestFocus();
 		tfpSWName.setTfValue("");
 		tfpSwPrice.setTfValue("");
-		tfpGroupName.setComboData(null);
+		tfpGroupName.setSelectedItem(null);
 	}
 	
 	public void setObject(Object[] swObj){ //text필드에 값세팅
