@@ -12,6 +12,24 @@ public class Delivery {
 	private int supplyAmount;
 	private Date orderDate;
 	private boolean delIsExist;
+	
+	
+	
+	public Delivery() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Delivery(String delCode, SupplyCompany supplyCompany, Software software, int supplyPrice, int supplyAmount,
+			Date orderDate) {
+		super();
+		this.delCode = delCode;
+		this.supplyCompany = supplyCompany;
+		this.software = software;
+		this.supplyPrice = supplyPrice;
+		this.supplyAmount = supplyAmount;
+		this.orderDate = orderDate;
+	}
 
 	public String getDelCode() {
 		return delCode;
@@ -74,5 +92,7 @@ public class Delivery {
 		return String.format("%s, %s, %s, %s, %s, %s, %s",
 			delCode, supplyCompany, software, supplyPrice, supplyAmount, orderDate, delIsExist);
 	}
+	public Object[] toArray(){
+		return new Object[]{delCode,supplyCompany.getCompName(),software.getSwName(),supplyPrice,supplyAmount,orderDate};
+	}
 }
-	

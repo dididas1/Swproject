@@ -22,4 +22,10 @@ public class DeliveryMapperImpl implements DeliveryMapper{
 		log.debug("selectDeliveryByAll()");
 		return sqlSession.selectList(nameSpace + "selectDeliveryByAll");
 	}
+
+	@Override
+	public int insertDeliveryItems(Delivery delivery) {
+		log.debug("insertDeliveryItems()");		
+		return sqlSession.insert(nameSpace + "insertDeliveryItems", delivery);
+	}
 }

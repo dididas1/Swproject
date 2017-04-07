@@ -11,6 +11,11 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 public class ViewDelivery extends JPanel{
+	
+	private JButton btnInsert;
+	private TableDelivery pTable;
+	private ContentDelivery pContent;
+
 	public ViewDelivery() {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0}; //각 열의 최소 넓이  
@@ -31,7 +36,7 @@ public class ViewDelivery extends JPanel{
 		gbc_label.gridwidth = 5;
 		add(label, gbc_label);
 		
-		ContentDelivery pContent = new ContentDelivery();
+		pContent = new ContentDelivery();
 		GridBagConstraints gbc_pContent = new GridBagConstraints();
 		gbc_pContent.insets = new Insets(10, 10, 10, 10);
 		gbc_pContent.fill = GridBagConstraints.NONE;
@@ -54,7 +59,7 @@ public class ViewDelivery extends JPanel{
 		gbl_pButton.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		pButton.setLayout(gbl_pButton);
 		
-		JButton btnInsert = new JButton("입력");
+		btnInsert = new JButton("입력");
 		GridBagConstraints gbc_btnInsert = new GridBagConstraints();
 		gbc_btnInsert.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnInsert.insets = new Insets(0, 0, 0, 0);
@@ -77,11 +82,14 @@ public class ViewDelivery extends JPanel{
 		gbc_btnDelete.gridy = 0;
 		pButton.add(btnDelete, gbc_btnDelete);
 		
-		TableDelivery pTable = new TableDelivery();
+		pTable = new TableDelivery();
 		GridBagConstraints gbc_pTable = new GridBagConstraints();
 		gbc_pTable.fill = GridBagConstraints.BOTH;
 		gbc_pTable.gridx = 0;
 		gbc_pTable.gridy = 3;
 		add(pTable, gbc_pTable);
+		
+		
+		setVisible(true);
 	}
 }

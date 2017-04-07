@@ -21,4 +21,13 @@ public class DeliveryService {
 			return deliveryMapper.selectDeliveryByAll();
 		} 
 	}
+	public int insertDeliveryItems(Delivery delivery){
+		try(SqlSession sqlSession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();){
+			DeliveryMapper deliveryMapper = new DeliveryMapperImpl(sqlSession);
+			int res = deliveryMapper.insertDeliveryItems(delivery);
+			sqlSession.commit();
+			return res;
+		}
+		
+	}
 }

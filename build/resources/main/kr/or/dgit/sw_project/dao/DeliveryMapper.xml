@@ -15,9 +15,15 @@
 
 	<!-- Select SQL -->
     <sql id="selectSQL">
-		SELECT * FROM delivery del 
-			JOIN software sw ON del.sw_code = sw.sw_code
-			JOIN supply_company sc ON sc.comp_code = del.comp_code
+		SELECT DISTINCT del.del_code,sc.comp_name,sw.sw_name,del.supply_price,del.supply_amount,
+				del.order_date
+			FROM software sw
+			LEFT OUTER JOIN delivery del ON sw.sw_code = del.sw_code
+			LEFT OUTER JOIN supply_company sc ON sc.comp_code = del.comp_code
+			LEFT OUTER JOIN category cat ON sw.group_code = cat.group_code
+			LEFT OUTER JOIN sale s ON sw.sw_code = s.sw_code
+			LEFT OUTER JOIN view_sale_detail sd ON s.sale_code = sd.sale_code
+			
 	</sql>
 
 	<!-- Where SQL -->
@@ -32,11 +38,12 @@
     <!-- Select By All --> 
     <select id="selectDeliveryByAll" resultMap="DeliveryResult">
     	<include refid="selectSQL" />
+    		where del_isExist = true
     		ORDER BY del_code;
     </select>
     
     <!-- Insert item -->
-    <insert id="insertDeliveryItems">
+    <insert id="insertDeliveryItems" parameterType="Delivery">
     	INSERT INTO delivery(del_code, comp_code, sw_code, supply_price, supply_amount, order_date, del_isExist) VALUES
 		(#{delCode}, #{compCode}, #{swCode}, #{supplyPrice}, #{supplyAmount}, #{orderDate}, TRUE)
     </insert>
