@@ -75,4 +75,10 @@ public class Client {
 	public Object[] toArrayForTable(){
 		return new Object[]{clntCode,clntName,clntTel,clntAddr};
 	}
+
+	@Override
+	public String toString() {
+		return String.format("%s, %s, %s, %s, %s, %s",
+				clntCode, clntName, clntAddr, clntTel, clntIsExist, sale);
+	}
 }

@@ -65,6 +65,13 @@ INSERT INTO sale(sale_code, clnt_code, sw_code, sale_amount,
 	("SL010","CL004","SW010",320,TRUE, "2010-10-04", 980000 , 1519000, FALSE),
 	("SL011","CL004","SW001",100,TRUE, "2010-10-04", 25000  , 40000,   TRUE);
 
+DELETE FROM sale;
+DELETE FROM delivery;
+DELETE FROM client;
+DELETE FROM software;
+DELETE FROM supply_company;
+DELETE FROM category;
+
 SELECT * FROM client;
 SELECT * FROM sale;
 SELECT * FROM delivery;

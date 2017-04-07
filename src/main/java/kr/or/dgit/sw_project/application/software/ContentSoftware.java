@@ -15,7 +15,6 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
 
 import erp_myframework.ComboPanel;
-import erp_myframework.RadioPanel;
 import erp_myframework.TextFiledPanel;
 
 @SuppressWarnings("serial")
@@ -25,9 +24,9 @@ public class ContentSoftware extends JPanel implements MouseListener {
 	public ContentSoftware() {
 		setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[] {0, 300, 300, 300, 50};
-		gridBagLayout.rowHeights = new int[]{30, 30, 30, 30, 20};
-		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0};
+		gridBagLayout.columnWidths = new int[] {300, 70};
+		gridBagLayout.rowHeights = new int[]{160, 30, 30, 30, 20};
+		gridBagLayout.columnWeights = new double[]{0.0, 0.0};
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0};
 		setLayout(gridBagLayout);
 		
@@ -36,7 +35,7 @@ public class ContentSoftware extends JPanel implements MouseListener {
 		GridBagConstraints gbc_tfptfpSWCode = new GridBagConstraints(); 
 		gbc_tfptfpSWCode.fill = GridBagConstraints.HORIZONTAL; 
 		gbc_tfptfpSWCode.insets = new Insets(0, 0, 5, 5);
-		gbc_tfptfpSWCode.gridx = 1;
+		gbc_tfptfpSWCode.gridx = 0;
 		gbc_tfptfpSWCode.gridy = 1;
 		add(tfpSWCode, gbc_tfptfpSWCode);
 		
@@ -45,7 +44,7 @@ public class ContentSoftware extends JPanel implements MouseListener {
 		GridBagConstraints gbc_tfpSWName = new GridBagConstraints();
 		gbc_tfpSWName.fill = GridBagConstraints.HORIZONTAL;
 		gbc_tfpSWName.insets = new Insets(0, 0, 5, 5);
-		gbc_tfpSWName.gridx = 1;
+		gbc_tfpSWName.gridx = 0;
 		gbc_tfpSWName.gridy = 2;
 		add(tfpSWName, gbc_tfpSWName);
 		
@@ -54,49 +53,29 @@ public class ContentSoftware extends JPanel implements MouseListener {
 		GridBagConstraints gbc_tfptfpSwPrice = new GridBagConstraints();
 		gbc_tfptfpSwPrice.fill = GridBagConstraints.HORIZONTAL;
 		gbc_tfptfpSwPrice.insets = new Insets(0, 0, 0, 5);
-		gbc_tfptfpSwPrice.gridx = 1;
+		gbc_tfptfpSwPrice.gridx = 0;
 		gbc_tfptfpSwPrice.gridy = 3;
 		add(tfpSwPrice, gbc_tfptfpSwPrice);
 		
-		ComboPanel tfpCompName = new ComboPanel();
-		tfpCompName.setTitle("공급회사");
-		GridBagConstraints gbc_tfpCompName = new GridBagConstraints();
-		gbc_tfpCompName.fill = GridBagConstraints.HORIZONTAL;
-		gbc_tfpCompName.insets = new Insets(0, 0, 5, 5);
-		gbc_tfpCompName.gridx = 2;
-		gbc_tfpCompName.gridy = 1;
-		add(tfpCompName, gbc_tfpCompName);
-				
 		ComboPanel tfpGroupName = new ComboPanel();
 		tfpGroupName.setTitle("분류");
 		GridBagConstraints gbc_tfpGroupName = new GridBagConstraints();
 		gbc_tfpGroupName.insets = new Insets(0, 0, 5, 5);
 		gbc_tfpGroupName.fill = GridBagConstraints.HORIZONTAL;
-		gbc_tfpGroupName.gridx = 2;
-		gbc_tfpGroupName.gridy = 2;
+		gbc_tfpGroupName.gridx = 0;
+		gbc_tfpGroupName.gridy = 4;
 		add(tfpGroupName, gbc_tfpGroupName);
 
-		RadioPanel tfpIsSale = new RadioPanel();
-		tfpIsSale.setTitle("판매여부");
-		tfpIsSale.setRadioItems("판매","판매중지");
-		GridBagConstraints gbc_tfpIsSale = new GridBagConstraints();
-		gbc_tfpIsSale.insets = new Insets(0, 0, 0, 5);
-		gbc_tfpIsSale.fill = GridBagConstraints.HORIZONTAL;
-		gbc_tfpIsSale.gridx = 2;
-		gbc_tfpIsSale.gridy = 3;
-		add(tfpIsSale, gbc_tfpIsSale);
-		
 		lblImage = new JLabel("");
 		lblImage.setPreferredSize(new Dimension(130, 80));
 		lblImage.setHorizontalAlignment(SwingConstants.CENTER);
 		lblImage.addMouseListener(this);
-
+		lblImage.setIcon(new ImageIcon(ContentSoftware.class.getResource("../../../../../../../../resources/main/softwareimage/DGIT_Logo.png")));
 		GridBagConstraints gbc_lblImage = new GridBagConstraints();
 		gbc_lblImage.fill = GridBagConstraints.BOTH;
-		gbc_lblImage.gridx = 3;
-		gbc_lblImage.gridy = 1;
-		gbc_lblImage.insets = new Insets(0, 70, 10, 0);
-		gbc_lblImage.gridheight = 3;
+		gbc_lblImage.gridx = 0;
+		gbc_lblImage.gridy = 0;
+		gbc_lblImage.insets = new Insets(15, 70, 15, 0);
 		add(lblImage, gbc_lblImage);
 	}
 

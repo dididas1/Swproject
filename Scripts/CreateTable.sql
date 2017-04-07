@@ -33,7 +33,7 @@ CREATE TABLE category (
 );
 
 -- 소프트웨어
--- sw_code, group_code, sw_name, sale_price, sw_inven, sw_issale  
+-- sw_code, group_code, sw_name, sale_price, sw_inven, sw_img, sw_issale  
 CREATE TABLE software (
 	sw_code    VARCHAR(6)   NOT NULL,
 	group_code VARCHAR(6)   NOT NULL,

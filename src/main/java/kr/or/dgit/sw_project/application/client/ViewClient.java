@@ -210,21 +210,12 @@ public class ViewClient extends JFrame implements ActionListener {
 	/*************************** Get Data ***************************/  
 	private void setTable(){ //Table 로드
 		getDataFromDB();
+		pTable.setList(list);
 		pTable.setTableData();
 	}
 	
 	private void getDataFromDB(){ //list에 데이터베이스에서 가져온 값을 입력
 		list = ClientService.getInstance().selectClientByAll();
 	}
-	
-	/*public Client getClntDataObject() { //클릭된 인덱스의 코드를 받아 clntCode 검색후 리턴
-		int selectedidx= pTable.getTable().getSelectedRow();
-		if(selectedidx==-1)
-			return null;
-		
-		String no = (String) pTable.getTable().getValueAt(selectedidx, 0);
-		Client client = ClientService.getInstance().selectByNoClnt(new Client(no));
-		return client;
-	}*/
 	/****************************************************************/
 }

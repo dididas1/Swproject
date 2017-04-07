@@ -90,7 +90,7 @@ public class ContentClient extends JPanel {
 		add(tfadr, gbc_tfadr);
 		initSetting();
 	}
-	
+	//???
 	public void initSetting(){ //코드 자동세팅 다른필드 초기화
 		List<Client> list = ClientService.getInstance().selectClientByAll();
 
