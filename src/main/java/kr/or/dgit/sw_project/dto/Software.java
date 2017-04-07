@@ -5,6 +5,7 @@ import java.util.List;
 public class Software {
 	//소프트웨어 등록
 	private String swCode;
+	private String groupCode;
 	private String swName;
 	private Category category;
 	private int salePrice;
@@ -18,7 +19,15 @@ public class Software {
 	public Software() {
 		super();
 	}
-
+	
+	public String getGroupCode() {
+		return groupCode;
+	}
+	
+	public void setGroupCode(String groupCode) {
+		this.groupCode = groupCode;
+	}
+	
 	public String getSwCode() {
 		return swCode;
 	}
@@ -71,12 +80,9 @@ public class Software {
 		this.swIsSale = swIsSale;
 	}
 	
-	
 	public void setSwCode(String swCode) {
 		this.swCode = swCode;
 	}
-	
-	
 	
 	public Delivery getDelivery() {
 		return delivery;
@@ -96,8 +102,8 @@ public class Software {
 
 	@Override
 	public String toString() {
-		return String.format("%s, %s, %s, %s, %s, %s, %s, %s, %s",
-				swCode, swName, category, salePrice, swInven, swImg, swIsSale, delivery, sale);
+		return String.format("%s, %s, %s, %s, %s, %s, %s, %s, %s, %s",
+				swCode, groupCode, swName, category, salePrice, swInven, swImg, swIsSale, delivery, sale);
 	}
 	
 	public String toCombobox(){

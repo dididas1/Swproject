@@ -4,6 +4,7 @@
     
     <resultMap type="Software" id="SoftwareResult">
     	<id property="swCode" column="sw_code"/>
+    	<result property="groupCode" column="group_code"/>
     	<result property="swName" column="sw_name"/>
     	<result property="salePrice" column="sale_price"/>
     	<result property="swInven" column="sw_inven"/>
@@ -12,12 +13,9 @@
     	<association property="category" resultMap="kr.or.dgit.sw_project.dao.CategoryMapper.CategoryResult"/>
     </resultMap>
 		
-
 	<!-- Select SQL -->
     <sql id="selectSQL">
-		SELECT * 
-			FROM software sw 
-				JOIN category c on sw.group_code = c.group_code
+		SELECT * FROM software sw JOIN category c on sw.group_code = c.group_code
 	</sql>
 
 	<!-- Where SQL -->
@@ -29,8 +27,8 @@
 		</where>
 	</sql>
 	    
-    <!-- Select By All --> 
-    <select id="selectSoftwareByAll" resultMap="SoftwareResult">
+    <!-- Select By All -->
+  	<select id="selectSoftwareByAll" resultMap="SoftwareResult">
     	<include refid="selectSQL" />
     	 	where sw_isSale= true
     		ORDER BY sw_code;
@@ -43,16 +41,15 @@
 	</select>
 	
 	<!-- insert item -->
-	<insert id="insertSoftwareItem" parameterType="Software">
-		INSERT INTO software(sw_code, group_code, sw_name, sale_price, sw_inven, sw_issale)
-		VALUES(#{swCode}, #{groupCode}, #{swName}, #{salePrice}, #{swInven}, #{swIsSale})
+	<insert id="insertSoftwareItem" parameterType="hashmap">
+		INSERT INTO software(sw_code, group_code, sw_name, sale_price, sw_inven, sw_img, sw_issale)
+		VALUES(#{swCode}, (select group_code from category where group_name = #{groupName}), #{swName}, #{salePrice}, #{swInven}, #{swImg}, #{swIsSale})
 	</insert>
 	
 	<!-- update item -->
 	<update id="updateSoftwareItem" parameterType="Software">
 		UPDATE software
 		<set>
-			<if test="groupCode != null">group_code=#{groupCode},</if>
 			<if test="swName != null">sw_name=#{swName},</if>
 			<if test="salePrice != null">sale_price=#{salePrice},</if>
 			<if test="swInven != null">sw_inven=#{swInven},</if>
@@ -60,6 +57,12 @@
 		</set>
 		<include refid="whereSQL"/>
 	</update>
+	
+	<!-- delete item -->
+	<delete id="deleteSoftwareItem" parameterType="Software">
+		delete from software
+		<include refid="whereSQL"/>
+	</delete>
 	
 	<!-- Not Exist item -->
 	<update id="ExistSoftwareItem" parameterType="Software">

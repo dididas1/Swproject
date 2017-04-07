@@ -9,15 +9,24 @@ import java.awt.Insets;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import kr.or.dgit.sw_project.service.CategoryService;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
 @SuppressWarnings("serial")
-public class ViewSoftware extends JFrame {
+public class ViewSoftware extends JFrame implements ActionListener {
 	private JPanel contentPane;
 	private ContentSoftware pContent;
 	private TableSoftware pTable;
+	private JButton btnInsert;
+	private JButton btnCancle;
+	private JButton btnDelete;
 	public ViewSoftware() {
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setBounds(100, 100, 500, 800);
@@ -68,7 +77,8 @@ public class ViewSoftware extends JFrame {
 		gbl_pButton.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		pButton.setLayout(gbl_pButton);
 		
-		JButton btnInsert = new JButton("입력");
+		btnInsert = new JButton("입력");
+		btnInsert.addActionListener(this);
 		GridBagConstraints gbc_btnInsert = new GridBagConstraints();
 		gbc_btnInsert.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnInsert.insets = new Insets(0, 0, 0, 0);
@@ -76,7 +86,8 @@ public class ViewSoftware extends JFrame {
 		gbc_btnInsert.gridy = 0;
 		pButton.add(btnInsert, gbc_btnInsert);
 		
-		JButton btnCancle = new JButton("취소");
+		btnCancle = new JButton("취소");
+		btnCancle.addActionListener(this);
 		GridBagConstraints gbc_btnCancle = new GridBagConstraints();
 		gbc_btnCancle.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnCancle.insets = new Insets(0, 0, 0, 0);
@@ -84,7 +95,8 @@ public class ViewSoftware extends JFrame {
 		gbc_btnCancle.gridy = 0;
 		pButton.add(btnCancle, gbc_btnCancle);
 		
-		JButton btnDelete = new JButton("삭제");
+		btnDelete = new JButton("삭제");
+		btnDelete.addActionListener(this);
 		GridBagConstraints gbc_btnDelete = new GridBagConstraints();
 		gbc_btnDelete.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnDelete.gridx = 2;
@@ -103,5 +115,36 @@ public class ViewSoftware extends JFrame {
 		
 		pTable.setTableData();
 		setVisible(true);
+	}
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnDelete) {
+			actionPerformedBtnDelete(e);
+		}
+		if (e.getSource() == btnCancle) {
+			actionPerformedBtnCancle(e);
+		}
+		if (e.getSource() == btnInsert) {
+			actionPerformedBtnInsert(e);
+		}
+	}
+	protected void actionPerformedBtnInsert(ActionEvent e) {
+		if(e.getActionCommand().equals("입력")){
+			int ok=JOptionPane.showConfirmDialog(null, "입력하시겠습니까?");
+			if(ok==0){
+				pContent.getObject();
+				pTable.setTableData();
+				pContent.initSetting();
+			}else{
+				JOptionPane.showMessageDialog(null, "취소되었습니다");
+			}
+		}
+	}
+	protected void actionPerformedBtnCancle(ActionEvent e) {
+		
+	}
+	protected void actionPerformedBtnDelete(ActionEvent e) {
+		pContent.initSetting();
+		btnInsert.setText("입력");
+		btnDelete.setEnabled(false);
 	}
 }

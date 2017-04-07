@@ -6,10 +6,11 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Vector;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -24,6 +25,7 @@ import kr.or.dgit.sw_project.dto.Category;
 import kr.or.dgit.sw_project.dto.JoinFromSoftware;
 import kr.or.dgit.sw_project.service.CategoryService;
 import kr.or.dgit.sw_project.service.JoinFromSoftwareService;
+import kr.or.dgit.sw_project.service.SoftwareService;
 
 @SuppressWarnings("serial")
 public class ContentSoftware extends JPanel implements MouseListener {
@@ -126,6 +128,25 @@ public class ContentSoftware extends JPanel implements MouseListener {
 			setComboObj.add(comboObj[i]);
 		}
 		tfpGroupName.setComboData(setComboObj);
+	}
+	
+	public void initSetting(){ //초기화
+		tfpSWName.requestFocus();
+		tfpSWName.setTfValue("");
+		tfpSwPrice.setTfValue("");
+		tfpGroupName.setComboData(null);
+	}
+	
+	public void getObject(){
+		Map<String, Object> insertSoftware = new HashMap<String, Object>();
+		insertSoftware.put("swCode", tfpSWCode.getTfValue());
+		insertSoftware.put("groupName", tfpGroupName.getSelectItem());
+		insertSoftware.put("swName", tfpSWName.getTfValue());
+		insertSoftware.put("salePrice", tfpSwPrice.getTfValue());
+		insertSoftware.put("swInven", 0);
+		insertSoftware.put("swImg", "IMG");
+		insertSoftware.put("swIsSale", false);
+		SoftwareService.getInstance().insertSoftwareItem(insertSoftware);
 	}
 	
 	public void mouseClicked(MouseEvent e) {}

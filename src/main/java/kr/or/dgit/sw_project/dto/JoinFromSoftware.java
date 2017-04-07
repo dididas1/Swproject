@@ -1,7 +1,5 @@
 package kr.or.dgit.sw_project.dto;
 
-import java.util.List;
-
 public class JoinFromSoftware {
 	private Software software;
 	private SupplyCompany supplyCompany;

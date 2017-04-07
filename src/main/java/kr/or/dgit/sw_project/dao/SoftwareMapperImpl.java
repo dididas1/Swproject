@@ -1,6 +1,7 @@
 package kr.or.dgit.sw_project.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.logging.Log;
 import org.apache.ibatis.logging.LogFactory;
@@ -21,5 +22,23 @@ public class SoftwareMapperImpl implements SoftwareMapper{
 	public List<Software> selectSoftwareByAll() {
 		log.debug("selectSoftwareByAll()");
 		return sqlSession.selectList(nameSpace + "selectSoftwareByAll");
+	}
+
+	@Override
+	public int insertSoftwareItem(Map<String, Object> item) {
+		log.debug("insertSoftwareItem()");
+		return sqlSession.insert(nameSpace + "insertSoftwareItem", item);
+	}
+
+	@Override
+	public int updateSoftwareItem(Software item) {
+		log.debug("updateSoftwareItem()");
+		return sqlSession.update(nameSpace + "updateSoftwareItem", item);
+	}
+
+	@Override
+	public int deleteSoftwareItem(Software item) {
+		log.debug("deleteSoftwareItem()");
+		return sqlSession.delete(nameSpace + "deleteSoftwareItem", item);
 	}
 }
