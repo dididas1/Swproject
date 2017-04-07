@@ -48,29 +48,7 @@ public class ContentDelivery extends JPanel {
 		add(tfpDelCode, gbc_tfpDelCode);
 		
 		tfpDeSwName = new ComboPanel();
-		/*Software sf = new Software();
-		String list = sf.getSwName();
-		Vector<Software> v = new Vector<>();
-		v.add(new Software());
-		for(int i=0; i<list.size();i++){
-			v.addElement(list.get(i));
-		}
-		tfpDeSwName.setComboData(v);*/		
-		/*pEmployeeForCombo = new ComboPanel<>();
-	      pEmployeeForCombo.setLayout(new GridLayout(0, 1, 0, 0));
-	      pEmployeeForCombo.setTitle("     사        원       ");
-	      pEmployeeForCombo.setLayout(new BoxLayout(pEmployeeForCombo, BoxLayout.X_AXIS));
-	      panel.add(pEmployeeForCombo);
-	      
-	      
-	      List<Employee> eList = edao.getInstance().selectEmployeeByAll();
-	      Vector<Employee> eVector = new Vector<>();
-	      eVector.add(new Employee());
-
-	      for (int i = 0; i < eList.size(); i++) {
-	         eVector.addElement(eList.get(i));
-	      }
-	      pEmployeeForCombo.setcomboData(eVector);*/
+		
 		
 		tfpDeSwName.setTitle("품목명");
 		GridBagConstraints gbc_tfpDeSwName = new GridBagConstraints();
@@ -126,4 +104,5 @@ public class ContentDelivery extends JPanel {
 		Date orderDate = new Date();
 		return new Delivery(deliveryCode, supplyCompany, softWare, supplyPrice, supplyAmount, orderDate);
 	}
+	ddddddd
 }
