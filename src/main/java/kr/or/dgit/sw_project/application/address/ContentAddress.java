@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 
 import erp_myframework.ComboPanel;
+import erp_myframework.PasswordPanel;
 import erp_myframework.TextFieldPanel;
 import kr.or.dgit.sw_project.dto.Address;
 import kr.or.dgit.sw_project.service.AddrService;
@@ -23,7 +24,7 @@ public class ContentAddress extends JPanel {
 
 	private ComboPanel<String> tfpSiDo;
 	private TextFieldPanel tfpDoro;
-
+	private PasswordPanel passwordPanel;
 	public ContentAddress() {
 		setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		GridBagLayout gridBagLayout = new GridBagLayout();

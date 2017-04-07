@@ -139,7 +139,7 @@ public class ViewAddress extends JFrame implements ActionListener {
 		setVisible(true);
 	}
 	
-	// 클릭된주소값넘김
+	// 클릭된 데이터값넘김
 	public String[] getSelectedObject() {
 		int selectedidx= pTable.getTable().getSelectedRow();
 		if(selectedidx==-1)return null;
