@@ -32,7 +32,6 @@ public class ContentSale extends JPanel {
 		setLayout(gridBagLayout);
 		
 		tfpSaleCode = new TextFieldPanel();
-		TextFieldPanel tfpSaleCode = new TextFieldPanel();
 		tfpSaleCode.setTitle("주문번호");
 		GridBagConstraints gbc_tfpSaleCode = new GridBagConstraints(); 
 		gbc_tfpSaleCode.fill = GridBagConstraints.HORIZONTAL; 
@@ -51,7 +50,6 @@ public class ContentSale extends JPanel {
 		add(tfpSwName, gbc_tfpSwName);
 		
 		tfpSaleAmount = new TextFieldPanel();
-		TextFieldPanel tfpSaleAmount = new TextFieldPanel();
 		tfpSaleAmount.setTitle("주문수량");
 		GridBagConstraints gbc_tfpSaleAmount = new GridBagConstraints();
 		gbc_tfpSaleAmount.fill = GridBagConstraints.HORIZONTAL;
@@ -70,7 +68,6 @@ public class ContentSale extends JPanel {
 		add(tfpClntName, gbc_tfpClntName);
 		
 		tfpOrderDate = new TextFieldPanel();
-		TextFieldPanel tfpOrderDate = new TextFieldPanel();
 		tfpOrderDate.setTitle("주문일자");
 		GridBagConstraints gbc_tfpOrderDate = new GridBagConstraints();
 		gbc_tfpOrderDate.fill = GridBagConstraints.HORIZONTAL;

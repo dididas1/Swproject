@@ -93,7 +93,7 @@ CREATE VIEW view_sale_detail AS
 	SELECT sale_code,
 /*총판매금액*/	sale_price * sale_amount AS total_sale_price,
 /*총공급금액*/	supply_price * sale_amount AS total_supply_price,
-/*마진액*/		(sale_price * sale_amount) - (supply_price*sale_amount) AS margin, 	
+/*마진액*/		(sale_price * sale_amount)/*총공급금액*/ - (supply_price*sale_amount)/*총판매금액*/	 AS margin, 	
 /*세금*/		(sale_price * sale_amount) * 0.1 AS tax,
 /*총납품금액*/	((sale_price * sale_amount) * 0.1) + (sale_price * sale_amount) AS tax_saleprice,
 /*미수금*/		(sale_price * sale_amount) * !isDeposit AS receivablePrice

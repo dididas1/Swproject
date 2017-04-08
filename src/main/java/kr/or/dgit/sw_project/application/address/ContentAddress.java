@@ -18,6 +18,7 @@ import erp_myframework.PasswordPanel;
 import erp_myframework.TextFieldPanel;
 import kr.or.dgit.sw_project.dto.Address;
 import kr.or.dgit.sw_project.service.AddrService;
+import erp_myframework.TextFieldPanel;
 
 public class ContentAddress extends JPanel {
 
@@ -25,6 +26,7 @@ public class ContentAddress extends JPanel {
 	private ComboPanel<String> tfpSiDo;
 	private TextFieldPanel tfpDoro;
 	private PasswordPanel passwordPanel;
+
 	public ContentAddress() {
 		setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -54,6 +56,7 @@ public class ContentAddress extends JPanel {
 		gbc_tfpSiDo.gridy = 1;
 		add(tfpSiDo, gbc_tfpSiDo);
 
+		
 		tfpDoro = new TextFieldPanel();
 		tfpDoro.setTitle("도로명");
 		GridBagConstraints gbc_panel = new GridBagConstraints();
