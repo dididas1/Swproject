@@ -36,11 +36,11 @@ public class TableSale extends JPanel {
 		List<JoinFromSale> listForTable = new ArrayList<JoinFromSale>(list);
 		System.out.println("Table "+list.hashCode());
 		System.out.println("=========list=============");
-		for(int i =0; i<list.size()-1; i++)
+		for(int i =0; i<list.size(); i++)
 			System.out.println(list.get(i).toString());
 			
 		System.out.println("=========listForTable=============");
-		for(int i =0; i<listForTable.size()-1; i++)
+		for(int i =0; i<listForTable.size(); i++)
 			System.out.println(listForTable.get(i).toString());
 		
 	/*	for (int i = listForTable.size()-1; i >= 0; i--) {

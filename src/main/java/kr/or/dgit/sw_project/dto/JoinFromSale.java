@@ -7,6 +7,15 @@ public class JoinFromSale {
 	private Category category;
 	private SaleDetail saleDetail;
 	
+	
+	
+	public JoinFromSale() {
+	}
+
+	public JoinFromSale(Sale sale) {
+		this.sale = sale;
+	}
+
 	public Sale getSale() {
 		return sale;
 	}

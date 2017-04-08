@@ -22,6 +22,14 @@ public class Sale {
 	public Sale() {
 	}
 	
+	
+	
+	public Sale(String saleCode) {
+		this.saleCode = saleCode;
+	}
+
+
+
 	public Sale(String saleCode, Client client, Software software, int saleAmount,boolean isDeposit, String orderDate, int supplyPrice,
 			int salePrice) {
 		this.saleCode = saleCode;

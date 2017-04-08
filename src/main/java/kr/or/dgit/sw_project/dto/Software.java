@@ -106,6 +106,6 @@ public class Software {
 	}
 	
 	public String toCombobox(){
-		return String.format("%s %s", swCode,swName);
+		return String.format("%s (재고: %s)", swName,swInven);
 	}
 }

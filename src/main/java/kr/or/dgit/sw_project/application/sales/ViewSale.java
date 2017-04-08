@@ -19,6 +19,7 @@ import javax.swing.SwingConstants;
 import kr.or.dgit.sw_project.dto.Client;
 import kr.or.dgit.sw_project.dto.JoinFromSale;
 import kr.or.dgit.sw_project.dto.JoinFromSoftware;
+import kr.or.dgit.sw_project.dto.Sale;
 import kr.or.dgit.sw_project.service.ClientService;
 import kr.or.dgit.sw_project.service.JoinFromSaleService;
 import kr.or.dgit.sw_project.service.SaleService;
@@ -130,18 +131,22 @@ public class ViewSale extends JPanel implements ActionListener{
 		String selectedCode = (String) pTable.getTable().getValueAt(pTable.getTable().getSelectedRow(), 0);
 		
 		int selectedIdx = 0;
-		for(int i=0; i<list.size()-1; i++){
+		for(int i=0; i<list.size(); i++){
 			if(list.get(i).getSale().getSaleCode().equals(selectedCode)){
 				selectedIdx=i;
 				break;
 			}
 		}
+		if(list.get(selectedIdx).getSale().isSaleIsExist()==false){
+			btnDelete.setEnabled(false);
+		}else{
+			JoinFromSale sale = list.get(selectedIdx);
+			pContent.setSaleContent(sale);
+			btnDelete.setEnabled(true);
+			btnInsert.setText("수정");
+			btnInsert.setEnabled(false);
+		}
 		
-		JoinFromSale sale = list.get(selectedIdx);
-		pContent.setSaleContent(sale);
-		btnDelete.setEnabled(true);
-		btnInsert.setText("수정");
-		btnInsert.setEnabled(false);
 	}
 	
 
@@ -164,9 +169,16 @@ public class ViewSale extends JPanel implements ActionListener{
 				JOptionPane.showMessageDialog(null, "공란이 있습니다");
 			}else{
 				if(JOptionPane.showConfirmDialog(null, "입력하시겠습니까?")==JOptionPane.YES_OPTION){
-					SaleService.getInstance().insertSaleItem(pContent.getObject());
-					setTable();
-					pContent.initSetting();
+					if(Integer.parseInt(pContent.getTfpSaleAmount().getTfValue())>list.get(pContent.getTfpSwName().getSelectedIndex()-1).getSoftware().getSwInven()){
+						JOptionPane.showMessageDialog(null, "재고가부족합니다");
+						return;
+					}else{
+						SaleService.getInstance().insertSaleItem(pContent.getObject());
+						setTable();
+						pContent.initSetting();
+						return;
+					}
+					
 				}
 			}
 		}else if(e.getActionCommand().equals("수정")){ //수정으로 변경
@@ -186,7 +198,7 @@ public class ViewSale extends JPanel implements ActionListener{
 
 	private void btnDeleteActionPerformed(ActionEvent e) { //삭제구현
 		if(JOptionPane.showConfirmDialog(null, "삭제하겠습니까?")==JOptionPane.YES_OPTION){
-			SaleService.getInstance().existSaleItem(pContent.getObject());
+			SaleService.getInstance().existSaleItem(new Sale(pContent.getObject().getSaleCode()));
 			setTable();
 			pContent.initSetting();
 			btnInsert.setText("입력");

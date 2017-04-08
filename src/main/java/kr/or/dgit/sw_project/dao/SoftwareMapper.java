@@ -7,6 +7,7 @@ import kr.or.dgit.sw_project.dto.Software;
 
 public interface SoftwareMapper {
 	List<Software> selectSoftwareByAll();
+	Software selectByNoSoftware(Software software);
 	int insertSoftwareItem(Map<String, Object> item);
 	int updateSoftwareItem(Map<String, Object> item);
 	int swCodeReset(Map<String, Object> item);

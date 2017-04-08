@@ -46,7 +46,7 @@
     <!-- Insert Item -->
     <insert id="insertSaleItem" parameterType="Sale">
     	INSERT INTO sale(sale_code, clnt_code, sw_code, sale_amount, isdeposit, order_date, supply_price, sale_price, sale_isExist) VALUES  
-	    (#{saleCode},#{clntCode},#{swCode},#{saleAmount}, #{isdeposit}, #{orderDate}, #{supplyPrice}  , #{salePrice},   TRUE);
+	    (#{saleCode},#{client.clntCode},#{software.swCode},#{saleAmount}, #{isDeposit}, #{orderDate}, #{supplyPrice}  , #{salePrice},   TRUE);
     </insert>
     
     <!-- Update Item -->
@@ -61,7 +61,7 @@
      <!-- Exist item -->
      <update id="existSaleItem" parameterType="Sale">
      	UPDATE sale
-		SET sale_isExist=#{saleIsExist}
+		SET sale_isExist=false
 		WHERE sale_code=#{saleCode};
      </update>
 </mapper>

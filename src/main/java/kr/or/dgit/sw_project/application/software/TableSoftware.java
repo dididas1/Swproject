@@ -37,7 +37,7 @@ public class TableSoftware extends JPanel {
 	}
 	
 	public Object[] getColumm() { //컬럼값입력
-		return new String[]{"제품번호","분류명","제품명","판매가격"};
+		return new String[]{"제품번호","분류명","제품명","판매가격","재고량"};
 		
 	}
 	
