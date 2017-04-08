@@ -54,8 +54,8 @@ public class JoinFromSale {
 	}
 	
 	public Object[] toArrayForTable(){
-		return new Object[]{sale.getSaleCode(),client.getClntName(),software.getSwName(),
-							sale.getSaleAmount(),sale.getOrderDate(),sale.isSaleIsExist()? "주문완료":"주문취소"};
+		return new Object[]{sale.getSaleCode(),client.getClntName(),software.getSwName(),String.format("%,d",software.getSalePrice()),
+							sale.getSaleAmount(),String.format("%,d", sale.getSaleDetail().getTotalSalePrice()),sale.getOrderDate(),sale.isDeposit()?"입금완료":"미입금",sale.isSaleIsExist()? "주문완료":"주문취소"};
 	}
 
 }

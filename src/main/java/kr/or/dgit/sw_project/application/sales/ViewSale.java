@@ -200,6 +200,7 @@ public class ViewSale extends JPanel implements ActionListener{
 	private void actionPerformedBtnCancle(ActionEvent e) { //취소버튼
 		pContent.initSetting();
 		btnInsert.setText("입력");
+		btnInsert.setEnabled(true);
 		btnDelete.setEnabled(false);
 	}
 	/***********************************************************************/
