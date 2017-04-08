@@ -4,6 +4,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.util.Date;
+import java.util.List;
 import java.util.Vector;
 
 import javax.swing.ButtonGroup;
@@ -16,6 +17,9 @@ import erp_myframework.TextFieldPanel;
 import kr.or.dgit.sw_project.dto.Delivery;
 import kr.or.dgit.sw_project.dto.Software;
 import kr.or.dgit.sw_project.dto.SupplyCompany;
+import kr.or.dgit.sw_project.service.DeliveryService;
+import kr.or.dgit.sw_project.service.SoftwareService;
+import kr.or.dgit.sw_project.service.SupplyCompService;
 
 public class ContentDelivery extends JPanel {
 	private final ButtonGroup buttonGroup = new ButtonGroup();
@@ -45,11 +49,12 @@ public class ContentDelivery extends JPanel {
 		gbc_tfpDelCode.insets = new Insets(0, 0, 0, 0);
 		gbc_tfpDelCode.gridx = 0;
 		gbc_tfpDelCode.gridy = 1;
-		add(tfpDelCode, gbc_tfpDelCode);
+		add(tfpDelCode, gbc_tfpDelCode);	
 		
-		tfpDeSwName = new ComboPanel();
-		
-		
+	      
+	      
+	      
+	    tfpDeSwName = new ComboPanel();
 		tfpDeSwName.setTitle("품목명");
 		GridBagConstraints gbc_tfpDeSwName = new GridBagConstraints();
 		gbc_tfpDeSwName.fill = GridBagConstraints.HORIZONTAL;
@@ -57,6 +62,10 @@ public class ContentDelivery extends JPanel {
 		gbc_tfpDeSwName.gridx = 1;
 		gbc_tfpDeSwName.gridy = 1;
 		add(tfpDeSwName, gbc_tfpDeSwName);
+		
+		setComboSoftware();
+		
+	      
 		
 		tfpDelAmount = new TextFieldPanel();
 		tfpDelAmount.setTitle("납품수량");
@@ -67,6 +76,8 @@ public class ContentDelivery extends JPanel {
 		gbc_tfpDelAmount.gridy = 2;
 		add(tfpDelAmount, gbc_tfpDelAmount);
 		
+		
+		
 		tfpCompName = new ComboPanel();
 		tfpCompName.setTitle("납품회사");
 		GridBagConstraints gbc_tfpCompName = new GridBagConstraints();
@@ -75,6 +86,9 @@ public class ContentDelivery extends JPanel {
 		gbc_tfpCompName.gridx = 1;
 		gbc_tfpCompName.gridy = 2;
 		add(tfpCompName, gbc_tfpCompName);
+		
+		setComboSupplyCompany();
+		
 		
 		tfpDelOrderDate = new TextFieldPanel();
 		tfpDelOrderDate.setTitle("납품일자");
@@ -93,8 +107,30 @@ public class ContentDelivery extends JPanel {
 		gbc_tfpIsExist.gridx = 1;
 		gbc_tfpIsExist.gridy = 3;
 		add(tfpSupplyAmount, gbc_tfpIsExist);
+		
+		setDeliveryCode();
 	}
-	
+	private void setDeliveryCode() {
+		tfpDelCode.setTfValue(DeliveryService.getInstance().lastDeliveryCode());
+		
+	}
+	private void setComboSupplyCompany() {
+		List<SupplyCompany> list = SupplyCompService.getInstance().selectSupplyCompByAll();
+		Vector<String> v = new Vector<>();		
+		for(int i=0; i<list.size(); i++){
+			v.add(list.get(i).toCombobox());
+		}
+		tfpCompName.setComboData(v);
+		
+	}
+	public void setComboSoftware(){
+		List<Software> list = SoftwareService.getInstance().selectSoftwareByAll();
+		Vector<String> v = new Vector<>();		
+		for(int i=0; i<list.size(); i++){
+			v.add(list.get(i).toCombobox());
+		}
+		tfpDeSwName.setComboData(v);	
+	}
 	public Delivery getObject(){
 		String deliveryCode = tfpDelCode.getTfValue().trim();
 		SupplyCompany supplyCompany = (SupplyCompany) tfpCompName.getSelectItem();
@@ -104,5 +140,5 @@ public class ContentDelivery extends JPanel {
 		Date orderDate = new Date();
 		return new Delivery(deliveryCode, supplyCompany, softWare, supplyPrice, supplyAmount, orderDate);
 	}
-	ddddddd
+	
 }

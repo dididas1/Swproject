@@ -28,4 +28,10 @@ public class DeliveryMapperImpl implements DeliveryMapper{
 		log.debug("insertDeliveryItems()");		
 		return sqlSession.insert(nameSpace + "insertDeliveryItems", delivery);
 	}
+
+	@Override
+	public String lastDeliveryCode() {
+		log.debug("lastDeliveryCode()");
+		return sqlSession.selectOne(nameSpace + "lastDeliveryCode");
+	}
 }

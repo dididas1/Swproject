@@ -42,6 +42,11 @@
     		ORDER BY del_code;
     </select>
     
+    <!-- Get LastDeliveryCode -->
+    <select id="lastDeliveryCode"  resultType="Delivery">
+    	select max(del_code)  from delivery;
+    </select>
+    
     <!-- Insert item -->
     <insert id="insertDeliveryItems" parameterType="Delivery">
     	INSERT INTO delivery(del_code, comp_code, sw_code, supply_price, supply_amount, order_date, del_isExist) VALUES

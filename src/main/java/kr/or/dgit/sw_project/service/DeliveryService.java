@@ -6,7 +6,10 @@ import org.apache.ibatis.session.SqlSession;
 
 import kr.or.dgit.sw_project.dao.DeliveryMapper;
 import kr.or.dgit.sw_project.dao.DeliveryMapperImpl;
+import kr.or.dgit.sw_project.dao.SupplyCompMapper;
+import kr.or.dgit.sw_project.dao.SupplyCompMapperImpl;
 import kr.or.dgit.sw_project.dto.Delivery;
+import kr.or.dgit.sw_project.dto.SupplyCompany;
 import kr.or.dgit.sw_project.util.MyBatisSqlSessionFactory;
 public class DeliveryService {
 	public static final DeliveryService instance = new DeliveryService();
@@ -29,5 +32,11 @@ public class DeliveryService {
 			return res;
 		}
 		
+	}
+	public String lastDeliveryCode() {
+		try (SqlSession sqlSession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
+			DeliveryMapper deliveryMapper = new DeliveryMapperImpl(sqlSession);
+			return deliveryMapper.lastDeliveryCode();
+		} 
 	}
 }
