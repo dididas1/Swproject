@@ -13,7 +13,7 @@ INSERT INTO members(mem_id, mem_name, mem_password, mem_mail, mem_permission, me
 	VALUES("luuzun","이원준","1234","luuzun@naver.com", "manager", TRUE);
 
 INSERT INTO members(mem_id, mem_name, mem_password, mem_mail, mem_permission, mem_isExist)
-	VALUES("dididas","이승우","1234","dididas@naver.com", "personnel", TRUE);
+	VALUES("dididas","이승우","1234","dididas@naver.com", "manager", TRUE);
 
 SELECT mem_id, mem_name, mem_password, mem_mail, mem_permission, mem_isExist FROM members;
 
