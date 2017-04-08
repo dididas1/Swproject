@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 CREATE TABLE members(
 	mem_id		   VARCHAR(20) NOT NULL,
 	mem_name	   VARCHAR(20) NOT NULL,
@@ -16,3 +17,9 @@ INSERT INTO members(mem_id, mem_name, mem_password, mem_mail, mem_permission, me
 	VALUES("dididas","이승우","1234","dididas@naver.com", "personnel", TRUE);
 
 SELECT mem_id, mem_name, mem_password, mem_mail, mem_permission, mem_isExist FROM members;
+=======
+CREATE INDEX idx_post_sigungu ON address(sigungu);
+
+select from
+
+>>>>>>> refs/remotes/origin/master

@@ -12,10 +12,13 @@ import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 
 import erp_myframework.TextFieldPanel;
+import kr.or.dgit.sw_project.application.address.ViewAddress;
 import kr.or.dgit.sw_project.dto.SupplyCompany;
 import kr.or.dgit.sw_project.service.SupplyCompService;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
-public class ContentSupplyCompany extends JPanel {
+public class ContentSupplyCompany extends JPanel implements ActionListener {
 	private JTextField textField;
 	private TextFieldPanel tfpSupplyCompanyName;
 	private TextFieldPanel tfpSupplyCompanyCode;
@@ -23,6 +26,8 @@ public class ContentSupplyCompany extends JPanel {
 	private TextFieldPanel tfpSupplyCompanyTel;
 	private JButton button;
 	private TextFieldPanel tfadr;
+	private ViewAddress viewAddress = new ViewAddress();
+	
 	public ContentSupplyCompany() {
 		setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -70,6 +75,7 @@ public class ContentSupplyCompany extends JPanel {
 		add(tfpSupplyCompanyAd, gbc_tfpSupplyCompanyAd);
 		
 		button = new JButton("우편번호검색");
+		button.addActionListener(this);
 		GridBagConstraints gbc_button = new GridBagConstraints();
 		gbc_button.insets = new Insets(0, 0, 5, 5);
 		gbc_button.gridx = 1;
@@ -90,6 +96,14 @@ public class ContentSupplyCompany extends JPanel {
 		
 	}
 	
+	public TextFieldPanel getTfpSupplyCompanyAd() {
+		return tfpSupplyCompanyAd;
+	}
+
+	public TextFieldPanel getTfadr() {
+		return tfadr;
+	}
+
 	public void initSetting(){ //코드 자동세팅 다른필드 초기화
 		List<SupplyCompany> list =SupplyCompService.getInstance().selectSupplyCompByAll();
 		tfpSupplyCompanyCode.setTfValue(String.format("SC%03d", list.size()+1));
@@ -123,5 +137,15 @@ public class ContentSupplyCompany extends JPanel {
 			}
 		}return false;
 		
+	}
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == button) {
+			buttonActionPerformed(e);
+		}
+	}
+	//어드레스창열기
+	protected void buttonActionPerformed(ActionEvent e) {
+		viewAddress.setCompDao(this);
+		viewAddress.setVisible(true);
 	}
 }
