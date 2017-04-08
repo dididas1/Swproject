@@ -199,6 +199,7 @@ public class ViewSoftware extends JFrame implements ActionListener {
 					pTable.setTableData();
 					pContent.initSetting();
 					btnDelete.setEnabled(false);
+					pContent.getSwCode();
 				}else{
 					JOptionPane.showMessageDialog(null, "취소되었습니다");
 				}

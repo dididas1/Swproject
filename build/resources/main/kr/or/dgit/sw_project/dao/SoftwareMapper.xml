@@ -2,6 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper	namespace="kr.or.dgit.sw_project.dao.SoftwareMapper">
     
+    <!-- Script폴더의 kdu_Script에 데이터베이스 내용이 있음 -->
+    
     <resultMap type="Software" id="SoftwareResult">
     	<id property="swCode" column="sw_code"/>
     	<result property="groupCode" column="group_code"/>
