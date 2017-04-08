@@ -49,8 +49,8 @@ public class ContentSoftware extends JPanel implements MouseListener {
 		
 		tfpSWCode = new TextFieldPanel();
 		tfpSWCode.setTitle("제품번호");
-		tfpSWCode.gettF().setFocusable(false);
-		tfpSWCode.gettF().setEditable(false);
+		tfpSWCode.getTf().setFocusable(false);
+		tfpSWCode.getTf().setEditable(false);
 		GridBagConstraints gbc_tfpSWCode = new GridBagConstraints(); 
 		gbc_tfpSWCode.fill = GridBagConstraints.HORIZONTAL; 
 		gbc_tfpSWCode.insets = new Insets(0, 0, 5, 5);

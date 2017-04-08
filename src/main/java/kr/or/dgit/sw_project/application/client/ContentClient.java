@@ -35,7 +35,7 @@ public class ContentClient extends JPanel {
 		
 		tfpClientCode = new TextFieldPanel();
 		tfpClientCode.setTitle("고객사 번호");
-		tfpClientCode.gettF().setEditable(false);
+		tfpClientCode.getTf().setEditable(false);
 		GridBagConstraints gbc_tfpClientCode = new GridBagConstraints(); 
 		gbc_tfpClientCode.fill = GridBagConstraints.HORIZONTAL; 
 		gbc_tfpClientCode.insets = new Insets(0, 0, 5, 5);
@@ -99,7 +99,7 @@ public class ContentClient extends JPanel {
 			Integer.parseInt(list.get(list.size() - 1).getClntCode().substring(2)) + 1);
 
 		tfpClientCode.setTfValue(value);
-		tfpClientCode.gettF().setFocusable(false);
+		tfpClientCode.getTf().setFocusable(false);
 		clear();
 	}
 	
@@ -130,7 +130,7 @@ public class ContentClient extends JPanel {
 		for(Component c : getComponents()){
 			if(c instanceof TextFieldPanel){
 				TextFieldPanel tfp = (TextFieldPanel) c;
-				if(tfp.isEmpty()){
+				if(tfp.isEmptyCheck()){
 					return true;
 				}
 			}

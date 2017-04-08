@@ -34,7 +34,7 @@ public class ContentSupplyCompany extends JPanel {
 		
 		tfpSupplyCompanyCode = new TextFieldPanel();
 		tfpSupplyCompanyCode.setTitle("회사번호");
-		tfpSupplyCompanyCode.gettF().setEditable(false);
+		tfpSupplyCompanyCode.getTf().setEditable(false);
 		GridBagConstraints gbc_tfpSupplyCompanyCode = new GridBagConstraints(); 
 		gbc_tfpSupplyCompanyCode.fill = GridBagConstraints.HORIZONTAL; 
 		gbc_tfpSupplyCompanyCode.insets = new Insets(0, 0, 5, 5);
@@ -117,7 +117,7 @@ public class ContentSupplyCompany extends JPanel {
 		for(Component c: getComponents()){
 			if(c instanceof TextFieldPanel){
 				TextFieldPanel tfp= (TextFieldPanel) c;
-				if(tfp.isEmpty()){
+				if(tfp.isEmptyCheck()){
 					return true;
 				}
 			}
