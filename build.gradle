@@ -26,6 +26,7 @@ dependencies {
 	compile files('src/main/resources/kr/or/dgit/sw_project/libraries/erp_myframework.jar')
 	compile files('src/main/resources/kr/or/dgit/sw_project/lookandfeel/syntheticaAluOxide.jar')
 	compile files('src/main/resources/kr/or/dgit/sw_project/lookandfeel/synthetica.jar')
+
 }
 
 jar{
@@ -39,6 +40,3 @@ jar{
 	}
 	dependsOn configurations.runtime
 }
-
-
-

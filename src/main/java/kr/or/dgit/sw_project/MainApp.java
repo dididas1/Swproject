@@ -11,6 +11,7 @@ import java.text.ParseException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -19,12 +20,20 @@ import javax.swing.border.EmptyBorder;
 import de.javasoft.plaf.synthetica.SyntheticaAluOxideLookAndFeel;
 import de.javasoft.plaf.synthetica.SyntheticaLookAndFeel;
 import erp_myframework.TextFieldPanel;
+import kr.or.dgit.sw_project.application.membership.ViewMemberShip;
+import kr.or.dgit.sw_project.dto.Members;
+import kr.or.dgit.sw_project.service.MemberShipService;
 
 @SuppressWarnings("serial")
 public class MainApp extends JFrame implements ActionListener {
 
+	public static String permission;
+	
 	private JPanel contentPane;
 	private JButton btnLogIn;
+	private TextFieldPanel panelID;
+	private TextFieldPanel panelPassword;
+	private JButton btnSignIn;
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -56,8 +65,8 @@ public class MainApp extends JFrame implements ActionListener {
 		gbl_contentPane.columnWeights = new double[]{1.0, Double.MIN_VALUE};
 		gbl_contentPane.rowWeights = new double[]{1.0, 1.0, 1.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
-		
-		TextFieldPanel panelID = new TextFieldPanel();
+
+		panelID = new TextFieldPanel();
 		panelID.setTitle("ID");
 		GridBagConstraints gbc_panelID = new GridBagConstraints();
 		gbc_panelID.insets = new Insets(0, 0, 5, 0);
@@ -66,7 +75,7 @@ public class MainApp extends JFrame implements ActionListener {
 		gbc_panelID.gridy = 0;
 		contentPane.add(panelID, gbc_panelID);
 		
-		TextFieldPanel panelPassword = new TextFieldPanel();
+		panelPassword = new TextFieldPanel();
 		panelPassword.setTitle("Password");
 		GridBagConstraints gbc_panelPassword = new GridBagConstraints();
 		gbc_panelPassword.insets = new Insets(0, 0, 5, 0);
@@ -88,21 +97,36 @@ public class MainApp extends JFrame implements ActionListener {
 			
 		panelButton.add(btnLogIn);
 		
-		JButton btnCancel = new JButton("Cancel");
-		panelButton.add(btnCancel);
+		btnSignIn = new JButton("Sign-In");
+		btnSignIn.addActionListener(this);
+		panelButton.add(btnSignIn);
 		
 		JButton btnExit = new JButton("Exit");
 		panelButton.add(btnExit);
 	}
 	
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnSignIn) {
+			actionPerformedBtnSignIn(e);
+		}
 		if (e.getSource() == btnLogIn) {
 			actionPerformedBtnLogIn(e);
 		}
 	}
 	
 	protected void actionPerformedBtnLogIn(ActionEvent e) {
-		MainTab tabbedSale = new MainTab();
-		dispose();
+		Members user = MemberShipService.getInstance().selectMembersForLogIn(new Members(panelID.getTfValue(),panelPassword.getTfValue()));
+		if(user!=null){
+			permission = user.getMemPermission();
+			System.out.println("Permission: "+permission);
+			MainTab tabbedSale = new MainTab();
+			dispose();
+		}else{
+			JOptionPane.showMessageDialog(null, "회원 정보가 존재하지 않습니다.");
+		}
+	}
+	
+	protected void actionPerformedBtnSignIn(ActionEvent e) {
+		ViewMemberShip viewMemberShip = new ViewMemberShip();
 	}
 }

@@ -82,7 +82,7 @@ public class ContentCategory extends JPanel {
 		for(Component c: getComponents()){
 			if(c instanceof TextFieldPanel){
 				TextFieldPanel tfp= (TextFieldPanel) c;
-				if(tfp.isEmpty()){
+				if(tfp.isEmptyCheck()){
 					return true;
 				}
 			}
