@@ -216,7 +216,6 @@ public class ViewCategory extends JFrame implements ActionListener{
 			btnInsert.setText("입력");
 		}else{
 			JOptionPane.showMessageDialog(null, "취소되었습니다");
-			btnInsert.setText("입력");
 		}
 	}
 	protected void btnCancleActionPerformed(ActionEvent e) { //취소버튼

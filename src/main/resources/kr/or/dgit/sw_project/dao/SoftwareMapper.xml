@@ -59,6 +59,7 @@
 		<include refid="whereSQL"/>
 	</update>
 	
+	<!-- swCode의 내림차순패턴이 하나 비었을때 앞당김  -->
 	<update id="swCodeReset" parameterType="map">
 		update software set sw_code = #{resetCode} where sw_code = #{swCode};
 	</update>

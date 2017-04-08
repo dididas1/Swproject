@@ -132,12 +132,23 @@ public class ViewSoftware extends JFrame implements ActionListener {
 
 		pContent.getSwCode();
 		pContent.setComboBox();
-		
 		pTable.setTableData();
 		setVisible(true);
 	}
 	
-	public Object[] getSoftwareDataObject() { //클릭된 인덱스의 코드를 받아와 클라이언트 넘버검색후 리턴
+	public boolean isRegKey(){// 예외처리(공백, 정규표현식)
+		boolean isRegKey = true;
+		if(pContent.isWsCheck()){
+			JOptionPane.showMessageDialog(null, "공백이 있습니다");
+		}else if(pContent.isPatternCheck()){
+			JOptionPane.showMessageDialog(null, "판매가격은 숫자만 입력 가능합니다.(9자리 미만)");
+		}else{
+			isRegKey = false;
+		}
+		return isRegKey;
+	}
+	
+	public Object[] getSoftwareDataObject() { //클릭된 인덱스의 값을 받아와 오브젝트 배열에 넣고 리턴
 		int cCnt = pTable.getTable().getColumnCount();
 		int selIns = pTable.getTable().getSelectedRow();
 		Object[] softwareObj = new Object[cCnt];
@@ -147,7 +158,7 @@ public class ViewSoftware extends JFrame implements ActionListener {
 		return softwareObj;
 	}
 	
-	public void setSwCodes() { //
+	public void setSwCodes() { //테이블에 있는 모든 제품코드를 오브젝트 배열에 넣고 리턴
 		int swcCnt = pTable.getTable().getRowCount();
 		Object[] swCodes = new Object[swcCnt];
 		for(int i=0 ; i<swcCnt ; i++){
@@ -168,26 +179,29 @@ public class ViewSoftware extends JFrame implements ActionListener {
 		}
 	}
 	protected void actionPerformedBtnInsert(ActionEvent e) {
-		if(e.getActionCommand().equals("입력")){
-			int ok=JOptionPane.showConfirmDialog(null, "입력하시겠습니까?");
-			if(ok==0){
-				pContent.insertObject();
-				pTable.setTableData();
-				pContent.initSetting();
-				pContent.getSwCode();
-			}else{
-				JOptionPane.showMessageDialog(null, "취소되었습니다");
-			}
-		}else if(e.getActionCommand().equals("수정")){ //수정으로 변경
-			int ok=JOptionPane.showConfirmDialog(null, "수정하시겠습니까?");
-			if(ok==0){
-				pContent.updateObject();
-				btnInsert.setText("입력");
-				pTable.setTableData();
-				pContent.initSetting();
-				btnDelete.setEnabled(false);
-			}else{
-				JOptionPane.showMessageDialog(null, "취소되었습니다");
+		if(isRegKey()){}
+		else{
+			if(e.getActionCommand().equals("입력")){
+				int ok=JOptionPane.showConfirmDialog(null, "입력하시겠습니까?");
+				if(ok==0){
+					pContent.insertObject();
+					pTable.setTableData();
+					pContent.initSetting();
+					pContent.getSwCode();
+				}else{
+					JOptionPane.showMessageDialog(null, "취소되었습니다");
+				}
+			}else if(e.getActionCommand().equals("수정")){ //수정으로 변경
+				int ok=JOptionPane.showConfirmDialog(null, "수정하시겠습니까?");
+				if(ok==0){
+					pContent.updateObject();
+					btnInsert.setText("입력");
+					pTable.setTableData();
+					pContent.initSetting();
+					btnDelete.setEnabled(false);
+				}else{
+					JOptionPane.showMessageDialog(null, "취소되었습니다");
+				}
 			}
 		}
 	}
@@ -204,7 +218,6 @@ public class ViewSoftware extends JFrame implements ActionListener {
 			pContent.getSwCode();
 		}else{
 			JOptionPane.showMessageDialog(null, "취소되었습니다");
-			btnInsert.setText("입력");
 		}
 	}
 	protected void actionPerformedBtnCancle(ActionEvent e) {

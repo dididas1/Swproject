@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
+import java.util.regex.Pattern;
 
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
@@ -110,14 +111,32 @@ public class ContentSoftware extends JPanel implements MouseListener {
 		gbc_lblImage.insets = new Insets(15, 70, 15, 0);
 		add(lblImage, gbc_lblImage);
 	}
+	
+	public boolean isPatternCheck(){// 판매가란에 숫자만(9자리 미만)입력 하였는지 체크
+		boolean isPtenCh = false;
+		if(Pattern.matches("^[0-9]{1,9}$", tfpSwPrice.getTfValue())==false){
+			isPtenCh = true;
+		}
+		return isPtenCh;
+	}
+	
+	public boolean isWsCheck(){// 공백 체크
+		boolean isWsCheck = false;
+		if(tfpSWName.getTfValue().equals("") ||
+		   tfpSwPrice.getTfValue().equals("")||
+		   tfpGroupName.getSelectItem()==null){
+		   isWsCheck = true;
+		}
+		return isWsCheck;
+	}
 
-	public void getSwCode(){
+	public void getSwCode(){//소프트웨어 전체 목록, 제품코드를 SW000 으로 자동 내림차순
 		List<JoinFromSoftware> list = JoinFromSoftwareService.getInstance().selectJoinFromSoftwareByAll();
 		String value = String.format("SW%03d", list.size()+1);
 		tfpSWCode.setTfValue(value);
 	}
 	
-	public void setComboBox(){
+	public void setComboBox(){ // 분류 목록에 있는 분류명을 가져와 콤보박스에 삽입
 		List<Category> list = CategoryService.getInstance().selectCategoryByAll();
 		String[][] getComboObj = new String[list.size()][];
 		String[] comboObj = new String[list.size()];
@@ -131,7 +150,7 @@ public class ContentSoftware extends JPanel implements MouseListener {
 		tfpGroupName.setComboData(setComboObj);
 	}
 	
-	public Software getSoftwareCode(){ //text필드 값받아옴
+	public Software getSoftwareCode(){ //제품코드 텍스트에 있는 값을 가져와 리턴
 		String swCode = tfpSWCode.getTfValue();
 		return new Software(swCode);
 	}
@@ -143,14 +162,14 @@ public class ContentSoftware extends JPanel implements MouseListener {
 		tfpGroupName.setSelectedItem(null);
 	}
 	
-	public void setObject(Object[] swObj){ //text필드에 값세팅
+	public void setObject(Object[] swObj){ //클릭된 테이블의 인덱스에 있는 컬럼들을 가져와 각각의 입력목록에 삽입
 		tfpSWCode.setTfValue(String.valueOf(swObj[0]));
 		tfpGroupName.setSelectedItem(swObj[1]);
 		tfpSWName.setTfValue(String.valueOf(swObj[2]));
 		tfpSwPrice.setTfValue(String.valueOf(swObj[3]));
 	}
 	
-	public void insertObject(){
+	public void insertObject(){// 하나의 소프트웨어를 등록
 		Map<String, Object> insertSoftware = new HashMap<String, Object>();
 		insertSoftware.put("swCode", tfpSWCode.getTfValue());
 		insertSoftware.put("groupName", tfpGroupName.getSelectItem());
@@ -162,7 +181,7 @@ public class ContentSoftware extends JPanel implements MouseListener {
 		SoftwareService.getInstance().insertSoftwareItem(insertSoftware);
 	}
 	
-	public void updateObject(){
+	public void updateObject(){// 하나의 소프트웨어를 수정
 		Map<String, Object> updateSoftware = new HashMap<String, Object>();
 		updateSoftware.put("swCode", tfpSWCode.getTfValue());
 		updateSoftware.put("groupName", tfpGroupName.getSelectItem());
@@ -171,7 +190,7 @@ public class ContentSoftware extends JPanel implements MouseListener {
 		SoftwareService.getInstance().updateSoftwareItem(updateSoftware);
 	}
 	
-	public void swCodeReset(Object[] swCodes){
+	public void swCodeReset(Object[] swCodes){// swCode의 내림차순패턴이 하나 비었을때 앞당김
 		Map<String, Object> swCodeReset = new HashMap<String, Object>();
 		for(int i=1 ; i<=swCodes.length ; i++){
 			if(!(String.format("SW%03d", i).equals(swCodes[i-1]))){
