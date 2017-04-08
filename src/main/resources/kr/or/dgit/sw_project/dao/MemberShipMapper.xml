@@ -14,7 +14,7 @@
 	<!-- Select SQL -->
     <sql id="selectSQL">
 		SELECT mem_id, mem_name, mem_mail, mem_Permission, mem_isExist
-			FROM members;
+			FROM members
 	</sql>
 
 	<!-- Where SQL -->
@@ -40,8 +40,8 @@
 	
 	<!-- Insert Item -->
 	<insert id="insetMembersItem" parameterType="Members">
-		INSERT INTO members(mem_id, mem_name, mem_password, mem_mail, mem_Permission, mem_isExist)
-			VALUES(#(memId),#(memName),#(memPassword),#(memMail), "personnel", #(memIsExist), true);
+		INSERT INTO members(mem_id, mem_name, mem_password, mem_mail, mem_permission, mem_isExist) 
+			VALUES(#{memId},#{memName},#{memPassword},#{memMail}, "personnel", true);
 	</insert>
 	
 	<!-- Update Item -->

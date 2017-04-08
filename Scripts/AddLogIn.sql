@@ -14,8 +14,15 @@ INSERT INTO members(mem_id, mem_name, mem_password, mem_mail, mem_permission, me
 
 INSERT INTO members(mem_id, mem_name, mem_password, mem_mail, mem_permission, mem_isExist)
 	VALUES("dididas","이승우","1234","dididas@naver.com", "personnel", TRUE);
+	
+INSERT INTO members(mem_id, mem_name, mem_password, mem_mail, mem_Permission, mem_isExist)   
+VALUES(#(memId),#(memName),#(memPassword),#(memMail), "personnel", #(memIsExist), true);
 
 SELECT mem_id, mem_name, mem_password, mem_mail, mem_permission, mem_isExist FROM members;
 
 SELECT mem_id, mem_permission FROM members 
 			WHERE mem_id="luuzun" AND mem_password="1234";
+			
+INSERT INTO members(mem_id, mem_name, mem_password, mem_mail, mem_permission, mem_isExist)    
+
+VALUES(#(memId),#(memName),#(memPassword),#(memMail), personnel, #(memIsExist), true);

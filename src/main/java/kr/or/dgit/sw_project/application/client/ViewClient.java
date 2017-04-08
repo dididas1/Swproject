@@ -139,11 +139,11 @@ public class ViewClient extends JFrame implements ActionListener {
 		setVisible(true);
 	}
 	
-	private void selectedRow() {
+	private void selectedRow() { //선택된 Row값 가져와서 content에 입력
 		String selectedCode = (String) pTable.getTable().getValueAt(pTable.getTable().getSelectedRow(), 0);
 		
 		int selectedIdx = 0;
-		for(int i=0; i<list.size()-1; i++){
+		for(int i=0; i<list.size(); i++){
 			if(list.get(i).getClntCode().equals(selectedCode)){
 				selectedIdx=i;
 				break;

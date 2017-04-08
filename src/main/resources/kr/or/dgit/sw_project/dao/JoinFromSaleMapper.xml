@@ -24,5 +24,3 @@
     	<include refid="selectSQL" />
     </select>
 </mapper>
-
-
