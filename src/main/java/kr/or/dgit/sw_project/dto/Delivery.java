@@ -14,6 +14,9 @@ public class Delivery {
 	private boolean delIsExist;
 
 	
+	public Delivery() {
+	}
+
 	public Delivery(Software software) {
 		this.software = software;
 	}

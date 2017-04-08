@@ -1,7 +1,5 @@
 package kr.or.dgit.sw_project.dto;
 
-import java.util.List;
-
 public class JoinFromSoftware {
 	private Software software;
 	private SupplyCompany supplyCompany;
@@ -67,6 +65,11 @@ public class JoinFromSoftware {
 		return String.format("%s, %s, %s, %s, %s, %s",
 			software, supplyCompany, category, delivery, sale, saleDetail);
 	}
+	
+	public Object[] toSoftLists() {
+		return new Object[]{software.getSwCode(), category.getGroupName(), software.getSwName(), String.format("%,3d", sale.getSalePrice())};
+	}
+	
 	public Object[] toSoftReport() {
 		return new Object[]{sale.getSaleCode(),software.getSwName(), category.getGroupName(), supplyCompany.getCompName(),  
 				String.format("%,d", saleDetail.getTotalSupplyPrice()),String.format("%,d", saleDetail.getTotalSalePrice()),String.format("%,d", saleDetail.getMargin())};
@@ -76,5 +79,4 @@ public class JoinFromSoftware {
 		return new Object[]{sale.getClient().getClntName(),software.getSwName(), sale.getSaleAmount(), sale.isDeposit(),  
 				String.format("%,d", sale.getSalePrice()),String.format("%,d", saleDetail.getTotalSalePrice()),String.format("%,d", saleDetail.getReceivablePrice())};
 	}
-	
 }

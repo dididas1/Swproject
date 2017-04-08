@@ -4,16 +4,12 @@ import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.lang.instrument.ClassFileTransformer;
 import java.util.List;
 import java.util.Vector;
 
-import javax.swing.JCheckBox;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.border.EtchedBorder;
 
-import erp_myframework.CheckBoxPanel;
 import erp_myframework.ComboPanel;
 import erp_myframework.RadioPanel;
 import erp_myframework.TextFieldPanel;
@@ -131,14 +127,15 @@ public class ContentSale extends JPanel {
 		int saleAmount = Integer.parseInt(tfpSaleAmount.getTfValue());
 		String orderDate = tfpOrderDate.getTfValue();
 		int supplyPrice = DeliveryService.getInstance().getSuppyPrice(new Delivery(new Software(software))).getSupplyPrice();
-		int salePrice =  SoftwareService.getInstance().selectByNoSoftware(new Software(software)).getSalePrice();
+	//	int salePrice =  SoftwareService.getInstance().(new Software(software)).getSalePrice();
 		boolean isDeposit = false;
 		if(tfpIsExist.getSelectedItem().equals("입금")){
 					isDeposit=true;
 		}else{
 			isDeposit=false;
 		}
-		return new Sale(saleCode, new Client(client), new Software(software), saleAmount,isDeposit ,orderDate, supplyPrice, salePrice);
+	//	return new Sale(saleCode, new Client(client), new Software(software), saleAmount,isDeposit ,orderDate, supplyPrice, salePrice);
+		return null;
 	}
 	
 	public void setSaleContent(JoinFromSale joinFromSale){ //text필드에 값세팅

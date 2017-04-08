@@ -1,6 +1,7 @@
 package kr.or.dgit.sw_project.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -22,10 +23,39 @@ public class SoftwareService {
 		} 
 	}
 	
-	public Software selectByNoSoftware(Software software) {
+	public int insertSoftwareItem(Map<String, Object> item) {
 		try (SqlSession sqlSession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
 			SoftwareMapper softwareMapper = new SoftwareMapperImpl(sqlSession);
-			return softwareMapper.selectByNoSoftware(software);
-		}
+			int res = softwareMapper.insertSoftwareItem(item);
+			sqlSession.commit();
+			return res;
+		} 
+	}
+	
+	public int updateSoftwareItem(Map<String, Object> item) {
+		try (SqlSession sqlSession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
+			SoftwareMapper softwareMapper = new SoftwareMapperImpl(sqlSession);
+			int res = softwareMapper.updateSoftwareItem(item);
+			sqlSession.commit();
+			return res;
+		} 
+	}
+	
+	public int swCodeReset(Map<String, Object> item) {
+		try (SqlSession sqlSession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
+			SoftwareMapper softwareMapper = new SoftwareMapperImpl(sqlSession);
+			int res = softwareMapper.swCodeReset(item);
+			sqlSession.commit();
+			return res;
+		} 
+	}
+	
+	public int deleteSoftwareItem(Software item) {
+		try (SqlSession sqlSession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
+			SoftwareMapper softwareMapper = new SoftwareMapperImpl(sqlSession);
+			int res = softwareMapper.deleteSoftwareItem(item);
+			sqlSession.commit();
+			return res;
+		} 
 	}
 }
