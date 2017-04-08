@@ -202,3 +202,5 @@ SELECT DISTINCT sw.sw_code, cat.group_name, sw.sw_name, d.supply_price, sw.sale_
 			LEFT OUTER JOIN category cat ON sw.group_code = cat.group_code
 			LEFT OUTER JOIN delivery d ON sw.sw_code = d.sw_code
 			order by sw.sw_code;
+			
+update software set sw_code = 'SW001' where sw_code = 'SW001';
