@@ -150,7 +150,7 @@ public class ContentSoftware extends JPanel implements MouseListener {
 		tfpSwPrice.setTfValue(String.valueOf(swObj[3]));
 	}
 	
-	public void getObject(){
+	public void insertObject(){
 		Map<String, Object> insertSoftware = new HashMap<String, Object>();
 		insertSoftware.put("swCode", tfpSWCode.getTfValue());
 		insertSoftware.put("groupName", tfpGroupName.getSelectItem());
@@ -160,6 +160,15 @@ public class ContentSoftware extends JPanel implements MouseListener {
 		insertSoftware.put("swImg", "IMG");
 		insertSoftware.put("swIsSale", false);
 		SoftwareService.getInstance().insertSoftwareItem(insertSoftware);
+	}
+	
+	public void updateObject(){
+		Map<String, Object> updateSoftware = new HashMap<String, Object>();
+		updateSoftware.put("swCode", tfpSWCode.getTfValue());
+		updateSoftware.put("groupName", tfpGroupName.getSelectItem());
+		updateSoftware.put("swName", tfpSWName.getTfValue());
+		updateSoftware.put("salePrice", tfpSwPrice.getTfValue());
+		SoftwareService.getInstance().updateSoftwareItem(updateSoftware);
 	}
 	
 	public void mouseClicked(MouseEvent e) {}

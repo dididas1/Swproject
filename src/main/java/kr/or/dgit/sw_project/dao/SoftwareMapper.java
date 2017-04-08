@@ -8,6 +8,6 @@ import kr.or.dgit.sw_project.dto.Software;
 public interface SoftwareMapper {
 	List<Software> selectSoftwareByAll();
 	int insertSoftwareItem(Map<String, Object> item);
-	int updateSoftwareItem(Software item);
+	int updateSoftwareItem(Map<String, Object> item);
 	int deleteSoftwareItem(Software item);
 }

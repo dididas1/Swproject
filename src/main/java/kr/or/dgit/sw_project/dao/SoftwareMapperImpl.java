@@ -31,7 +31,7 @@ public class SoftwareMapperImpl implements SoftwareMapper{
 	}
 
 	@Override
-	public int updateSoftwareItem(Software item) {
+	public int updateSoftwareItem(Map<String, Object> item) {
 		log.debug("updateSoftwareItem()");
 		return sqlSession.update(nameSpace + "updateSoftwareItem", item);
 	}

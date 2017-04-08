@@ -47,9 +47,10 @@
 	</insert>
 	
 	<!-- update item -->
-	<update id="updateSoftwareItem" parameterType="Software">
+	<update id="updateSoftwareItem" parameterType="hashmap">
 		UPDATE software
 		<set>
+			<if test="groupName != null">group_code=(select group_code from category where group_name = #{groupName}),</if>
 			<if test="swName != null">sw_name=#{swName},</if>
 			<if test="salePrice != null">sale_price=#{salePrice},</if>
 			<if test="swInven != null">sw_inven=#{swInven},</if>

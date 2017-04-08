@@ -32,7 +32,7 @@ public class SoftwareService {
 		} 
 	}
 	
-	public int updateSoftwareItem(Software item) {
+	public int updateSoftwareItem(Map<String, Object> item) {
 		try (SqlSession sqlSession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
 			SoftwareMapper softwareMapper = new SoftwareMapperImpl(sqlSession);
 			int res = softwareMapper.updateSoftwareItem(item);

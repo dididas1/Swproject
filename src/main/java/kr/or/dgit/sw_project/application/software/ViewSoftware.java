@@ -161,7 +161,7 @@ public class ViewSoftware extends JFrame implements ActionListener {
 		if(e.getActionCommand().equals("입력")){
 			int ok=JOptionPane.showConfirmDialog(null, "입력하시겠습니까?");
 			if(ok==0){
-				pContent.getObject();
+				pContent.insertObject();
 				pTable.setTableData();
 				pContent.initSetting();
 				pContent.getSwCode();
@@ -171,12 +171,7 @@ public class ViewSoftware extends JFrame implements ActionListener {
 		}else if(e.getActionCommand().equals("수정")){ //수정으로 변경
 			int ok=JOptionPane.showConfirmDialog(null, "수정하시겠습니까?");
 			if(ok==0){
-				/*Category su = getCategoryDataObject();
-				Map<String, Object> param = new HashMap<String, Object>();
-				param.put("groupCode1",pContent.getCategoryCode());
-				param.put("groupCode2",su.getGroupCode());
-				param.put("groupName",pContent.getCategoryName());
-				CategoryService.getInstance().updateCategoryItem(param);*/
+				pContent.updateObject();
 				btnInsert.setText("입력");
 				pTable.setTableData();
 				pContent.initSetting();

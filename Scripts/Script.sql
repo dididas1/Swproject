@@ -197,8 +197,8 @@ SELECT sw.sw_name, del.del_code, s.sale_code, cat.group_name, sc.comp_name, sd.t
 			JOIN sale s ON sw.sw_code = s.sw_code
 			JOIN view_sale_detail sd ON s.sale_code = sd.sale_code;
 			
-SELECT DISTINCT sw.sw_code, cat.group_name, sw.sw_name, s.supply_price, s.sale_price
+SELECT DISTINCT sw.sw_code, cat.group_name, sw.sw_name, d.supply_price, sw.sale_price
 			FROM software sw
 			LEFT OUTER JOIN category cat ON sw.group_code = cat.group_code
-			LEFT OUTER JOIN sale s ON sw.sw_code = s.sw_code
+			LEFT OUTER JOIN delivery d ON sw.sw_code = d.sw_code
 			order by sw.sw_code;
