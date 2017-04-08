@@ -22,8 +22,17 @@ public class Sale {
 	public Sale() {
 	}
 	
-	
-
+	public Sale(String saleCode, Client client, Software software, int saleAmount,boolean isDeposit, String orderDate, int supplyPrice,
+			int salePrice) {
+		this.saleCode = saleCode;
+		this.client = client;
+		this.software = software;
+		this.isDeposit= isDeposit;
+		this.saleAmount = saleAmount;
+		this.orderDate = orderDate;
+		this.supplyPrice = supplyPrice;
+		this.salePrice = salePrice;
+	}
 
 	public Sale(String saleCode, Client client, Software software, int saleAmount, String orderDate) {
 		super();

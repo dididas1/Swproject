@@ -8,17 +8,22 @@ import java.lang.instrument.ClassFileTransformer;
 import java.util.List;
 import java.util.Vector;
 
+import javax.swing.JCheckBox;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.border.EtchedBorder;
 
 import erp_myframework.CheckBoxPanel;
 import erp_myframework.ComboPanel;
+import erp_myframework.RadioPanel;
 import erp_myframework.TextFieldPanel;
 import kr.or.dgit.sw_project.dto.Client;
+import kr.or.dgit.sw_project.dto.Delivery;
 import kr.or.dgit.sw_project.dto.JoinFromSale;
 import kr.or.dgit.sw_project.dto.Sale;
 import kr.or.dgit.sw_project.dto.Software;
 import kr.or.dgit.sw_project.service.ClientService;
+import kr.or.dgit.sw_project.service.DeliveryService;
 import kr.or.dgit.sw_project.service.SaleService;
 import kr.or.dgit.sw_project.service.SoftwareService;
 
@@ -28,7 +33,7 @@ public class ContentSale extends JPanel {
 	private TextFieldPanel tfpSaleAmount;
 	private ComboPanel<String> tfpClntName;
 	private TextFieldPanel tfpOrderDate;
-	private CheckBoxPanel tfpIsExist;
+	private RadioPanel tfpIsExist;
 	public ContentSale() {
 		setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -98,8 +103,8 @@ public class ContentSale extends JPanel {
 		gbc_tfpOrderDate.gridy = 3;
 		add(tfpOrderDate, gbc_tfpOrderDate);
 		
-		tfpIsExist = new CheckBoxPanel();
-		tfpIsExist.setTitle("입금여부");
+		tfpIsExist = new RadioPanel();
+		tfpIsExist.setRaidoItems("입금","미입금");
 		GridBagConstraints gbc_tfpIsExist = new GridBagConstraints();
 		gbc_tfpIsExist.insets = new Insets(0, 0, 0, 0);
 		gbc_tfpIsExist.fill = GridBagConstraints.HORIZONTAL;
@@ -125,7 +130,15 @@ public class ContentSale extends JPanel {
 		String software = (String) tfpSwName.getSelectItem();
 		int saleAmount = Integer.parseInt(tfpSaleAmount.getTfValue());
 		String orderDate = tfpOrderDate.getTfValue();
-		return new Sale(saleCode, new Client(client), new Software(software), saleAmount, orderDate);
+		int supplyPrice = DeliveryService.getInstance().getSuppyPrice(new Delivery(new Software(software))).getSupplyPrice();
+		int salePrice =  SoftwareService.getInstance().selectByNoSoftware(new Software(software)).getSalePrice();
+		boolean isDeposit = false;
+		if(tfpIsExist.getSelectedItem().equals("입금")){
+					isDeposit=true;
+		}else{
+			isDeposit=false;
+		}
+		return new Sale(saleCode, new Client(client), new Software(software), saleAmount,isDeposit ,orderDate, supplyPrice, salePrice);
 	}
 	
 	public void setSaleContent(JoinFromSale joinFromSale){ //text필드에 값세팅

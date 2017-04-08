@@ -6,4 +6,5 @@ import kr.or.dgit.sw_project.dto.Delivery;
 
 public interface DeliveryMapper {
 	List<Delivery> selectDeliveryByAll();
+	Delivery getSuppyPrice(Delivery delivery);
 }

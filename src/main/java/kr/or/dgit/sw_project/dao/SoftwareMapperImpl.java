@@ -22,4 +22,10 @@ public class SoftwareMapperImpl implements SoftwareMapper{
 		log.debug("selectSoftwareByAll()");
 		return sqlSession.selectList(nameSpace + "selectSoftwareByAll");
 	}
+
+	@Override
+	public Software selectByNoSoftware(Software software) {
+		log.debug("selectByNoSoftware()");
+		return sqlSession.selectOne(nameSpace + "selectByNoSoftware",software);
+	}
 }

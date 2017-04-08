@@ -108,6 +108,7 @@ public class Software {
 	}
 	
 	public String toCombobox(){
-		return String.format("%s", swName);
+		return String.format("%s", swName, swCode);
 	}
+	
 }

@@ -21,4 +21,11 @@ public class SoftwareService {
 			return softwareMapper.selectSoftwareByAll();
 		} 
 	}
+	
+	public Software selectByNoSoftware(Software software) {
+		try (SqlSession sqlSession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
+			SoftwareMapper softwareMapper = new SoftwareMapperImpl(sqlSession);
+			return softwareMapper.selectByNoSoftware(software);
+		}
+	}
 }

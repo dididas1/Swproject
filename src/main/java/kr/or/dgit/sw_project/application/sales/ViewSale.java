@@ -140,7 +140,7 @@ public class ViewSale extends JPanel implements ActionListener{
 		JoinFromSale sale = list.get(selectedIdx);
 		pContent.setSaleContent(sale);
 		btnDelete.setEnabled(true);
-		btnInsert.setText("수정불가");
+		btnInsert.setText("수정");
 		btnInsert.setEnabled(false);
 	}
 	
@@ -169,9 +169,9 @@ public class ViewSale extends JPanel implements ActionListener{
 					pContent.initSetting();
 				}
 			}
-		}/*else if(e.getActionCommand().equals("수정")){ //수정으로 변경
+		}else if(e.getActionCommand().equals("수정")){ //수정으로 변경
 			if(JOptionPane.showConfirmDialog(null, "수정하시겠습니까?")==JOptionPane.YES_OPTION){
-				ClientService.getInstance().updateClntItem(pContent.getObject());
+			//	ClientService.getInstance().updateClntItem(pContent.getObject());
 				setTable();
 				btnInsert.setText("입력");
 				pContent.initSetting();
@@ -181,7 +181,7 @@ public class ViewSale extends JPanel implements ActionListener{
 				btnInsert.setText("입력");
 				btnDelete.setEnabled(false);
 			}
-		}*/
+		}
 	}
 
 	private void btnDeleteActionPerformed(ActionEvent e) { //삭제구현

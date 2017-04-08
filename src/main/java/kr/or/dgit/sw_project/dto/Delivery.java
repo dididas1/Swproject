@@ -13,6 +13,11 @@ public class Delivery {
 	private Date orderDate;
 	private boolean delIsExist;
 
+	
+	public Delivery(Software software) {
+		this.software = software;
+	}
+
 	public String getDelCode() {
 		return delCode;
 	}

@@ -6,4 +6,5 @@ import kr.or.dgit.sw_project.dto.Software;
 
 public interface SoftwareMapper {
 	List<Software> selectSoftwareByAll();
+	Software selectByNoSoftware(Software software);
 }

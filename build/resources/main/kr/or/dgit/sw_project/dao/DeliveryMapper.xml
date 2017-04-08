@@ -35,6 +35,16 @@
     		ORDER BY del_code;
     </select>
     
+    <!-- getSuppyPrice -->
+    
+    <select id="getSuppyPrice" resultMap="DeliveryResult">
+    	SELECT del.supply_price FROM delivery del 
+			JOIN software sw ON del.sw_code = sw.sw_code
+			JOIN supply_company sc ON sc.comp_code = del.comp_code
+    	where del.sw_code=#{software.swCode}
+    	group BY del.sw_code;
+    </select>
+    
     <!-- Insert item -->
     <insert id="insertDeliveryItems">
     	INSERT INTO delivery(del_code, comp_code, sw_code, supply_price, supply_amount, order_date, del_isExist) VALUES

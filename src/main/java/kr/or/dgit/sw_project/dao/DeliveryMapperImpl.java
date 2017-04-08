@@ -1,5 +1,4 @@
 package kr.or.dgit.sw_project.dao;
-
 import java.util.List;
 
 import org.apache.ibatis.logging.Log;
@@ -21,5 +20,11 @@ public class DeliveryMapperImpl implements DeliveryMapper{
 	public List<Delivery> selectDeliveryByAll() {
 		log.debug("selectDeliveryByAll()");
 		return sqlSession.selectList(nameSpace + "selectDeliveryByAll");
+	}
+
+	@Override
+	public Delivery getSuppyPrice(Delivery delivery) {
+		log.debug("getSuppyPrice()");
+		return sqlSession.selectOne(nameSpace + "getSuppyPrice",delivery);
 	}
 }
