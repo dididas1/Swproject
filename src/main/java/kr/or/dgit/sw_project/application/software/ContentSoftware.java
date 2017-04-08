@@ -166,7 +166,7 @@ public class ContentSoftware extends JPanel implements MouseListener {
 		tfpSWCode.setTfValue(String.valueOf(swObj[0]));
 		tfpGroupName.setSelectedItem(swObj[1]);
 		tfpSWName.setTfValue(String.valueOf(swObj[2]));
-		tfpSwPrice.setTfValue(String.valueOf(swObj[3]));
+		tfpSwPrice.setTfValue(String.valueOf(swObj[4]));
 	}
 	
 	public void insertObject(){// 하나의 소프트웨어를 등록
