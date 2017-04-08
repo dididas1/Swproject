@@ -96,24 +96,14 @@ public class ContentClient extends JPanel implements ActionListener {
 		
 	}
 	
-	
-	
-
-
 	public TextFieldPanel getTfpClientAddr() {
 		return tfpClientAddr;
 	}
 
 
-
-
-
 	public TextFieldPanel getTfadr() {
 		return tfadr;
 	}
-
-
-
 
 
 	//???

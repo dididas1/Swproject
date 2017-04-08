@@ -17,6 +17,7 @@
 			JOIN view_sale_detail sd ON s.sale_code = sd.sale_code 
 			JOIN client cl ON cl.clnt_code = s.clnt_code 
 			JOIN category cat ON sw.group_code = cat.group_code 
+			order by s.sale_code
 	</sql>
 
     <!-- Select By All --> 

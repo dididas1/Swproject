@@ -52,4 +52,10 @@ public class JoinFromSale {
 		return String.format("%s, %s, %s, %s, %s", sale, client,
 				software, category, saleDetail);
 	}
+	
+	public Object[] toArrayForTable(){
+		return new Object[]{sale.getSaleCode(),client.getClntName(),software.getSwName(),
+							sale.getSaleAmount(),sale.getOrderDate(),sale.isSaleIsExist()? "주문완료":"주문취소"};
+	}
+
 }

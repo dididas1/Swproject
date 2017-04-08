@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
+import kr.or.dgit.sw_project.dao.ClientMapper;
+import kr.or.dgit.sw_project.dao.ClientMapperImpl;
 import kr.or.dgit.sw_project.dao.SaleMapper;
 import kr.or.dgit.sw_project.dao.SaleMapperImpl;
 import kr.or.dgit.sw_project.dto.Sale;
@@ -19,6 +21,34 @@ public class SaleService {
 		try (SqlSession sqlSession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
 			SaleMapper saleMapper = new SaleMapperImpl(sqlSession);
 			return saleMapper.selectSaleByAll();
+		} 
+	}
+	
+
+	public int insertSaleItem(Sale sale) {
+		try (SqlSession sqlSession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
+			SaleMapper saleMapper = new SaleMapperImpl(sqlSession);
+			int res= saleMapper.insertSaleItem(sale);
+			sqlSession.commit();
+			return res;
+		} 
+	}
+
+	public int updateSaleItem(Sale sale) {
+		try (SqlSession sqlSession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
+			SaleMapper saleMapper = new SaleMapperImpl(sqlSession);
+			int res= saleMapper.updateSaleItem(sale);
+			sqlSession.commit();
+			return res;
+		} 
+	}
+
+	public int existSaleItem(Sale sale) {
+		try (SqlSession sqlSession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
+			SaleMapper saleMapper = new SaleMapperImpl(sqlSession);
+			int res= saleMapper.existSaleItem(sale);
+			sqlSession.commit();
+			return res;
 		} 
 	}
 }

@@ -19,12 +19,6 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>org.eclipse.buildship.core.gradleprojectnature</nature>
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 		<nature>org.jkiss.dbeaver.DBeaverNature</nature>
->>>>>>> refs/remotes/origin/luuzun_master
-=======
->>>>>>> refs/remotes/origin/luuzun_master
 	</natures>
 </projectDescription>

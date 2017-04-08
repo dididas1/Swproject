@@ -1,15 +1,20 @@
 package kr.or.dgit.sw_project.application.sales;
 
 import java.awt.BorderLayout;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import kr.or.dgit.sw_project.dto.JoinFromSale;
+
 public class TableSale extends JPanel {
 	private JTable table;
+	private List<JoinFromSale> list;
+	
 	public TableSale() {
 		setLayout(new BorderLayout(0, 0));
 		
@@ -18,22 +23,52 @@ public class TableSale extends JPanel {
 		
 		table = new JTable();
 		scrollPane.setViewportView(table);
-		
-		Object[] col={"주문번호","제품이름","주문수량","고객상호","주문일자"};
-		Object[][] row={{"SL001","스타크래프트 리마스터",1000,"폐인pc방",new Date()},
-						{"SL002","바람의 전설",2000,"폐인pc방",new Date()},
-						{"SL003","니이모를 찾아서",1000,"폐인pc방",new Date()},
-						{"SL004","오버워치",2000,"폐인pc방",new Date()},
-						{"SL005","스타크래프트 리마스터",1000,"폐인pc방",new Date()},
-						{"SL006","오버워치",2000,"폐인pc방",new Date()},
-						{"SL007","스타크래프트 리마스터",1000,"폐인pc방",new Date()},
-						{"SL008","오버워치",2000,"폐인pc방",new Date()},
-						{"SL009","스타크래프트 리마스터",1000,"폐인pc방",new Date()},
-						{"SL010","오버워치",2000,"폐인pc방",new Date()},
-						{"SL011","스타크래프트 리마스터",1000,"폐인pc방",new Date()},
-						{"SL012","오버워치",2000,"폐인pc방",new Date()},
-						{"SL013","스타크래프트 리마스터",1000,"폐인pc방",new Date()},
-						{"SL014","오버워치",2000,"폐인pc방",new Date()}};
-		table.setModel(new DefaultTableModel(row, col));
 	}	
+	/*************************** load Table ***************************/  
+	public void setTableData(){ //테이블 데이터입력
+		table.setModel(new DefaultTableModel(getRowDate(), getColumm()));
+	}
+	private Object[] getColumm() { //컬럼입력
+		return new String[]{"판매코드","고객상호명","품목명","판매가격","주문갯수","총액","주문일자","입금여부","주문현황"};
+	}
+
+	private Object[][] getRowDate() { //테이블 로우값입력 isExist가 true인 항목에대해서만 값받아옴
+		List<JoinFromSale> listForTable = new ArrayList<JoinFromSale>(list);
+		System.out.println("Table "+list.hashCode());
+		System.out.println("=========list=============");
+		for(int i =0; i<list.size()-1; i++)
+			System.out.println(list.get(i).toString());
+			
+		System.out.println("=========listForTable=============");
+		for(int i =0; i<listForTable.size()-1; i++)
+			System.out.println(listForTable.get(i).toString());
+		
+	/*	for (int i = listForTable.size()-1; i >= 0; i--) {
+			if (!listForTable.get(i).getSale().isSaleIsExist()) {
+				listForTable.remove(i);
+			}
+		}*/
+	
+		
+		Object[][] datas = new Object[listForTable.size()][];
+		for (int i = 0; i < datas.length; i++) {
+			datas[i] = listForTable.get(i).toArrayForTable();
+		}
+		return datas;
+	}
+
+	/*****************************************************************/
+	
+	public JTable getTable() {
+		return table;
+	}
+	
+	
+	public void setList(List<JoinFromSale> list) {
+		this.list = list;
+	}
+
+	public List<JoinFromSale> getList(){
+		return list;
+	}
 }

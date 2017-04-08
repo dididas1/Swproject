@@ -19,6 +19,13 @@ public class Software {
 		super();
 	}
 
+	
+	public Software(String swCode) {
+		super();
+		this.swCode = swCode;
+	}
+
+
 	public String getSwCode() {
 		return swCode;
 	}
@@ -101,6 +108,6 @@ public class Software {
 	}
 	
 	public String toCombobox(){
-		return String.format("%s %s", swCode,swName);
+		return String.format("%s", swName);
 	}
 }

@@ -10,7 +10,7 @@ public class Sale {
 	private Software software;
 	private int saleAmount;
 	private boolean isDeposit;
-	private Date orderDate;
+	private String orderDate;
 	private int supplyPrice;
 	private int salePrice;
 	private boolean saleIsExist;
@@ -21,25 +21,21 @@ public class Sale {
 	
 	public Sale() {
 	}
+	
+	
 
 
-
-	public Sale(String saleCode, Client client, Software software, int saleAmount, boolean isDeposit, Date orderDate,
-			int supplyPrice, int salePrice, boolean saleIsExist, SaleDetail saleDetail) {
+	public Sale(String saleCode, Client client, Software software, int saleAmount, String orderDate) {
 		super();
 		this.saleCode = saleCode;
 		this.client = client;
 		this.software = software;
 		this.saleAmount = saleAmount;
-		this.isDeposit = isDeposit;
 		this.orderDate = orderDate;
-		this.supplyPrice = supplyPrice;
-		this.salePrice = salePrice;
-		this.saleIsExist = saleIsExist;
-		this.saleDetail = saleDetail;
 	}
-	
-	
+
+
+
 
 	public String getSaleCode() {
 		return saleCode;
@@ -72,12 +68,6 @@ public class Sale {
 	public void setDeposit(boolean isDeposit) {
 		this.isDeposit = isDeposit;
 	}
-	public Date getOrderDate() {
-		return orderDate;
-	}
-	public void setOrderDate(Date orderDate) {
-		this.orderDate = orderDate;
-	}
 	public int getSupplyPrice() {
 		return supplyPrice;
 	}
@@ -102,6 +92,22 @@ public class Sale {
 	public void setSaleDetail(SaleDetail saleDetail) {
 		this.saleDetail = saleDetail;
 	}
+	
+	
+	public String getOrderDate() {
+		return orderDate;
+	}
+
+
+
+
+	public void setOrderDate(String orderDate) {
+		this.orderDate = orderDate;
+	}
+
+
+
+
 	@Override
 	public String toString() {
 		return String.format("%s, %s, %s, %s, %s, %s, %s, %s, %s, %s",
@@ -109,6 +115,6 @@ public class Sale {
 				saleDetail);
 	}
 	
-
+	
 	
 }

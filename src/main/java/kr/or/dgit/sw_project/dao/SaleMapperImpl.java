@@ -22,4 +22,22 @@ public class SaleMapperImpl implements SaleMapper{
 		log.debug("selectSaleByAll()");
 		return sqlSession.selectList(nameSpace + "selectSaleByAll");
 	}
+
+	@Override
+	public int insertSaleItem(Sale sale) {
+		log.debug("insertSaleItem()");
+		return sqlSession.insert(nameSpace + "insertSaleItem",sale);
+	}
+
+	@Override
+	public int updateSaleItem(Sale sale) {
+		log.debug("updateSaleItem()");
+		return sqlSession.update(nameSpace + "updateSaleItem",sale);
+	}
+
+	@Override
+	public int existSaleItem(Sale sale) {
+		log.debug("existSaleItem()");
+		return sqlSession.update(nameSpace + "existSaleItem",sale);
+	}
 }
