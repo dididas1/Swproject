@@ -35,6 +35,12 @@ public class SoftwareMapperImpl implements SoftwareMapper{
 		log.debug("updateSoftwareItem()");
 		return sqlSession.update(nameSpace + "updateSoftwareItem", item);
 	}
+	
+	@Override
+	public int swCodeReset(Map<String, Object> item) {
+		log.debug("swCodeReset()");
+		return sqlSession.update(nameSpace + "swCodeReset", item);
+	}
 
 	@Override
 	public int deleteSoftwareItem(Software item) {

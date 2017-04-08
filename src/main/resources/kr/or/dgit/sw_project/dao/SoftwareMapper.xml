@@ -59,6 +59,10 @@
 		<include refid="whereSQL"/>
 	</update>
 	
+	<update id="swCodeReset" parameterType="map">
+		update software set sw_code = #{resetCode} where sw_code = #{swCode};
+	</update>
+	
 	<!-- delete item -->
 	<delete id="deleteSoftwareItem" parameterType="Software">
 		delete from software

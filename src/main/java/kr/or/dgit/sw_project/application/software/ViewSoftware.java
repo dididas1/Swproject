@@ -146,6 +146,16 @@ public class ViewSoftware extends JFrame implements ActionListener {
 		}
 		return softwareObj;
 	}
+	
+	public void setSwCodes() { //
+		int swcCnt = pTable.getTable().getRowCount();
+		Object[] swCodes = new Object[swcCnt];
+		for(int i=0 ; i<swcCnt ; i++){
+			swCodes[i] = pTable.getTable().getValueAt(i, 0);
+		}
+		pContent.swCodeReset(swCodes);
+	}
+	
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnDelete) {
 			actionPerformedBtnDelete(e);
@@ -185,6 +195,8 @@ public class ViewSoftware extends JFrame implements ActionListener {
 		int ok=JOptionPane.showConfirmDialog(null, "삭제하겠습니까?");
 		if(ok==0){
 			SoftwareService.getInstance().deleteSoftwareItem(pContent.getSoftwareCode());
+			pTable.setTableData();
+			setSwCodes();
 			pTable.setTableData();
 			pContent.initSetting();
 			btnInsert.setText("입력");

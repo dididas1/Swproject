@@ -41,6 +41,15 @@ public class SoftwareService {
 		} 
 	}
 	
+	public int swCodeReset(Map<String, Object> item) {
+		try (SqlSession sqlSession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
+			SoftwareMapper softwareMapper = new SoftwareMapperImpl(sqlSession);
+			int res = softwareMapper.swCodeReset(item);
+			sqlSession.commit();
+			return res;
+		} 
+	}
+	
 	public int deleteSoftwareItem(Software item) {
 		try (SqlSession sqlSession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
 			SoftwareMapper softwareMapper = new SoftwareMapperImpl(sqlSession);
