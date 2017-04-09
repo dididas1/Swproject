@@ -112,7 +112,7 @@ public class ContentClient extends JPanel implements ActionListener {
 
 		list.get(list.size() - 1).getClntCode();
 		String value = String.format("CL%03d",
-			Integer.parseInt(list.get(list.size() - 1).getClntCode().substring(2)) + 1);
+		Integer.parseInt(list.get(list.size() - 1).getClntCode().substring(2)) + 1);
 
 		tfpClientCode.setTfValue(value);
 		tfpClientCode.getTf().setFocusable(false);

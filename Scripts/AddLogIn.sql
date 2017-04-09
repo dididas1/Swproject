@@ -13,9 +13,20 @@ INSERT INTO members(mem_id, mem_name, mem_password, mem_mail, mem_permission, me
 	VALUES("luuzun","이원준","1234","luuzun@naver.com", "manager", TRUE);
 
 INSERT INTO members(mem_id, mem_name, mem_password, mem_mail, mem_permission, mem_isExist)
+<<<<<<< HEAD
 	VALUES("dididas","이승우","1234","dididas@naver.com", "manager", TRUE);
+=======
+	VALUES("dididas","이승우","1234","dididas@naver.com", "personnel", TRUE);
+	
+INSERT INTO members(mem_id, mem_name, mem_password, mem_mail, mem_Permission, mem_isExist)   
+VALUES(#(memId),#(memName),#(memPassword),#(memMail), "personnel", #(memIsExist), true);
+>>>>>>> refs/remotes/origin/luuzun_master
 
 SELECT mem_id, mem_name, mem_password, mem_mail, mem_permission, mem_isExist FROM members;
 
 SELECT mem_id, mem_permission FROM members 
 			WHERE mem_id="luuzun" AND mem_password="1234";
+			
+INSERT INTO members(mem_id, mem_name, mem_password, mem_mail, mem_permission, mem_isExist)    
+
+VALUES(#(memId),#(memName),#(memPassword),#(memMail), personnel, #(memIsExist), true);

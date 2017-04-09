@@ -151,7 +151,7 @@ public class ViewSale extends JPanel implements ActionListener{
 	
 	public void contentAble(){
 		pContent.getTfpSwName().getTf().setEnabled(true);
-		pContent.getTfpClntName().getTf().setEditable(true);
+		pContent.getTfpClntName().getTf().setEnabled(true);
 		pContent.getTfpSaleAmount().getTf().setEditable(true);
 		pContent.getTfpOrderDate().getTf().setEditable(true);
 	}

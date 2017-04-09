@@ -7,11 +7,6 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -21,8 +16,6 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-import kr.or.dgit.sw_project.dto.Client;
-import kr.or.dgit.sw_project.service.ClientService;
 import kr.or.dgit.sw_project.service.MemberShipService;
 
 public class ViewMemberShip extends JFrame implements ActionListener {
@@ -30,8 +23,6 @@ public class ViewMemberShip extends JFrame implements ActionListener {
 	private JButton btnInsert;
 	private JButton btnCancle;
 	private ContentMemberShip pContent;
-	
-	private List<Client> list;
 	
 	public ViewMemberShip() {
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
@@ -100,7 +91,9 @@ public class ViewMemberShip extends JFrame implements ActionListener {
 		gbc_btnCancle.gridx = 1;
 		gbc_btnCancle.gridy = 0;
 		pButton.add(btnCancle, gbc_btnCancle);
-
+		
+		pContent.setViewMemberShip(ViewMemberShip.this);
+		btnInsert.setEnabled(false);
 		setVisible(true);
 	}
 	
@@ -117,14 +110,25 @@ public class ViewMemberShip extends JFrame implements ActionListener {
 	}
 
 	private void btnInsertActionPerformed(ActionEvent e) { //입력 수정 테이블 인덱스 클릭시 수정으로 변함
-		if(JOptionPane.showConfirmDialog(null, "입력하시겠습니까?")==JOptionPane.YES_OPTION){
-			MemberShipService.getInstance().insertMembersItem(pContent.getObject());
-			pContent.clear();
+		System.out.println("Click!");
+		if(pContent.isEmptyCheck()){
+			JOptionPane.showMessageDialog(null, "공란이 있습니다");
+		}else if(!pContent.isPasswordEquals()){
+			JOptionPane.showMessageDialog(null, "비밀번호가 일치하지 않습니다");
+		}else{
+			if(JOptionPane.showConfirmDialog(null, "가입하시겠습니까?")==JOptionPane.YES_OPTION){
+				MemberShipService.getInstance().insertMembersItem(pContent.getObject());
+				dispose();
+			}
 		}
 	}
 
 	private void btnCancleActionPerformed(ActionEvent e) { //취소버튼
-		pContent.clear();
+		dispose();
 	}
 	/***********************************************************************/
+	
+	public JButton getBtnInsert() {
+		return btnInsert;
+	}
 }
