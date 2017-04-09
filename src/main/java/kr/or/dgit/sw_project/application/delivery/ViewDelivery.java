@@ -7,10 +7,27 @@ import java.awt.Insets;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-public class ViewDelivery extends JPanel{
+import kr.or.dgit.sw_project.dto.Delivery;
+import kr.or.dgit.sw_project.dto.SupplyCompany;
+import kr.or.dgit.sw_project.service.DeliveryService;
+
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.ActionEvent;
+
+public class ViewDelivery extends JPanel implements ActionListener{
+	
+	private JButton btnInsert;
+	private TableDelivery pTable;
+	private ContentDelivery pContent;
+	private JButton btnDelete;
+	private JButton btnCancle;
+
 	public ViewDelivery() {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0}; //각 열의 최소 넓이  
@@ -31,7 +48,7 @@ public class ViewDelivery extends JPanel{
 		gbc_label.gridwidth = 5;
 		add(label, gbc_label);
 		
-		ContentDelivery pContent = new ContentDelivery();
+		pContent = new ContentDelivery();
 		GridBagConstraints gbc_pContent = new GridBagConstraints();
 		gbc_pContent.insets = new Insets(10, 10, 10, 10);
 		gbc_pContent.fill = GridBagConstraints.NONE;
@@ -50,11 +67,12 @@ public class ViewDelivery extends JPanel{
 		GridBagLayout gbl_pButton = new GridBagLayout();
 		gbl_pButton.columnWidths = new int[] {100, 100, 100};
 		gbl_pButton.rowHeights = new int[]{55, 0};
-		gbl_pButton.columnWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_pButton.columnWeights = new double[]{0.0, 0.0, 0.0};
 		gbl_pButton.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		pButton.setLayout(gbl_pButton);
 		
-		JButton btnInsert = new JButton("입력");
+		btnInsert = new JButton("입력");
+		btnInsert.addActionListener(this);
 		GridBagConstraints gbc_btnInsert = new GridBagConstraints();
 		gbc_btnInsert.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnInsert.insets = new Insets(0, 0, 0, 0);
@@ -62,7 +80,8 @@ public class ViewDelivery extends JPanel{
 		gbc_btnInsert.gridy = 0;
 		pButton.add(btnInsert, gbc_btnInsert);
 		
-		JButton btnCancle = new JButton("취소");
+		btnCancle = new JButton("취소");
+		btnCancle.addActionListener(this);
 		GridBagConstraints gbc_btnCancle = new GridBagConstraints();
 		gbc_btnCancle.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnCancle.insets = new Insets(0, 0, 0, 0);
@@ -70,18 +89,83 @@ public class ViewDelivery extends JPanel{
 		gbc_btnCancle.gridy = 0;
 		pButton.add(btnCancle, gbc_btnCancle);
 		
-		JButton btnDelete = new JButton("삭제");
+		btnDelete = new JButton("삭제");
+		btnDelete.addActionListener(this);
 		GridBagConstraints gbc_btnDelete = new GridBagConstraints();
 		gbc_btnDelete.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnDelete.gridx = 2;
 		gbc_btnDelete.gridy = 0;
 		pButton.add(btnDelete, gbc_btnDelete);
 		
-		TableDelivery pTable = new TableDelivery();
+		pTable = new TableDelivery();
 		GridBagConstraints gbc_pTable = new GridBagConstraints();
 		gbc_pTable.fill = GridBagConstraints.BOTH;
 		gbc_pTable.gridx = 0;
 		gbc_pTable.gridy = 3;
 		add(pTable, gbc_pTable);
+		
+		pTable.getTable().addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) { //table 클릭시 
+				Object[] deliveryObj = getDataObject();
+				pContent.setObject(deliveryObj);
+				btnDelete.setEnabled(true);
+				btnInsert.setText("수정");
+				super.mouseClicked(e);
+			}
+
+			
+
+		});
+		
+		
+		setVisible(true);
+	}
+	private Object[] getDataObject() {//each row in the table클릭시 값 넘겨줌
+		int cnt = pTable.getTable().getColumnCount();
+		int selRow = pTable.getTable().getSelectedRow();
+		Object[] obj = new Object[cnt];
+		for(int i=0; i<cnt; i++){
+			obj[i] = pTable.getTable().getValueAt(selRow, i);
+		}
+		return obj;
+	}
+	public void actionPerformed(ActionEvent arg0) {
+		if (arg0.getSource() == btnCancle) {
+			actionPerformedBtnCancle(arg0);
+		}
+		if (arg0.getSource() == btnDelete) {
+			actionPerformedBtnDelete(arg0);
+		}
+		if (arg0.getSource() == btnInsert) {
+			actionPerformedBtnInsert(arg0);
+		}
+	}
+	//public boolean 일단 구질구질한건 나중에
+	protected void actionPerformedBtnInsert(ActionEvent arg0) {
+		if (arg0.getActionCommand().equals("입력")){
+			DeliveryService.getInstance().insertDeliveryItems(pContent.getObject());
+			pTable.loadData();
+		}else if(arg0.getActionCommand().equals("수정")){
+			if(JOptionPane.showConfirmDialog(null, "정말 수정하시겠습니까?")==JOptionPane.YES_OPTION){
+				DeliveryService.getInstance().UpdateItems(pContent.getObject());
+				pTable.loadData();
+			}else{
+				JOptionPane.showMessageDialog(null, "빠이염");
+				pContent.resetField();
+				btnInsert.setText("입력");
+			}
+			
+		}
+		
+	}
+	protected void actionPerformedBtnDelete(ActionEvent arg0) {
+		DeliveryService.getInstance().existDeliveryItem(new Delivery(pContent.getTfpDelCode().getTfValue()));
+		pTable.loadData();
+	}
+	protected void actionPerformedBtnCancle(ActionEvent arg0) {
+		pContent.resetField(); //필드초기화
+		btnInsert.setText("입력");
+		btnInsert.setEnabled(true);
 	}
 }
