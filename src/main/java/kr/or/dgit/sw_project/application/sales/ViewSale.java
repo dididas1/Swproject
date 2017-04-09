@@ -114,6 +114,10 @@ public class ViewSale extends JPanel implements ActionListener{
 			@Override
 			public void mousePressed(MouseEvent e) {
 				selectedRow();
+				pContent.getTfpSwName().getTf().setEnabled(false);
+				pContent.getTfpClntName().getTf().setEnabled(false);
+				pContent.getTfpSaleAmount().getTf().setEditable(false);
+				pContent.getTfpOrderDate().getTf().setEditable(false);
 				super.mousePressed(e);
 			}
 			
@@ -137,16 +141,19 @@ public class ViewSale extends JPanel implements ActionListener{
 				break;
 			}
 		}
-		if(list.get(selectedIdx).getSale().isSaleIsExist()==false){
-			btnDelete.setEnabled(false);
-		}else{
+		
 			JoinFromSale sale = list.get(selectedIdx);
 			pContent.setSaleContent(sale);
 			btnDelete.setEnabled(true);
 			btnInsert.setText("수정");
-			btnInsert.setEnabled(false);
-		}
 		
+	}
+	
+	public void contentAble(){
+		pContent.getTfpSwName().getTf().setEnabled(true);
+		pContent.getTfpClntName().getTf().setEditable(true);
+		pContent.getTfpSaleAmount().getTf().setEditable(true);
+		pContent.getTfpOrderDate().getTf().setEditable(true);
 	}
 	
 
@@ -169,6 +176,7 @@ public class ViewSale extends JPanel implements ActionListener{
 				JOptionPane.showMessageDialog(null, "공란이 있습니다");
 			}else{
 				if(JOptionPane.showConfirmDialog(null, "입력하시겠습니까?")==JOptionPane.YES_OPTION){
+					//재고판단후 주문여부 .. 테스트필요
 					if(Integer.parseInt(pContent.getTfpSaleAmount().getTfValue())>list.get(pContent.getTfpSwName().getSelectedIndex()-1).getSoftware().getSwInven()){
 						JOptionPane.showMessageDialog(null, "재고가부족합니다");
 						return;
@@ -183,26 +191,29 @@ public class ViewSale extends JPanel implements ActionListener{
 			}
 		}else if(e.getActionCommand().equals("수정")){ //수정으로 변경
 			if(JOptionPane.showConfirmDialog(null, "수정하시겠습니까?")==JOptionPane.YES_OPTION){
-			//	ClientService.getInstance().updateClntItem(pContent.getObject());
+				SaleService.getInstance().updateIsdeposit(pContent.getObject());
 				setTable();
 				btnInsert.setText("입력");
 				pContent.initSetting();
+				contentAble();
 			}else{
 				JOptionPane.showMessageDialog(null, "취소되었습니다");
 				pContent.initSetting();
 				btnInsert.setText("입력");
 				btnDelete.setEnabled(false);
+				contentAble();
 			}
 		}
 	}
 
 	private void btnDeleteActionPerformed(ActionEvent e) { //삭제구현
 		if(JOptionPane.showConfirmDialog(null, "삭제하겠습니까?")==JOptionPane.YES_OPTION){
-			SaleService.getInstance().existSaleItem(new Sale(pContent.getObject().getSaleCode()));
+			SaleService.getInstance().existSaleItem(new Sale(pContent.getTfpSaleCode().getTfValue()));
 			setTable();
 			pContent.initSetting();
 			btnInsert.setText("입력");
 			btnDelete.setEnabled(false);
+			contentAble();
 		}else{
 				JOptionPane.showMessageDialog(null, "취소되었습니다");
 			
@@ -214,6 +225,8 @@ public class ViewSale extends JPanel implements ActionListener{
 		btnInsert.setText("입력");
 		btnInsert.setEnabled(true);
 		btnDelete.setEnabled(false);
+		contentAble();
+		
 	}
 	/***********************************************************************/
 	

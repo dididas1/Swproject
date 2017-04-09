@@ -33,8 +33,8 @@ public class ContentSale extends JPanel {
 	private ComboPanel<String> tfpClntName;
 	private TextFieldPanel tfpOrderDate;
 	private RadioPanel tfpIsExist;
-	
-	
+
+
 	private List<Software> listSw;
 	private List<Client> listCl;
 	public ContentSale() {
@@ -45,7 +45,7 @@ public class ContentSale extends JPanel {
 		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0};
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0};
 		setLayout(gridBagLayout);
-		
+
 		tfpSaleCode = new TextFieldPanel();
 		tfpSaleCode.setTitle("주문번호");
 		tfpSaleCode.getTf().setEditable(false);
@@ -55,7 +55,7 @@ public class ContentSale extends JPanel {
 		gbc_tfpSaleCode.gridx = 0;
 		gbc_tfpSaleCode.gridy = 1;
 		add(tfpSaleCode, gbc_tfpSaleCode);
-		
+
 		tfpSwName = new ComboPanel<>();
 		tfpSwName.setTitle("품목명");
 		listSw = SoftwareService.getInstance().selectSoftwareByAll();
@@ -71,7 +71,7 @@ public class ContentSale extends JPanel {
 		gbc_tfpSwName.gridx = 1;
 		gbc_tfpSwName.gridy = 1;
 		add(tfpSwName, gbc_tfpSwName);
-		
+
 		tfpSaleAmount = new TextFieldPanel();
 		tfpSaleAmount.setTitle("주문수량");
 		GridBagConstraints gbc_tfpSaleAmount = new GridBagConstraints();
@@ -80,7 +80,7 @@ public class ContentSale extends JPanel {
 		gbc_tfpSaleAmount.gridx = 0;
 		gbc_tfpSaleAmount.gridy = 2;
 		add(tfpSaleAmount, gbc_tfpSaleAmount);
-		
+
 		tfpClntName = new ComboPanel<>();
 		tfpClntName.setTitle("고객상호명");
 		listCl = ClientService.getInstance().selectClientByAll();
@@ -96,7 +96,7 @@ public class ContentSale extends JPanel {
 		gbc_tfpClntName.gridx = 1;
 		gbc_tfpClntName.gridy = 2;
 		add(tfpClntName, gbc_tfpClntName);
-		
+
 		tfpOrderDate = new TextFieldPanel();
 		tfpOrderDate.setTitle("주문일자");
 		GridBagConstraints gbc_tfpOrderDate = new GridBagConstraints();
@@ -105,7 +105,7 @@ public class ContentSale extends JPanel {
 		gbc_tfpOrderDate.gridx = 0;
 		gbc_tfpOrderDate.gridy = 3;
 		add(tfpOrderDate, gbc_tfpOrderDate);
-		
+
 		tfpIsExist = new RadioPanel();
 		tfpIsExist.setTitle("입금확인");
 		tfpIsExist.setRaidoItems("입금","미입금");
@@ -117,11 +117,11 @@ public class ContentSale extends JPanel {
 		gbc_tfpIsExist.gridy = 3;
 		add(tfpIsExist, gbc_tfpIsExist);
 		initSetting();
-		
-	
+
+
 	}
-	
-	
+
+
 	public void initSetting(){ //코드 자동세팅 다른필드 초기화
 		List<Sale> list =SaleService.getInstance().selectSaleByAll();
 		tfpSaleCode.setTfValue(String.format("SL%03d", list.size()+1));
@@ -132,6 +132,7 @@ public class ContentSale extends JPanel {
 		tfpSaleAmount.requestFocus();
 		tfpIsExist.setSelectedItem(0);
 	}
+	
 	public Sale getObject(){  //개짱나서 디지는줄 겟오브젝트
 		boolean isDeposit;
 		String saleCode = tfpSaleCode.getTfValue();
@@ -142,24 +143,20 @@ public class ContentSale extends JPanel {
 		int supplyPrice = DeliveryService.getInstance().getSuppyPrice(new Delivery(new Software(software))).getSupplyPrice();
 		int salePrice =  listSw.get(tfpSwName.getSelectedIndex()-1).getSalePrice();
 		if(tfpIsExist.getSelectedItem().equals("입금")){
-					isDeposit=true;
+			isDeposit=true;
 		}else{
 			isDeposit=false;
 		}
-		
+
 		return new Sale(saleCode, new Client(client), new Software(software), saleAmount, isDeposit ,orderDate, supplyPrice, salePrice);
 	}
-	
-	
-	
-	
-	
 
-	
+
 	public void setSaleContent(JoinFromSale joinFromSale){ //text필드에 값세팅
+		System.out.println(joinFromSale.toString());
 		tfpSaleCode.setTfValue(joinFromSale.getSale().getSaleCode());
+		tfpSwName.setSelectedItem(joinFromSale.getSoftware().getSwName()+ String.format(" (재고: %s)", joinFromSale.getSoftware().getSwInven()));
 		tfpClntName.setSelectedItem(joinFromSale.getClient().getClntName());
-		tfpSwName.setSelectedItem(joinFromSale.getSoftware().getSwName());
 		tfpSaleAmount.setTfValue(String.valueOf(joinFromSale.getSale().getSaleAmount()));
 		tfpOrderDate.setTfValue(joinFromSale.getSale().getOrderDate());
 		if(joinFromSale.getSale().isDeposit()){
@@ -168,8 +165,8 @@ public class ContentSale extends JPanel {
 			tfpIsExist.setSelectedItem(1);
 		}
 	}
-	
-	
+
+
 	public boolean isEmptyCheck(){ // 빈공간체크
 		for(Component c: getComponents()){
 			if(c instanceof TextFieldPanel){
@@ -179,7 +176,12 @@ public class ContentSale extends JPanel {
 				}
 			}
 		}return false;
-		
+
+	}
+
+
+	public TextFieldPanel getTfpSaleCode() {
+		return tfpSaleCode;
 	}
 
 
@@ -191,6 +193,24 @@ public class ContentSale extends JPanel {
 	public ComboPanel<String> getTfpSwName() {
 		return tfpSwName;
 	}
+
+
+	public ComboPanel<String> getTfpClntName() {
+		return tfpClntName;
+	}
+
+
+	public TextFieldPanel getTfpOrderDate() {
+		return tfpOrderDate;
+	}
+
+
+	public RadioPanel getTfpIsExist() {
+		return tfpIsExist;
+	}
 	
 	
+
+
+
 }

@@ -9,4 +9,5 @@ public interface SaleMapper {
 	int insertSaleItem(Sale sale);
     int updateSaleItem(Sale sale);
     int existSaleItem(Sale sale);
+    int updateIsdeposit(Sale sale);
 }

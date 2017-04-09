@@ -40,4 +40,10 @@ public class SaleMapperImpl implements SaleMapper{
 		log.debug("existSaleItem()");
 		return sqlSession.update(nameSpace + "existSaleItem",sale);
 	}
+
+	@Override
+	public int updateIsdeposit(Sale sale) {
+		log.debug("updateIsdeposit()");
+		return sqlSession.update(nameSpace + "updateIsdeposit",sale);
+	}
 }

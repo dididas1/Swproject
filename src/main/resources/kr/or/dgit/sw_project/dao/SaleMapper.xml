@@ -53,7 +53,7 @@
     
     <update id="updateSaleItem" parameterType="Sale">
     	UPDATE sale
-		SET sale_code=#{saleCode},clnt_code=#{clntCode}, sw_code=#{swCode}, sale_amount=#{saleAmount}, isdeposit=#{isdeposit}, 
+		SET sale_code=#{saleCode},clnt_code=#{clntCode}, sw_code=#{swCode}, sale_amount=#{saleAmount}, isdeposit=#{isDeposit}, 
 		order_date=#{orderDate}, supply_price=#{supplyPrice}, sale_price=#{salePrice}, sale_isExist=#{saleIsExist}
 		WHERE sale_code=#{saleCode};
      </update>
@@ -62,6 +62,13 @@
      <update id="existSaleItem" parameterType="Sale">
      	UPDATE sale
 		SET sale_isExist=false
+		WHERE sale_code=#{saleCode};
+     </update>
+     
+     <!-- isDeosit -->
+      <update id="updateIsdeposit" parameterType="Sale">
+    	UPDATE sale
+		SET isdeposit=#{isDeposit}
 		WHERE sale_code=#{saleCode};
      </update>
 </mapper>

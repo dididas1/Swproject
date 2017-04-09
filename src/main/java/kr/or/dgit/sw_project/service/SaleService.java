@@ -51,4 +51,13 @@ public class SaleService {
 			return res;
 		} 
 	}
+	
+	public int updateIsdeposit(Sale sale) {
+		try (SqlSession sqlSession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
+			SaleMapper saleMapper = new SaleMapperImpl(sqlSession);
+			int res= saleMapper.updateIsdeposit(sale);
+			sqlSession.commit();
+			return res;
+		} 
+	}
 }
