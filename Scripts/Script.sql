@@ -2,6 +2,11 @@ DROP DATABASE sw_project;
 CREATE DATABASE sw_project;
 USE sw_project;
 
+INSERT INTO members(mem_id, mem_name, mem_password, mem_mail, mem_permission, mem_isExist)
+	VALUES("dididas","이승우","1234","dididas@naver.com", "manager", TRUE);
+
+select * from delivery;
+select * from software;
 select * from client;
 select * from supply_company;
 

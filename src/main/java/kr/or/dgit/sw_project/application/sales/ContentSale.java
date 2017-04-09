@@ -157,7 +157,7 @@ public class ContentSale extends JPanel {
 		}
 	}
 	
-	public void setClntComboData(){
+	public void setClntComboData(){ //콤보박스 데이터입력
 		tfpClntName.getTf().removeAllItems();
 		listCl = ClientService.getInstance().selectClientByAll();
 		System.out.println(listCl);
@@ -171,7 +171,7 @@ public class ContentSale extends JPanel {
 		
 	}
 	
-	public void setSwComboData(){
+	public void setSwComboData(){ //콤보박스 데이터입력
 		tfpSwName.getTf().removeAllItems();
 		listSw = SoftwareService.getInstance().selectSoftwareByAll();
 		Vector<String> comboitemSw = new Vector<>();

@@ -25,6 +25,8 @@ import kr.or.dgit.sw_project.service.ClientService;
 import kr.or.dgit.sw_project.service.JoinFromSaleService;
 import kr.or.dgit.sw_project.service.SaleService;
 import kr.or.dgit.sw_project.service.SoftwareService;
+import java.awt.event.FocusListener;
+import java.awt.event.FocusEvent;
 
 public class ViewSale extends JPanel implements ActionListener{
 	private ContentSale pContent;

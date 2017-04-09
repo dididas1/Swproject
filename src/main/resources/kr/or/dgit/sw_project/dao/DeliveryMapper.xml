@@ -61,7 +61,7 @@
     <!-- Exist item -->
      <update id="existDeliveryItem">
     	UPDATE delivery
-		SET  del_isExist=#{delIsExist}
+		SET  del_isExist=false
 		WHERE del_code=#{delCode}
     </update>
 </mapper>

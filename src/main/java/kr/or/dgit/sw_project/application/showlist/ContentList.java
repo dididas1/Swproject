@@ -118,7 +118,7 @@ public class ContentList extends JPanel {
 		return btnClntAllFind;
 	}
 	
-	public void setClntComboData(){
+	public void setClntComboData(){ //콤보박스 데이터입력
 		tfpClntName.getTf().removeAllItems();
 		listClnt = ClientService.getInstance().selectClientByAll();
 		Vector<String> comboitemCl = new Vector<>();
@@ -131,7 +131,7 @@ public class ContentList extends JPanel {
 		
 	}
 	
-	public void setSwComboData(){
+	public void setSwComboData(){ //콤보박스 데이터입력
 		tfpSwName.getTf().removeAllItems();
 		listSw = SoftwareService.getInstance().selectSoftwareByAll();
 		Vector<String> comboitemSw = new Vector<>();
@@ -143,7 +143,7 @@ public class ContentList extends JPanel {
 		tfpSwName.setComboData(comboitemSw);
 	}
 	
-	public void setCategoryComboData(){
+	public void setCategoryComboData(){ //콤보박스 데이터입력
 		tfpGroup.getTf().removeAllItems();
 		listCa = CategoryService.getInstance().selectCategoryByAll();
 		Vector<String> comboitemCa = new Vector<>();
@@ -156,6 +156,7 @@ public class ContentList extends JPanel {
 		
 	}
 
+	
 
 
 
