@@ -12,6 +12,6 @@ public interface SoftwareMapper {
 	int updateSoftwareItem(Map<String, Object> item);
 	int swCodeReset(Map<String, Object> item);
 	int deleteSoftwareItem(Software item);
-	int ExistSoftwareItem (Software item);
+	int existSoftwareItem (Software item);
 	
 }

@@ -13,6 +13,8 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 import de.javasoft.plaf.synthetica.SyntheticaAluOxideLookAndFeel;
 import de.javasoft.plaf.synthetica.SyntheticaLookAndFeel;
+import de.javasoft.swing.DateComboBox;
+import de.javasoft.swing.plaf.datecombobox.DateComboBoxPopup;
 
 public class DatePickerTest {
 
@@ -60,12 +62,12 @@ public class DatePickerTest {
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy년MM월dd일");
 		
-		/*DateComboBox dc = new DateComboBox();
+		DateComboBox dc = new DateComboBox();
 		dc.setDateFormat(sdf);
 		
 		DateComboBoxPopup p = dc.getPopup();
 		p.getMonthView().setLocale(Locale.ENGLISH);
 		System.out.println(dc.getFont());
-		panel.add(dc);*/
+		panel.add(dc);
 	}
 }

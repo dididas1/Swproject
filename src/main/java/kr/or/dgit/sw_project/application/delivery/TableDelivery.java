@@ -3,12 +3,23 @@ package kr.or.dgit.sw_project.application.delivery;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
+import kr.or.dgit.sw_project.dto.Delivery;
+import kr.or.dgit.sw_project.service.DeliveryService;
+
 import java.awt.BorderLayout;
+import java.util.List;
 
 public class TableDelivery extends JPanel {
 	private JTable table;
 	
 	
+	public JTable getTable() {
+		return table;
+	}
+
+
 	public TableDelivery() {
 		setLayout(new BorderLayout(0, 0));
 		
@@ -17,5 +28,24 @@ public class TableDelivery extends JPanel {
 		
 		table = new JTable();
 		scrollPane.setViewportView(table);
+		
+		loadData();
+	}
+
+
+	public void loadData() {
+		// TODO Auto-generated method stub
+		table.setModel(new DefaultTableModel(getRowData(),getColumn()));
 	}	
+	protected Object[][] getRowData(){
+		List<Delivery> delivery = DeliveryService.getInstance().selectDeliveryByAll();
+		Object[][] datas = new Object[delivery.size()][];
+		for(int i=0; i<datas.length; i++){
+			datas[i] = delivery.get(i).toArray();
+		}
+		return datas;
+	}
+	protected String[] getColumn(){
+		return new String[]{"납품번호","납품회사","품목명","공급가격","납품수량","납품일자"};
+	}
 }

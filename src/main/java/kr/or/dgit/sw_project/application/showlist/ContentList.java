@@ -30,7 +30,12 @@ public class ContentList extends JPanel {
 	private JButton btnGroupAllFind;
 	private JButton btnSwAllFind;
 	private JButton btnClntAllFind;
-	
+	private List<Client> listClnt;
+	private List<Software> listSw;
+	private List<Category> listCa; 
+	private ComboPanel<String> tfpSwName;
+	private ComboPanel<String> tfpClntName;
+	private ComboPanel<String> tfpGroup;
 	
 	public ContentList() {
 		setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
@@ -41,10 +46,8 @@ public class ContentList extends JPanel {
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0};
 		setLayout(gridBagLayout);
 		
-		ComboPanel<String> tfpSwName = new ComboPanel();
-		List<Software> list=  SoftwareService.getInstance().selectSoftwareByAll();
+		tfpSwName = new ComboPanel();
 		tfpSwName.setTitle("품목명");
-		
 		GridBagConstraints gbc_tfpSwName = new GridBagConstraints();
 		gbc_tfpSwName.fill = GridBagConstraints.HORIZONTAL;
 		gbc_tfpSwName.insets = new Insets(0, 0, 0, 0);
@@ -60,15 +63,8 @@ public class ContentList extends JPanel {
 		add(btnSwAllFind, gbc_btnSwAllFind);
 		
 		
-		ComboPanel<String> tfpClntName = new ComboPanel();
+		tfpClntName = new ComboPanel();
 		tfpClntName.setTitle("고객상호");
-		List<Client> listCl= ClientService.getInstance().selectClientByAll();
-		Vector<String> comboitemCl = new Vector<>();
-		comboitemCl.add("선택해주세요");
-		for(int i=0;i<listCl.size();i++){
-				comboitemCl.add(listCl.get(i).toCombobox());
-		}
-		tfpClntName.setComboData(comboitemCl);
 		GridBagConstraints gbc_tfpClntName = new GridBagConstraints();
 		gbc_tfpClntName.insets = new Insets(0, 0, 0, 0);
 		gbc_tfpClntName.fill = GridBagConstraints.HORIZONTAL;
@@ -83,15 +79,8 @@ public class ContentList extends JPanel {
 		gbc_btnClntAllFind.gridy = 2;
 		add(btnClntAllFind, gbc_btnClntAllFind);
 		
-		ComboPanel<String> tfpGroup = new ComboPanel();
+		tfpGroup = new ComboPanel();
 		tfpGroup.setTitle("그룹별");
-		List<Category> listGr= CategoryService.getInstance().selectCategoryByAll();
-		Vector<String> comboitemGr = new Vector<>();
-		comboitemGr.add("선택해주세요");
-		for(int i=0;i<listGr.size();i++){
-				comboitemGr.add(listGr.get(i).toCombobox());
-		}
-		tfpGroup.setComboData(comboitemGr);
 		GridBagConstraints gbc_tfpGroup = new GridBagConstraints();
 		gbc_tfpGroup.insets = new Insets(0, 0, 0, 0);
 		gbc_tfpGroup.fill = GridBagConstraints.HORIZONTAL;
@@ -105,6 +94,9 @@ public class ContentList extends JPanel {
 		gbc_btnGroupAllFind.gridx = 2;
 		gbc_btnGroupAllFind.gridy = 3;
 		add(btnGroupAllFind, gbc_btnGroupAllFind);
+		setCategoryComboData();
+		setClntComboData();
+		setSwComboData();
 	}
 	
 	
@@ -125,6 +117,45 @@ public class ContentList extends JPanel {
 	public JButton getBtnClntAllFind() {
 		return btnClntAllFind;
 	}
+	
+	public void setClntComboData(){
+		tfpClntName.getTf().removeAllItems();
+		listClnt = ClientService.getInstance().selectClientByAll();
+		Vector<String> comboitemCl = new Vector<>();
+		comboitemCl.removeAllElements();
+		comboitemCl.add("선택해주세요");
+		for(int i=0;i<listClnt.size();i++){
+			comboitemCl.add(listClnt.get(i).toCombobox());
+		}
+		tfpClntName.setComboData(comboitemCl);
+		
+	}
+	
+	public void setSwComboData(){
+		tfpSwName.getTf().removeAllItems();
+		listSw = SoftwareService.getInstance().selectSoftwareByAll();
+		Vector<String> comboitemSw = new Vector<>();
+		comboitemSw.removeAllElements();
+		comboitemSw.add("선택해주세요");
+		for(int i=0;i<listSw.size();i++){
+			comboitemSw.add(listSw.get(i).toReportCombobox());
+		}
+		tfpSwName.setComboData(comboitemSw);
+	}
+	
+	public void setCategoryComboData(){
+		tfpGroup.getTf().removeAllItems();
+		listCa = CategoryService.getInstance().selectCategoryByAll();
+		Vector<String> comboitemCa = new Vector<>();
+		comboitemCa.removeAllElements();
+		comboitemCa.add("선택해주세요");
+		for(int i=0;i<listCa.size();i++){
+			comboitemCa.add(listCa.get(i).toCombobox());
+		}
+		tfpGroup.setComboData(comboitemCa);
+		
+	}
+
 
 
 

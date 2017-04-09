@@ -174,11 +174,11 @@ public class ViewSale extends JPanel implements ActionListener{
 	/*************************** ActionListener ***************************/
 	private void btnInsertActionPerformed(ActionEvent e) { //입력 수정 테이블 인덱스 클릭시 수정으로 변함
 		if(e.getActionCommand().equals("입력")){
-			if(pContent.isEmptyCheck()){
-				JOptionPane.showMessageDialog(null, "공란이 있습니다");
+			if(pContent.isEmptyCheck() || pContent.getTfpSwName().getSelectedIndex()==0 || pContent.getTfpClntName().getSelectedIndex()==0){
+				JOptionPane.showMessageDialog(null, "입력되지 않은정보가 있습니다");
+				return;
 			}else{
 				if(JOptionPane.showConfirmDialog(null, "입력하시겠습니까?")==JOptionPane.YES_OPTION){
-					//재고판단후 주문여부 .. 테스트필요
 					List<Software> listSw=SoftwareService.getInstance().selectSoftwareByAll();
 					if(Integer.parseInt(pContent.getTfpSaleAmount().getTfValue())>listSw.get(pContent.getTfpSwName().getSelectedIndex()-1).getSwInven()){
 						JOptionPane.showMessageDialog(null, "재고가부족합니다");

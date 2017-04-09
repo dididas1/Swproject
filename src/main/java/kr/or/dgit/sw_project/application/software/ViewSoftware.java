@@ -209,7 +209,7 @@ public class ViewSoftware extends JFrame implements ActionListener {
 	protected void actionPerformedBtnDelete(ActionEvent e) {
 		int ok=JOptionPane.showConfirmDialog(null, "삭제하겠습니까?");
 		if(ok==0){
-			SoftwareService.getInstance().ExistSoftwareItem(pContent.getSoftwareCode());
+			SoftwareService.getInstance().existSoftwareItem(pContent.getSoftwareCode());
 			pTable.setTableData();
 			setSwCodes();
 			pTable.setTableData();

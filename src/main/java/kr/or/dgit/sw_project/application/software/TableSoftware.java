@@ -42,13 +42,26 @@ public class TableSoftware extends JPanel {
 	}
 	
 	public Object[][] getRowdata() { //하나의 소프트웨어 목록을 가져와 테이블에 입력준비
-		List<JoinFromSoftware> list= JoinFromSoftwareService.getInstance().selectJoinFromSoftwareByAll();
-		Object[][] datas= new Object[list.size()][];
-		for(int i=0;i<datas.length;i++){
-			datas[i]=list.get(i).toSoftLists();
+		List<JoinFromSoftware> listForTable= JoinFromSoftwareService.getInstance().selectJoinFromSoftwareByAll();
+		
+		for(int i =0; i<listForTable.size(); i++)
+			System.out.println(listForTable.get(i).toString());
+			
+		
+		for (int i = listForTable.size()-1; i >= 0; i--) {
+			if (!listForTable.get(i).getSoftware().isSwIsSale()) {
+				listForTable.remove(i);
+			}
+		}
+		
+		Object[][] datas = new Object[listForTable.size()][];
+		for (int i = 0; i < datas.length; i++) {
+			datas[i] = listForTable.get(i).toSoftLists();
 		}
 		return datas;
 	}
+
+	
 	
 	public void tableCellAlignment(){// (제품코드, 분류명, 제품명 : 가운데정렬), (공급가격,판매가격 : 왼쪽정렬)
 		DefaultTableCellRenderer dtcr1 = new DefaultTableCellRenderer();

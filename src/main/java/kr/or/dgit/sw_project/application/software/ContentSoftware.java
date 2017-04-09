@@ -194,7 +194,7 @@ public class ContentSoftware extends JPanel implements MouseListener {
 		Map<String, Object> swCodeReset = new HashMap<String, Object>();
 		for(int i=1 ; i<=swCodes.length ; i++){
 			if(!(String.format("SW%03d", i).equals(swCodes[i-1]))){
-				swCodeReset.put("resetCode", String.format("SW%03d", i));
+				swCodeReset.put("resetCode", String.format("SW%03d", i+1));
 				swCodeReset.put("swCode", String.format("SW%03d", i+1));
 				SoftwareService.getInstance().swCodeReset(swCodeReset);
 			}

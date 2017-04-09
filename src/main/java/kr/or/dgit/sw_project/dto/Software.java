@@ -108,6 +108,10 @@ public class Software {
 				swCode, groupCode, swName, category, salePrice, swInven, swImg, swIsSale, delivery, sale);
 	}
 	
+	public String toReportCombobox(){
+		return String.format("%s", swName);
+	}
+	
 	public String toCombobox(){
 		return String.format("%s (재고: %s)", swName,swInven);
 	}

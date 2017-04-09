@@ -39,7 +39,7 @@
 	<!-- Insert Item -->
 	<insert id="insertCompItem" parameterType="SupplyCompany">
 		INSERT INTO supply_company (comp_code, comp_name, comp_addr, comp_tel, comp_isExist)
-		VALUES (#{compCode},#{compName},#{address},#{compTel},#{compIsExist})
+		VALUES (#{compCode},#{compName},#{address},#{compTel},true)
 	</insert>
 	
 	<!-- Update Item -->

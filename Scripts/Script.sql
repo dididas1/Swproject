@@ -2,6 +2,9 @@ DROP DATABASE sw_project;
 CREATE DATABASE sw_project;
 USE sw_project;
 
+select * from client;
+select * from supply_company;
+
 -- 거래회사
 -- clnt_code, clnt_name, clnt_addr, clnt_tel, clnt_isExist
 CREATE TABLE client (
@@ -243,24 +246,29 @@ BEGIN
     END IF;
 END $$
 DELIMITER ;
-
+select * from address;
+select * from delivery;
 select * from supply_company;
 select * from software;
+select * from client;
 select * from sale;
+select * from view_sale_detail;
+
+
 INSERT INTO delivery(del_code, comp_code, sw_code, supply_price, supply_amount, order_date, del_isExist) VALUES
 	("DL002", "SC001", "SW001", 30000, 40000, now(), TRUE);
 	
-		SELECT avg(del.supply_price) FROM delivery del 
+		SELECT avgdel_code, comp_code, sw_code, supply_price, supply_amount, order_date, del_isExist) supply_Price FROM delivery del 
 			JOIN software sw ON del.sw_code = sw.sw_code
 			JOIN supply_company sc ON sc.comp_code = del.comp_code
-    	where del.sw_code="sw001"
+    	where del.sw_code=#{software.swCode}
     	group BY del.sw_code;
     	
-    	SELECT avg(del.supply_price) supply_Price FROM delivery del 
+    	SELECT round(sum(supply_price*del.supply_amount)/sum(supply_amount)) supply_Price FROM delivery del 
 			JOIN software sw ON del.sw_code = sw.sw_code
 			JOIN supply_company sc ON sc.comp_code = del.comp_code
     	where del.sw_code='sw001'
-    	group BY del.sw_code;
+    	group by del.sw_code;
     	
     		SELECT * FROM sale s 
 			JOIN software sw ON s.sw_code = sw.sw_code 
@@ -268,3 +276,11 @@ INSERT INTO delivery(del_code, comp_code, sw_code, supply_price, supply_amount, 
 			JOIN client cl ON cl.clnt_code = s.clnt_code 
 			JOIN category cat ON sw.group_code = cat.group_code 
 			group by s.sale_code;
+			
+			select * from software;
+			
+			SELECT DISTINCT sw.sw_code, cat.group_name, sw.sw_name, sw.sale_price ,sw.sw_inven,sw.sw_img,sw.sw_issale
+			FROM software sw
+			LEFT OUTER JOIN category cat ON sw.group_code = cat.group_code
+			order by sw.sw_code;hhhkg
+			
