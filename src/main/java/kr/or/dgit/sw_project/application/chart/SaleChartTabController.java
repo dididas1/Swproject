@@ -26,22 +26,22 @@ public class SaleChartTabController {
 
 	@FXML
 	private void initialize() {
-		// 클라이언트 이름을 배열로 가져온다.
+		//클라이언트 이름 배열 생성
 		List<Client> list = ClientService.getInstance().selectClientByAll();
 		String[] arrayClientNames = new String[list.size()];
 		for(int i=0; i<list.size(); i++){
 			arrayClientNames[i] = list.get(i).getClntName();
 			System.out.println("Add Client Name :" + arrayClientNames[i]);
 		}
-		// 리스트로 변환하고 나서 ObservableList에 추가한다.
+		//ObservableList에 추가
 		ClientNameList.addAll(Arrays.asList(arrayClientNames));
 
-		// 수평축에 클라이언트 이름을 카테고리로 할당한다.
+		//클라이언트 이름을 x축에 입력
 		xAxis.setCategories(ClientNameList);
 	}
 
 	public void setSaleData(List<JoinFromSale> list) {
-		// 클라이언트별 판매수량 개수를 누적한다.
+		//클라이언트별 판매수량 게산
 		int[] arraySaleAmount = new int[ClientNameList.size()];
 
 		for (int i=0; i< list.size(); i++){
@@ -68,7 +68,7 @@ public class SaleChartTabController {
 		
 		XYChart.Series<String, Integer> series = new XYChart.Series<>();
 
-		// 클라이언트별로 XYChart.Data 객체를 만든다. series에 추가한다.
+		// 클라이언트별로 XYChart.Data 객체생성 series에 추가
 		for (int i = 0; i < arraySaleAmount.length; i++) {
 			series.getData().add(new XYChart.Data<>(ClientNameList.get(i), arraySaleAmount[i]));
 			System.out.println("@@@@@@@@@@ 고객사: " + ClientNameList.get(i) +" 판매량 : " + arraySaleAmount[i]);
