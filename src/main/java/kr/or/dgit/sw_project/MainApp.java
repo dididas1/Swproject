@@ -20,6 +20,7 @@ import javax.swing.border.EmptyBorder;
 import de.javasoft.plaf.synthetica.SyntheticaAluOxideLookAndFeel;
 import de.javasoft.plaf.synthetica.SyntheticaLookAndFeel;
 import erp_myframework.TextFieldPanel;
+import kr.or.dgit.sw_project.application.chart.ChartRootLayout;
 import kr.or.dgit.sw_project.application.membership.ViewMemberShip;
 import kr.or.dgit.sw_project.dto.Members;
 import kr.or.dgit.sw_project.service.MemberShipService;
@@ -34,6 +35,7 @@ public class MainApp extends JFrame implements ActionListener {
 	private TextFieldPanel panelID;
 	private TextFieldPanel panelPassword;
 	private JButton btnSignIn;
+	private JButton btnExit;
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -103,11 +105,15 @@ public class MainApp extends JFrame implements ActionListener {
 		btnSignIn.addActionListener(this);
 		panelButton.add(btnSignIn);
 		
-		JButton btnExit = new JButton("Exit");
+		btnExit = new JButton("Exit");
+		btnExit.addActionListener(this);
 		panelButton.add(btnExit);
 	}
 	
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnExit) {
+			actionPerformedBtnExit(e);
+		}
 		if (e.getSource() == btnSignIn) {
 			actionPerformedBtnSignIn(e);
 		}
@@ -131,5 +137,10 @@ public class MainApp extends JFrame implements ActionListener {
 	
 	protected void actionPerformedBtnSignIn(ActionEvent e) {
 		ViewMemberShip viewMemberShip = new ViewMemberShip();
+	}
+	
+	protected void actionPerformedBtnExit(ActionEvent e) {
+		ChartRootLayout chartRootLayout = new ChartRootLayout();
+		chartRootLayout.showChart();
 	}
 }

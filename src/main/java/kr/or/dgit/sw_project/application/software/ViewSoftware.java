@@ -127,7 +127,6 @@ public class ViewSoftware extends JFrame implements ActionListener {
 				btnInsert.setText("수정");
 				super.mouseClicked(e);
 			}
-
 		});
 
 		pContent.getSwCode();

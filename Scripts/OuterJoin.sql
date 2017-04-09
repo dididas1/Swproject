@@ -71,3 +71,5 @@ SELECT DISTINCT
          FROM software sw
          LEFT OUTER JOIN category cat ON sw.group_code = cat.group_code
          order by sw.sw_code
+         
+SELECT * FROM software;

@@ -35,6 +35,7 @@ dependencies {
 jar{
 	mainClassName='kr.or.dgit.sw_project.MainApp'
 	//mainClassName='kr.or.dgit.sw_project.TestMain'
+	//mainClassName='kr.or.dgit.sw_project.application.chart.chartTest'
 	baseName='SoftWare Management'
 	appendix='bin'
 	version =1.0
@@ -42,4 +43,13 @@ jar{
 		attributes 'Title':baseName, 'Version': version, 'Main-Class': mainClassName
 	}
 	dependsOn configurations.runtime
+}
+
+sourceSets { //fxml파일을 빌드하도록 설정
+	main {
+		resources {
+			srcDirs = ["src/main/java", "src/main/resources"]
+		}
+	}
+	//src/main/java/kr/or/dgit/sw_erp_luuzun/view/*.fxml
 }
