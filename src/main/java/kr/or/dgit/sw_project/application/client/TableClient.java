@@ -47,7 +47,7 @@ public class TableClient extends JPanel {
 		for(int i =0; i<listForTable.size(); i++)
 			System.out.println(listForTable.get(i).toString());
 		
-		for (int i = listForTable.size(); i >= 0; i--) {
+		for (int i = listForTable.size()-1; i >= 0; i--) {
 			if (!listForTable.get(i).isClntIsExist()) {
 				listForTable.remove(i);
 			}

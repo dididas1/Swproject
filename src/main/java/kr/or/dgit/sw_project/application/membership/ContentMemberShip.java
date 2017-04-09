@@ -159,7 +159,6 @@ public class ContentMemberShip extends JPanel implements KeyListener {
 		}else{
 			message = "";
 			viewMemberShip.getBtnInsert().setEnabled(true);
-			return;
 		}
 		lblShowMessage.setText(message);
 	}
