@@ -187,6 +187,7 @@ public class ViewSale extends JPanel implements ActionListener{
 						SaleService.getInstance().insertSaleItem(pContent.getObject());
 						setTable();
 						pContent.initSetting();
+						pContent.setSwComboData();
 						return;
 					}
 					
@@ -197,6 +198,7 @@ public class ViewSale extends JPanel implements ActionListener{
 				SaleService.getInstance().updateIsdeposit(pContent.getObject());
 				setTable();
 				btnInsert.setText("입력");
+				pContent.setSwComboData();
 				pContent.initSetting();
 				contentAble();
 			}else{
@@ -214,6 +216,7 @@ public class ViewSale extends JPanel implements ActionListener{
 			SaleService.getInstance().existSaleItem(new Sale(pContent.getTfpSaleCode().getTfValue()));
 			setTable();
 			pContent.initSetting();
+			pContent.setSwComboData();
 			btnInsert.setText("입력");
 			btnDelete.setEnabled(false);
 			contentAble();

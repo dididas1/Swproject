@@ -240,9 +240,6 @@ BEGIN
 	IF NEW.sale_isExist = FALSE THEN
 		UPDATE software SET sw_inven = sw_inven + NEW.sale_amount
 		WHERE sw_code = NEW.sw_code;
-	ELSEIF NEW.sale_isExist = TRUE THEN
-		UPDATE software SET sw_inven = sw_inven - NEW.sale_amount
-		WHERE sw_code= NEW.sw_code;
     END IF;
 END $$
 DELIMITER ;
@@ -264,3 +261,10 @@ INSERT INTO delivery(del_code, comp_code, sw_code, supply_price, supply_amount, 
 			JOIN supply_company sc ON sc.comp_code = del.comp_code
     	where del.sw_code='sw001'
     	group BY del.sw_code;
+    	
+    		SELECT * FROM sale s 
+			JOIN software sw ON s.sw_code = sw.sw_code 
+			JOIN view_sale_detail sd ON s.sale_code = sd.sale_code 
+			JOIN client cl ON cl.clnt_code = s.clnt_code 
+			JOIN category cat ON sw.group_code = cat.group_code 
+			group by s.sale_code;

@@ -4,6 +4,8 @@ import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
 import java.util.Vector;
 
@@ -59,13 +61,6 @@ public class ContentSale extends JPanel {
 
 		tfpSwName = new ComboPanel<>();
 		tfpSwName.setTitle("품목명");
-		listSw = SoftwareService.getInstance().selectSoftwareByAll();
-		Vector<String> comboitemSw = new Vector<>();
-		comboitemSw.add("선택해주세요");
-		for(int i=0;i<listSw.size();i++){
-			comboitemSw.add(listSw.get(i).toCombobox());
-		}
-		tfpSwName.setComboData(comboitemSw);
 		GridBagConstraints gbc_tfpSwName = new GridBagConstraints();
 		gbc_tfpSwName.fill = GridBagConstraints.HORIZONTAL;
 		gbc_tfpSwName.insets = new Insets(0, 0, 0, 0);
@@ -84,13 +79,6 @@ public class ContentSale extends JPanel {
 
 		tfpClntName = new ComboPanel<>();
 		tfpClntName.setTitle("고객상호명");
-		listCl = ClientService.getInstance().selectClientByAll();
-		Vector<String> comboitemCl = new Vector<>();
-		comboitemCl.add("선택해주세요");
-		for(int i=0;i<listCl.size();i++){
-			comboitemCl.add(listCl.get(i).toCombobox());
-		}
-		tfpClntName.setComboData(comboitemCl);
 		GridBagConstraints gbc_tfpClntName = new GridBagConstraints();
 		gbc_tfpClntName.insets = new Insets(0, 0, 0, 0);
 		gbc_tfpClntName.fill = GridBagConstraints.HORIZONTAL;
@@ -117,6 +105,8 @@ public class ContentSale extends JPanel {
 		gbc_tfpIsExist.gridx = 1;
 		gbc_tfpIsExist.gridy = 3;
 		add(tfpIsExist, gbc_tfpIsExist);
+		setClntComboData();
+		setSwComboData();
 		initSetting();
 
 
@@ -165,6 +155,32 @@ public class ContentSale extends JPanel {
 		}else{
 			tfpIsExist.setSelectedItem(1);
 		}
+	}
+	
+	public void setClntComboData(){
+		tfpClntName.getTf().removeAllItems();
+		listCl = ClientService.getInstance().selectClientByAll();
+		System.out.println(listCl);
+		Vector<String> comboitemCl = new Vector<>();
+		comboitemCl.removeAllElements();
+		comboitemCl.add("선택해주세요");
+		for(int i=0;i<listCl.size();i++){
+			comboitemCl.add(listCl.get(i).toCombobox());
+		}
+		tfpClntName.setComboData(comboitemCl);
+		
+	}
+	
+	public void setSwComboData(){
+		tfpSwName.getTf().removeAllItems();
+		listSw = SoftwareService.getInstance().selectSoftwareByAll();
+		Vector<String> comboitemSw = new Vector<>();
+		comboitemSw.removeAllElements();
+		comboitemSw.add("선택해주세요");
+		for(int i=0;i<listSw.size();i++){
+			comboitemSw.add(listSw.get(i).toCombobox());
+		}
+		tfpSwName.setComboData(comboitemSw);
 	}
 
 
