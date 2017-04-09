@@ -37,6 +37,7 @@ public class ContentSale extends JPanel {
 
 	private List<Software> listSw;
 	private List<Client> listCl;
+	
 	public ContentSale() {
 		setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -210,7 +211,7 @@ public class ContentSale extends JPanel {
 	}
 	
 	
-
+	
 
 
 }

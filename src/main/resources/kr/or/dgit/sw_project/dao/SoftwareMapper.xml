@@ -32,7 +32,6 @@
     <!-- Select By All -->
   	<select id="selectSoftwareByAll" resultMap="SoftwareResult">
     	<include refid="selectSQL" />
-    	 	where sw_isSale= true
     		ORDER BY sw_code;
     </select>
     
@@ -45,7 +44,7 @@
 	<!-- insert item -->
 	<insert id="insertSoftwareItem" parameterType="hashmap">
 		INSERT INTO software(sw_code, group_code, sw_name, sale_price, sw_inven, sw_img, sw_issale)
-		VALUES(#{swCode}, (select group_code from category where group_name = #{groupName}), #{swName}, #{salePrice}, #{swInven}, #{swImg}, #{swIsSale})
+		VALUES(#{swCode}, (select group_code from category where group_name = #{groupName}), #{swName}, #{salePrice}, #{swInven}, #{swImg}, true)
 	</insert>
 	
 	<!-- update item -->

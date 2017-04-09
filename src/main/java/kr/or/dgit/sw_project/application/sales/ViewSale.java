@@ -20,9 +20,11 @@ import kr.or.dgit.sw_project.dto.Client;
 import kr.or.dgit.sw_project.dto.JoinFromSale;
 import kr.or.dgit.sw_project.dto.JoinFromSoftware;
 import kr.or.dgit.sw_project.dto.Sale;
+import kr.or.dgit.sw_project.dto.Software;
 import kr.or.dgit.sw_project.service.ClientService;
 import kr.or.dgit.sw_project.service.JoinFromSaleService;
 import kr.or.dgit.sw_project.service.SaleService;
+import kr.or.dgit.sw_project.service.SoftwareService;
 
 public class ViewSale extends JPanel implements ActionListener{
 	private ContentSale pContent;
@@ -177,7 +179,8 @@ public class ViewSale extends JPanel implements ActionListener{
 			}else{
 				if(JOptionPane.showConfirmDialog(null, "입력하시겠습니까?")==JOptionPane.YES_OPTION){
 					//재고판단후 주문여부 .. 테스트필요
-					if(Integer.parseInt(pContent.getTfpSaleAmount().getTfValue())>list.get(pContent.getTfpSwName().getSelectedIndex()-1).getSoftware().getSwInven()){
+					List<Software> listSw=SoftwareService.getInstance().selectSoftwareByAll();
+					if(Integer.parseInt(pContent.getTfpSaleAmount().getTfValue())>listSw.get(pContent.getTfpSwName().getSelectedIndex()-1).getSwInven()){
 						JOptionPane.showMessageDialog(null, "재고가부족합니다");
 						return;
 					}else{

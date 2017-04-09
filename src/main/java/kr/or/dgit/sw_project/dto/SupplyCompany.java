@@ -95,7 +95,7 @@ public class SupplyCompany {
 			compCode, compName, address, compTel, compIsExist, delivery);
 	}
 	
-	public Object[] toArray(){
+	public Object[] toArrayForTable(){
 		return new Object[]{compCode,compName,address,compTel};
 		
 	}

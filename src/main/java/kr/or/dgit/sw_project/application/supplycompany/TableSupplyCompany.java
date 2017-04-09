@@ -1,6 +1,7 @@
 package kr.or.dgit.sw_project.application.supplycompany;
 
 import java.awt.BorderLayout;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JPanel;
@@ -9,12 +10,15 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import kr.or.dgit.sw_project.dto.Client;
+import kr.or.dgit.sw_project.dto.JoinFromSale;
 import kr.or.dgit.sw_project.dto.SupplyCompany;
 import kr.or.dgit.sw_project.service.ClientService;
 import kr.or.dgit.sw_project.service.SupplyCompService;
 
 public class TableSupplyCompany extends JPanel {
 	private JTable table;
+	private List<SupplyCompany> list;
+	
 	public TableSupplyCompany() {
 		setLayout(new BorderLayout(0, 0));
 		
@@ -25,30 +29,48 @@ public class TableSupplyCompany extends JPanel {
 		scrollPane.setViewportView(table);
 	}	
 	
+
+
+
+	/*************************** load Table ***************************/  
+	public void setTableData(){ //테이블 데이터입력
+		table.setModel(new DefaultTableModel(getRowDate(), getColumm()));
+	}
+	private Object[] getColumm() { //컬럼입력
+		return new String[]{"공급사코드","공급사명","전화번호","주소"};
+	}
+
+	private Object[][] getRowDate() { //테이블 로우값입력 isExist가 true인 항목에대해서만 값받아옴
+		List<SupplyCompany> listForTable = new ArrayList<SupplyCompany>(list);
+		for(int i =0; i<list.size(); i++)
+			System.out.println(list.get(i).toString());
+			
+		for (int i = listForTable.size()-1; i >= 0; i--) {
+			if (!listForTable.get(i).isCompIsExist()) {
+				listForTable.remove(i);
+			}
+		}
+	
+		
+		Object[][] datas = new Object[listForTable.size()][];
+		for (int i = 0; i < datas.length; i++) {
+			datas[i] = listForTable.get(i).toArrayForTable();
+		}
+		return datas;
+	}
+
+	/*****************************************************************/
+	
 	public JTable getTable() {
 		return table;
 	}
-
-
-
-	public void setTableData(){ //테이블 데이터입력
-		table.setModel(new DefaultTableModel(getRowdata(), getColumm()));
-	}
 	
-	public Object[] getColumm() { //컬럼값입력
-		return new String[]{"공급사코드","공급사이름","공급사전화번호","공급사주소"};
-		
+	
+	public void setList(List<SupplyCompany> list) {
+		this.list = list;
 	}
-	public Object[][] getRowdata() { //테이블 로우값입력 isExist가 ture인 항목에대해서만 값받아옴
-		List<SupplyCompany> list= SupplyCompService.getInstance().selectSupplyCompByAll();
-		Object[][] datas= new Object[list.size()][];
-		int index= 0;
-		for(int i=0;i<datas.length;i++){
-			if(list.get(i).isCompIsExist()){
-				datas[index]=list.get(i).toArray();
-				index++;
-			}
-		}
-		return datas;
+
+	public List<SupplyCompany> getList(){
+		return list;
 	}
 }

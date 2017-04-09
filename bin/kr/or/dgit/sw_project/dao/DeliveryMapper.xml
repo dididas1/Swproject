@@ -38,7 +38,7 @@
     <!-- getSuppyPrice -->
     
     <select id="getSuppyPrice" resultMap="DeliveryResult">
-    	SELECT del.supply_price FROM delivery del 
+    	SELECT avg(del.supply_price) supply_Price FROM delivery del 
 			JOIN software sw ON del.sw_code = sw.sw_code
 			JOIN supply_company sc ON sc.comp_code = del.comp_code
     	where del.sw_code=#{software.swCode}

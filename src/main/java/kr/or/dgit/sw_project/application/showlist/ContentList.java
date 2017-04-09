@@ -44,7 +44,7 @@ public class ContentList extends JPanel {
 		ComboPanel<String> tfpSwName = new ComboPanel();
 		List<Software> list=  SoftwareService.getInstance().selectSoftwareByAll();
 		tfpSwName.setTitle("품목명");
-	
+		
 		GridBagConstraints gbc_tfpSwName = new GridBagConstraints();
 		gbc_tfpSwName.fill = GridBagConstraints.HORIZONTAL;
 		gbc_tfpSwName.insets = new Insets(0, 0, 0, 0);

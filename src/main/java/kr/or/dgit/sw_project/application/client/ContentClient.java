@@ -109,14 +109,19 @@ public class ContentClient extends JPanel implements ActionListener {
 	//???
 	public void initSetting(){ //코드 자동세팅 다른필드 초기화
 		List<Client> list = ClientService.getInstance().selectClientByAll();
+		if(list.size()==0){
+			tfpClientCode.setTfValue("CL001");
+		}else{
+			list.get(list.size() - 1).getClntCode();
+			String value = String.format("CL%03d",
+			Integer.parseInt(list.get(list.size() - 1).getClntCode().substring(2)) + 1);
 
-		list.get(list.size() - 1).getClntCode();
-		String value = String.format("CL%03d",
-		Integer.parseInt(list.get(list.size() - 1).getClntCode().substring(2)) + 1);
-
-		tfpClientCode.setTfValue(value);
-		tfpClientCode.getTf().setFocusable(false);
-		clear();
+			tfpClientCode.setTfValue(value);
+			tfpClientCode.getTf().setFocusable(false);
+			clear();
+			
+		}
+		
 	}
 	
 	public void clear(){

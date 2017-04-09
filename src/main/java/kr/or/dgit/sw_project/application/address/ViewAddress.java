@@ -136,7 +136,6 @@ public class ViewAddress extends JFrame implements ActionListener {
 		list=Collections.EMPTY_LIST;
 		pTable.setList(list);
 		pTable.setTableData();
-		setVisible(true);
 	}
 	
 	// 클릭된 데이터값넘김

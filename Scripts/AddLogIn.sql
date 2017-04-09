@@ -13,10 +13,7 @@ INSERT INTO members(mem_id, mem_name, mem_password, mem_mail, mem_permission, me
 	VALUES("luuzun","이원준","1234","luuzun@naver.com", "manager", TRUE);
 
 INSERT INTO members(mem_id, mem_name, mem_password, mem_mail, mem_permission, mem_isExist)
-<<<<<<< HEAD
 	VALUES("dididas","이승우","1234","dididas@naver.com", "manager", TRUE);
-=======
-	VALUES("dididas","이승우","1234","dididas@naver.com", "personnel", TRUE);
 	
 INSERT INTO members(mem_id, mem_name, mem_password, mem_mail, mem_Permission, mem_isExist)   
 VALUES(#(memId),#(memName),#(memPassword),#(memMail), "personnel", #(memIsExist), true);
