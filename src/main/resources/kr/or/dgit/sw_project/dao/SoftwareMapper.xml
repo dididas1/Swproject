@@ -73,7 +73,7 @@
 	
 	<!-- Not Exist item -->
 	<update id="ExistSoftwareItem" parameterType="Software">
-		UPDATE software SET sw_issale=#{swIsSale}
+		UPDATE software SET sw_issale= false
 		<include refid="whereSQL"/>
 	</update>
 </mapper>
