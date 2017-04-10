@@ -1,6 +1,8 @@
 package kr.or.dgit.sw_project.service;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -19,6 +21,13 @@ public class JoinFromSaleService {
 		try (SqlSession sqlSession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
 			JoinFromSaleMapper joinFromSaleMapper = new JoinFromSaleMapperImpl(sqlSession);
 			return joinFromSaleMapper.selectJoinFromSaleByAll();
+		} 
+	}
+	
+	public List<JoinFromSale> selectJoinFromSaleByYear(Map<String, Object> date) {
+		try (SqlSession sqlSession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
+			JoinFromSaleMapper joinFromSaleMapper = new JoinFromSaleMapperImpl(sqlSession);
+			return joinFromSaleMapper.selectJoinFromSaleByYear(date);
 		} 
 	}
 }
