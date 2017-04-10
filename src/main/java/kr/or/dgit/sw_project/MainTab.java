@@ -20,6 +20,7 @@ import kr.or.dgit.sw_project.application.sales.ViewSale;
 import kr.or.dgit.sw_project.application.showlist.ViewList;
 import kr.or.dgit.sw_project.application.software.ViewSoftware;
 import kr.or.dgit.sw_project.application.supplycompany.ViewSupplyCompany;
+import kr.or.dgit.sw_project.filessetting.InitSettingService;
 
 public class MainTab extends JFrame implements ActionListener {
 
@@ -35,6 +36,7 @@ public class MainTab extends JFrame implements ActionListener {
 	private JButton btnReport;
 	private JMenuItem mnSup;
 	private JButton btnCategory;
+	private JMenuItem mntmRestore;
 
 	public MainTab() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -52,7 +54,8 @@ public class MainTab extends JFrame implements ActionListener {
 		JMenuItem mntmBackup = new JMenuItem("백업");
 		mnFile.add(mntmBackup);
 
-		JMenuItem mntmRestore = new JMenuItem("복원");
+		mntmRestore = new JMenuItem("복원");
+		mntmRestore.addActionListener(this);
 		mnFile.add(mntmRestore);
 
 		JMenuItem mntmExit = new JMenuItem("종료");
@@ -147,6 +150,9 @@ public class MainTab extends JFrame implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == mntmRestore) {
+			actionPerformedMntmRestore(e);
+		}
 		if (e.getSource() == btnClient) {
 			actionPerformedBtnClient(e);
 		}
@@ -177,7 +183,10 @@ public class MainTab extends JFrame implements ActionListener {
 	}
 	protected void actionPerformedMnSale(ActionEvent e) {
 
-
+	}
+	protected void actionPerformedMntmRestore(ActionEvent e) {
+		InitSettingService fileSetting = new InitSettingService();
+		fileSetting.initSetting();
 	}
 }
 
