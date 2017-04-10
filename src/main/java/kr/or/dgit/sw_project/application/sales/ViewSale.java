@@ -36,7 +36,6 @@ public class ViewSale extends JPanel implements ActionListener{
 	
 	private List<JoinFromSale> list;
 	
-	
 	public ViewSale() {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0}; //각 열의 최소 넓이  
@@ -129,8 +128,6 @@ public class ViewSale extends JPanel implements ActionListener{
 		pTable.setList(list);
 		pTable.setTableData();
 		setVisible(true);
-		
-		
 	}
 	
 	private void selectedRow() {

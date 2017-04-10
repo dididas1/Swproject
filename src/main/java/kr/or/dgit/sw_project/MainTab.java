@@ -14,6 +14,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.border.EmptyBorder;
 
 import kr.or.dgit.sw_project.application.category.ViewCategory;
+import kr.or.dgit.sw_project.application.chart.ViewChart;
 import kr.or.dgit.sw_project.application.client.ViewClient;
 import kr.or.dgit.sw_project.application.delivery.ViewDelivery;
 import kr.or.dgit.sw_project.application.sales.ViewSale;
@@ -97,9 +98,11 @@ public class MainTab extends JFrame implements ActionListener {
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		contentPane.add(tabbedPane, BorderLayout.CENTER);
 
-		tabbedPane.add("주문 관리",new ViewSale());
-		tabbedPane.add("납품 관리",new ViewDelivery());
-		tabbedPane.add("거래내역 확인",new ViewList());
+		tabbedPane.add("주문 관리", new ViewSale());
+		tabbedPane.add("납품 관리", new ViewDelivery());
+		tabbedPane.add("거래내역 확인", new ViewList());
+		//new ViewChart();
+		tabbedPane.add("판매 현황 차트", new ViewChart());
 
 		JPanel pButton = new JPanel();
 		contentPane.add(pButton, BorderLayout.NORTH);
@@ -108,7 +111,7 @@ public class MainTab extends JFrame implements ActionListener {
 		contentPane.add(panel, BorderLayout.WEST);
 		panel.setLayout(new BorderLayout(0, 0));
 
-		
+
 		btnSupplyComp = new JButton("공급사 관리");
 		btnSupplyComp.addActionListener(this);
 		pButton.add(btnSupplyComp);
@@ -129,10 +132,10 @@ public class MainTab extends JFrame implements ActionListener {
 
 		btnReport = new JButton("보고서");
 
-		
+
 		JButton btnChart = new JButton("통계차트");
 		pButton.add(btnChart);
-		
+
 		JButton btnReport = new JButton("보고서");
 		pButton.add(btnReport);
 
@@ -160,24 +163,24 @@ public class MainTab extends JFrame implements ActionListener {
 			actionPerformedBtnSupplyComp(e);
 		}
 	}
-	
+
 	protected void actionPerformedBtnSupplyComp(ActionEvent e) {
 		ViewSupplyCompany viewSupplyCompany = new ViewSupplyCompany(); 
 	}
-	
+
 	protected void actionPerformedBtnSoftWare(ActionEvent e) {
 		ViewSoftware viewSoftware = new ViewSoftware();
 	}
+
 	protected void actionPerformedBtnCategory(ActionEvent e) {
 		ViewCategory viewCategory = new ViewCategory();
-
 	}
+
 	protected void actionPerformedBtnClient(ActionEvent e) {
 		ViewClient viewclient = new ViewClient();
 	}
+
 	protected void actionPerformedMnSale(ActionEvent e) {
-
-
 	}
 }
 

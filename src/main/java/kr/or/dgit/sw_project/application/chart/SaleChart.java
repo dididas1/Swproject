@@ -13,9 +13,10 @@ import kr.or.dgit.sw_project.dto.JoinFromSale;
 import kr.or.dgit.sw_project.service.JoinFromSaleService;
 
 //고객사별 주문 수량
-public class SaleChartTab extends Application{
+public class SaleChart extends Application{
 	private Stage primaryStage;
 	private BorderPane rootLayout;
+	private Scene scene;
 
 	@Override
 	public void start(Stage primaryStage) {
@@ -24,18 +25,13 @@ public class SaleChartTab extends Application{
 		initRootLayout();
 	}
 
-	/**
-	 * 상위 레이아웃을 초기화한다.
-	 */
 	public void initRootLayout() {
 		try {
-			// fxml 파일에서 상위 레이아웃을 가져온다.
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(SaleChartTab.class.getResource("SaleChartTab.fxml"));
+			loader.setLocation(SaleChart.class.getResource("SaleChartTab.fxml"));
 			rootLayout = (BorderPane) loader.load();
 
-			// 상위 레이아웃을 포함하는 scene을 보여준다.
-			Scene scene = new Scene(rootLayout);
+			scene = new Scene(rootLayout);
 			primaryStage.setScene(scene);
 			primaryStage.show();
 		} catch (IOException e) {
@@ -45,6 +41,10 @@ public class SaleChartTab extends Application{
 
 	public Stage getPrimaryStage() {
 		return primaryStage;
+	}
+	
+	public Scene getScene(){
+		return scene;
 	}
 
 	public void showChart() {

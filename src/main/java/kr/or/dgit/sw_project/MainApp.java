@@ -20,7 +20,7 @@ import javax.swing.border.EmptyBorder;
 import de.javasoft.plaf.synthetica.SyntheticaAluOxideLookAndFeel;
 import de.javasoft.plaf.synthetica.SyntheticaLookAndFeel;
 import erp_myframework.TextFieldPanel;
-import kr.or.dgit.sw_project.application.chart.SaleChartTab;
+import kr.or.dgit.sw_project.application.chart.SaleChart;
 import kr.or.dgit.sw_project.application.membership.ViewMemberShip;
 import kr.or.dgit.sw_project.dto.Members;
 import kr.or.dgit.sw_project.service.MemberShipService;
@@ -114,9 +114,11 @@ public class MainApp extends JFrame implements ActionListener {
 		if (e.getSource() == btnExit) {
 			actionPerformedBtnExit(e);
 		}
+		
 		if (e.getSource() == btnSignIn) {
 			actionPerformedBtnSignIn(e);
 		}
+		    
 		if (e.getSource() == btnLogIn) {
 			actionPerformedBtnLogIn(e);
 		}
@@ -140,7 +142,7 @@ public class MainApp extends JFrame implements ActionListener {
 	}
 	
 	protected void actionPerformedBtnExit(ActionEvent e) {
-		SaleChartTab saleChartTab = new SaleChartTab();
+		SaleChart saleChartTab = new SaleChart();
 		saleChartTab.showChart();
 	}
 }

@@ -16,7 +16,7 @@ import kr.or.dgit.sw_project.service.ClientService;
 import kr.or.dgit.sw_project.service.JoinFromSaleService;
 
 //고객사별 주문 수량
-public class SaleChartTabController implements Initializable{
+public class SaleChartController implements Initializable{
 	@FXML
 	private BarChart<String, Integer> barChart;
 	private List<Client> clientNameList;
