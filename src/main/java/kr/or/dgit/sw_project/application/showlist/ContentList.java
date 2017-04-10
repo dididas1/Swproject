@@ -3,22 +3,14 @@ package kr.or.dgit.sw_project.application.showlist;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.List;
 import java.util.Vector;
 
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 
 import erp_myframework.ComboPanel;
-import javafx.scene.control.ComboBox;
-import javafx.scene.input.ScrollEvent.VerticalTextScrollUnits;
 import kr.or.dgit.sw_project.dto.Category;
 import kr.or.dgit.sw_project.dto.Client;
 import kr.or.dgit.sw_project.dto.Software;

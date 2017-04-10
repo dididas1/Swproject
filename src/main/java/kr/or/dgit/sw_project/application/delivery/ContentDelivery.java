@@ -1,8 +1,10 @@
 package kr.or.dgit.sw_project.application.delivery;
 
+import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Vector;
 
@@ -11,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 
 import erp_myframework.ComboPanel;
+import erp_myframework.DatePanel;
 import erp_myframework.TextFieldPanel;
 import kr.or.dgit.sw_project.dto.Client;
 import kr.or.dgit.sw_project.dto.Delivery;
@@ -27,11 +30,12 @@ public class ContentDelivery extends JPanel {
 	private ComboPanel<String> tfpDeSwName; //소프트웨어이름
 	private TextFieldPanel tfpDelAmount;  //납품수량
 	private ComboPanel<String> tfpCompName; //납품회사이름
-	private TextFieldPanel tfpDelOrderDate; //납품일자
+	private DatePanel tfpDelOrderDate; //납품일자
 	private TextFieldPanel tfpSupplyAmount; //공급가격
 	private List<SupplyCompany> compList;
 	private List<Software> swList;
 	
+	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy년MM월dd일");
 	
 
 	public ContentDelivery() {
@@ -57,12 +61,13 @@ public class ContentDelivery extends JPanel {
 	      
 	    tfpDeSwName = new ComboPanel<>();
 		tfpDeSwName.setTitle("품목명");
-		swList = SoftwareService.getInstance().selectSoftwareByAll();
+		/*swList = SoftwareService.getInstance().selectSoftwareByAll();
 		Vector<String> swCom = new Vector<>();
+		swCom.add("선택해주세요");
 		for(int i=0;i<swList.size();i++){
 			swCom.add(swList.get(i).toCombobox());
 		}
-		tfpDeSwName.setComboData(swCom);
+		tfpDeSwName.setComboData(swCom);*/
 		GridBagConstraints gbc_tfpDeSwName = new GridBagConstraints();
 		gbc_tfpDeSwName.fill = GridBagConstraints.HORIZONTAL;
 		gbc_tfpDeSwName.insets = new Insets(0, 0, 0, 0);
@@ -70,7 +75,7 @@ public class ContentDelivery extends JPanel {
 		gbc_tfpDeSwName.gridy = 1;
 		add(tfpDeSwName, gbc_tfpDeSwName);
 		
-		//setComboSoftware();
+		
 		
 	      
 		
@@ -87,12 +92,14 @@ public class ContentDelivery extends JPanel {
 		
 		tfpCompName = new ComboPanel<>();
 		tfpCompName.setTitle("납품회사");
-		compList = SupplyCompService.getInstance().selectSupplyCompByAll();
-		Vector<String> supCom = new Vector<>();		
+		/*compList = SupplyCompService.getInstance().selectSupplyCompByAll();
+		Vector<String> supCom = new Vector<>();	
+		supCom.add("선택해주세요");
 		for(int i=0;i<compList.size();i++){
 			supCom.add(compList.get(i).toCombobox());
 		}
-		tfpCompName.setComboData(supCom);
+		tfpCompName.setComboData(supCom);*/		
+		
 		GridBagConstraints gbc_tfpCompName = new GridBagConstraints();
 		gbc_tfpCompName.insets = new Insets(0, 0, 0, 0);
 		gbc_tfpCompName.fill = GridBagConstraints.HORIZONTAL;
@@ -100,10 +107,10 @@ public class ContentDelivery extends JPanel {
 		gbc_tfpCompName.gridy = 2;
 		add(tfpCompName, gbc_tfpCompName);
 		
-		//setComboSupplyCompany();
 		
 		
-		tfpDelOrderDate = new TextFieldPanel();
+		
+		tfpDelOrderDate = new DatePanel();
 		tfpDelOrderDate.setTitle("납품일자");
 		GridBagConstraints gbc_tfpDelOrderDate = new GridBagConstraints();
 		gbc_tfpDelOrderDate.fill = GridBagConstraints.HORIZONTAL;
@@ -121,25 +128,28 @@ public class ContentDelivery extends JPanel {
 		gbc_tfpIsExist.gridy = 3;
 		add(tfpSupplyAmount, gbc_tfpIsExist);
 		
-		setDeliveryCode();
+		setComboSoftware();
+		setComboSupplyCompany();
+		resetField();
+		
+		
 	}
 	public void resetField(){//필드 초기화
 		setDeliveryCode();
 		tfpCompName.setSelectedItem(0);
 		tfpDeSwName.setSelectedItem(0);
 		tfpDelAmount.setTfValue("");
-		tfpDelOrderDate.setTfValue("");
+		tfpDelOrderDate.setTfDate("");
 		tfpSupplyAmount.setTfValue("");
 	}
+	
 	private void setDeliveryCode() {//맨 마지막 코드 다음꺼로 세팅
-		//tfpDelCode.setTfValue(DeliveryService.getInstance().lastDeliveryCode());
+		
 		List<Delivery> list = DeliveryService.getInstance().selectDeliveryByAll();
 		if(list.size()==0){
 			tfpDelCode.setTfValue("DL001");
-		}else{
-			list.get(list.size() - 1).getDelCode();
-			String value = String.format(getDeliveryCode(),	Integer.parseInt(list.get(list.size()-1).getDelCode().substring(2)) + 1);
-			tfpDelCode.setTfValue(value);
+		}else{			
+			tfpDelCode.setTfValue(String.format(getDeliveryCode(), list.size()+1));
 			tfpDelCode.getTf().setFocusable(false);
 		}
 	
@@ -147,58 +157,63 @@ public class ContentDelivery extends JPanel {
 	private String getDeliveryCode() {		//ref coffee
 		return "DL%03d";
 	}
+	public void setComboSoftware(){//combopanel에 소프트웨어 띄우기
+		tfpDeSwName.getTf().removeAllItems();
+		swList = SoftwareService.getInstance().selectSoftwareByAll();
+		Vector<String> v = new Vector<>();	
+		v.removeAllElements();
+		v.add("선택해주세요");
+		for(int i=0; i<swList.size(); i++){
+			v.add(swList.get(i).toCombobox());
+		}
+		tfpDeSwName.setComboData(v);	
+	}
 	private void setComboSupplyCompany() {//combopanel에 공급회사 띄우기
-		List<SupplyCompany> list = SupplyCompService.getInstance().selectSupplyCompByAll();
-		Vector<String> v = new Vector<>();		
-		for(int i=0; i<list.size(); i++){
-			v.add(list.get(i).toCombobox());
+		tfpCompName.getTf().removeAllItems();
+		compList = SupplyCompService.getInstance().selectSupplyCompByAll();
+		Vector<String> v = new Vector<>();	
+		v.removeAllElements();
+		v.add("선택해주세요");
+		for(int i=0; i<compList.size(); i++){
+			v.add(compList.get(i).comboForOnlyName());
 		}
 		tfpCompName.setComboData(v);
 		
 	}
 	
-	public void initSetting(){ //코드 자동세팅 다른필드 초기화
-		List<Delivery> list = DeliveryService.getInstance().selectDeliveryByAll();
-		if(list.size()==0){
-			tfpDelCode.setTfValue("DL001");
-		}else{
-			list.get(list.size() - 1).getDelCode();
-			String value = String.format("DL%03d",
-			Integer.parseInt(list.get(list.size() - 1).getDelCode().substring(2)) + 1);
-
-			tfpDelCode.setTfValue(value);
-			tfpDelCode.getTf().setFocusable(false);
-		//	clear();
-			
-		}
-		
-	}
-	public void setComboSoftware(){//combopanel에 소프트웨어 띄우기
-		List<Software> list = SoftwareService.getInstance().selectSoftwareByAll();
-		Vector<String> v = new Vector<>();		
-		for(int i=0; i<list.size(); i++){
-			v.add(list.get(i).toCombobox());
-		}
-		tfpDeSwName.setComboData(v);	
-	}
+	
+	
 	public Delivery getObject(){//fu....입력값들
 		String deliveryCode = tfpDelCode.getTfValue();
-		String supplyCompany = compList.get(tfpCompName.getSelectedIndex()).getCompCode();
-		String softWare = swList.get(tfpDeSwName.getSelectedIndex()).getSwCode();
+		String supplyCompany = compList.get(tfpCompName.getSelectedIndex()-1).getCompCode();
+		String softWare = swList.get(tfpDeSwName.getSelectedIndex()-1).getSwCode();
 		int supplyPrice =  Integer.parseInt(tfpSupplyAmount.getTfValue());
 		int supplyAmount = Integer.parseInt(tfpDelAmount.getTfValue());
-		String orderDate = tfpDelOrderDate.getTfValue();
+		String orderDate = tfpDelOrderDate.getTfDate();
 		return new Delivery(deliveryCode, new SupplyCompany(supplyCompany), new Software(softWare), supplyPrice, supplyAmount, orderDate);
 	}
-	public void setObject(Object[] deliveryObj) {//테이블의 값들 필드에 들고오기
+	/*public void setObject(Object[] deliveryObj) {//테이블의 값들 필드에 들고오기
 		// TODO Auto-generated method stub
-		tfpDelCode.setTfValue(String.valueOf(deliveryObj[0]));
-		tfpCompName.setSelectedItem((String) deliveryObj[1]);
-		tfpDeSwName.setSelectedItem((String) deliveryObj[2]);
+		tfpDelCode.setTfValue(String.valueOf(deliveryObj[0]));			
+		tfpCompName.setSelectedItem((String)deliveryObj[1]);
+		System.out.println((String)deliveryObj[1]);
+		tfpDeSwName.setSelectedItem(String.valueOf(deliveryObj[2]));
+		System.out.println(new Software().getSwInven());
+		System.out.println(String.valueOf(deliveryObj[2]));
 		tfpSupplyAmount.setTfValue(String.valueOf(deliveryObj[3]));
-		tfpDelAmount.setTfValue(String.valueOf(deliveryObj[4]));
-		tfpDelOrderDate.setTfValue(String.valueOf(deliveryObj[5]));		
+		System.out.println("==========");
+		tfpDelAmount.setTfValue(String.valueOf(deliveryObj[4]));		
+		tfpDelOrderDate.setTfDate(String.valueOf(deliveryObj[5]));		
 		
+	}*/
+	public void setDeliveryContent(Delivery delivery){
+		tfpDelCode.setTfValue(delivery.getDelCode());			
+		tfpCompName.setSelectedItem(delivery.getSupplyCompany().getCompName());		
+		tfpDeSwName.setSelectedItem(delivery.getSoftware().getSwName()+ String.format(" (재고: %s)", delivery.getSoftware().getSwInven()));		
+		tfpSupplyAmount.setTfValue(String.valueOf(delivery.getSupplyPrice()));
+		System.out.println("====================");
+		tfpDelAmount.setTfValue(String.valueOf(delivery.getSupplyAmount()));		
+		tfpDelOrderDate.setTfDate(delivery.getOrderDate());	
 	}
 
 	public TextFieldPanel getTfpDelCode() {
@@ -215,14 +230,24 @@ public class ContentDelivery extends JPanel {
 
 	public ComboPanel<String> getTfpCompName() {
 		return tfpCompName;
-	}
+	}	
 
-	public TextFieldPanel getTfpDelOrderDate() {
+	public DatePanel getTfpDelOrderDate() {
 		return tfpDelOrderDate;
 	}
-
 	public TextFieldPanel getTfpSupplyAmount() {
 		return tfpSupplyAmount;
+	}
+	public boolean isEmptyCheck(){ // 공백확인
+		for(Component c: getComponents()){
+			if(c instanceof TextFieldPanel){
+				TextFieldPanel tfp= (TextFieldPanel) c;
+				if(tfp.isEmptyCheck()){
+					return true;
+				}
+			}
+		}return false;
+
 	}
 	
 	

@@ -15,10 +15,11 @@
 
 	<!-- Select SQL -->
     <sql id="selectSQL">
-		SELECT * FROM delivery del 
+		SELECT DISTINCT del.del_code,sc.comp_name,sw.sw_name,del.supply_price,del.supply_amount,
+				del.order_date, del.del_isExist
+			 FROM delivery del 
 			JOIN software sw ON del.sw_code = sw.sw_code
-			JOIN supply_company sc ON sc.comp_code = del.comp_code
-	</sql>
+			JOIN supply_company sc ON sc.comp_code = del.comp_code	</sql>
 
 	<!-- Where SQL -->
 	<sql id="whereSQL">
@@ -32,7 +33,13 @@
     <!-- Select By All --> 
     <select id="selectDeliveryByAll" resultMap="DeliveryResult">
     	<include refid="selectSQL" />
+    		<!-- where del_isExist = true -->
     		ORDER BY del_code;
+    </select>
+    
+     <!-- Get LastDeliveryCode -->
+    <select id="lastDeliveryCode"  resultType="String">
+    	select max(del_code)  from delivery;
     </select>
     
     <!-- getSuppyPrice -->
@@ -46,7 +53,7 @@
     </select>
     
     <!-- Insert item -->
-    <insert id="insertDeliveryItems">
+    <insert id="insertDeliveryItems" parameterType="Delivery">
     	INSERT INTO delivery(del_code, comp_code, sw_code, supply_price, supply_amount, order_date, del_isExist) VALUES
 		(#{delCode}, #{supplyCompany.compCode}, #{software.swCode}, #{supplyPrice}, #{supplyAmount}, #{orderDate}, TRUE)
     </insert>

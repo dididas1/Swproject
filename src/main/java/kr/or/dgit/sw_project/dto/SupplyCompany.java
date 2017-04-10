@@ -103,4 +103,7 @@ public class SupplyCompany {
 	public String toCombobox(){
 		return String.format("%s %s", compCode,compName);
 	}
+	public String comboForOnlyName(){
+		return String.format("%s", compName);
+	}
 }

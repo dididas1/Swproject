@@ -70,7 +70,7 @@ public class MainApp extends JFrame implements ActionListener {
 		
 		panelID = new TextFieldPanel();
 		panelID.setTitle("ID");
-		panelID.setTfValue("dididas");
+		panelID.setTfValue("km");
 		GridBagConstraints gbc_panelID = new GridBagConstraints();
 		gbc_panelID.insets = new Insets(0, 0, 5, 0);
 		gbc_panelID.fill = GridBagConstraints.BOTH;
