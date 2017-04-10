@@ -13,6 +13,8 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 import de.javasoft.plaf.synthetica.SyntheticaAluOxideLookAndFeel;
 import de.javasoft.plaf.synthetica.SyntheticaLookAndFeel;
+import de.javasoft.swing.DateComboBox;
+import de.javasoft.swing.plaf.datecombobox.DateComboBoxPopup;
 
 public class DatePickerTest {
 

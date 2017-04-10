@@ -8,6 +8,10 @@ import java.util.Vector;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 
+import erp_myframework.ComboPanel;
+import erp_myframework.PasswordPanel;
+import erp_myframework.TextFieldPanel;
+
 public class ContentAddress extends JPanel {
 
 

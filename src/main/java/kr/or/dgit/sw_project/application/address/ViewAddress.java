@@ -7,18 +7,14 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
@@ -26,9 +22,7 @@ import javax.swing.border.EmptyBorder;
 import kr.or.dgit.sw_project.application.client.ContentClient;
 import kr.or.dgit.sw_project.application.supplycompany.ContentSupplyCompany;
 import kr.or.dgit.sw_project.dto.Address;
-import kr.or.dgit.sw_project.dto.Client;
 import kr.or.dgit.sw_project.service.AddrService;
-import kr.or.dgit.sw_project.service.ClientService;
 
 public class ViewAddress extends JFrame implements ActionListener {
 	private JPanel contentPane;
