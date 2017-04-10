@@ -100,26 +100,7 @@ public class ContentList extends JPanel {
 		
 		
 	}
-	
-	
 
-
-	public JButton getBtnGroupAllFind() {
-		return btnGroupAllFind;
-	}
-
-
-
-	public JButton getBtnSwAllFind() {
-		return btnSwAllFind;
-	}
-
-
-
-	public JButton getBtnClntAllFind() {
-		return btnClntAllFind;
-	}
-	
 	public void setClntComboData(){
 		tfpClntName.getTf().removeAllItems();
 		listClnt = ClientService.getInstance().selectClientByAll();
@@ -158,7 +139,30 @@ public class ContentList extends JPanel {
 		
 	}
 
+	public JButton getBtnGroupAllFind() {
+		return btnGroupAllFind;
+	}
 
+	public JButton getBtnSwAllFind() {
+		return btnSwAllFind;
+	}
+
+	public JButton getBtnClntAllFind() {
+		return btnClntAllFind;
+	}
+
+	public ComboPanel<String> getTfpSwName() {
+		return tfpSwName;
+	}
+
+	public ComboPanel<String> getTfpClntName() {
+		return tfpClntName;
+	}
+
+	public ComboPanel<String> getTfpGroup() {
+		return tfpGroup;
+	}
+	
 
 
 	

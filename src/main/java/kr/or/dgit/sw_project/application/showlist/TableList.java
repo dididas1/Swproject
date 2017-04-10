@@ -55,6 +55,8 @@ public class TableList extends JPanel{
 	public void setCategryList(List<ViewCategorySale> listCategory) {
 		this.listCategory = listCategory;
 	}
+	
+	
 
 	public List<ViewCategorySale> getCategryList(){
 		return listCategory;

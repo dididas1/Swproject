@@ -12,11 +12,14 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import kr.or.dgit.sw_project.dto.Category;
 import kr.or.dgit.sw_project.dto.ViewCategorySale;
 import kr.or.dgit.sw_project.service.ClientService;
 import kr.or.dgit.sw_project.service.ViewCategorySaleService;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
-public class ViewList extends JPanel implements ActionListener {
+public class ViewList extends JPanel implements ActionListener, ItemListener {
 	private ContentList pContent;
 	private TableList pTable;
 	
@@ -43,6 +46,7 @@ public class ViewList extends JPanel implements ActionListener {
 		add(label, gbc_label);
 		
 		pContent = new ContentList();
+		pContent.getTfpGroup().getTf().addItemListener(this);
 		pContent.getBtnGroupAllFind().addActionListener(this);
 		pContent.getBtnSwAllFind().addActionListener(this);
 		GridBagConstraints gbc_pContent = new GridBagConstraints();
@@ -98,5 +102,17 @@ public class ViewList extends JPanel implements ActionListener {
 		getDataFromDBCategory();
 		pTable.setCategryList(listCategory);
 		pTable.setTableDataForCategori();
+	}
+	
+	
+	public void itemStateChanged(ItemEvent e) {
+		if (e.getSource() == pContent.getTfpGroup().getTf()) {
+			pContentTfpGroupTfItemStateChanged(e);
+		}
+	}
+	protected void pContentTfpGroupTfItemStateChanged(ItemEvent e) {
+		ViewCategorySale viewCategorySale=
+	ViewCategorySaleService.getInsetence().selectViewCategoryByNo(new ViewCategorySale(new Category(listCategory.get(pContent.getTfpGroup().getSelectedIndex()-1).getCategory().getGroupCode())));
+		
 	}
 }

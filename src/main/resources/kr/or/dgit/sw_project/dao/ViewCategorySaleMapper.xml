@@ -24,6 +24,7 @@
 	<select id="selectViewCategoryAll" resultMap="ViewCategorySaleResult">
 		<include refid="selectSql" />
 	</select>
+	
 	<select id="selectViewCategoryByNo" resultMap="ViewCategorySaleResult" parameterType="ViewCategorySale">
 		<include refid="selectSql"/>
 		<include refid="whereSql"/>
