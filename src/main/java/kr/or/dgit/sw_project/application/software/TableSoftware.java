@@ -37,7 +37,7 @@ public class TableSoftware extends JPanel {
 	}
 	
 	public Object[] getColumm() { //컬럼값입력
-		return new String[]{"제품번호","분류명","제품명","공급가격","판매가격"};
+		return new String[]{"제품번호","분류명","제품명","판매가격","재고량"};
 		
 	}
 	
@@ -61,7 +61,7 @@ public class TableSoftware extends JPanel {
 		return datas;
 	}
 
-	public void tableCellAlignment(){// (제품코드, 분류명, 제품명 : 가운데정렬), (공급가격,판매가격 : 왼쪽정렬)
+	public void tableCellAlignment(){// (제품번호, 분류명, 제품명 : 가운데정렬), (판매가격, 재고량 : 왼쪽정렬)
 		DefaultTableCellRenderer dtcr1 = new DefaultTableCellRenderer();
 		DefaultTableCellRenderer dtcr2 = new DefaultTableCellRenderer();
 		dtcr1.setHorizontalAlignment(SwingConstants.TRAILING);

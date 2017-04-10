@@ -120,12 +120,13 @@ public class ContentSoftware extends JPanel implements MouseListener {
 		return isPtenCh;
 	}
 	
-	public boolean isWsCheck(){// 공백 체크
-		boolean isWsCheck = false;
+	public int isWsCheck(){// 공백 체크
+		int isWsCheck = 0;
 		if(tfpSWName.getTfValue().equals("") ||
-		   tfpSwPrice.getTfValue().equals("")||
-		   tfpGroupName.getSelectItem()==null){
-		   isWsCheck = true;
+		   tfpSwPrice.getTfValue().equals("")){
+			isWsCheck = 1;
+		}else if(tfpGroupName.getSelectItem()=="선택해주세요"){
+			isWsCheck = 2;
 		}
 		return isWsCheck;
 	}
@@ -141,6 +142,7 @@ public class ContentSoftware extends JPanel implements MouseListener {
 		String[][] getComboObj = new String[list.size()][];
 		String[] comboObj = new String[list.size()];
 		Vector<String> setComboObj = new Vector<>();
+		setComboObj.add("선택해주세요");
 		
 		for(int i=0 ; i<list.size() ; i++){
 			getComboObj[i] = list.get(i).toArray();
@@ -159,14 +161,14 @@ public class ContentSoftware extends JPanel implements MouseListener {
 		tfpSWName.requestFocus();
 		tfpSWName.setTfValue("");
 		tfpSwPrice.setTfValue("");
-		tfpGroupName.setSelectedItem(null);
+		tfpGroupName.setSelectedItem("선택해주세요");
 	}
 	
 	public void setObject(Object[] swObj){ //클릭된 테이블의 인덱스에 있는 컬럼들을 가져와 각각의 입력목록에 삽입
 		tfpSWCode.setTfValue(String.valueOf(swObj[0]));
 		tfpGroupName.setSelectedItem(swObj[1]);
 		tfpSWName.setTfValue(String.valueOf(swObj[2]));
-		tfpSwPrice.setTfValue(String.valueOf(swObj[4]));
+		tfpSwPrice.setTfValue(String.valueOf(swObj[3]));
 	}
 	
 	public void insertObject(){// 하나의 소프트웨어를 등록
@@ -177,7 +179,7 @@ public class ContentSoftware extends JPanel implements MouseListener {
 		insertSoftware.put("salePrice", tfpSwPrice.getTfValue());
 		insertSoftware.put("swInven", 0);
 		insertSoftware.put("swImg", "IMG");
-		insertSoftware.put("swIsSale", false);
+		insertSoftware.put("swIsSale", true);
 		SoftwareService.getInstance().insertSoftwareItem(insertSoftware);
 	}
 	

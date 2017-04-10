@@ -126,14 +126,17 @@ public class ViewSoftware extends JFrame implements ActionListener {
 
 		pContent.getSwCode();
 		pContent.setComboBox();
+		pContent.initSetting();
 		pTable.setTableData();
 		setVisible(true);
 	}
 	
 	public boolean isRegKey(){// 예외처리(공백, 정규표현식)
 		boolean isRegKey = true;
-		if(pContent.isWsCheck()){
+		if(pContent.isWsCheck()==1){
 			JOptionPane.showMessageDialog(null, "공백이 있습니다");
+		}else if(pContent.isWsCheck()==2){
+			JOptionPane.showMessageDialog(null, "분류를 선택하지 않았습니다");
 		}else if(pContent.isPatternCheck()){
 			JOptionPane.showMessageDialog(null, "판매가격은 숫자만 입력 가능합니다.(9자리 미만)");
 		}else{
@@ -204,8 +207,6 @@ public class ViewSoftware extends JFrame implements ActionListener {
 		int ok=JOptionPane.showConfirmDialog(null, "삭제하겠습니까?");
 		if(ok==0){
 			SoftwareService.getInstance().existSoftwareItem(pContent.getSoftwareCode());
-			pTable.setTableData();
-			setSwCodes();
 			pTable.setTableData();
 			pContent.initSetting();
 			btnInsert.setText("입력");

@@ -44,11 +44,7 @@
 	<!-- insert item -->
 	<insert id="insertSoftwareItem" parameterType="hashmap">
 		INSERT INTO software(sw_code, group_code, sw_name, sale_price, sw_inven, sw_img, sw_issale)
-<<<<<<< HEAD
-		VALUES(#{swCode}, (select group_code from category where group_name = #{groupName}), #{swName}, #{salePrice}, #{swInven}, #{swImg}, #{swIsSale})
-=======
 		VALUES(#{swCode}, (select group_code from category where group_name = #{groupName}), #{swName}, #{salePrice}, #{swInven}, #{swImg}, true)
->>>>>>> refs/remotes/origin/dididas_master
 	</insert>
 	
 	<!-- update item -->
