@@ -31,31 +31,33 @@ public class TableList extends JPanel{
 		scrollPane.setViewportView(table);
 		
 	}	
-	public void setTableDataForCategori(){ 
+	public void setTableDataForCategori(){  //카테고리 테이블에 입력
 		table.setModel(new DefaultTableModel(getRowDateForCategori(), getColummForCategori()));
 	}
 	
-	public void setTableDataForClient(){
+	public void setTableDataForClient(){ //클라이언트 테이블에 입력
 		table.setModel(new DefaultTableModel(getRowDateForClient(), getColummForClient()));
 	}
-	public void setTableDataCategoriOne(ViewCategorySale viewCategorySale){
+	
+	
+	public void setTableDataCategoriOne(ViewCategorySale viewCategorySale){ //카테고리 선택... 테이블에 입력
 		table.setModel(new DefaultTableModel(new Object[][]	{{viewCategorySale.getCategory().getGroupCode(),
 			viewCategorySale.getCategory().getGroupName(),
 			viewCategorySale.getcSalePrice(),
 			viewCategorySale.getcAmount()}}, getColummForCategori()));
 	}
 	
-	public Object[] getColummForCategori() {
+	public Object[] getColummForCategori() { //카테고리 Columm
 		return new String[]{"그룹코드","그룹명 ","총판매액","총판매갯수"};
 		
 	}
-	public Object[] getColummForClient() {
+	public Object[] getColummForClient() { //클라이언트 Columm
 		return new String[]{"고객상호명","풍목명 ","주문수량","단가","매출금","입금여부","미수금"};
 		
 	}
 	
 	
-	private Object[][] getRowDateForCategori() { 
+	private Object[][] getRowDateForCategori() {  //카테고리 row
 		List<ViewCategorySale> listForTable = new ArrayList<ViewCategorySale>(listCategory);
 		Object[][] datas = new Object[listForTable.size()][];
 		for (int i = 0; i < datas.length; i++) {
@@ -65,7 +67,7 @@ public class TableList extends JPanel{
 	}
 	
 	
-	private Object[][] getRowDateForClient() { 
+	private Object[][] getRowDateForClient() {  //클라이언트 row 합계까지
 		int totalPrice=0;
 		int ReceivablePrice=0;
 		List<ViewClientSale> listForTable = new ArrayList<ViewClientSale>(listClient);

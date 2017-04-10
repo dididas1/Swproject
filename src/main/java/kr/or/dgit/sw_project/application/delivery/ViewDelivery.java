@@ -181,6 +181,7 @@ public class ViewDelivery extends JPanel implements ActionListener{
 				pTable.loadData();
 				pContent.resetField();
 				pContent.setComboSoftware();
+				mainTab.refresh();
 				return;
 			}
 			

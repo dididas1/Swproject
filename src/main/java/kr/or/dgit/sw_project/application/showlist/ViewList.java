@@ -83,17 +83,14 @@ public class ViewList extends JPanel implements ActionListener, ItemListener {
 		pTable.setTableDataForCategori();
 	}
 
-	private void getDataFromDBCategory(){ //list에 데이터베이스에서 가져온 값을 입력
+	private void getDataFromDBCategory(){ //list에 데이터베이스에서 가져온 값을 입력 카테고리
 		listCategory = ViewCategorySaleService.getInsetence().selectViewCategoryAll();
 		
 	}
 	
-	private void getDataFromDBClinet(){
+	private void getDataFromDBClinet(){ //list에 데이터베이스에서 가져온 값을 입력 클라이언트
 		viewClientSale = new ViewClientSale();
 		listClinet = ViewClientSaleService.getInsetence().selectViewClientSaleAll(viewClientSale);
-		for(int i=0;i<listClinet.size();i++){
-			System.out.println(listClinet.get(i));
-		}
 		
 	}
 	
@@ -113,10 +110,11 @@ public class ViewList extends JPanel implements ActionListener, ItemListener {
 			actionPerformedPContentBtnClntAllFind(e);
 		}
 	}
-	protected void actionPerformedPContentBtnClntAllFind(ActionEvent e) {
+	protected void actionPerformedPContentBtnClntAllFind(ActionEvent e) { //공급사 전체검색
 		getDataFromDBClinet();
 		pTable.setClientList(listClinet);
 		pTable.setTableDataForClient();
+		pContent.getTfpClntName().setSelectedItem(0);
 
 	}
 
@@ -125,10 +123,11 @@ public class ViewList extends JPanel implements ActionListener, ItemListener {
 
 
 	}
-	protected void actionPerformedPContentBtnGroupAllFind(ActionEvent e) {
+	protected void actionPerformedPContentBtnGroupAllFind(ActionEvent e) { //카테고리 전체검색
 		getDataFromDBCategory();
 		pTable.setCategryList(listCategory);
 		pTable.setTableDataForCategori();
+		pContent.getTfpGroup().setSelectedItem(0);
 	}
 
 
@@ -140,12 +139,16 @@ public class ViewList extends JPanel implements ActionListener, ItemListener {
 			pContentTfpGroupTfItemStateChanged(e);
 		}
 	}
-	protected void pContentTfpGroupTfItemStateChanged(ItemEvent e) {
+	
+	
+	protected void pContentTfpGroupTfItemStateChanged(ItemEvent e) { // 카테고리 콤보박스선택
 		getDataFromDBCategory();
 		pTable.setCategryList(listCategory);
 		pTable.setTableDataCategoriOne(listCategory.get(pContent.getTfpGroup().getSelectedIndex()-1));
 	}
-	protected void pContentTfpClntNameTfItemStateChanged(ItemEvent e) {
+	
+	
+	protected void pContentTfpClntNameTfItemStateChanged(ItemEvent e) { // 클라이언트 콤보박스 선택
 		viewClientSale = new ViewClientSale();
 		viewClientSale.setClient(new Client((String) pContent.getTfpClntName().getSelectItem()));
 		listClinet = ViewClientSaleService.getInsetence().selectViewClientSaleAll(viewClientSale);
