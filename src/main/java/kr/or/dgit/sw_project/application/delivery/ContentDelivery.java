@@ -198,6 +198,7 @@ public class ContentDelivery extends JPanel {
 		tfpDeSwName.setSelectedItem(String.valueOf(deliveryObj[2]));
 		System.out.println(String.valueOf(deliveryObj[2]));
 		tfpSupplyAmount.setTfValue(String.valueOf(deliveryObj[3]));
+		System.out.println("==========");
 		tfpDelAmount.setTfValue(String.valueOf(deliveryObj[4]));
 		tfpDelOrderDate.setTfValue(String.valueOf(deliveryObj[5]));		
 		
