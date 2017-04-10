@@ -5,6 +5,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
@@ -119,6 +120,7 @@ public class ContentSale extends JPanel {
 		tfpSwName.setSelectedItem(0);
 		tfpSaleAmount.setTfValue("");
 		tfpClntName.setSelectedItem(0);
+		dpOrderDate.getDateCombobox().setDate(new Date());
 		tfpSaleAmount.requestFocus();
 		tfpIsExist.setSelectedItem(0);
 	}

@@ -5,6 +5,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
@@ -139,7 +140,7 @@ public class ContentDelivery extends JPanel {
 		tfpCompName.setSelectedItem(0);
 		tfpDeSwName.setSelectedItem(0);
 		tfpDelAmount.setTfValue("");
-		tfpDelOrderDate.setTfDate("");
+		tfpDelOrderDate.getDateCombobox().setDate(new Date());
 		tfpSupplyAmount.setTfValue("");
 	}
 	
