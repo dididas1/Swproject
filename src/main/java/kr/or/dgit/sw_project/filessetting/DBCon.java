@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class DBCon {
 	private static Connection con;
-
+	
 	private DBCon(String url, String user, String pwd) {
 		try {
 			Class.forName(Config.DRIVER);

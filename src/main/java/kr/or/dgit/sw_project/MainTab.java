@@ -37,6 +37,7 @@ public class MainTab extends JFrame implements ActionListener {
 	private JMenuItem mnSup;
 	private JButton btnCategory;
 	private JMenuItem mntmRestore;
+	private JMenuItem mntmBackup;
 
 	public MainTab() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -51,7 +52,8 @@ public class MainTab extends JFrame implements ActionListener {
 		JMenuItem mntmInit = new JMenuItem("초기화");
 		mnFile.add(mntmInit);
 
-		JMenuItem mntmBackup = new JMenuItem("백업");
+		mntmBackup = new JMenuItem("백업");
+		mntmBackup.addActionListener(this);
 		mnFile.add(mntmBackup);
 
 		mntmRestore = new JMenuItem("복원");
@@ -150,6 +152,9 @@ public class MainTab extends JFrame implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == mntmBackup) {
+			actionPerformedMntmBackup(e);
+		}
 		if (e.getSource() == mntmRestore) {
 			actionPerformedMntmRestore(e);
 		}
@@ -184,9 +189,13 @@ public class MainTab extends JFrame implements ActionListener {
 	protected void actionPerformedMnSale(ActionEvent e) {
 
 	}
+	protected void actionPerformedMntmBackup(ActionEvent e) {
+		InitSettingService fileSetting = new InitSettingService();
+		fileSetting.initSetting(0);
+	}
 	protected void actionPerformedMntmRestore(ActionEvent e) {
 		InitSettingService fileSetting = new InitSettingService();
-		fileSetting.initSetting();
+		fileSetting.initSetting(1);
 	}
 }
 

@@ -138,7 +138,7 @@ public class ViewSoftware extends JFrame implements ActionListener {
 		}else if(pContent.isWsCheck()==2){
 			JOptionPane.showMessageDialog(null, "분류를 선택하지 않았습니다");
 		}else if(pContent.isPatternCheck()){
-			JOptionPane.showMessageDialog(null, "판매가격은 숫자만 입력 가능합니다.(9자리 미만)");
+			JOptionPane.showMessageDialog(null, "판매가격은 숫자만 입력 가능합니다.(9자리 미만, 수정시 ,제거)");
 		}else{
 			isRegKey = false;
 		}
