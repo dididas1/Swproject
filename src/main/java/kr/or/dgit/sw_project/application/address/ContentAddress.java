@@ -3,22 +3,10 @@ package kr.or.dgit.sw_project.application.address;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.List;
 import java.util.Vector;
 
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
-
-import erp_myframework.ComboPanel;
-import erp_myframework.PasswordPanel;
-import erp_myframework.TextFieldPanel;
-import kr.or.dgit.sw_project.dto.Address;
-import kr.or.dgit.sw_project.service.AddrService;
-import erp_myframework.TextFieldPanel;
 
 public class ContentAddress extends JPanel {
 
