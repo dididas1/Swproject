@@ -1,3 +1,4 @@
+
 package kr.or.dgit.sw_project.application.delivery;
 
 import java.awt.Font;
@@ -12,12 +13,15 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import kr.or.dgit.sw_project.dto.Delivery;
+import kr.or.dgit.sw_project.dto.Sale;
 import kr.or.dgit.sw_project.dto.SupplyCompany;
 import kr.or.dgit.sw_project.service.DeliveryService;
+import kr.or.dgit.sw_project.service.SaleService;
 
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.List;
 import java.awt.event.ActionEvent;
 
 public class ViewDelivery extends JPanel implements ActionListener{
@@ -27,7 +31,7 @@ public class ViewDelivery extends JPanel implements ActionListener{
 	private ContentDelivery pContent;
 	private JButton btnDelete;
 	private JButton btnCancle;
-
+	private List<Delivery> list;
 	public ViewDelivery() {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0}; //각 열의 최소 넓이  
@@ -107,27 +111,27 @@ public class ViewDelivery extends JPanel implements ActionListener{
 		pTable.getTable().addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) { //table 클릭시 
-				Object[] deliveryObj = getDataObject();
+				Object[] deliveryObj = getTableData();
 				pContent.setObject(deliveryObj);
-				btnDelete.setEnabled(true);
-				btnInsert.setText("수정");
+				btnDelete.setEnabled(true);				
 				super.mouseClicked(e);
-			}
-
-			
+			}			
 
 		});
-		
-		
+		list = DeliveryService.getInstance().selectDeliveryByAll();
+		pTable.setDeliveryList(list);
+		pTable.loadData();
 		setVisible(true);
 	}
-	private Object[] getDataObject() {//each row in the table클릭시 값 넘겨줌
+	private Object[] getTableData() {//each data in the table클릭시 값 넘겨줌
 		int cnt = pTable.getTable().getColumnCount();
-		int selRow = pTable.getTable().getSelectedRow();
+		System.out.println(cnt);
+		int tableRowData = pTable.getTable().getSelectedRow();
+		System.out.println(tableRowData);
 		Object[] obj = new Object[cnt];
 		for(int i=0; i<cnt; i++){
-			obj[i] = pTable.getTable().getValueAt(selRow, i);
-		}
+			obj[i] = pTable.getTable().getValueAt(tableRowData, i);
+		}		
 		return obj;
 	}
 	public void actionPerformed(ActionEvent arg0) {
@@ -141,12 +145,24 @@ public class ViewDelivery extends JPanel implements ActionListener{
 			actionPerformedBtnInsert(arg0);
 		}
 	}
-	//public boolean 일단 구질구질한건 나중에
+	
 	protected void actionPerformedBtnInsert(ActionEvent arg0) {
 		if (arg0.getActionCommand().equals("입력")){
-			DeliveryService.getInstance().insertDeliveryItems(pContent.getObject());
-			pTable.loadData();
-		}else if(arg0.getActionCommand().equals("수정")){
+			if(pContent.isEmptyCheck()||pContent.getTfpCompName().getSelectedIndex()==0
+					||pContent.getTfpDeSwName().getSelectedIndex()==0){
+				JOptionPane.showMessageDialog(null, "입력해야될 값이 있습니다. 확인하세요");
+				return;
+			}else{
+				DeliveryService.getInstance().insertDeliveryItems(pContent.getObject());
+				list = DeliveryService.getInstance().selectDeliveryByAll(); 
+				pTable.setDeliveryList(list);
+				pTable.loadData();
+				pContent.resetField();
+				pContent.setComboSoftware();
+				return;
+			}
+			
+		}/*else if(arg0.getActionCommand().equals("수정")){
 			if(JOptionPane.showConfirmDialog(null, "정말 수정하시겠습니까?")==JOptionPane.YES_OPTION){
 				DeliveryService.getInstance().UpdateItems(pContent.getObject());
 				pTable.loadData();
@@ -156,12 +172,22 @@ public class ViewDelivery extends JPanel implements ActionListener{
 				btnInsert.setText("입력");
 			}
 			
-		}
+		}*/
 		
 	}
 	protected void actionPerformedBtnDelete(ActionEvent arg0) {
-		DeliveryService.getInstance().existDeliveryItem(new Delivery(pContent.getTfpDelCode().getTfValue()));
-		pTable.loadData();
+		if(JOptionPane.showConfirmDialog(null, "삭제하겠습니까?")==JOptionPane.YES_OPTION){
+			DeliveryService.getInstance().existDeliveryItem(new Delivery(pContent.getTfpDelCode().getTfValue()));
+			list = DeliveryService.getInstance().selectDeliveryByAll(); 
+			pTable.setDeliveryList(list);
+			pTable.loadData();
+			pContent.resetField();
+			pContent.setComboSoftware();	
+			
+		}else{
+				JOptionPane.showMessageDialog(null, "취소되었습니다");
+			
+		}
 	}
 	protected void actionPerformedBtnCancle(ActionEvent arg0) {
 		pContent.resetField(); //필드초기화

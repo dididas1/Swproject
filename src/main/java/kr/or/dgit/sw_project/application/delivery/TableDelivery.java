@@ -9,11 +9,12 @@ import kr.or.dgit.sw_project.dto.Delivery;
 import kr.or.dgit.sw_project.service.DeliveryService;
 
 import java.awt.BorderLayout;
+import java.util.ArrayList;
 import java.util.List;
 
 public class TableDelivery extends JPanel {
 	private JTable table;
-	
+	private List<Delivery> deliveryList;
 	
 	public JTable getTable() {
 		return table;
@@ -29,7 +30,7 @@ public class TableDelivery extends JPanel {
 		table = new JTable();
 		scrollPane.setViewportView(table);
 		
-		loadData();
+		//loadData();
 	}
 
 
@@ -38,13 +39,36 @@ public class TableDelivery extends JPanel {
 		table.setModel(new DefaultTableModel(getRowData(),getColumn()));
 	}	
 	protected Object[][] getRowData(){
-		List<Delivery> delivery = DeliveryService.getInstance().selectDeliveryByAll();
+		List<Delivery> delivery = new ArrayList<Delivery>(deliveryList);
+		for(int i =0; i<deliveryList.size(); i++)
+			System.out.println(deliveryList.get(i).toString());
+		
+		for (int i = delivery.size()-1; i >= 0; i--) {
+			if (!delivery.get(i).isDelIsExist()) {
+				delivery.remove(i);
+			}
+		}
 		Object[][] datas = new Object[delivery.size()][];
+		
 		for(int i=0; i<datas.length; i++){
-			datas[i] = delivery.get(i).toArray();
+			
+				datas[i] = delivery.get(i).toArray();
+			
+			
 		}
 		return datas;
 	}
+	
+	public List<Delivery> getDeliveryList() {
+		return deliveryList;
+	}
+
+
+	public void setDeliveryList(List<Delivery> deliveryList) {
+		this.deliveryList = deliveryList;
+	}
+
+
 	protected String[] getColumn(){
 		return new String[]{"납품번호","납품회사","품목명","공급가격","납품수량","납품일자"};
 	}
