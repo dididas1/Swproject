@@ -2,7 +2,6 @@ package kr.or.dgit.sw_project.application.client;
 
 import java.awt.BorderLayout;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import javax.swing.JPanel;
@@ -11,8 +10,8 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import kr.or.dgit.sw_project.dto.Client;
-import kr.or.dgit.sw_project.service.ClientService;
 
+@SuppressWarnings("serial")
 public class TableClient extends JPanel {
 	private JTable table;
 	private List<Client> list;
@@ -38,14 +37,9 @@ public class TableClient extends JPanel {
 
 	private Object[][] getRowDate() { //테이블 로우값입력 isExist가 true인 항목에대해서만 값받아옴
 		List<Client> listForTable = new ArrayList<Client>(list);
-		System.out.println("Table "+list.hashCode());
-		System.out.println("=========list=============");
-		for(int i =0; i<list.size()-1; i++)
+		for(int i =0; i<list.size(); i++)
 			System.out.println(list.get(i).toString());
 			
-		System.out.println("=========listForTable=============");
-		for(int i =0; i<listForTable.size()-1; i++)
-			System.out.println(listForTable.get(i).toString());
 		
 		for (int i = listForTable.size()-1; i >= 0; i--) {
 			if (!listForTable.get(i).isClntIsExist()) {

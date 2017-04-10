@@ -5,6 +5,10 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -14,17 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-import kr.or.dgit.sw_project.dto.Category;
-import kr.or.dgit.sw_project.dto.Software;
-import kr.or.dgit.sw_project.service.CategoryService;
 import kr.or.dgit.sw_project.service.SoftwareService;
-
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.HashMap;
-import java.util.Map;
-import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
 public class ViewSoftware extends JFrame implements ActionListener {
@@ -209,7 +203,7 @@ public class ViewSoftware extends JFrame implements ActionListener {
 	protected void actionPerformedBtnDelete(ActionEvent e) {
 		int ok=JOptionPane.showConfirmDialog(null, "삭제하겠습니까?");
 		if(ok==0){
-			SoftwareService.getInstance().deleteSoftwareItem(pContent.getSoftwareCode());
+			SoftwareService.getInstance().existSoftwareItem(pContent.getSoftwareCode());
 			pTable.setTableData();
 			setSwCodes();
 			pTable.setTableData();

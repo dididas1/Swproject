@@ -58,4 +58,13 @@ public class SoftwareService {
 			return res;
 		} 
 	}
+	
+	public int existSoftwareItem(Software software) {
+		try (SqlSession sqlSession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
+			SoftwareMapper softwareMapper = new SoftwareMapperImpl(sqlSession);
+			int res = softwareMapper.existSoftwareItem(software);
+			sqlSession.commit();
+			return res;
+		} 
+	}
 }

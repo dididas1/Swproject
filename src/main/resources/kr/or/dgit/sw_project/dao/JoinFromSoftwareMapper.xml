@@ -41,10 +41,9 @@
 			order by s.sale_code -->
 			
 		<!-- software에 category의 납품명과 delivery의 공급가액을 조인함  -->
-			SELECT DISTINCT sw.sw_code, cat.group_name, sw.sw_name, d.supply_price, sw.sale_price
+			SELECT DISTINCT sw.sw_code, cat.group_name, sw.sw_name, sw.sale_price ,sw.sw_inven,sw.sw_issale
 			FROM software sw
 			LEFT OUTER JOIN category cat ON sw.group_code = cat.group_code
-			LEFT OUTER JOIN delivery d ON sw.sw_code = d.sw_code
 			order by sw.sw_code
 	</sql>
 

@@ -22,4 +22,34 @@ public class DeliveryMapperImpl implements DeliveryMapper{
 		log.debug("selectDeliveryByAll()");
 		return sqlSession.selectList(nameSpace + "selectDeliveryByAll");
 	}
+
+	@Override
+	public int insertDeliveryItems(Delivery delivery) {
+		log.debug("insertDeliveryItems()");		
+		return sqlSession.insert(nameSpace + "insertDeliveryItems", delivery);
+	}
+
+	@Override
+	public String lastDeliveryCode() {
+		log.debug("lastDeliveryCode()");
+		return sqlSession.selectOne(nameSpace + "lastDeliveryCode");
+	}
+
+	@Override
+	public int existDeliveryItem(Delivery delivery) {
+		log.debug("existDeliveryItem()");		
+		return sqlSession.update(nameSpace + "existDeliveryItem", delivery);
+	}
+
+	@Override
+	public int UpdateItems(Delivery delivery) {
+		log.debug("UpdateItems()");		
+		return sqlSession.update(nameSpace + "UpdateItems", delivery);
+	}
+
+	@Override
+	public Delivery getSuppyPrice(Delivery delivery) {
+		log.debug("getSuppyPrice()");		
+		return sqlSession.selectOne(nameSpace + "getSuppyPrice", delivery);
+	}
 }

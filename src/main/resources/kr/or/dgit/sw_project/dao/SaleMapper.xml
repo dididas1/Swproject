@@ -5,12 +5,11 @@
 	<resultMap type="Sale" id="SaleResult">
 		<id property="saleCode" column="sale_code"/>
 		<result property="saleAmount" column="sale_amount"/>
-		<result property="isDeposit" column="is_deposit"/>
+		<result property="isDeposit" column="isdeposit"/>
 		<result property="orderDate" column="order_date"/>
 		<result property="supplyPrice" column="supply_price"/>
 		<result property="salePrice" column="sale_price"/>
 		<result property="saleIsExist" column="sale_isExist"/>
-		
 		<association property="client" resultMap="kr.or.dgit.sw_project.dao.ClientMapper.ClientResult"/>
 		<association property="software" resultMap="kr.or.dgit.sw_project.dao.SoftwareMapper.SoftwareResult"/>
 		<association property="saleDetail" resultMap="kr.or.dgit.sw_project.dao.SaleDetailMapper.SaleDetailResult"/>
@@ -45,23 +44,31 @@
     </select>
     
     <!-- Insert Item -->
-    <insert id="insertSaleItem">
+    <insert id="insertSaleItem" parameterType="Sale">
     	INSERT INTO sale(sale_code, clnt_code, sw_code, sale_amount, isdeposit, order_date, supply_price, sale_price, sale_isExist) VALUES  
-	    (#{saleCode},#{clntCode},#{swCode},#{saleAmount}, #{isdeposit}, #{orderDate}, #{supplyPrice}  , #{salePrice},   TRUE);
+	    (#{saleCode},#{client.clntCode},#{software.swCode},#{saleAmount}, #{isDeposit}, #{orderDate}, #{supplyPrice}  , #{salePrice},   TRUE);
     </insert>
     
     <!-- Update Item -->
-    <update id="updateSaleItem">
+    
+    <update id="updateSaleItem" parameterType="Sale">
     	UPDATE sale
-		SET sale_code=#{saleCode},clnt_code=#{clntCode}, sw_code=#{swCode}, sale_amount=#{saleAmount}, isdeposit=#{isdeposit}, 
+		SET sale_code=#{saleCode},clnt_code=#{clntCode}, sw_code=#{swCode}, sale_amount=#{saleAmount}, isdeposit=#{isDeposit}, 
 		order_date=#{orderDate}, supply_price=#{supplyPrice}, sale_price=#{salePrice}, sale_isExist=#{saleIsExist}
 		WHERE sale_code=#{saleCode};
      </update>
      
      <!-- Exist item -->
-     <update id="existSaleItem">
+     <update id="existSaleItem" parameterType="Sale">
      	UPDATE sale
-		SET sale_isExist=#{saleIsExist}
+		SET sale_isExist=false
+		WHERE sale_code=#{saleCode};
+     </update>
+     
+     <!-- isDeosit -->
+      <update id="updateIsdeposit" parameterType="Sale">
+    	UPDATE sale
+		SET isdeposit=#{isDeposit}
 		WHERE sale_code=#{saleCode};
      </update>
 </mapper>

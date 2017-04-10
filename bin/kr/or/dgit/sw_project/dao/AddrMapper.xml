@@ -16,4 +16,10 @@
 			FROM Address 
 			WHERE sido = #{sido} AND doro = #{doro};
 	</select>
+	
+	<select id="selectSigungu" parameterType="Address" resultMap="AddrResult">
+		SELECT sigungu	FROM Address
+		WHERE sido = #{sido}
+		group by sigungu
+	</select>
 </mapper>

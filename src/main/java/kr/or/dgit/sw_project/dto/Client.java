@@ -77,7 +77,7 @@ public class Client {
 	}
 	
 	public String toCombobox(){
-		return String.format("%s %s", clntCode,clntName);
+		return String.format("%s", clntName);
 	}
 	
 	@Override

@@ -1,17 +1,44 @@
 package kr.or.dgit.sw_project.application.sales;
 
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.List;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import java.awt.GridBagLayout;
-import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import java.awt.GridLayout;
-import javax.swing.JButton;
-import javax.swing.JLabel;
+import kr.or.dgit.sw_project.dto.Client;
+import kr.or.dgit.sw_project.dto.JoinFromSale;
+import kr.or.dgit.sw_project.dto.JoinFromSoftware;
+import kr.or.dgit.sw_project.dto.Sale;
+import kr.or.dgit.sw_project.dto.Software;
+import kr.or.dgit.sw_project.service.ClientService;
+import kr.or.dgit.sw_project.service.JoinFromSaleService;
+import kr.or.dgit.sw_project.service.SaleService;
+import kr.or.dgit.sw_project.service.SoftwareService;
+import java.awt.event.FocusListener;
+import java.awt.event.FocusEvent;
 
-public class ViewSale extends JPanel {
+public class ViewSale extends JPanel implements ActionListener{
+	private ContentSale pContent;
+	private JPanel pButton;
+	private TableSale pTable;
+	private JButton btnInsert;
+	private JButton btnCancle;
+	private JButton btnDelete;
+	
+	private List<JoinFromSale> list;
+	
+	
 	public ViewSale() {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0}; //각 열의 최소 넓이  
@@ -32,7 +59,7 @@ public class ViewSale extends JPanel {
 		gbc_label.gridwidth = 5;
 		add(label, gbc_label);
 		
-		ContentSale pContent = new ContentSale();
+		pContent = new ContentSale();
 		GridBagConstraints gbc_pContent = new GridBagConstraints();
 		gbc_pContent.insets = new Insets(10, 10, 10, 10);
 		gbc_pContent.fill = GridBagConstraints.NONE;
@@ -40,7 +67,7 @@ public class ViewSale extends JPanel {
 		gbc_pContent.gridy = 1;
 		add(pContent, gbc_pContent);
 		
-		JPanel pButton = new JPanel();
+		pButton = new JPanel();
 		GridBagConstraints gbc_pButton = new GridBagConstraints();
 		gbc_pButton.insets = new Insets(0, 0, 0, 0);
 		gbc_pButton.fill = GridBagConstraints.NONE;
@@ -51,11 +78,12 @@ public class ViewSale extends JPanel {
 		GridBagLayout gbl_pButton = new GridBagLayout();
 		gbl_pButton.columnWidths = new int[] {100, 100, 100};
 		gbl_pButton.rowHeights = new int[]{55, 0};
-		gbl_pButton.columnWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_pButton.columnWeights = new double[]{0.0, 0.0, 0.0};
 		gbl_pButton.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		pButton.setLayout(gbl_pButton);
 		
-		JButton btnInsert = new JButton("입력");
+		btnInsert = new JButton("입력");
+		btnInsert.addActionListener(this);
 		GridBagConstraints gbc_btnInsert = new GridBagConstraints();
 		gbc_btnInsert.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnInsert.insets = new Insets(0, 0, 0, 0);
@@ -63,7 +91,8 @@ public class ViewSale extends JPanel {
 		gbc_btnInsert.gridy = 0;
 		pButton.add(btnInsert, gbc_btnInsert);
 		
-		JButton btnCancle = new JButton("취소");
+		btnCancle = new JButton("취소");
+		btnCancle.addActionListener(this);
 		GridBagConstraints gbc_btnCancle = new GridBagConstraints();
 		gbc_btnCancle.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnCancle.insets = new Insets(0, 0, 0, 0);
@@ -71,18 +100,153 @@ public class ViewSale extends JPanel {
 		gbc_btnCancle.gridy = 0;
 		pButton.add(btnCancle, gbc_btnCancle);
 		
-		JButton btnDelete = new JButton("삭제");
+		btnDelete = new JButton("삭제");
+		btnDelete.addActionListener(this);
 		GridBagConstraints gbc_btnDelete = new GridBagConstraints();
 		gbc_btnDelete.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnDelete.gridx = 2;
 		gbc_btnDelete.gridy = 0;
 		pButton.add(btnDelete, gbc_btnDelete);
 		
-		TableSale pTable = new TableSale();
+		pTable = new TableSale();
 		GridBagConstraints gbc_pTable = new GridBagConstraints();
 		gbc_pTable.fill = GridBagConstraints.BOTH;
 		gbc_pTable.gridx = 0;
 		gbc_pTable.gridy = 3;
 		add(pTable, gbc_pTable);
+		pTable.getTable().addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				selectedRow();
+				pContent.getTfpSwName().getTf().setEnabled(false);
+				pContent.getTfpClntName().getTf().setEnabled(false);
+				pContent.getTfpSaleAmount().getTf().setEditable(false);
+				pContent.getTfpOrderDate().getTf().setEditable(false);
+				super.mousePressed(e);
+			}
+			
+		});
+		
+		getDataFromDB();
+		pTable.setList(list);
+		pTable.setTableData();
+		setVisible(true);
+		
+		
 	}
+	
+	private void selectedRow() {
+		String selectedCode = (String) pTable.getTable().getValueAt(pTable.getTable().getSelectedRow(), 0);
+		
+		int selectedIdx = 0;
+		for(int i=0; i<list.size(); i++){
+			if(list.get(i).getSale().getSaleCode().equals(selectedCode)){
+				selectedIdx=i;
+				break;
+			}
+		}
+		
+			JoinFromSale sale = list.get(selectedIdx);
+			pContent.setSaleContent(sale);
+			btnDelete.setEnabled(true);
+			btnInsert.setText("수정");
+		
+	}
+	
+	public void contentAble(){
+		pContent.getTfpSwName().getTf().setEnabled(true);
+		pContent.getTfpClntName().getTf().setEnabled(true);
+		pContent.getTfpSaleAmount().getTf().setEditable(true);
+		pContent.getTfpOrderDate().getTf().setEditable(true);
+	}
+	
+
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnCancle) {
+			actionPerformedBtnCancle(e);
+		}
+		if (e.getSource() == btnInsert) {
+			btnInsertActionPerformed(e);
+		}
+				
+		if (e.getSource() == btnDelete) {
+			btnDeleteActionPerformed(e);
+		}
+	}
+	/*************************** ActionListener ***************************/
+	private void btnInsertActionPerformed(ActionEvent e) { //입력 수정 테이블 인덱스 클릭시 수정으로 변함
+		if(e.getActionCommand().equals("입력")){
+			if(pContent.isEmptyCheck() || pContent.getTfpSwName().getSelectedIndex()==0 || pContent.getTfpClntName().getSelectedIndex()==0){
+				JOptionPane.showMessageDialog(null, "입력되지 않은정보가 있습니다");
+				return;
+			}else{
+				if(JOptionPane.showConfirmDialog(null, "입력하시겠습니까?")==JOptionPane.YES_OPTION){
+					List<Software> listSw=SoftwareService.getInstance().selectSoftwareByAll();
+					if(Integer.parseInt(pContent.getTfpSaleAmount().getTfValue())>listSw.get(pContent.getTfpSwName().getSelectedIndex()-1).getSwInven()){
+						JOptionPane.showMessageDialog(null, "재고가부족합니다");
+						return;
+					}else{
+						SaleService.getInstance().insertSaleItem(pContent.getObject());
+						setTable();
+						pContent.initSetting();
+						pContent.setSwComboData();
+						return;
+					}
+					
+				}
+			}
+		}else if(e.getActionCommand().equals("수정")){ //수정으로 변경
+			if(JOptionPane.showConfirmDialog(null, "수정하시겠습니까?")==JOptionPane.YES_OPTION){
+				SaleService.getInstance().updateIsdeposit(pContent.getObject());
+				setTable();
+				btnInsert.setText("입력");
+				pContent.setSwComboData();
+				pContent.initSetting();
+				contentAble();
+			}else{
+				JOptionPane.showMessageDialog(null, "취소되었습니다");
+				pContent.initSetting();
+				btnInsert.setText("입력");
+				btnDelete.setEnabled(false);
+				contentAble();
+			}
+		}
+	}
+
+	private void btnDeleteActionPerformed(ActionEvent e) { //삭제구현
+		if(JOptionPane.showConfirmDialog(null, "삭제하겠습니까?")==JOptionPane.YES_OPTION){
+			SaleService.getInstance().existSaleItem(new Sale(pContent.getTfpSaleCode().getTfValue()));
+			setTable();
+			pContent.initSetting();
+			pContent.setSwComboData();
+			btnInsert.setText("입력");
+			btnDelete.setEnabled(false);
+			contentAble();
+		}else{
+				JOptionPane.showMessageDialog(null, "취소되었습니다");
+			
+		}
+	}
+	
+	private void actionPerformedBtnCancle(ActionEvent e) { //취소버튼
+		pContent.initSetting();
+		btnInsert.setText("입력");
+		btnInsert.setEnabled(true);
+		btnDelete.setEnabled(false);
+		contentAble();
+		
+	}
+	/***********************************************************************/
+	
+	/*************************** Get Data ***************************/  
+	private void setTable(){ //Table 로드
+		getDataFromDB();
+		pTable.setList(list);
+		pTable.setTableData();
+	}
+	
+	private void getDataFromDB(){ //list에 데이터베이스에서 가져온 값을 입력
+		list = JoinFromSaleService.getInstance().selectJoinFromSaleByAll();
+	}
+	
 }

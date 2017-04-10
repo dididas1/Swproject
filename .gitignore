@@ -57,6 +57,10 @@ local.properties
 .cache-main
 .scala_dependencies
 .worksheet
+<<<<<<< HEAD
+=======
+
+>>>>>>> refs/remotes/origin/dididas_master
 ### Windows ###
 # Windows thumbnail cache files
 Thumbs.db

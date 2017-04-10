@@ -10,10 +10,11 @@ import javax.swing.table.DefaultTableModel;
 
 import kr.or.dgit.sw_project.dto.Address;
 
+@SuppressWarnings("serial")
 public class TableAddress extends JPanel {
 	private JTable table;
 	private List<Address> list;
-	
+		
 	public TableAddress() {
 		setLayout(new BorderLayout(0, 0));
 		
@@ -30,7 +31,7 @@ public class TableAddress extends JPanel {
 	}
 	
 	private Object[] getColumm() { //컬럼입력
-		return new String[]{"우편 번호","시/도","시/군/구","건물",""};
+		return new String[]{"우편 번호","시도","도로명"};
 	}
 
 	private Object[][] getRowDate() { 

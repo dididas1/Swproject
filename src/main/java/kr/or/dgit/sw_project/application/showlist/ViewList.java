@@ -6,21 +6,27 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-public class ViewList extends JPanel {
+import kr.or.dgit.sw_project.dto.JoinFromSale;
+import kr.or.dgit.sw_project.service.ClientService;
+import kr.or.dgit.sw_project.service.JoinFromSaleService;
+
+public class ViewList extends JPanel implements ActionListener {
 	private ContentList pContent;
 	private TableList pTable;
 
+	List<JoinFromSale> list;
 	public ViewList() {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0}; //각 열의 최소 넓이  
 		gridBagLayout.rowHeights = new int[]{0, 0}; //각 행의 최소 넓이
 		gridBagLayout.columnWeights = new double[]{1.0, Double.MIN_VALUE}; //각 열의 가중치
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 1.0}; //각 행의 가중치
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0}; //각 행의 가중치
 		setLayout(gridBagLayout);
 		
 		JLabel label = new JLabel("소프트웨어 관리");
@@ -36,6 +42,8 @@ public class ViewList extends JPanel {
 		add(label, gbc_label);
 		
 		pContent = new ContentList();
+		pContent.getBtnSwAllFind().addActionListener(this);
+		
 		GridBagConstraints gbc_pContent = new GridBagConstraints();
 		gbc_pContent.insets = new Insets(10, 10, 30, 10);
 		gbc_pContent.fill = GridBagConstraints.NONE;
@@ -50,6 +58,10 @@ public class ViewList extends JPanel {
 		gbc_pTable.gridx = 0;
 		gbc_pTable.gridy = 2;
 		add(pTable, gbc_pTable);
+		
+		
+		setVisible(true);
+		
 	
 	}
 
@@ -58,4 +70,28 @@ public class ViewList extends JPanel {
 	
 
 	
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == pContent.getBtnSwAllFind()) {
+			pContentBtnSwAllFindActionPerformed(e);
+		}
+	}
+	protected void pContentBtnSwAllFindActionPerformed(ActionEvent e) {
+		getDataFromDB();
+		pTable.setList(list);
+		pTable.setTableData();
+		
+	}
+	
+	
+	/*************************** Get Data ***************************/  
+	private void setTable(){ //Table 로드
+		getDataFromDB();
+		pTable.setList(list);
+		pTable.setTableData();
+	}
+	
+	private void getDataFromDB(){ //list에 데이터베이스에서 가져온 값을 입력
+		list = JoinFromSaleService.getInstance().selectJoinFromSaleByAll();
+	}
+	/****************************************************************/
 }

@@ -57,3 +57,17 @@ SELECT DISTINCT
 		LEFT OUTER JOIN view_sale_detail sd ON s.sale_code = sd.sale_code
 	ORDER BY s.sale_code;
 	
+	
+	SELECT * FROM sale s 
+		JOIN software sw ON s.sw_code = sw.sw_code 
+		JOIN view_sale_detail sd ON s.sale_code = sd.sale_code 
+		JOIN client cl ON cl.clnt_code = s.clnt_code 
+		JOIN category cat ON sw.group_code = cat.group_code
+		JOIN delivery del ON s.sw_code = del.sw_code
+	GROUP BY s.sale_code
+	ORDER BY s.sale_code;
+	
+	   SELECT DISTINCT sw.sw_code, cat.group_name, sw.sw_name, sw.sale_price
+         FROM software sw
+         LEFT OUTER JOIN category cat ON sw.group_code = cat.group_code
+         order by sw.sw_code

@@ -27,7 +27,6 @@
     <!-- Select By All --> 
     <select id="selectSupplyCompByAll" resultMap="SupplyCompanyResult">
     	<include refid="selectSQL" />
-    		where comp_isExist = true
     		ORDER BY comp_code;
     </select>
     
@@ -40,13 +39,13 @@
 	<!-- Insert Item -->
 	<insert id="insertCompItem" parameterType="SupplyCompany">
 		INSERT INTO supply_company (comp_code, comp_name, comp_addr, comp_tel, comp_isExist)
-		VALUES (#{compCode},#{compName},#{compAddr},#{compTel},#{compIsExist})
+		VALUES (#{compCode},#{compName},#{address},#{compTel},true)
 	</insert>
 	
 	<!-- Update Item -->
 	<update id="updateCompItem" parameterType="SupplyCompany">
 		UPDATE supply_company
-		SET comp_name=#{compName}, comp_addr=#{compAddr}, comp_tel=#{compTel}, comp_isExist=#{compIsExist} 
+		SET comp_name=#{compName}, comp_addr=#{address}, comp_tel=#{compTel}, comp_isExist=#{compIsExist} 
 		WHERE comp_code=#{compCode}
 	</update>
 	

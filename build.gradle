@@ -26,6 +26,10 @@ dependencies {
 	compile files('src/main/resources/kr/or/dgit/sw_project/libraries/erp_myframework.jar')
 	compile files('src/main/resources/kr/or/dgit/sw_project/lookandfeel/syntheticaAluOxide.jar')
 	compile files('src/main/resources/kr/or/dgit/sw_project/lookandfeel/synthetica.jar')
+	compile files('src/main/resources/kr/or/dgit/sw_project/libraries/swingx-1.6.5.jar')
+	compile files('src/main/resources/kr/or/dgit/sw_project/libraries/syntheticaAddons.jar')
+	compile files('src/main/resources/kr/or/dgit/sw_project/libraries/syntheticaAluOxideAddon.jar')
+	
 }
 
 jar{
@@ -39,6 +43,3 @@ jar{
 	}
 	dependsOn configurations.runtime
 }
-
-
-

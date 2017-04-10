@@ -47,4 +47,16 @@ public class SoftwareMapperImpl implements SoftwareMapper{
 		log.debug("deleteSoftwareItem()");
 		return sqlSession.delete(nameSpace + "deleteSoftwareItem", item);
 	}
+
+	@Override
+	public Software selectByNoSoftware(Software software) {
+		log.debug("selectByNoSoftware()");
+		return sqlSession.selectOne(nameSpace + "selectByNoSoftware", software);
+	}
+
+	@Override
+	public int existSoftwareItem(Software software) {
+		log.debug("ExistSoftwareItem()");
+		return sqlSession.selectOne(nameSpace + "ExistSoftwareItem", software);
+	}
 }

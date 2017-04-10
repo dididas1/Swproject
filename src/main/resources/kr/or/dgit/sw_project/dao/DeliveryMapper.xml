@@ -35,10 +35,20 @@
     		ORDER BY del_code;
     </select>
     
+    <!-- getSuppyPrice -->
+    
+    <select id="getSuppyPrice" resultMap="DeliveryResult">
+    	SELECT round(sum(supply_price*del.supply_amount)/sum(supply_amount)) supply_Price FROM delivery del 
+			JOIN software sw ON del.sw_code = sw.sw_code
+			JOIN supply_company sc ON sc.comp_code = del.comp_code
+    	where del.sw_code=#{software.swCode}
+    	group by del.sw_code;
+    </select>
+    
     <!-- Insert item -->
     <insert id="insertDeliveryItems">
     	INSERT INTO delivery(del_code, comp_code, sw_code, supply_price, supply_amount, order_date, del_isExist) VALUES
-		(#{delCode}, #{compCode}, #{swCode}, #{supplyPrice}, #{supplyAmount}, #{orderDate}, TRUE)
+		(#{delCode}, #{supplyCompany.compCode}, #{software.swCode}, #{supplyPrice}, #{supplyAmount}, #{orderDate}, TRUE)
     </insert>
     
     <!-- Update item -->
@@ -51,7 +61,7 @@
     <!-- Exist item -->
      <update id="existDeliveryItem">
     	UPDATE delivery
-		SET  del_isExist=#{delIsExist}
+		SET  del_isExist=false
 		WHERE del_code=#{delCode}
     </update>
 </mapper>

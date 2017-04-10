@@ -68,7 +68,7 @@ public class JoinFromSoftware {
 	
 	public Object[] toSoftLists() {
 		return new Object[]{software.getSwCode(), category.getGroupName(), software.getSwName(), 
-				String.format("%,3d", delivery.getSupplyPrice()), String.format("%,3d", sale.getSalePrice())};
+				String.format("%,3d", sale.getSalePrice()) ,String.format("%,3d", software.getSwInven())};
 	}
 	
 	public Object[] toSoftReport() {

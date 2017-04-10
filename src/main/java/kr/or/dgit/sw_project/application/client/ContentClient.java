@@ -4,25 +4,28 @@ import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 
 import erp_myframework.TextFieldPanel;
+import kr.or.dgit.sw_project.application.address.ViewAddress;
 import kr.or.dgit.sw_project.dto.Client;
 import kr.or.dgit.sw_project.service.ClientService;
 
-public class ContentClient extends JPanel {
-	private JTextField textField;
+@SuppressWarnings("serial")
+public class ContentClient extends JPanel implements ActionListener {
 	private TextFieldPanel tfpClientCode;
 	private TextFieldPanel tfpClientName;
-	private TextFieldPanel tfpCleintTel;
+	private TextFieldPanel tfpClientTel;
 	private TextFieldPanel tfpClientAddr;
 	private JButton button;
 	private TextFieldPanel tfadr;
+	private ViewAddress viewaddrss = new ViewAddress();
 	
 	public ContentClient() {
 		setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
@@ -43,7 +46,6 @@ public class ContentClient extends JPanel {
 		gbc_tfpClientCode.gridy = 1;
 		add(tfpClientCode, gbc_tfpClientCode);
 		
-		
 		tfpClientName = new TextFieldPanel();
 		tfpClientName.setTitle("고객사 이름");
 		GridBagConstraints gbc_tfpClientName = new GridBagConstraints();
@@ -54,14 +56,14 @@ public class ContentClient extends JPanel {
 		add(tfpClientName, gbc_tfpClientName);
 		
 		
-		tfpCleintTel = new TextFieldPanel();
-		tfpCleintTel.setTitle("전화번호");
+		tfpClientTel = new TextFieldPanel();
+		tfpClientTel.setTitle("전화번호");
 		GridBagConstraints gbc_tfpClientTel = new GridBagConstraints();
 		gbc_tfpClientTel.insets = new Insets(0, 0, 5, 5);
 		gbc_tfpClientTel.fill = GridBagConstraints.HORIZONTAL;
 		gbc_tfpClientTel.gridx = 0;
 		gbc_tfpClientTel.gridy = 3;
-		add(tfpCleintTel, gbc_tfpClientTel);
+		add(tfpClientTel, gbc_tfpClientTel);
 		
 		tfpClientAddr = new TextFieldPanel();
 		tfpClientAddr.setTitle("주소");
@@ -73,6 +75,7 @@ public class ContentClient extends JPanel {
 		add(tfpClientAddr, gbc_tfpClientAddr);
 		
 		button = new JButton("우편번호 검색");
+		button.addActionListener(this);
 		GridBagConstraints gbc_button = new GridBagConstraints();
 		gbc_button.insets = new Insets(0, 0, 5, 5);
 		gbc_button.gridx = 1;
@@ -80,8 +83,7 @@ public class ContentClient extends JPanel {
 		add(button, gbc_button);
 		
 		tfadr= new TextFieldPanel();
-		tfadr.setTitle("");
-
+		tfadr.setTitle("상세 주소");
 		GridBagConstraints gbc_tfadr = new GridBagConstraints();
 		gbc_tfadr.fill = GridBagConstraints.HORIZONTAL;
 		gbc_tfadr.insets = new Insets(0, 0, 5, 5);
@@ -89,39 +91,54 @@ public class ContentClient extends JPanel {
 		gbc_tfadr.gridy = 5;
 		add(tfadr, gbc_tfadr);
 		initSetting();
+		
 	}
+	
+	public TextFieldPanel getTfpClientAddr() {
+		return tfpClientAddr;
+	}
+
+
+	public TextFieldPanel getTfadr() {
+		return tfadr;
+	}
+
+
 	//???
 	public void initSetting(){ //코드 자동세팅 다른필드 초기화
 		List<Client> list = ClientService.getInstance().selectClientByAll();
-
-		list.get(list.size() - 1).getClntCode();
-		String value = String.format("CL%03d",
+		if(list.size()==0){
+			tfpClientCode.setTfValue("CL001");
+		}else{
+			list.get(list.size() - 1).getClntCode();
+			String value = String.format("CL%03d",
 			Integer.parseInt(list.get(list.size() - 1).getClntCode().substring(2)) + 1);
 
-		tfpClientCode.setTfValue(value);
-		tfpClientCode.getTf().setFocusable(false);
-		clear();
+			tfpClientCode.setTfValue(value);
+			tfpClientCode.getTf().setFocusable(false);
+			clear();
+		}
 	}
 	
 	public void clear(){
 		tfpClientName.setTfValue("");
 		tfpClientAddr.setTfValue("");
-		tfpCleintTel.setTfValue("");
+		tfpClientTel.setTfValue("");
 		tfpClientName.requestFocus();
 	}
 	
-	public Client getObject(){ //text필드 값받아옴 address수정필요
+	public Client getObject(){ 
 		String clntCode = tfpClientCode.getTfValue();
 		String clntName = tfpClientName.getTfValue();
 		String clntAddr = tfpClientAddr.getTfValue();
-		String clntTel = tfpCleintTel.getTfValue();
+		String clntTel = tfpClientTel.getTfValue();
 		return new Client(clntCode, clntName, clntAddr, clntTel);
 	}
 	
 	public void setContent(Client clinet){ //text필드에 값세팅
 		tfpClientCode.setTfValue(clinet.getClntCode());
 		tfpClientName.setTfValue(clinet.getClntName());
-		tfpCleintTel.setTfValue(clinet.getClntTel());
+		tfpClientTel.setTfValue(clinet.getClntTel());
 		tfpClientAddr.setTfValue(clinet.getClntAddr());
 	}
 	
@@ -135,5 +152,15 @@ public class ContentClient extends JPanel {
 				}
 			}
 		}return false;
+	}
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == button) {
+			actionPerformedButton(e);
+		}
+	}
+	//어드레스창 열기
+	protected void actionPerformedButton(ActionEvent e) {
+		viewaddrss.setClntDao(this);
+		viewaddrss.setVisible(true);
 	}
 }

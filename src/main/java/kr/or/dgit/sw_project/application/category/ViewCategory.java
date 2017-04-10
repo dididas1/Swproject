@@ -20,8 +20,6 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
-
 import kr.or.dgit.sw_project.dto.Category;
 import kr.or.dgit.sw_project.service.CategoryService;
 

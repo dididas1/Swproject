@@ -10,6 +10,15 @@ public class Address {
 	
 	public Address() {}
 	
+	
+	
+	public Address(String sido) {
+		super();
+		this.sido = sido;
+	}
+
+
+
 	public Address(String sido, String doro) {
 		this.sido = sido;
 		this.doro = doro;
@@ -84,13 +93,15 @@ public class Address {
 		return String.format("%s %s", sido+sigungu+doro, building1+ building2);
 	}
 	
-	public Object[] toarray() {
-		return new Object[]{ zipCode, sido + sigungu+ doro+  building1+ building2};
-	}
-
 	public Object[] toArray() {
-		// TODO Auto-generated method stub
-		return null;
+		return new Object[]{ zipCode, sido +" "+ sigungu , doro+" "+ building1+" " + building2};
 	}
+	
+	
+	
+	public String toCobodata() {
+		return  sigungu;
+	}
+	
 
 }

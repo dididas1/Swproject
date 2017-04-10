@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -31,6 +32,9 @@ public class ViewSupplyCompany extends JFrame implements ActionListener{
 	private JButton btnInsert;
 	private JButton btnCancle;
 	private JButton btnDelete;
+	
+	private List<SupplyCompany> list;
+	
 	public ViewSupplyCompany() {
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setBounds(100, 100, 500, 500);
@@ -82,6 +86,7 @@ public class ViewSupplyCompany extends JFrame implements ActionListener{
 		pButton.setLayout(gbl_pButton);
 
 		btnInsert = new JButton("입력");
+		btnInsert.addActionListener(this);
 		GridBagConstraints gbc_btnInsert = new GridBagConstraints();
 		gbc_btnInsert.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnInsert.insets = new Insets(0, 0, 0, 0);
@@ -124,7 +129,8 @@ public class ViewSupplyCompany extends JFrame implements ActionListener{
 			}
 
 		});
-
+		getDataFromDB();
+		pTable.setList(list);
 		pTable.setTableData();
 		setVisible(true);
 	}
@@ -148,69 +154,64 @@ public class ViewSupplyCompany extends JFrame implements ActionListener{
 			btnInsertActionPerformed(e);
 		}
 	}
-	protected void btnInsertActionPerformed(ActionEvent e) { //입력  수정 테이블 인덱스 클릭시 수정으로 변함
+	private void btnInsertActionPerformed(ActionEvent e) { //입력 수정 테이블 인덱스 클릭시 수정으로 변함
 		if(e.getActionCommand().equals("입력")){
 			if(pContent.isEmptyCheck()){
 				JOptionPane.showMessageDialog(null, "공란이 있습니다");
-
 			}else{
-				int ok=JOptionPane.showConfirmDialog(null, "입력하시겠습니까?");
-				if(ok==0){
+				if(JOptionPane.showConfirmDialog(null, "입력하시겠습니까?")==JOptionPane.YES_OPTION){
 					SupplyCompService.getInstance().insertCompItem(pContent.getObject());
-					pTable.setTableData();
-					pTable.setTableData();
+					setTable();
 					pContent.initSetting();
-				}else{
-					JOptionPane.showMessageDialog(null, "취소되었습니다");
-					pContent.initSetting();
-					btnInsert.setText("입력");
-					btnDelete.setEnabled(false);
 				}
 			}
-
-
 		}else if(e.getActionCommand().equals("수정")){ //수정으로 변경
-			int ok=JOptionPane.showConfirmDialog(null, "수정하시겠습니까?");
-			if(ok==0){
+			if(JOptionPane.showConfirmDialog(null, "수정하시겠습니까?")==JOptionPane.YES_OPTION){
 				SupplyCompService.getInstance().updateCompItem(pContent.getObject());
+				setTable();
 				btnInsert.setText("입력");
-				pTable.setTableData();
 				pContent.initSetting();
 			}else{
 				JOptionPane.showMessageDialog(null, "취소되었습니다");
+				pContent.initSetting();
 				btnInsert.setText("입력");
 				btnDelete.setEnabled(false);
 			}
-
-
 		}
-
 	}
 
-	public Client getClntDataObject() { //클릭된 인덱스의 코드를 받아와 클라이언트 넘버검색후 리턴
-		int selectedidx= pTable.getTable().getSelectedRow();
-		if(selectedidx==-1)return null;
-		String no=(String) pTable.getTable().getValueAt(selectedidx, 0);
-		Client cl = ClientService.getInstance().selectByNoClnt(new Client(no));
-		return cl;
-	}
-
-
-	protected void btnDeleteActionPerformed(ActionEvent e) { //삭제구현
-		int ok=JOptionPane.showConfirmDialog(null, "삭제하겠습니까?");
-		if(ok==0){
+	private void btnDeleteActionPerformed(ActionEvent e) { //삭제구현
+		if(JOptionPane.showConfirmDialog(null, "삭제하겠습니까?")==JOptionPane.YES_OPTION){
 			SupplyCompService.getInstance().existCompItem(pContent.getObject());
-			pTable.setTableData();
+			setTable();
 			pContent.initSetting();
+			btnInsert.setText("입력");
+			btnDelete.setEnabled(false);
 		}else{
-			JOptionPane.showMessageDialog(null, "취소되었습니다");
+				JOptionPane.showMessageDialog(null, "취소되었습니다");
+			
 		}
 	}
-	protected void btnCancleActionPerformed(ActionEvent e) { //취소버튼
+	
+	private void btnCancleActionPerformed(ActionEvent e) { //취소버튼
 		pContent.initSetting();
 		btnInsert.setText("입력");
 		btnDelete.setEnabled(false);
 	}
+	/***********************************************************************/
+	
+	
+	/*************************** Get Data ***************************/  
+	private void setTable(){ //Table 로드
+		getDataFromDB();
+		pTable.setList(list);
+		pTable.setTableData();
+	}
+	
+	private void getDataFromDB(){ //list에 데이터베이스에서 가져온 값을 입력
+		list = SupplyCompService.getInstance().selectSupplyCompByAll();
+	}
+	/****************************************************************/
 
 
 }

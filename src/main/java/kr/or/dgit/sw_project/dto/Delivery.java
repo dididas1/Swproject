@@ -10,8 +10,35 @@ public class Delivery {
 	private Software software;
 	private int supplyPrice;
 	private int supplyAmount;
-	private Date orderDate;
+	private String orderDate;
 	private boolean delIsExist;
+	
+	
+	
+	public Delivery() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
+	public Delivery(Software software) {
+		this.software = software;
+	}
+
+	public Delivery(String delCode) {
+		super();
+		this.delCode = delCode;
+	}
+
+	public Delivery(String delCode, SupplyCompany supplyCompany, Software software, int supplyPrice, int supplyAmount,
+			String orderDate) {
+		super();
+		this.delCode = delCode;
+		this.supplyCompany = supplyCompany;
+		this.software = software;
+		this.supplyPrice = supplyPrice;
+		this.supplyAmount = supplyAmount;
+		this.orderDate = orderDate;
+	}
 
 	public String getDelCode() {
 		return delCode;
@@ -53,11 +80,11 @@ public class Delivery {
 		this.supplyAmount = supplyAmount;
 	}
 
-	public Date getOrderDate() {
+	public String getOrderDate() {
 		return orderDate;
 	}
 
-	public void setOrderDate(Date orderDate) {
+	public void setOrderDate(String orderDate) {
 		this.orderDate = orderDate;
 	}
 
@@ -74,5 +101,7 @@ public class Delivery {
 		return String.format("%s, %s, %s, %s, %s, %s, %s",
 			delCode, supplyCompany, software, supplyPrice, supplyAmount, orderDate, delIsExist);
 	}
+	public Object[] toArray(){
+		return new Object[]{delCode,supplyCompany.getCompName(),software.getSwName(),supplyPrice,supplyAmount,orderDate};
+	}
 }
-	

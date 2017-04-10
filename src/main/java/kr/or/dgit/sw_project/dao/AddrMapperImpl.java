@@ -22,4 +22,10 @@ public class AddrMapperImpl implements AddrMapper{
 		log.debug("searchSido()");
 		return sqlSession.selectList(nameSpace + "searchSido", address);
 	}
+
+	@Override
+	public List<Address> selectSigungu(Address address) {
+		log.debug("selectSigungu()");
+		return sqlSession.selectList(nameSpace + "selectSigungu",address);
+	}
 }

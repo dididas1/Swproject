@@ -45,9 +45,6 @@ public class Main extends JFrame   {
 	 * Create the frame.
 	 */
 	public Main() {
-		
-
-
 	}
 	
 }
