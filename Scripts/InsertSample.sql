@@ -5,7 +5,7 @@ INSERT INTO client(clnt_code, clnt_name, clnt_addr, clnt_tel, clnt_isExist) VALU
 	("CL003", "친구 게임방",	   "천안시 동남구 신부동",    "041-333-3333",TRUE),
 	("CL004", "충청남도 교육청",   "대전광역시 중구 과례2길", "042-444-4444",TRUE),
 	("CL005", "대전광역시 교육청", "대전광역시 서구 향촌길",  "042-555-5555",TRUE),
-	("CL006", "아산시스템",		   "충청남도 아산시 배방면",  "041-777-7777",FALSE);
+	("CL006", "아산시스템",		   "충청남도 아산시 배방면",  "041-777-7777",TRUE);
 
 -- 공급회사 샘플데이터 입력
 INSERT INTO supply_company(comp_code, comp_name, comp_addr, comp_tel, comp_isExist) VALUES
@@ -48,23 +48,39 @@ INSERT INTO delivery(del_code, comp_code, sw_code, supply_price, supply_amount, 
 	("DL008", "SC002", "SW008", 30000, 100, now(), TRUE),
 	("DL009", "SC003", "SW009", 17000, 150, now(), TRUE),
 	("DL010", "SC004", "SW010", 25000, 200, now(), FALSE),
-	("DL011", "SC001", "SW001", 25000, 200, now(), TRUE);
+	("DL011", "SC005", "SW001", 25000, 200, now(), TRUE),
+	("DL012", "SC006", "SW001", 25000, 200, now(), TRUE);
 
 -- 거래내역 샘플데이터 입력
 INSERT INTO sale(sale_code, clnt_code, sw_code, sale_amount, 
 				isdeposit, order_date, supply_price, sale_price, sale_isExist) VALUES  
-	("SL001","CL001","SW001",25, TRUE, "2009-12-13", 25000  , 40000,   TRUE),
-	("SL002","CL003","SW002",25, TRUE, "2010-09-13", 30000  , 48000,   TRUE),
-	("SL003","CL002","SW003",20, TRUE, "2010-09-11", 27000  , 40500,   TRUE),
-	("SL004","CL001","SW004",25, TRUE, "2010-10-02", 32000  , 48000,   TRUE),
-	("SL005","CL004","SW005",250,FALSE,"2010-10-02", 35000  , 50750,   TRUE),
-	("SL006","CL006","SW006",2,  FALSE,"2010-10-02", 1370000, 1918000, TRUE),
-	("SL007","CL003","SW007",20, TRUE, "2010-10-04", 25000  , 40000,   TRUE),
-	("SL008","CL005","SW008",20, TRUE, "2010-10-04", 30000  , 48000,   TRUE),
-	("SL009","CL006","SW009",2,  TRUE, "2010-10-04", 32000  , 48000,   FALSE),
-	("SL010","CL004","SW010",320,TRUE, "2010-10-04", 980000 , 1519000, FALSE),
-	("SL011","CL004","SW001",100,TRUE, "2010-10-04", 25000  , 40000,   TRUE);
+	("SL001","CL001","SW001",25, TRUE, "2017-12-13", 25000  , 40000,   TRUE),
+	("SL002","CL002","SW002",25, TRUE, "2017-09-13", 30000  , 48000,   TRUE),
+	("SL003","CL003","SW003",20, TRUE, "2017-09-11", 27000  , 40500,   TRUE),
+	("SL004","CL004","SW004",25, TRUE, "2017-10-02", 32000  , 48000,   TRUE),
+	("SL005","CL005","SW005",50, TRUE, "2017-10-02", 35000  , 50750,   TRUE),
+	("SL006","CL006","SW006",20, TRUE, "2017-10-02", 1370000, 1918000, TRUE),
+	("SL007","CL001","SW007",20, TRUE, "2016-10-04", 25000  , 40000,   TRUE),
+	("SL008","CL002","SW008",20, TRUE, "2016-10-04", 30000  , 48000,   TRUE),
+	("SL009","CL003","SW009",20, TRUE, "2016-10-04", 32000  , 48000,   TRUE),
+	("SL010","CL004","SW010",20, TRUE, "2016-10-04", 980000 , 1519000, TRUE),
+	("SL011","CL005","SW001",100,TRUE, "2016-10-04", 25000  , 40000,   TRUE),
+	("SL012","CL006","SW006",20, TRUE, "2016-10-02", 1370000, 1918000, TRUE),
+	("SL013","CL001","SW007",20, TRUE, "2015-10-04", 25000  , 40000,   TRUE),
+	("SL014","CL002","SW008",20, TRUE, "2015-10-04", 30000  , 48000,   TRUE),
+	("SL015","CL003","SW009",20, TRUE, "2015-10-04", 32000  , 48000,   TRUE),
+	("SL016","CL004","SW010",20, TRUE, "2015-10-04", 980000 , 1519000, TRUE),
+	("SL017","CL005","SW001",100,TRUE, "2015-10-04", 25000  , 40000,   TRUE),
+	("SL018","CL006","SW006",20, TRUE, "2015-10-02", 1370000, 1918000, TRUE);
 
+	SELECT curdate();
+	SELECT * FROM sale WHERE year(order_date) = YEAR(curdate());
+	SELECT * FROM sale s 
+			JOIN software sw ON s.sw_code = sw.sw_code 
+			JOIN view_sale_detail sd ON s.sale_code = sd.sale_code 
+			JOIN client cl ON cl.clnt_code = s.clnt_code 
+			JOIN category cat ON sw.group_code = cat.group_code 
+			WHERE YEAR(s.order_date) = "2017";
 DELETE FROM sale;
 DELETE FROM delivery;
 DELETE FROM client;

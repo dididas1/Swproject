@@ -17,11 +17,17 @@
 			JOIN view_sale_detail sd ON s.sale_code = sd.sale_code 
 			JOIN client cl ON cl.clnt_code = s.clnt_code 
 			JOIN category cat ON sw.group_code = cat.group_code 
-			order by s.sale_code
 	</sql>
 
     <!-- Select By All --> 
     <select id="selectJoinFromSaleByAll" resultMap="JoinFromSaleResult">
     	<include refid="selectSQL" />
+    		order by s.sale_code
+    </select>
+    
+    <!-- Select By Year --> 
+    <select id="selectJoinFromSaleByYear" resultMap="JoinFromSaleResult" parameterType="hashmap">
+    	<include refid="selectSQL" />
+    		WHERE YEAR(s.order_date) = #{date}
     </select>
 </mapper>

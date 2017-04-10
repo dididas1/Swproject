@@ -1,6 +1,7 @@
 package kr.or.dgit.sw_project.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.logging.Log;
 import org.apache.ibatis.logging.LogFactory;
@@ -21,5 +22,11 @@ public class JoinFromSaleMapperImpl implements JoinFromSaleMapper{
 	public List<JoinFromSale> selectJoinFromSaleByAll() {
 		log.debug("selectJoinFromSaleByAll()");
 		return sqlSession.selectList(nameSpace + "selectJoinFromSaleByAll");
+	}
+
+	@Override
+	public List<JoinFromSale> selectJoinFromSaleByYear(Map<String, Object> date) {
+		log.debug("selectJoinFromSaleByYear()");
+		return sqlSession.selectList(nameSpace + "selectJoinFromSaleByYear", date);
 	}
 }
