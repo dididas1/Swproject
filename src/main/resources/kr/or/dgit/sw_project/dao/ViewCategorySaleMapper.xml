@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.dgit.sw_project.dao.ViewCategorySaleMapper">
+	<resultMap type="ViewCategorySale" id="ViewCategorySaleResult">
+		<result property="cSalePrice" column="c_salePrice" />
+		<result property="cAmount" column="c_amount" />
+		<association property="category"
+			resultMap="kr.or.dgit.sw_project.dao.CategoryMapper.CategoryResult" />
+	</resultMap>
+
+
+
+
+	<sql id="selectSql">
+		select * from view_sale_by_category;
+	</sql>
+
+	<sql id="whereSql">
+		<if test="groupCode != null">
+			group_code=#{groupCode}
+		</if>
+	</sql>
+
+	<select id="selectViewCategoryAll" resultMap="ViewCategorySaleResult">
+		<include refid="selectSql" />
+	</select>
+	<select id="selectViewCategoryByNo" resultMap="ViewCategorySaleResult" parameterType="ViewCategorySale">
+		<include refid="selectSql"/>
+		<include refid="whereSql"/>
+	</select>
+</mapper>

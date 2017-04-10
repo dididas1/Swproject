@@ -2,10 +2,14 @@ package kr.or.dgit.sw_project;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
@@ -16,9 +20,11 @@ import de.javasoft.plaf.synthetica.SyntheticaLookAndFeel;
 import de.javasoft.swing.DateComboBox;
 import de.javasoft.swing.plaf.datecombobox.DateComboBoxPopup;
 
-public class DatePickerTest {
+public class DatePickerTest implements ActionListener {
 
 	private JFrame frame;
+	private JButton btnNewButton;
+	private DateComboBox dc;
 
 	/**
 	 * Launch the application.
@@ -62,12 +68,34 @@ public class DatePickerTest {
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy년MM월dd일");
 		
-		DateComboBox dc = new DateComboBox();
+		dc = new DateComboBox();
 		dc.setDateFormat(sdf);
 		
 		DateComboBoxPopup p = dc.getPopup();
 		p.getMonthView().setLocale(Locale.ENGLISH);
 		System.out.println(dc.getFont());
 		panel.add(dc);
+		
+		btnNewButton = new JButton("New button");
+		btnNewButton.addActionListener(this);
+		frame.getContentPane().add(btnNewButton, BorderLayout.CENTER);
+	}
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnNewButton) {
+			actionPerformedBtnNewButton(e);
+		}
+	}
+	
+	protected void actionPerformedBtnNewButton(ActionEvent e) {
+		String string = "2017-05-23";
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date date;
+		try {
+			date = sdf.parse(string);
+			dc.setDate(date);
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+		}
+		
 	}
 }

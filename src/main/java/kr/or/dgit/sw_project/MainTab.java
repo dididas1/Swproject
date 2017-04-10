@@ -36,6 +36,10 @@ public class MainTab extends JFrame implements ActionListener {
 	private JMenuItem mnSup;
 	private JButton btnCategory;
 
+	private ViewSale viewSale;
+	private ViewDelivery viewDelivery;
+	private ViewList viewList;
+	
 	public MainTab() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 730, 800);
@@ -97,9 +101,9 @@ public class MainTab extends JFrame implements ActionListener {
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		contentPane.add(tabbedPane, BorderLayout.CENTER);
 
-		tabbedPane.add("주문 관리",new ViewSale());
-		tabbedPane.add("납품 관리",new ViewDelivery());
-		tabbedPane.add("거래내역 확인",new ViewList());
+		tabbedPane.add("주문 관리",viewSale = new ViewSale());
+		tabbedPane.add("납품 관리",viewDelivery = new ViewDelivery());
+		tabbedPane.add("거래내역 확인",viewList = new ViewList());
 
 		JPanel pButton = new JPanel();
 		contentPane.add(pButton, BorderLayout.NORTH);
@@ -144,8 +148,14 @@ public class MainTab extends JFrame implements ActionListener {
 			btnClient.setEnabled(false);
 		}
 		setVisible(true);
+		
+		viewDelivery.setMainTab(MainTab.this);
 	}
 
+	public void refresh(){
+		viewSale.getContent().setSwComboData();
+	}
+	
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnClient) {
 			actionPerformedBtnClient(e);
@@ -176,8 +186,6 @@ public class MainTab extends JFrame implements ActionListener {
 		ViewClient viewclient = new ViewClient();
 	}
 	protected void actionPerformedMnSale(ActionEvent e) {
-
-
 	}
 }
 

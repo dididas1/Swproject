@@ -7,7 +7,6 @@ SELECT cl.clnt_name, sw.sw_name, s.sale_amount, s.isdeposit, sw.sale_price,
 	FROM client cl JOIN sale s ON cl.clnt_code = s.clnt_code 
 				   JOIN software sw ON s.sw_code = sw.sw_code
 	WHERE cl.clnt_name="아산시스템";
-
 SELECT cl.clnt_name, sw.sw_name, s.sale_amount, s.isdeposit, sw.sale_price,
 /*매출금*/ 	@salePrice  := s.sale_amount * sw.sale_price salePrice, 
 /*미수금*/	@receivable := @salePrice * !s.isDeposit receivablePrice
@@ -29,6 +28,7 @@ SELECT sw.sw_name, ca.group_name, su.comp_name,
 					 JOIN supply_company su ON su.comp_code = dv.comp_code
 					 JOIN sale s ON s.sw_code = sw.sw_code
 	WHERE sw.sw_name ="바람의제국";
+	
 	
 SELECT sw.sw_name, ca.group_name , su.comp_name,
 /*공급금액*/ @total_supply_price := SUM(s.sale_amount* dv.supply_price) total_supply_price,

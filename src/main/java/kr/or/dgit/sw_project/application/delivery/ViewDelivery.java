@@ -4,6 +4,10 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -11,14 +15,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import kr.or.dgit.sw_project.MainTab;
+import kr.or.dgit.sw_project.application.sales.ContentSale;
 import kr.or.dgit.sw_project.dto.Delivery;
-import kr.or.dgit.sw_project.dto.SupplyCompany;
 import kr.or.dgit.sw_project.service.DeliveryService;
-
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.ActionEvent;
 
 public class ViewDelivery extends JPanel implements ActionListener{
 	
@@ -27,7 +27,8 @@ public class ViewDelivery extends JPanel implements ActionListener{
 	private ContentDelivery pContent;
 	private JButton btnDelete;
 	private JButton btnCancle;
-
+	private MainTab mainTab;
+	
 	public ViewDelivery() {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0}; //각 열의 최소 넓이  
@@ -113,14 +114,11 @@ public class ViewDelivery extends JPanel implements ActionListener{
 				btnInsert.setText("수정");
 				super.mouseClicked(e);
 			}
-
-			
-
 		});
-		
 		
 		setVisible(true);
 	}
+	
 	private Object[] getDataObject() {//each row in the table클릭시 값 넘겨줌
 		int cnt = pTable.getTable().getColumnCount();
 		int selRow = pTable.getTable().getSelectedRow();
@@ -130,6 +128,7 @@ public class ViewDelivery extends JPanel implements ActionListener{
 		}
 		return obj;
 	}
+	
 	public void actionPerformed(ActionEvent arg0) {
 		if (arg0.getSource() == btnCancle) {
 			actionPerformedBtnCancle(arg0);
@@ -141,6 +140,7 @@ public class ViewDelivery extends JPanel implements ActionListener{
 			actionPerformedBtnInsert(arg0);
 		}
 	}
+	
 	//public boolean 일단 구질구질한건 나중에
 	protected void actionPerformedBtnInsert(ActionEvent arg0) {
 		if (arg0.getActionCommand().equals("입력")){
@@ -155,17 +155,22 @@ public class ViewDelivery extends JPanel implements ActionListener{
 				pContent.resetField();
 				btnInsert.setText("입력");
 			}
-			
 		}
-		
+		mainTab.refresh();
 	}
+	
 	protected void actionPerformedBtnDelete(ActionEvent arg0) {
 		DeliveryService.getInstance().existDeliveryItem(new Delivery(pContent.getTfpDelCode().getTfValue()));
 		pTable.loadData();
 	}
+	
 	protected void actionPerformedBtnCancle(ActionEvent arg0) {
 		pContent.resetField(); //필드초기화
 		btnInsert.setText("입력");
 		btnInsert.setEnabled(true);
+	}
+	
+	public void setMainTab(MainTab mainTab){
+		this.mainTab = mainTab;
 	}
 }

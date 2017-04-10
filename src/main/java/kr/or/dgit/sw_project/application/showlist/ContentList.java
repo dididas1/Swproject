@@ -97,6 +97,8 @@ public class ContentList extends JPanel {
 		setCategoryComboData();
 		setClntComboData();
 		setSwComboData();
+		
+		
 	}
 	
 	

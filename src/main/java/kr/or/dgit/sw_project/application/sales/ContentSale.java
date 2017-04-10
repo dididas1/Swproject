@@ -4,20 +4,18 @@ import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Vector;
 
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
 import javax.swing.border.EtchedBorder;
 
 import erp_myframework.ComboPanel;
+import erp_myframework.DatePanel;
 import erp_myframework.RadioPanel;
 import erp_myframework.TextFieldPanel;
+import kr.or.dgit.sw_project.application.delivery.ViewDelivery;
 import kr.or.dgit.sw_project.dto.Client;
 import kr.or.dgit.sw_project.dto.Delivery;
 import kr.or.dgit.sw_project.dto.JoinFromSale;
@@ -33,12 +31,14 @@ public class ContentSale extends JPanel {
 	private ComboPanel<String> tfpSwName;
 	private TextFieldPanel tfpSaleAmount;
 	private ComboPanel<String> tfpClntName;
-	private TextFieldPanel tfpOrderDate;
 	private RadioPanel tfpIsExist;
-
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy년MM월dd일");
 
 	private List<Software> listSw;
 	private List<Client> listCl;
+	
+	private ViewDelivery viewDelivery;
+	private DatePanel dpOrderDate;
 	
 	public ContentSale() {
 		setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
@@ -86,14 +86,14 @@ public class ContentSale extends JPanel {
 		gbc_tfpClntName.gridy = 2;
 		add(tfpClntName, gbc_tfpClntName);
 
-		tfpOrderDate = new TextFieldPanel();
-		tfpOrderDate.setTitle("주문일자");
+		dpOrderDate = new DatePanel();
+		dpOrderDate.setTitle("주문날짜");
 		GridBagConstraints gbc_tfpOrderDate = new GridBagConstraints();
 		gbc_tfpOrderDate.fill = GridBagConstraints.HORIZONTAL;
 		gbc_tfpOrderDate.insets = new Insets(0, 0, 0, 0);
 		gbc_tfpOrderDate.gridx = 0;
 		gbc_tfpOrderDate.gridy = 3;
-		add(tfpOrderDate, gbc_tfpOrderDate);
+		add(dpOrderDate, gbc_tfpOrderDate);
 
 		tfpIsExist = new RadioPanel();
 		tfpIsExist.setTitle("입금확인");
@@ -108,8 +108,8 @@ public class ContentSale extends JPanel {
 		setClntComboData();
 		setSwComboData();
 		initSetting();
-
-
+		
+		//viewDelivery.setContentSale(ContentSale.this);
 	}
 
 
@@ -119,7 +119,6 @@ public class ContentSale extends JPanel {
 		tfpSwName.setSelectedItem(0);
 		tfpSaleAmount.setTfValue("");
 		tfpClntName.setSelectedItem(0);
-		tfpOrderDate.setTfValue("");
 		tfpSaleAmount.requestFocus();
 		tfpIsExist.setSelectedItem(0);
 	}
@@ -130,7 +129,7 @@ public class ContentSale extends JPanel {
 		String client = listCl.get(tfpClntName.getSelectedIndex()-1).getClntCode();
 		String software = listSw.get(tfpSwName.getSelectedIndex()-1).getSwCode();
 		int saleAmount = Integer.parseInt(tfpSaleAmount.getTfValue());
-		String orderDate = tfpOrderDate.getTfValue();
+		String orderDate = dpOrderDate.getTfDate();
 		int supplyPrice = DeliveryService.getInstance().getSuppyPrice(new Delivery(new Software(software))).getSupplyPrice();
 		int salePrice =  listSw.get(tfpSwName.getSelectedIndex()-1).getSalePrice();
 		if(tfpIsExist.getSelectedItem().equals("입금")){
@@ -149,7 +148,7 @@ public class ContentSale extends JPanel {
 		tfpSwName.setSelectedItem(joinFromSale.getSoftware().getSwName()+ String.format(" (재고: %s)", joinFromSale.getSoftware().getSwInven()));
 		tfpClntName.setSelectedItem(joinFromSale.getClient().getClntName());
 		tfpSaleAmount.setTfValue(String.valueOf(joinFromSale.getSale().getSaleAmount()));
-		tfpOrderDate.setTfValue(joinFromSale.getSale().getOrderDate());
+		dpOrderDate.setTfDate(joinFromSale.getSale().getOrderDate());
 		if(joinFromSale.getSale().isDeposit()){
 			tfpIsExist.setSelectedItem(0);
 		}else{
@@ -183,7 +182,6 @@ public class ContentSale extends JPanel {
 		tfpSwName.setComboData(comboitemSw);
 	}
 
-
 	public boolean isEmptyCheck(){ // 빈공간체크
 		for(Component c: getComponents()){
 			if(c instanceof TextFieldPanel){
@@ -193,41 +191,32 @@ public class ContentSale extends JPanel {
 				}
 			}
 		}return false;
-
 	}
-
 
 	public TextFieldPanel getTfpSaleCode() {
 		return tfpSaleCode;
 	}
 
-
 	public TextFieldPanel getTfpSaleAmount() {
 		return tfpSaleAmount;
 	}
-
 
 	public ComboPanel<String> getTfpSwName() {
 		return tfpSwName;
 	}
 
-
 	public ComboPanel<String> getTfpClntName() {
 		return tfpClntName;
 	}
 
+	
 
-	public TextFieldPanel getTfpOrderDate() {
-		return tfpOrderDate;
+	public DatePanel getDpOrderDate() {
+		return dpOrderDate;
 	}
 
 
 	public RadioPanel getTfpIsExist() {
 		return tfpIsExist;
 	}
-	
-	
-	
-
-
 }

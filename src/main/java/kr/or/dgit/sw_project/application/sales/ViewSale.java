@@ -1,5 +1,6 @@
 package kr.or.dgit.sw_project.application.sales;
 
+import java.awt.Component;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -119,7 +120,7 @@ public class ViewSale extends JPanel implements ActionListener{
 				pContent.getTfpSwName().getTf().setEnabled(false);
 				pContent.getTfpClntName().getTf().setEnabled(false);
 				pContent.getTfpSaleAmount().getTf().setEditable(false);
-				pContent.getTfpOrderDate().getTf().setEditable(false);
+				pContent.getDpOrderDate().getDateCombobox().setEditable(false);
 				super.mousePressed(e);
 			}
 			
@@ -155,7 +156,7 @@ public class ViewSale extends JPanel implements ActionListener{
 		pContent.getTfpSwName().getTf().setEnabled(true);
 		pContent.getTfpClntName().getTf().setEnabled(true);
 		pContent.getTfpSaleAmount().getTf().setEditable(true);
-		pContent.getTfpOrderDate().getTf().setEditable(true);
+		pContent.getDpOrderDate().getDateCombobox().setEditable(true);
 	}
 	
 
@@ -246,5 +247,8 @@ public class ViewSale extends JPanel implements ActionListener{
 	private void getDataFromDB(){ //list에 데이터베이스에서 가져온 값을 입력
 		list = JoinFromSaleService.getInstance().selectJoinFromSaleByAll();
 	}
-	
+
+	public ContentSale getContent() {
+		return pContent;
+	}
 }

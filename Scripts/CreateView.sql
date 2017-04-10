@@ -32,19 +32,6 @@ SELECT clnt_code, clnt_name, sw_code, sw_name, sale_amount, isdeposit, sale_pric
    
 
 
-#### 소프트웨어별 판매현황조회 ####
--- 품목명 분류 공급회사명 공급금액 판매금액 판매이윤
-CREATE VIEW view_sw_sale AS
-SELECT DISTINCT s.sale_code, s.sw_code, sw.sw_name, c.group_name, sc.comp_code, sc.comp_name,
-/*공급금액*/ (sd.total_supply_price) total_supply_price,
-/*판매금액*/ (sd.total_sale_price) total_price,
-/*판매이윤*/ (sd.margin) margin
-	FROM sale s JOIN view_sale_detail sd ON s.sale_code= sd.sale_code 
-   				JOIN software sw ON s.sw_code= sw.sw_code
-				JOIN category c ON c.group_code= sw.group_code 
-				JOIN delivery del ON del.sw_code= sw.sw_code
-				JOIN supply_company sc ON del.comp_code= sc.comp_code;
-  
 SELECT sw_code, sw_name, group_name, comp_code, comp_name, total_supply_price, total_price, margin 
 	FROM view_sw_sale 
 	WHERE sw_code="SW001";
