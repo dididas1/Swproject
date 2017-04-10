@@ -20,7 +20,7 @@ import javax.swing.border.EmptyBorder;
 import de.javasoft.plaf.synthetica.SyntheticaAluOxideLookAndFeel;
 import de.javasoft.plaf.synthetica.SyntheticaLookAndFeel;
 import erp_myframework.TextFieldPanel;
-import kr.or.dgit.sw_project.application.chart.ChartRootLayout;
+import kr.or.dgit.sw_project.application.chart.TestChart;
 import kr.or.dgit.sw_project.application.membership.ViewMemberShip;
 import kr.or.dgit.sw_project.dto.Members;
 import kr.or.dgit.sw_project.service.MemberShipService;
@@ -70,7 +70,6 @@ public class MainApp extends JFrame implements ActionListener {
 		
 		panelID = new TextFieldPanel();
 		panelID.setTitle("ID");
-		panelID.setTfValue("dididas");
 		GridBagConstraints gbc_panelID = new GridBagConstraints();
 		gbc_panelID.insets = new Insets(0, 0, 5, 0);
 		gbc_panelID.fill = GridBagConstraints.BOTH;
@@ -80,7 +79,6 @@ public class MainApp extends JFrame implements ActionListener {
 		
 		panelPassword = new TextFieldPanel();
 		panelPassword.setTitle("Password");
-		panelPassword.setTfValue("1234");
 		GridBagConstraints gbc_panelPassword = new GridBagConstraints();
 		gbc_panelPassword.insets = new Insets(0, 0, 5, 0);
 		gbc_panelPassword.fill = GridBagConstraints.BOTH;
@@ -130,7 +128,6 @@ public class MainApp extends JFrame implements ActionListener {
 			MainTab tabbedSale = new MainTab();
 			dispose();
 		}else{
-			MainTab tabbedSale = new MainTab();
 			JOptionPane.showMessageDialog(null, "회원 정보가 존재하지 않습니다.");
 		}
 	}
@@ -140,7 +137,9 @@ public class MainApp extends JFrame implements ActionListener {
 	}
 	
 	protected void actionPerformedBtnExit(ActionEvent e) {
-		ChartRootLayout chartRootLayout = new ChartRootLayout();
-		chartRootLayout.showChart();
+		//ChartRootLayout chartRootLayout= new ChartRootLayout();
+		//chartRootLayout.showChart();
+		TestChart testChart = new TestChart();
+		testChart.showChart();
 	}
 }

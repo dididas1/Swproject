@@ -98,21 +98,14 @@ public class ContentList extends JPanel {
 		setClntComboData();
 		setSwComboData();
 	}
-	
-	
-
 
 	public JButton getBtnGroupAllFind() {
 		return btnGroupAllFind;
 	}
 
-
-
 	public JButton getBtnSwAllFind() {
 		return btnSwAllFind;
 	}
-
-
 
 	public JButton getBtnClntAllFind() {
 		return btnClntAllFind;
@@ -128,7 +121,6 @@ public class ContentList extends JPanel {
 			comboitemCl.add(listClnt.get(i).toCombobox());
 		}
 		tfpClntName.setComboData(comboitemCl);
-		
 	}
 	
 	public void setSwComboData(){
@@ -153,13 +145,5 @@ public class ContentList extends JPanel {
 			comboitemCa.add(listCa.get(i).toCombobox());
 		}
 		tfpGroup.setComboData(comboitemCa);
-		
 	}
-
-
-
-
-	
-	
-	
 }
