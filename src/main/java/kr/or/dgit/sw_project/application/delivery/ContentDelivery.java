@@ -4,6 +4,7 @@ import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Vector;
 
@@ -12,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 
 import erp_myframework.ComboPanel;
+import erp_myframework.DatePanel;
 import erp_myframework.TextFieldPanel;
 import kr.or.dgit.sw_project.dto.Client;
 import kr.or.dgit.sw_project.dto.Delivery;
@@ -28,11 +30,12 @@ public class ContentDelivery extends JPanel {
 	private ComboPanel<String> tfpDeSwName; //소프트웨어이름
 	private TextFieldPanel tfpDelAmount;  //납품수량
 	private ComboPanel<String> tfpCompName; //납품회사이름
-	private TextFieldPanel tfpDelOrderDate; //납품일자
+	private DatePanel tfpDelOrderDate; //납품일자
 	private TextFieldPanel tfpSupplyAmount; //공급가격
 	private List<SupplyCompany> compList;
 	private List<Software> swList;
 	
+	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy년MM월dd일");
 	
 
 	public ContentDelivery() {
@@ -107,7 +110,7 @@ public class ContentDelivery extends JPanel {
 		
 		
 		
-		tfpDelOrderDate = new TextFieldPanel();
+		tfpDelOrderDate = new DatePanel();
 		tfpDelOrderDate.setTitle("납품일자");
 		GridBagConstraints gbc_tfpDelOrderDate = new GridBagConstraints();
 		gbc_tfpDelOrderDate.fill = GridBagConstraints.HORIZONTAL;
@@ -136,7 +139,7 @@ public class ContentDelivery extends JPanel {
 		tfpCompName.setSelectedItem(0);
 		tfpDeSwName.setSelectedItem(0);
 		tfpDelAmount.setTfValue("");
-		tfpDelOrderDate.setTfValue("");
+		tfpDelOrderDate.setTfDate("");
 		tfpSupplyAmount.setTfValue("");
 	}
 	
@@ -172,7 +175,7 @@ public class ContentDelivery extends JPanel {
 		v.removeAllElements();
 		v.add("선택해주세요");
 		for(int i=0; i<compList.size(); i++){
-			v.add(compList.get(i).toCombobox());
+			v.add(compList.get(i).comboForOnlyName());
 		}
 		tfpCompName.setComboData(v);
 		
@@ -186,22 +189,31 @@ public class ContentDelivery extends JPanel {
 		String softWare = swList.get(tfpDeSwName.getSelectedIndex()-1).getSwCode();
 		int supplyPrice =  Integer.parseInt(tfpSupplyAmount.getTfValue());
 		int supplyAmount = Integer.parseInt(tfpDelAmount.getTfValue());
-		String orderDate = tfpDelOrderDate.getTfValue();
+		String orderDate = tfpDelOrderDate.getTfDate();
 		return new Delivery(deliveryCode, new SupplyCompany(supplyCompany), new Software(softWare), supplyPrice, supplyAmount, orderDate);
 	}
-	public void setObject(Object[] deliveryObj) {//테이블의 값들 필드에 들고오기
+	/*public void setObject(Object[] deliveryObj) {//테이블의 값들 필드에 들고오기
 		// TODO Auto-generated method stub
-		tfpDelCode.setTfValue(String.valueOf(deliveryObj[0]));	
-		System.out.println(String.valueOf(deliveryObj[0]));
+		tfpDelCode.setTfValue(String.valueOf(deliveryObj[0]));			
 		tfpCompName.setSelectedItem((String)deliveryObj[1]);
 		System.out.println((String)deliveryObj[1]);
 		tfpDeSwName.setSelectedItem(String.valueOf(deliveryObj[2]));
+		System.out.println(new Software().getSwInven());
 		System.out.println(String.valueOf(deliveryObj[2]));
 		tfpSupplyAmount.setTfValue(String.valueOf(deliveryObj[3]));
 		System.out.println("==========");
-		tfpDelAmount.setTfValue(String.valueOf(deliveryObj[4]));
-		tfpDelOrderDate.setTfValue(String.valueOf(deliveryObj[5]));		
+		tfpDelAmount.setTfValue(String.valueOf(deliveryObj[4]));		
+		tfpDelOrderDate.setTfDate(String.valueOf(deliveryObj[5]));		
 		
+	}*/
+	public void setDeliveryContent(Delivery delivery){
+		tfpDelCode.setTfValue(delivery.getDelCode());			
+		tfpCompName.setSelectedItem(delivery.getSupplyCompany().getCompName());		
+		tfpDeSwName.setSelectedItem(delivery.getSoftware().getSwName()+ String.format(" (재고: %s)", delivery.getSoftware().getSwInven()));		
+		tfpSupplyAmount.setTfValue(String.valueOf(delivery.getSupplyPrice()));
+		System.out.println("====================");
+		tfpDelAmount.setTfValue(String.valueOf(delivery.getSupplyAmount()));		
+		tfpDelOrderDate.setTfDate(delivery.getOrderDate());	
 	}
 
 	public TextFieldPanel getTfpDelCode() {
@@ -218,12 +230,11 @@ public class ContentDelivery extends JPanel {
 
 	public ComboPanel<String> getTfpCompName() {
 		return tfpCompName;
-	}
+	}	
 
-	public TextFieldPanel getTfpDelOrderDate() {
+	public DatePanel getTfpDelOrderDate() {
 		return tfpDelOrderDate;
 	}
-
 	public TextFieldPanel getTfpSupplyAmount() {
 		return tfpSupplyAmount;
 	}

@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import kr.or.dgit.sw_project.dto.Delivery;
+import kr.or.dgit.sw_project.dto.JoinFromSale;
 import kr.or.dgit.sw_project.dto.Sale;
 import kr.or.dgit.sw_project.dto.SupplyCompany;
 import kr.or.dgit.sw_project.service.DeliveryService;
@@ -111,8 +112,9 @@ public class ViewDelivery extends JPanel implements ActionListener{
 		pTable.getTable().addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) { //table 클릭시 
-				Object[] deliveryObj = getTableData();
-				pContent.setObject(deliveryObj);
+				//Object[] deliveryObj = getTableData();
+				tryAgain();
+				//pContent.setObject(deliveryObj);
 				btnDelete.setEnabled(true);				
 				super.mouseClicked(e);
 			}			
@@ -122,6 +124,21 @@ public class ViewDelivery extends JPanel implements ActionListener{
 		pTable.setDeliveryList(list);
 		pTable.loadData();
 		setVisible(true);
+	}
+	public void tryAgain(){
+		String selectedCode = (String) pTable.getTable().getValueAt(pTable.getTable().getSelectedRow(), 0);		
+		int selectedIdx = 0;
+		for(int i=0; i<list.size(); i++){
+			if(list.get(i).getDelCode().equals(selectedCode)){
+				selectedIdx=i;
+				break;
+			}
+		}
+		
+			Delivery delivery = list.get(selectedIdx);
+			pContent.setDeliveryContent(delivery);
+			btnDelete.setEnabled(true);			
+		
 	}
 	private Object[] getTableData() {//each data in the table클릭시 값 넘겨줌
 		int cnt = pTable.getTable().getColumnCount();
