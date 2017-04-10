@@ -6,24 +6,27 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.List;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import kr.or.dgit.sw_project.dto.Category;
+import kr.or.dgit.sw_project.dto.Client;
 import kr.or.dgit.sw_project.dto.ViewCategorySale;
-import kr.or.dgit.sw_project.service.ClientService;
+import kr.or.dgit.sw_project.dto.ViewClientSale;
 import kr.or.dgit.sw_project.service.ViewCategorySaleService;
-import java.awt.event.ItemListener;
-import java.awt.event.ItemEvent;
+import kr.or.dgit.sw_project.service.ViewClientSaleService;
 
 public class ViewList extends JPanel implements ActionListener, ItemListener {
 	private ContentList pContent;
 	private TableList pTable;
-	
+
+	private ViewClientSale viewClientSale;
 	private List<ViewCategorySale> listCategory;
+	private List<ViewClientSale> listClinet;
 
 	public ViewList() {
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -32,7 +35,7 @@ public class ViewList extends JPanel implements ActionListener, ItemListener {
 		gridBagLayout.columnWeights = new double[]{1.0, Double.MIN_VALUE}; //각 열의 가중치
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0}; //각 행의 가중치
 		setLayout(gridBagLayout);
-		
+
 		JLabel label = new JLabel("소프트웨어 관리");
 		label.setEnabled(false);
 		label.setHorizontalAlignment(SwingConstants.CENTER);
@@ -44,18 +47,20 @@ public class ViewList extends JPanel implements ActionListener, ItemListener {
 		gbc_label.gridy = 0;
 		gbc_label.gridwidth = 5;
 		add(label, gbc_label);
-		
+
 		pContent = new ContentList();
+		pContent.getTfpClntName().getTf().addItemListener(this);
 		pContent.getTfpGroup().getTf().addItemListener(this);
 		pContent.getBtnGroupAllFind().addActionListener(this);
 		pContent.getBtnSwAllFind().addActionListener(this);
+		pContent.getBtnClntAllFind().addActionListener(this);
 		GridBagConstraints gbc_pContent = new GridBagConstraints();
 		gbc_pContent.insets = new Insets(10, 10, 30, 10);
 		gbc_pContent.fill = GridBagConstraints.NONE;
 		gbc_pContent.gridx = 0;
 		gbc_pContent.gridy = 1;
 		add(pContent, gbc_pContent);
-		
+
 		pTable = new TableList();
 		GridBagConstraints gbc_pTable = new GridBagConstraints();
 		gbc_pTable.insets = new Insets(0, 0, 0, 0);
@@ -63,28 +68,39 @@ public class ViewList extends JPanel implements ActionListener, ItemListener {
 		gbc_pTable.gridx = 0;
 		gbc_pTable.gridy = 2;
 		add(pTable, gbc_pTable);
-		
-		
+
+
 		setVisible(true);
 	}
 
-	
-	
-	
+
+
+
 	/*************************** Get Data ***************************/  
 	private void setTable(){ //Table 로드
 		getDataFromDBCategory();
 		pTable.setCategryList(listCategory);
 		pTable.setTableDataForCategori();
 	}
-	
+
 	private void getDataFromDBCategory(){ //list에 데이터베이스에서 가져온 값을 입력
 		listCategory = ViewCategorySaleService.getInsetence().selectViewCategoryAll();
+		
 	}
+	
+	private void getDataFromDBClinet(){
+		viewClientSale = new ViewClientSale();
+		listClinet = ViewClientSaleService.getInsetence().selectViewClientSaleAll(viewClientSale);
+		for(int i=0;i<listClinet.size();i++){
+			System.out.println(listClinet.get(i));
+		}
+		
+	}
+	
 	/****************************************************************/
-	
 
-	
+
+
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == pContent.getBtnGroupAllFind()) {
 			actionPerformedPContentBtnGroupAllFind(e);
@@ -92,27 +108,48 @@ public class ViewList extends JPanel implements ActionListener, ItemListener {
 		if (e.getSource() == pContent.getBtnSwAllFind()) {
 			actionPerformedPContentBtnSwAllFind(e);
 		}
+
+		if (e.getSource() == pContent.getBtnClntAllFind()) {
+			actionPerformedPContentBtnClntAllFind(e);
+		}
 	}
+	protected void actionPerformedPContentBtnClntAllFind(ActionEvent e) {
+		getDataFromDBClinet();
+		pTable.setClientList(listClinet);
+		pTable.setTableDataForClient();
+
+	}
+
 	protected void actionPerformedPContentBtnSwAllFind(ActionEvent e) {
-		
-		
-		
+
+
+
 	}
 	protected void actionPerformedPContentBtnGroupAllFind(ActionEvent e) {
 		getDataFromDBCategory();
 		pTable.setCategryList(listCategory);
 		pTable.setTableDataForCategori();
 	}
-	
-	
+
+
 	public void itemStateChanged(ItemEvent e) {
+		if (e.getSource() == pContent.getTfpClntName().getTf()) {
+			pContentTfpClntNameTfItemStateChanged(e);
+		}
 		if (e.getSource() == pContent.getTfpGroup().getTf()) {
 			pContentTfpGroupTfItemStateChanged(e);
 		}
 	}
 	protected void pContentTfpGroupTfItemStateChanged(ItemEvent e) {
-		ViewCategorySale viewCategorySale=
-	ViewCategorySaleService.getInsetence().selectViewCategoryByNo(new ViewCategorySale(new Category(listCategory.get(pContent.getTfpGroup().getSelectedIndex()-1).getCategory().getGroupCode())));
-		
+		getDataFromDBCategory();
+		pTable.setCategryList(listCategory);
+		pTable.setTableDataCategoriOne(listCategory.get(pContent.getTfpGroup().getSelectedIndex()-1));
+	}
+	protected void pContentTfpClntNameTfItemStateChanged(ItemEvent e) {
+		viewClientSale = new ViewClientSale();
+		viewClientSale.setClient(new Client((String) pContent.getTfpClntName().getSelectItem()));
+		listClinet = ViewClientSaleService.getInsetence().selectViewClientSaleAll(viewClientSale);
+		pTable.setClientList(listClinet);
+		pTable.setTableDataForClient();
 	}
 }

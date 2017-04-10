@@ -295,3 +295,5 @@ SELECT c.group_code, c.group_name,
 	GROUP BY c.group_code;
 
 select * FROM view_sale_by_category where group_code='GM';
+
+select * from view_client_sale where clnt_name;
