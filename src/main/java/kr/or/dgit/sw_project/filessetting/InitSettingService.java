@@ -14,34 +14,63 @@ import java.sql.Statement;
 import javax.swing.JOptionPane;
 
 public class InitSettingService {
-	public void initSetting(int swt) {
+	public void initSetting(int swt, int init) {
 		Dao dao = Dao.getInstance();
 		try {
-			if(swt==1){
+			if(init==1){// 초기화
 				dao.getUpdateResult("drop database if exists " + Config.DB_NAME);
 				dao.getUpdateResult("create  database if not exists " +  Config.DB_NAME);
 				dao.getUpdateResult("use " + Config.DB_NAME);
-				for(int i=0 ; i<Config.CREATE_TABLES.length ; i++){
-					dao.getUpdateResult(Config.CREATE_TABLES[i]);
+				
+				for(int i=0;i<Config.CREATE_SQL_TABLE.length;i++){
+					dao.getUpdateResult(Config.CREATE_SQL_TABLE[i]);
+					System.err.println(Config.TABLE_NAME[i]+"Table 생성완료");
 				}
-				dao.getUpdateResult(Config.CREATE_VIEW);
-				for(int i=0 ; i<Config.TABLE_NAME.length ; i++){
-					loadTableData(i);
+				for(int i=0;i<Config.CREATE_VIEW.length;i++){
+					dao.getUpdateResult(Config.CREATE_VIEW[i]);
+					System.out.println("View 생성완료");
 				}
-				JOptionPane.showMessageDialog(null, "복원 완료");
+				for(int i=0;i<Config.CRETE_TRIGGER.length;i++){
+					dao.getUpdateResult(Config.CRETE_TRIGGER[i]);
+					System.err.println("Trigger 생성완료");	
+				}
+				if(swt==1){// 복원
+					for(int i=0 ; i<Config.TABLE_NAME.length ; i++){
+						loadTableData(i); // BackupFiles폴더에 있는 파일들을 가져와 테이블에 삽입
+					}
+					JOptionPane.showMessageDialog(null, "복원 완료");
+				}
+				if(swt==0 && init==1){
+					JOptionPane.showMessageDialog(null, "초기화 완료");
+				}
 			}else{
-				for(int i=0 ; i<Config.CREATE_TABLES.length ; i++){
-					BackupTableData(i);
+				File file = new File(Config.EXPORT_IMPORT_DIR);// 현재 작업하고 있는 프로젝트 경로안의 BackupFiles폴더
+				File[] fies = file.listFiles(); // BackupFiles 안에 있는 파일들을 배열에 넣음
+				
+				if(file.exists()==false){ // 폴더 존재여부
+					file.mkdir(); // 없다면 폴더생성
 				}
-				JOptionPane.showMessageDialog(null, "백업 완료");
+				try{ // BackupFiles 안에 파일이 하나도 없는지 체크
+					for(File f : fies){ // BackupFiles 안에 있는 파일들을 하나씩 검사
+						if(f.exists()){ // 안에 파일이 존재한다면
+							f.delete(); // 파일을 지움
+						}
+					}
+				}catch(NullPointerException e){
+				}finally{
+					for(int i=0 ; i<Config.CREATE_SQL_TABLE.length ; i++){
+						BackupTableData(i); // BackupFiles에 있는 파일안의 데이터를 가져와 DB테이블에 삽입
+					}
+					JOptionPane.showMessageDialog(null, "백업 완료");
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	private void loadTableData(int tables){
-		File file = new File(Config.IMPORT_DIR+Config.TABLE_NAME[tables]);
+	private void loadTableData(int tables){// 파일 복원
+		File file = new File(Config.EXPORT_IMPORT_DIR+Config.TABLE_NAME[tables]);
 		String sql = "load data local infile '%s' "
 					+"into table "+Config.TABLE_NAME[tables]+" "
 					+"character set 'UTF8' "
@@ -51,7 +80,7 @@ public class InitSettingService {
 		executeImportData(String.format(sql,file.getAbsolutePath().replace("\\", "/")), file.getName());
 	}
 	
-	public void BackupTableData(int tables){
+	public void BackupTableData(int tables){// 파일 백업
 		String sql = "select * from "+Config.TABLE_NAME[tables];
 		Connection con = DBCon.getConnection(Config.URL+Config.DB_NAME,Config.USER,Config.PWD );
 		try(PreparedStatement pstmt = con.prepareStatement(sql); ResultSet rs = pstmt.executeQuery();){
@@ -72,7 +101,7 @@ public class InitSettingService {
 			}
 			System.out.println(sb.toString());
 			
-			try(BufferedOutputStream bw = new BufferedOutputStream(new FileOutputStream(Config.EXPORT_DIR+Config.TABLE_NAME[tables]));
+			try(BufferedOutputStream bw = new BufferedOutputStream(new FileOutputStream(Config.EXPORT_IMPORT_DIR+Config.TABLE_NAME[tables]));
 					OutputStreamWriter osw = new OutputStreamWriter(bw, "UTF-8")){
 				osw.write(sb.toString());
 				

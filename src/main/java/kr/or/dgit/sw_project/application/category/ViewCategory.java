@@ -125,7 +125,6 @@ public class ViewCategory extends JFrame implements ActionListener{
 				btnInsert.setText("수정");
 				super.mouseClicked(e);
 			}
-
 		});
 
 		pTable.setTableData();

@@ -23,7 +23,6 @@ import kr.or.dgit.sw_project.application.supplycompany.ViewSupplyCompany;
 import kr.or.dgit.sw_project.filessetting.InitSettingService;
 
 public class MainTab extends JFrame implements ActionListener {
-
 	private JPanel contentPane;
 	private JButton btnSupplyComp;
 	private JButton btnSoftWare;
@@ -38,6 +37,11 @@ public class MainTab extends JFrame implements ActionListener {
 	private JButton btnCategory;
 	private JMenuItem mntmRestore;
 	private JMenuItem mntmBackup;
+	private JMenuItem mntmNewMenuItem;
+	private JMenu mnNewMenu;
+	private JMenu mnFile;
+	private String reg;
+	private JMenuItem mntmInit;
 
 	public MainTab() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -46,16 +50,17 @@ public class MainTab extends JFrame implements ActionListener {
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 
-		JMenu mnFile = new JMenu("파일");
+		mnFile = new JMenu("파일");
 		menuBar.add(mnFile);
 
-		JMenuItem mntmInit = new JMenuItem("초기화");
+		mntmInit = new JMenuItem("초기화");
+		mntmInit.addActionListener(this);
 		mnFile.add(mntmInit);
 
 		mntmBackup = new JMenuItem("백업");
 		mntmBackup.addActionListener(this);
 		mnFile.add(mntmBackup);
-
+		
 		mntmRestore = new JMenuItem("복원");
 		mntmRestore.addActionListener(this);
 		mnFile.add(mntmRestore);
@@ -71,7 +76,6 @@ public class MainTab extends JFrame implements ActionListener {
 
 		mnSale = new JMenuItem("주문관리");
 		mnSale.addActionListener(this);
-
 
 		mnSup = new JMenuItem("공급회사관리");
 		mnSup.addActionListener(this);
@@ -150,8 +154,15 @@ public class MainTab extends JFrame implements ActionListener {
 		}
 		setVisible(true);
 	}
+	
+	public String getReg(){
+		return reg;
+	}
 
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == mntmInit) {
+			actionPerformedMntmInit(e);
+		}
 		if (e.getSource() == mntmBackup) {
 			actionPerformedMntmBackup(e);
 		}
@@ -191,11 +202,15 @@ public class MainTab extends JFrame implements ActionListener {
 	}
 	protected void actionPerformedMntmBackup(ActionEvent e) {
 		InitSettingService fileSetting = new InitSettingService();
-		fileSetting.initSetting(0);
+		fileSetting.initSetting(0, 0);
 	}
 	protected void actionPerformedMntmRestore(ActionEvent e) {
 		InitSettingService fileSetting = new InitSettingService();
-		fileSetting.initSetting(1);
+		fileSetting.initSetting(1, 1);
+	}
+	protected void actionPerformedMntmInit(ActionEvent e) {
+		InitSettingService fileSetting = new InitSettingService();
+		fileSetting.initSetting(0, 1);
 	}
 }
 
