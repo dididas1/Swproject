@@ -211,7 +211,7 @@ public class ViewSupplyCompany extends JFrame implements ActionListener{
 		//btnDelete.setEnabled(false);
 	}
 
-	
+	awegwgerwg
 	
 
 
