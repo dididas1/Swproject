@@ -1,5 +1,6 @@
 select * from view_client_sale;
 
+select * from members;
 create view view_sale_by_software as
 SELECT  distinct s.sale_code,sw.sw_code,sw.sw_name, c.group_name , su.comp_name,s.sale_isExist,
 /*공급금액*/ (vs.total_supply_price) total_supply_price,

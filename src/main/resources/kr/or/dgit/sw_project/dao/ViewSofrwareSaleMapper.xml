@@ -17,7 +17,7 @@
 	<sql id="whereSql">
 		<where>
 			<if test="software != null">
-				sw_code=#{software.swCode}
+				sw_name=#{software}
 			</if>
 		</where>
 	</sql>

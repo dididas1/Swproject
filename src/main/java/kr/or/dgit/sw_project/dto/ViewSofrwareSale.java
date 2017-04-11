@@ -38,11 +38,18 @@ public class ViewSofrwareSale {
 	//	return new String[]{"판매코드","품목명 ","분류","공급회사명","판매금액","공급금액","판매이윤"};
 		
 	
+	
 	public Object[] toArrayForTable(){
 		return new Object[]{sale.getSaleCode(),software.getSwName(),category.getGroupName(),supplyCompany.getCompName(),
 							String.format("%,d", sale.getSaleDetail().getTotalSalePrice()),
 							String.format("%,d", sale.getSaleDetail().getTotalSupplyPrice()),
 							String.format("%,d", sale.getSaleDetail().getMargin())};
+	}
+
+	@Override
+	public String toString() {
+		return String.format("ViewSofrwareSale [software=%s, category=%s, sale=%s, supplyCompany=%s]", software,
+				category, sale, supplyCompany);
 	}
 	
 	

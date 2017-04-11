@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import kr.or.dgit.sw_project.dto.Client;
+import kr.or.dgit.sw_project.dto.Software;
 import kr.or.dgit.sw_project.dto.ViewCategorySale;
 import kr.or.dgit.sw_project.dto.ViewClientSale;
 import kr.or.dgit.sw_project.dto.ViewSofrwareSale;
@@ -26,12 +27,9 @@ public class ViewList extends JPanel implements ActionListener, ItemListener {
 	private ContentList pContent;
 	private TableList pTable;
 
-	private ViewSofrwareSale viewSofrwareSale;
-	private ViewClientSale viewClientSale;
 	private List<ViewCategorySale> listCategory;
 	private List<ViewClientSale> listClinet;
 	private List<ViewSofrwareSale> listSoftware;
-	
 	
 	public ViewList() {
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -54,6 +52,7 @@ public class ViewList extends JPanel implements ActionListener, ItemListener {
 		add(label, gbc_label);
 
 		pContent = new ContentList();
+		pContent.getTfpSwName().getTf().addItemListener(this);
 		pContent.getTfpClntName().getTf().addItemListener(this);
 		pContent.getTfpGroup().getTf().addItemListener(this);
 		pContent.getBtnGroupAllFind().addActionListener(this);
@@ -90,20 +89,18 @@ public class ViewList extends JPanel implements ActionListener, ItemListener {
 
 	private void getDataFromDBCategory(){ //list에 데이터베이스에서 가져온 값을 입력 카테고리
 		listCategory = ViewCategorySaleService.getInsetence().selectViewCategoryAll();
-		
 	}
 	
 	private void getDataFromDBClinet(){ //list에 데이터베이스에서 가져온 값을 입력 클라이언트
-		viewClientSale = new ViewClientSale();
+		ViewClientSale viewClientSale = new ViewClientSale();
 		listClinet = ViewClientSaleService.getInsetence().selectViewClientSaleAll(viewClientSale);
-		
-	}
 	
+	}
 
 	private void getDataFromDBSoftware(){ //list에 데이터베이스에서 가져온 값을 입력 클라이언트
-		viewSofrwareSale = new ViewSofrwareSale();
+		ViewSofrwareSale viewSofrwareSale = new ViewSofrwareSale();
+		System.out.println(viewSofrwareSale);
 		listSoftware = ViewSoftwareSaleService.getInstence().selectViewSofrwareSaleAll(viewSofrwareSale);
-		
 	}
 	
 	/****************************************************************/
@@ -146,6 +143,9 @@ public class ViewList extends JPanel implements ActionListener, ItemListener {
 
 
 	public void itemStateChanged(ItemEvent e) {
+		if (e.getSource() == pContent.getTfpSwName().getTf()) {
+			itemStateChangedPContentTfpSwNameTf(e);
+		}
 		if (e.getSource() == pContent.getTfpClntName().getTf()) {
 			pContentTfpClntNameTfItemStateChanged(e);
 		}
@@ -159,14 +159,22 @@ public class ViewList extends JPanel implements ActionListener, ItemListener {
 		getDataFromDBCategory();
 		pTable.setCategryList(listCategory);
 		pTable.setTableDataCategoriOne(listCategory.get(pContent.getTfpGroup().getSelectedIndex()-1));
+		
 	}
 	
 	
 	protected void pContentTfpClntNameTfItemStateChanged(ItemEvent e) { // 클라이언트 콤보박스 선택
-		viewClientSale = new ViewClientSale();
-		viewClientSale.setClient(new Client((String) pContent.getTfpClntName().getSelectItem()));
+		ViewClientSale viewClientSale = new ViewClientSale();
+		viewClientSale.setClient(new Client(null,(String) pContent.getTfpClntName().getSelectItem()));
 		listClinet = ViewClientSaleService.getInsetence().selectViewClientSaleAll(viewClientSale);
 		pTable.setClientList(listClinet);
 		pTable.setTableDataForClient();
+	}
+	protected void itemStateChangedPContentTfpSwNameTf(ItemEvent e) { // 소프트웨어 콤보박스 선택
+		ViewSofrwareSale viewSofrwareSale = new ViewSofrwareSale();
+		viewSofrwareSale.setSoftware(new Software(null, (String) pContent.getTfpSwName().getSelectItem()));
+		listSoftware = ViewSoftwareSaleService.getInstence().selectViewSofrwareSaleAll(viewSofrwareSale);
+		pTable.setSoftwareList(listSoftware);
+		pTable.setTableDataForSoftware();
 	}
 }

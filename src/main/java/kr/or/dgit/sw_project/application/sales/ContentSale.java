@@ -140,8 +140,9 @@ public class ContentSale extends JPanel {
 		}else{
 			isDeposit=false;
 		}
-
-		return new Sale(saleCode, new Client(null, client, null, null), new Software(software), saleAmount, isDeposit ,orderDate, supplyPrice, salePrice);
+		Client cli= new Client();
+		cli.setClntCode(client);
+		return new Sale(saleCode, cli, new Software(software), saleAmount, isDeposit ,orderDate, supplyPrice, salePrice);
 	}
 
 

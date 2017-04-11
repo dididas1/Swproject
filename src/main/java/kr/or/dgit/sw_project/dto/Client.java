@@ -15,9 +15,17 @@ public class Client {
 	
 	
 	
-	public Client(String clntName) {
+	
+
+	public Client(String clntCode, String clntName) {
+		super();
+		this.clntCode = clntCode;
 		this.clntName = clntName;
 	}
+
+
+
+
 
 	public Client(String clntCode, String clntName, String clntAddr, String clntTel) {
 		this.clntCode = clntCode;

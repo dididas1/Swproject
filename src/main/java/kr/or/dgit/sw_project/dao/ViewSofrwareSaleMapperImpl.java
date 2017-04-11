@@ -6,7 +6,6 @@ import org.apache.ibatis.logging.Log;
 import org.apache.ibatis.logging.LogFactory;
 import org.apache.ibatis.session.SqlSession;
 
-import kr.or.dgit.sw_project.dto.ViewClientSale;
 import kr.or.dgit.sw_project.dto.ViewSofrwareSale;
 
 public class ViewSofrwareSaleMapperImpl implements ViewSofrwareSaleMapper{
