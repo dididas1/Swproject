@@ -12,9 +12,11 @@ public class Client {
 	private List<Sale> sale;
 	
 	public Client() {}
-
-	public Client(String clntCode) {
-		this.clntCode = clntCode;
+	
+	
+	
+	public Client(String clntName) {
+		this.clntName = clntName;
 	}
 
 	public Client(String clntCode, String clntName, String clntAddr, String clntTel) {

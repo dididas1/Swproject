@@ -17,17 +17,22 @@ import javax.swing.SwingConstants;
 import kr.or.dgit.sw_project.dto.Client;
 import kr.or.dgit.sw_project.dto.ViewCategorySale;
 import kr.or.dgit.sw_project.dto.ViewClientSale;
+import kr.or.dgit.sw_project.dto.ViewSofrwareSale;
 import kr.or.dgit.sw_project.service.ViewCategorySaleService;
 import kr.or.dgit.sw_project.service.ViewClientSaleService;
+import kr.or.dgit.sw_project.service.ViewSoftwareSaleService;
 
 public class ViewList extends JPanel implements ActionListener, ItemListener {
 	private ContentList pContent;
 	private TableList pTable;
 
+	private ViewSofrwareSale viewSofrwareSale;
 	private ViewClientSale viewClientSale;
 	private List<ViewCategorySale> listCategory;
 	private List<ViewClientSale> listClinet;
-
+	private List<ViewSofrwareSale> listSoftware;
+	
+	
 	public ViewList() {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0}; //각 열의 최소 넓이  
@@ -94,6 +99,13 @@ public class ViewList extends JPanel implements ActionListener, ItemListener {
 		
 	}
 	
+
+	private void getDataFromDBSoftware(){ //list에 데이터베이스에서 가져온 값을 입력 클라이언트
+		viewSofrwareSale = new ViewSofrwareSale();
+		listSoftware = ViewSoftwareSaleService.getInstence().selectViewSofrwareSaleAll(viewSofrwareSale);
+		
+	}
+	
 	/****************************************************************/
 
 
@@ -119,8 +131,10 @@ public class ViewList extends JPanel implements ActionListener, ItemListener {
 	}
 
 	protected void actionPerformedPContentBtnSwAllFind(ActionEvent e) {
-
-
+		getDataFromDBSoftware();
+		pTable.setSoftwareList(listSoftware);
+		pTable.setTableDataForSoftware();;
+		pContent.getTfpSwName().setSelectedItem(0);
 
 	}
 	protected void actionPerformedPContentBtnGroupAllFind(ActionEvent e) { //카테고리 전체검색

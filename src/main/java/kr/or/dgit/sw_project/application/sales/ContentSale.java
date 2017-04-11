@@ -128,6 +128,7 @@ public class ContentSale extends JPanel {
 	public Sale getObject(){  //개짱나서 디지는줄 겟오브젝트
 		boolean isDeposit;
 		String saleCode = tfpSaleCode.getTfValue();
+		System.out.println(listCl.get(tfpClntName.getSelectedIndex()-1).getClntCode());
 		String client = listCl.get(tfpClntName.getSelectedIndex()-1).getClntCode();
 		String software = listSw.get(tfpSwName.getSelectedIndex()-1).getSwCode();
 		int saleAmount = Integer.parseInt(tfpSaleAmount.getTfValue());
@@ -140,7 +141,7 @@ public class ContentSale extends JPanel {
 			isDeposit=false;
 		}
 
-		return new Sale(saleCode, new Client(client), new Software(software), saleAmount, isDeposit ,orderDate, supplyPrice, salePrice);
+		return new Sale(saleCode, new Client(null, client, null, null), new Software(software), saleAmount, isDeposit ,orderDate, supplyPrice, salePrice);
 	}
 
 

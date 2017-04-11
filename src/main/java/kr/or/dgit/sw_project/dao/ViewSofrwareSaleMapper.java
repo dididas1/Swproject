@@ -1,5 +1,9 @@
 package kr.or.dgit.sw_project.dao;
 
-public interface ViewSofrwareSaleMapper {
+import java.util.List;
 
+import kr.or.dgit.sw_project.dto.ViewSofrwareSale;
+
+public interface ViewSofrwareSaleMapper {
+	 List<ViewSofrwareSale> selectViewSofrwareSaleAll(ViewSofrwareSale viewSofrwareSale);
 }

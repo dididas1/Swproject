@@ -11,6 +11,7 @@ import javax.swing.table.DefaultTableModel;
 
 import kr.or.dgit.sw_project.dto.ViewCategorySale;
 import kr.or.dgit.sw_project.dto.ViewClientSale;
+import kr.or.dgit.sw_project.dto.ViewSofrwareSale;
 
 public class TableList extends JPanel{
 	
@@ -18,6 +19,7 @@ public class TableList extends JPanel{
 	
 	private List<ViewCategorySale> listCategory;
 	private List<ViewClientSale> listClient;
+	private List<ViewSofrwareSale> listSoftware;
 	
 	
 	
@@ -39,6 +41,9 @@ public class TableList extends JPanel{
 		table.setModel(new DefaultTableModel(getRowDateForClient(), getColummForClient()));
 	}
 	
+	public void setTableDataForSoftware(){ //클라이언트 테이블에 입력
+		table.setModel(new DefaultTableModel(getRowDateForSoftware(), getColummForSoftware()));
+	}
 	
 	public void setTableDataCategoriOne(ViewCategorySale viewCategorySale){ //카테고리 선택... 테이블에 입력
 		table.setModel(new DefaultTableModel(new Object[][]	{{viewCategorySale.getCategory().getGroupCode(),
@@ -56,6 +61,10 @@ public class TableList extends JPanel{
 		
 	}
 	
+	public Object[] getColummForSoftware() { //클라이언트 Columm
+		return new String[]{"판매코드","품목명 ","분류","공급회사명","판매금액","공급금액","판매이윤"};
+		
+	}
 	
 	private Object[][] getRowDateForCategori() {  //카테고리 row
 		List<ViewCategorySale> listForTable = new ArrayList<ViewCategorySale>(listCategory);
@@ -81,6 +90,15 @@ public class TableList extends JPanel{
 		return datas;
 	}
 	
+	private Object[][] getRowDateForSoftware() {  //카테고리 row
+		List<ViewSofrwareSale> listForTable = new ArrayList<ViewSofrwareSale>(listSoftware);
+		Object[][] datas = new Object[listForTable.size()][];
+		for (int i = 0; i < datas.length; i++) {
+			datas[i] = listForTable.get(i).toArrayForTable();
+		}
+		return datas;
+	}
+	
 	
 	public JTable getTable() {
 		return table;
@@ -94,6 +112,10 @@ public class TableList extends JPanel{
 		this.listClient = listClient;
 	}
 	
+	public void setSoftwareList(List<ViewSofrwareSale> listSoftware) {
+		this.listSoftware = listSoftware;
+	}
+	
 	public List<ViewCategorySale> getCategryList(){
 		return listCategory;
 	}
@@ -101,6 +123,11 @@ public class TableList extends JPanel{
 	public List<ViewClientSale> getClientList(){
 		return listClient;
 	}
+	
+	public List<ViewSofrwareSale> getSoftwareList(){
+		return listSoftware;
+	}
+	
 	
 	
 }

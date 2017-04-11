@@ -11,6 +11,16 @@ public class ViewClientSale {
 	}
 	
 	
+	
+	public ViewClientSale(Client client, Sale sale, Software software) {
+		super();
+		this.client = client;
+		this.sale = sale;
+		this.software = software;
+	}
+
+
+
 	public Client getClient() {
 		return client;
 	}
@@ -41,5 +51,10 @@ public class ViewClientSale {
 				String.format("%,d",sale.getSalePrice()),String.format("%,d",sale.getSaleDetail().getTotalSalePrice()),sale.isDeposit()?"입금완료":"미입금",
 						String.format("%,d",sale.getSaleDetail().getReceivablePrice())};
 	}
+
+
+
+	
+	
 	
 }
