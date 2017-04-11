@@ -5,5 +5,6 @@ import java.util.List;
 import kr.or.dgit.sw_project.dto.ViewSofrwareSale;
 
 public interface ViewSofrwareSaleMapper {
-	 List<ViewSofrwareSale> selectViewSofrwareSaleAll(ViewSofrwareSale viewSofrwareSale);
+	 List<ViewSofrwareSale> selectViewSofrwareSaleAll();
+	 List<ViewSofrwareSale> selectViewsoftwareSaleBySwName(ViewSofrwareSale viewSofrwareSale);
 }

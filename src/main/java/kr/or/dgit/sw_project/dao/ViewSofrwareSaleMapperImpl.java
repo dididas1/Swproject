@@ -18,9 +18,15 @@ public class ViewSofrwareSaleMapperImpl implements ViewSofrwareSaleMapper{
 	}
 
 	@Override
-	public List<ViewSofrwareSale> selectViewSofrwareSaleAll(ViewSofrwareSale viewSofrwareSale) {
+	public List<ViewSofrwareSale> selectViewSofrwareSaleAll() {
 		log.debug("selectViewSofrwareSaleAll()");
-		return sqlSession.selectList(nameSpace + "selectViewSofrwareSaleAll",viewSofrwareSale);
+		return sqlSession.selectList(nameSpace + "selectViewSofrwareSaleAll");
+	}
+
+	@Override
+	public List<ViewSofrwareSale> selectViewsoftwareSaleBySwName(ViewSofrwareSale viewSofrwareSale) {
+		log.debug("selectViewsoftwareSaleBySwName()");
+		return sqlSession.selectList(nameSpace + "selectViewsoftwareSaleBySwName", viewSofrwareSale);
 	}
 
 }

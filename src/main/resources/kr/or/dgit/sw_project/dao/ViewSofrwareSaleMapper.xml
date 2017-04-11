@@ -16,14 +16,18 @@
 	</sql>	
 	<sql id="whereSql">
 		<where>
-			<if test="software != null">
+			<if test="software.swName != null">
 				sw_name=#{software}
 			</if>
 		</where>
 	</sql>
 	
-	<select id="selectViewSofrwareSaleAll" parameterType="ViewSofrwareSale" resultMap="ViewSofrwareSaleResult">
+	<select id="selectViewSofrwareSaleAll"  resultMap="ViewSofrwareSaleResult">
 		<include refid="selectSql"/>
-		<include refid="whereSql"/>
+	</select>
+	
+	<select id="selectViewsoftwareSaleBySwName" resultMap="ViewSofrwareSaleResult">
+		<include refid="selectSql"/>
+		where sw_name=#{software.swName}
 	</select>
 </mapper>

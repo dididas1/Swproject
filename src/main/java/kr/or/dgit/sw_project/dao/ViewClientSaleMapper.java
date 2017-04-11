@@ -5,5 +5,6 @@ import java.util.List;
 import kr.or.dgit.sw_project.dto.ViewClientSale;
 
 public interface ViewClientSaleMapper {
-	List<ViewClientSale> selectViewClientSaleAll(ViewClientSale viewClientSale);
-}
+	List<ViewClientSale> selectViewClientSaleAll();
+	List<ViewClientSale> selectViewClientSaleClntName(ViewClientSale viewClientSale);
+} 

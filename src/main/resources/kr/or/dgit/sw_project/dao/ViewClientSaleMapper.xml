@@ -16,7 +16,11 @@
 			</if>
 		</where>
 	</sql>
-	<select id="selectViewClientSaleAll" resultMap="ViewClintSaleResult" parameterType="ViewClientSale">
+	<select id="selectViewClientSaleAll" resultMap="ViewClintSaleResult" >
+		<include refid="selectSql"/>
+	</select>
+	
+	<select id="selectViewClientSaleClntName" resultMap="ViewClintSaleResult" >
 		<include refid="selectSql"/>
 		<include refid="whereSql"/>
 	</select>

@@ -25,10 +25,17 @@ public class ViewSoftwareSaleService {
 
 
 
-	public List<ViewSofrwareSale> selectViewSofrwareSaleAll(ViewSofrwareSale viewSofrwareSale) {
+	public List<ViewSofrwareSale> selectViewSofrwareSaleAll() {
 		try (SqlSession sqlSession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
 			ViewSofrwareSaleMapper viewSofrwareSaleMapper = new ViewSofrwareSaleMapperImpl(sqlSession);
-			return viewSofrwareSaleMapper.selectViewSofrwareSaleAll(viewSofrwareSale);
+			return viewSofrwareSaleMapper.selectViewSofrwareSaleAll();
+		} 
+	}
+	
+	public List<ViewSofrwareSale> selectViewsoftwareSaleBySwName(ViewSofrwareSale viewSofrwareSale) {
+		try (SqlSession sqlSession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
+			ViewSofrwareSaleMapper viewSofrwareSaleMapper = new ViewSofrwareSaleMapperImpl(sqlSession);
+			return viewSofrwareSaleMapper.selectViewsoftwareSaleBySwName(viewSofrwareSale);
 		} 
 	}
 }

@@ -18,10 +18,17 @@ public static final ViewClientSaleService insetence= new ViewClientSaleService()
 	public static ViewClientSaleService getInsetence() {
 		return insetence;
 	}
-	public List<ViewClientSale> selectViewClientSaleAll(ViewClientSale viewClientSale) {
+	public List<ViewClientSale> selectViewClientSaleAll() {
 		try (SqlSession sqlSession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
 			ViewClientSaleMapper viewClientSaleMapper = new ViewClientSaleMapperImpl(sqlSession);
-			return viewClientSaleMapper.selectViewClientSaleAll(viewClientSale);
+			return viewClientSaleMapper.selectViewClientSaleAll();
+		} 
+	}
+	
+	public List<ViewClientSale> selectViewClientSaleClntName(ViewClientSale viewClientSale) {
+		try (SqlSession sqlSession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
+			ViewClientSaleMapper viewClientSaleMapper = new ViewClientSaleMapperImpl(sqlSession);
+			return viewClientSaleMapper.selectViewClientSaleClntName(viewClientSale);
 		} 
 	}
 }

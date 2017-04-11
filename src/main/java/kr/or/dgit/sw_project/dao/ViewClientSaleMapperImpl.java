@@ -18,9 +18,15 @@ public class ViewClientSaleMapperImpl implements ViewClientSaleMapper {
 	}
 
 	@Override
-	public List<ViewClientSale> selectViewClientSaleAll(ViewClientSale viewClientSale) {
+	public List<ViewClientSale> selectViewClientSaleAll() {
 		log.debug("selectViewClientSaleAll()");
-		return sqlSession.selectList(nameSpace + "selectViewClientSaleAll",viewClientSale);
+		return sqlSession.selectList(nameSpace + "selectViewClientSaleAll");
+	}
+
+	@Override
+	public List<ViewClientSale> selectViewClientSaleClntName(ViewClientSale viewClientSale) {
+		log.debug("selectViewClientSaleClntName()");
+		return sqlSession.selectList(nameSpace + "selectViewClientSaleClntName" , viewClientSale);
 	}
 
 }

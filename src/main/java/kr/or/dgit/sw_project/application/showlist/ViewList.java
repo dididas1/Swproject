@@ -11,6 +11,7 @@ import java.awt.event.ItemListener;
 import java.util.List;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
@@ -30,7 +31,7 @@ public class ViewList extends JPanel implements ActionListener, ItemListener {
 	private List<ViewCategorySale> listCategory;
 	private List<ViewClientSale> listClinet;
 	private List<ViewSofrwareSale> listSoftware;
-	
+
 	public ViewList() {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0}; //각 열의 최소 넓이  
@@ -90,19 +91,16 @@ public class ViewList extends JPanel implements ActionListener, ItemListener {
 	private void getDataFromDBCategory(){ //list에 데이터베이스에서 가져온 값을 입력 카테고리
 		listCategory = ViewCategorySaleService.getInsetence().selectViewCategoryAll();
 	}
-	
+
 	private void getDataFromDBClinet(){ //list에 데이터베이스에서 가져온 값을 입력 클라이언트
-		ViewClientSale viewClientSale = new ViewClientSale();
-		listClinet = ViewClientSaleService.getInsetence().selectViewClientSaleAll(viewClientSale);
-	
+		listClinet = ViewClientSaleService.getInsetence().selectViewClientSaleAll();
+
 	}
 
 	private void getDataFromDBSoftware(){ //list에 데이터베이스에서 가져온 값을 입력 클라이언트
-		ViewSofrwareSale viewSofrwareSale = new ViewSofrwareSale();
-		System.out.println(viewSofrwareSale);
-		listSoftware = ViewSoftwareSaleService.getInstence().selectViewSofrwareSaleAll(viewSofrwareSale);
+		listSoftware = ViewSoftwareSaleService.getInstence().selectViewSofrwareSaleAll();
 	}
-	
+
 	/****************************************************************/
 
 
@@ -153,28 +151,39 @@ public class ViewList extends JPanel implements ActionListener, ItemListener {
 			pContentTfpGroupTfItemStateChanged(e);
 		}
 	}
-	
-	
+
+
 	protected void pContentTfpGroupTfItemStateChanged(ItemEvent e) { // 카테고리 콤보박스선택
-		getDataFromDBCategory();
-		pTable.setCategryList(listCategory);
-		pTable.setTableDataCategoriOne(listCategory.get(pContent.getTfpGroup().getSelectedIndex()-1));
-		
+		if(pContent.getTfpGroup().getSelectedIndex()!=0){
+			getDataFromDBCategory();
+			pTable.setCategryList(listCategory);
+			pTable.setTableDataCategoriOne(listCategory.get(pContent.getTfpGroup().getSelectedIndex()-1));
+			pContent.getTfpClntName().setSelectedItem(0);
+			pContent.getTfpSwName().setSelectedItem(0);
+		}
 	}
-	
-	
+
 	protected void pContentTfpClntNameTfItemStateChanged(ItemEvent e) { // 클라이언트 콤보박스 선택
-		ViewClientSale viewClientSale = new ViewClientSale();
-		viewClientSale.setClient(new Client(null,(String) pContent.getTfpClntName().getSelectItem()));
-		listClinet = ViewClientSaleService.getInsetence().selectViewClientSaleAll(viewClientSale);
-		pTable.setClientList(listClinet);
-		pTable.setTableDataForClient();
+		if(pContent.getTfpClntName().getSelectedIndex()!=0){
+			ViewClientSale viewClientSale = new ViewClientSale();
+			viewClientSale.setClient(new Client(null,(String) pContent.getTfpClntName().getSelectItem()));
+			listClinet = ViewClientSaleService.getInsetence().selectViewClientSaleClntName(viewClientSale);
+			pTable.setClientList(listClinet);
+			pTable.setTableDataForClient();
+			pContent.getTfpGroup().setSelectedItem(0);
+			pContent.getTfpSwName().setSelectedItem(0);
+		}
 	}
+
 	protected void itemStateChangedPContentTfpSwNameTf(ItemEvent e) { // 소프트웨어 콤보박스 선택
-		ViewSofrwareSale viewSofrwareSale = new ViewSofrwareSale();
-		viewSofrwareSale.setSoftware(new Software(null, (String) pContent.getTfpSwName().getSelectItem()));
-		listSoftware = ViewSoftwareSaleService.getInstence().selectViewSofrwareSaleAll(viewSofrwareSale);
-		pTable.setSoftwareList(listSoftware);
-		pTable.setTableDataForSoftware();
+		if(pContent.getTfpSwName().getSelectedIndex()!=0){
+			ViewSofrwareSale viewSofrwareSale = new ViewSofrwareSale();
+			viewSofrwareSale.setSoftware(new Software(null, (String) pContent.getTfpSwName().getSelectItem()));
+			listSoftware = ViewSoftwareSaleService.getInstence().selectViewsoftwareSaleBySwName(viewSofrwareSale);
+			pTable.setSoftwareList(listSoftware);
+			pTable.setTableDataForSoftware();
+			pContent.getTfpClntName().setSelectedItem(0);
+			pContent.getTfpGroup().setSelectedItem(0);
+		}
 	}
 }
