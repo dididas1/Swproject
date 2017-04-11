@@ -139,7 +139,7 @@ public class ContentDelivery extends JPanel {
 		tfpCompName.setSelectedItem(0);
 		tfpDeSwName.setSelectedItem(0);
 		tfpDelAmount.setTfValue("");
-		tfpDelOrderDate.setTfDate("");
+		//tfpDelOrderDate.setTfDate("");
 		tfpSupplyAmount.setTfValue("");
 	}
 	
@@ -197,19 +197,19 @@ public class ContentDelivery extends JPanel {
 		tfpDelCode.setTfValue(String.valueOf(deliveryObj[0]));			
 		tfpCompName.setSelectedItem((String)deliveryObj[1]);
 		System.out.println((String)deliveryObj[1]);
-		tfpDeSwName.setSelectedItem(String.valueOf(deliveryObj[2]));
-		System.out.println(new Software().getSwInven());
-		System.out.println(String.valueOf(deliveryObj[2]));
+		tfpDeSwName.setSelectedItem(String.valueOf(deliveryObj[2]));		
 		tfpSupplyAmount.setTfValue(String.valueOf(deliveryObj[3]));
 		System.out.println("==========");
 		tfpDelAmount.setTfValue(String.valueOf(deliveryObj[4]));		
 		tfpDelOrderDate.setTfDate(String.valueOf(deliveryObj[5]));		
 		
 	}*/
-	public void setDeliveryContent(Delivery delivery){
+	public void setDeliveryContent(Delivery delivery){ //테이블 클릭시 필드에 값 띄우기
 		tfpDelCode.setTfValue(delivery.getDelCode());			
 		tfpCompName.setSelectedItem(delivery.getSupplyCompany().getCompName());		
-		tfpDeSwName.setSelectedItem(delivery.getSoftware().getSwName()+ String.format(" (재고: %s)", delivery.getSoftware().getSwInven()));		
+		tfpDeSwName.setSelectedItem(delivery.getSoftware().getSwName()+ String.format(" (재고: %s)", delivery.getSoftware().getSwInven()));
+		//System.out.println(delivery.getSoftware().getSwInven());
+		System.out.println(SoftwareService.getInstance().selectSoftwareByAll());
 		tfpSupplyAmount.setTfValue(String.valueOf(delivery.getSupplyPrice()));
 		System.out.println("====================");
 		tfpDelAmount.setTfValue(String.valueOf(delivery.getSupplyAmount()));		

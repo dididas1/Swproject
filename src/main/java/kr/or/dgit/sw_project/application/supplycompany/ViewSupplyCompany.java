@@ -104,8 +104,8 @@ public class ViewSupplyCompany extends JFrame implements ActionListener{
 		pButton.add(btnCancle, gbc_btnCancle);
 
 		btnDelete = new JButton("삭제");
-		GridBagConstraints gbc_btnDelete = new GridBagConstraints();
-		btnDelete.setEnabled(false);
+		btnDelete.addActionListener(this);
+		GridBagConstraints gbc_btnDelete = new GridBagConstraints();		
 		gbc_btnDelete.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnDelete.gridx = 2;
 		gbc_btnDelete.gridy = 0;
@@ -120,28 +120,32 @@ public class ViewSupplyCompany extends JFrame implements ActionListener{
 		pTable.getTable().addMouseListener(new MouseAdapter() {
 
 			@Override
-			public void mouseClicked(MouseEvent e) { //테이블 클릭시 작동
-				SupplyCompany su = getSupplyDataObject();
-				pContent.setObject(su);
+			public void mouseClicked(MouseEvent e) { //테이블 클릭시 작동				
+				Object[] supplyCompanyObj = getTableData();				
+				pContent.setObject(supplyCompanyObj);
 				btnDelete.setEnabled(true);
 				btnInsert.setText("수정");
 				super.mouseClicked(e);
 			}
 
 		});
-		getDataFromDB();
-		pTable.setList(list);
+		list = SupplyCompService.getInstance().selectSupplyCompByAll();
+		pTable.setSupplyList(list);
 		pTable.setTableData();
 		setVisible(true);
 	}
-
-	public SupplyCompany getSupplyDataObject() { //클릭된 인덱스의 코드를 받아와 클라이언트 넘버검색후 리턴
-		int selectedidx= pTable.getTable().getSelectedRow();
-		if(selectedidx==-1)return null;
-		String no=(String) pTable.getTable().getValueAt(selectedidx, 0);
-		SupplyCompany su = SupplyCompService.getInstance().selectCompByNo(new SupplyCompany(no));
-		return su;
+	private Object[] getTableData() {//each data in the table클릭시 값 넘겨줌
+		int cnt = pTable.getTable().getColumnCount();
+		System.out.println(cnt);
+		int tableRowData = pTable.getTable().getSelectedRow();
+		System.out.println(tableRowData);
+		Object[] obj = new Object[cnt];
+		for(int i=0; i<cnt; i++){
+			obj[i] = pTable.getTable().getValueAt(tableRowData, i);
+		}		
+		return obj;
 	}
+	
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnCancle) {
@@ -157,36 +161,42 @@ public class ViewSupplyCompany extends JFrame implements ActionListener{
 	private void btnInsertActionPerformed(ActionEvent e) { //입력 수정 테이블 인덱스 클릭시 수정으로 변함
 		if(e.getActionCommand().equals("입력")){
 			if(pContent.isEmptyCheck()){
-				JOptionPane.showMessageDialog(null, "공란이 있습니다");
+				JOptionPane.showMessageDialog(null, "입력해야될 값이 있습니다. 확인하세요");
 			}else{
 				if(JOptionPane.showConfirmDialog(null, "입력하시겠습니까?")==JOptionPane.YES_OPTION){
 					SupplyCompService.getInstance().insertCompItem(pContent.getObject());
-					setTable();
-					pContent.initSetting();
+					list = SupplyCompService.getInstance().selectSupplyCompByAll();
+					pTable.setSupplyList(list);
+					pTable.setTableData();
+					pContent.resetField();
+					
 				}
 			}
 		}else if(e.getActionCommand().equals("수정")){ //수정으로 변경
-			if(JOptionPane.showConfirmDialog(null, "수정하시겠습니까?")==JOptionPane.YES_OPTION){
-				SupplyCompService.getInstance().updateCompItem(pContent.getObject());
-				setTable();
+			if(JOptionPane.showConfirmDialog(null, "정말 수정하시겠습니까?")==JOptionPane.YES_OPTION){
+				SupplyCompService.getInstance().updateCompItem(pContent.getObject());				
+				pTable.setTableData();
 				btnInsert.setText("입력");
-				pContent.initSetting();
+				pContent.resetField();
 			}else{
-				JOptionPane.showMessageDialog(null, "취소되었습니다");
-				pContent.initSetting();
+				JOptionPane.showMessageDialog(null, "취소되었습니당.");
+				pContent.resetField();
 				btnInsert.setText("입력");
 				btnDelete.setEnabled(false);
 			}
 		}
 	}
 
-	private void btnDeleteActionPerformed(ActionEvent e) { //삭제구현
+	private void btnDeleteActionPerformed(ActionEvent e) { //논리삭제구현
+		System.out.println("=========");
 		if(JOptionPane.showConfirmDialog(null, "삭제하겠습니까?")==JOptionPane.YES_OPTION){
-			SupplyCompService.getInstance().existCompItem(pContent.getObject());
-			setTable();
-			pContent.initSetting();
+			SupplyCompService.getInstance().existCompItem(new SupplyCompany(pContent.getTfpSupplyCompanyCode().getTfValue()));
+			list=SupplyCompService.getInstance().selectSupplyCompByAll();
+			pTable.setSupplyList(list);
+			pTable.setTableData();
+			pContent.resetField();
 			btnInsert.setText("입력");
-			btnDelete.setEnabled(false);
+			//btnDelete.setEnabled(false);
 		}else{
 				JOptionPane.showMessageDialog(null, "취소되었습니다");
 			
@@ -194,24 +204,13 @@ public class ViewSupplyCompany extends JFrame implements ActionListener{
 	}
 	
 	private void btnCancleActionPerformed(ActionEvent e) { //취소버튼
-		pContent.initSetting();
+		pContent.resetField();
 		btnInsert.setText("입력");
-		btnDelete.setEnabled(false);
+		//btnDelete.setEnabled(false);
 	}
-	/***********************************************************************/
+
 	
 	
-	/*************************** Get Data ***************************/  
-	private void setTable(){ //Table 로드
-		getDataFromDB();
-		pTable.setList(list);
-		pTable.setTableData();
-	}
-	
-	private void getDataFromDB(){ //list에 데이터베이스에서 가져온 값을 입력
-		list = SupplyCompService.getInstance().selectSupplyCompByAll();
-	}
-	/****************************************************************/
 
 
 }

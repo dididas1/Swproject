@@ -44,6 +44,6 @@ public class SupplyCompMapperImpl implements SupplyCompMapper{
 	@Override
 	public int existCompItem(SupplyCompany supplyCompany) {
 		log.debug("existCompItem()");
-		return sqlSession.update(nameSpace + "selectSupplyCompByAll",supplyCompany);
+		return sqlSession.update(nameSpace + "existCompItem",supplyCompany);
 	}
 }

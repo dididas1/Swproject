@@ -16,7 +16,7 @@
 	<!-- Select SQL -->
     <sql id="selectSQL">
 		SELECT DISTINCT del.del_code,sc.comp_name,sw.sw_name,del.supply_price,del.supply_amount,
-				del.order_date, del.del_isExist
+				del.order_date, del.del_isExist, sw.sw_inven
 			 FROM delivery del 
 			JOIN software sw ON del.sw_code = sw.sw_code
 			JOIN supply_company sc ON sc.comp_code = del.comp_code	</sql>

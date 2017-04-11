@@ -10,7 +10,7 @@ import kr.or.dgit.sw_project.dto.SupplyCompany;
 import kr.or.dgit.sw_project.util.MyBatisSqlSessionFactory;
 public class SupplyCompService {
 	public static final SupplyCompService instance = new SupplyCompService();
-	private SupplyCompService() {}
+	public SupplyCompService() {}
 	public static SupplyCompService getInstance(){
 		return instance;
 	}

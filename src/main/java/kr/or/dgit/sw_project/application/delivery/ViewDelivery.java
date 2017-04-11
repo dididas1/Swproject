@@ -113,7 +113,7 @@ public class ViewDelivery extends JPanel implements ActionListener{
 			@Override
 			public void mouseClicked(MouseEvent e) { //table 클릭시 
 				//Object[] deliveryObj = getTableData();
-				tryAgain();
+				showFieldFromTable();
 				//pContent.setObject(deliveryObj);
 				btnDelete.setEnabled(true);				
 				super.mouseClicked(e);
@@ -125,7 +125,7 @@ public class ViewDelivery extends JPanel implements ActionListener{
 		pTable.loadData();
 		setVisible(true);
 	}
-	public void tryAgain(){
+	public void showFieldFromTable(){
 		String selectedCode = (String) pTable.getTable().getValueAt(pTable.getTable().getSelectedRow(), 0);		
 		int selectedIdx = 0;
 		for(int i=0; i<list.size(); i++){
@@ -133,11 +133,10 @@ public class ViewDelivery extends JPanel implements ActionListener{
 				selectedIdx=i;
 				break;
 			}
-		}
-		
+		}		
 			Delivery delivery = list.get(selectedIdx);
 			pContent.setDeliveryContent(delivery);
-			btnDelete.setEnabled(true);			
+			btnDelete.setEnabled(true);		
 		
 	}
 	private Object[] getTableData() {//each data in the table클릭시 값 넘겨줌

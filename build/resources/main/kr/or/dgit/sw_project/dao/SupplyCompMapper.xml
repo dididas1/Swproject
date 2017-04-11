@@ -12,7 +12,7 @@
     
 	<!-- Select SQL -->
     <sql id="selectSQL">
-		SELECT comp_code,comp_name,comp_tel,comp_isExist,comp_addr FROM supply_company 
+		SELECT * FROM supply_company 
 	</sql>
 
 	<!-- Where SQL -->
@@ -45,7 +45,7 @@
 	<!-- Update Item -->
 	<update id="updateCompItem" parameterType="SupplyCompany">
 		UPDATE supply_company
-		SET comp_name=#{compName}, comp_addr=#{address}, comp_tel=#{compTel}, comp_isExist=#{compIsExist} 
+		SET comp_name=#{compName}, comp_addr=#{address}, comp_tel=#{compTel}, comp_isExist=true 
 		WHERE comp_code=#{compCode}
 	</update>
 	
