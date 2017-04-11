@@ -7,8 +7,6 @@ public class JoinFromSale {
 	private Category category;
 	private SaleDetail saleDetail;
 	
-	
-	
 	public JoinFromSale() {
 	}
 

@@ -8,9 +8,6 @@
 		<association property="supplyCompany" resultMap="kr.or.dgit.sw_project.dao.SupplyCompMapper.SupplyCompanyResult"/>
 	</resultMap>
 	
-	
-
-
 	<sql id="selectSql">
 		select * from view_sale_by_software
 	</sql>	

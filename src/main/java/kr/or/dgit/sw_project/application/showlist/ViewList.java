@@ -36,12 +36,12 @@ public class ViewList extends JPanel implements ActionListener, ItemListener {
 
 	public ViewList() {
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{0, 0, 0}; //각 열의 최소 넓이  
-		gridBagLayout.rowHeights = new int[]{0, 0}; //각 행의 최소 넓이
-		gridBagLayout.columnWeights = new double[]{1.0, Double.MIN_VALUE}; //각 열의 가중치
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0}; //각 행의 가중치
+		gridBagLayout.columnWidths = new int[]{0, 0}; //각 열의 최소 넓이  
+		gridBagLayout.rowHeights = new int[]{0, 0, 0}; //각 행의 최소 넓이
+		gridBagLayout.columnWeights = new double[]{0.0, 0.0}; //각 열의 가중치
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 1.0}; //각 행의 가중치
 		setLayout(gridBagLayout);
-
+		
 		JLabel label = new JLabel("소프트웨어 관리");
 		label.setEnabled(false);
 		label.setHorizontalAlignment(SwingConstants.CENTER);
@@ -58,9 +58,11 @@ public class ViewList extends JPanel implements ActionListener, ItemListener {
 		pContent.getTfpSwName().getTf().addItemListener(this);
 		pContent.getTfpClntName().getTf().addItemListener(this);
 		pContent.getTfpGroup().getTf().addItemListener(this);
+		
 		pContent.getBtnGroupAllFind().addActionListener(this);
 		pContent.getBtnSwAllFind().addActionListener(this);
 		pContent.getBtnClntAllFind().addActionListener(this);
+		
 		GridBagConstraints gbc_pContent = new GridBagConstraints();
 		gbc_pContent.insets = new Insets(10, 10, 30, 10);
 		gbc_pContent.fill = GridBagConstraints.NONE;

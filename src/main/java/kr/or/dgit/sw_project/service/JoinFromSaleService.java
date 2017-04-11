@@ -30,4 +30,10 @@ public class JoinFromSaleService {
 			return joinFromSaleMapper.selectJoinFromSaleByYear(date);
 		} 
 	}
+	public List<JoinFromSale> selectJoinFromSaleByAllOrderByOrderDate() {
+		try (SqlSession sqlSession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
+			JoinFromSaleMapper joinFromSaleMapper = new JoinFromSaleMapperImpl(sqlSession);
+			return joinFromSaleMapper.selectJoinFromSaleByAllOrderByOrderDate();
+		} 
+	}
 }

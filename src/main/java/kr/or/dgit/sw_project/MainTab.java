@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.border.EmptyBorder;
@@ -17,6 +18,7 @@ import kr.or.dgit.sw_project.application.category.ViewCategory;
 import kr.or.dgit.sw_project.application.chart.ViewChart;
 import kr.or.dgit.sw_project.application.client.ViewClient;
 import kr.or.dgit.sw_project.application.delivery.ViewDelivery;
+import kr.or.dgit.sw_project.application.excel.GenerateExcel;
 import kr.or.dgit.sw_project.application.sales.ViewSale;
 import kr.or.dgit.sw_project.application.showlist.ViewList;
 import kr.or.dgit.sw_project.application.software.ViewSoftware;
@@ -40,6 +42,7 @@ public class MainTab extends JFrame implements ActionListener {
 	private ViewSale viewSale;
 	private ViewDelivery viewDelivery;
 	private ViewList viewList;
+	private JButton btnReport_1;
 	
 	public MainTab() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -140,12 +143,13 @@ public class MainTab extends JFrame implements ActionListener {
 		JButton btnChart = new JButton("통계차트");
 		pButton.add(btnChart);
 
-		JButton btnReport = new JButton("보고서");
-		pButton.add(btnReport);
+		btnReport_1 = new JButton("보고서");
+		btnReport_1.addActionListener(this);
+		pButton.add(btnReport_1);
 
 		if(MainApp.permission.equals("personnel")){
 			btnChart.setEnabled(false);
-			btnReport.setEnabled(false);
+			btnReport_1.setEnabled(false);
 			btnSupplyComp.setEnabled(false);
 			btnSoftWare.setEnabled(false);
 			btnClient.setEnabled(false);
@@ -160,6 +164,9 @@ public class MainTab extends JFrame implements ActionListener {
 	}
 	
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnReport_1) {
+			actionPerformedBtnReport(e);
+		}
 		if (e.getSource() == btnClient) {
 			actionPerformedBtnClient(e);
 		}
@@ -191,6 +198,13 @@ public class MainTab extends JFrame implements ActionListener {
 	}
 
 	protected void actionPerformedMnSale(ActionEvent e) {
+	}
+	
+	protected void actionPerformedBtnReport(ActionEvent e) {
+		String path = "D:\\test.xls";
+		GenerateExcel generateExcel = new GenerateExcel(path); 
+		generateExcel.CreateExcel();
+		JOptionPane.showMessageDialog(null, path+"파일이 생성되었습니다.");
 	}
 }
 
