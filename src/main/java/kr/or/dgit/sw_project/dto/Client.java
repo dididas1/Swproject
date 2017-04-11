@@ -12,10 +12,20 @@ public class Client {
 	private List<Sale> sale;
 	
 	public Client() {}
+	
+	
+	
+	
 
-	public Client(String clntCode) {
+	public Client(String clntCode, String clntName) {
+		super();
 		this.clntCode = clntCode;
+		this.clntName = clntName;
 	}
+
+
+
+
 
 	public Client(String clntCode, String clntName, String clntAddr, String clntTel) {
 		this.clntCode = clntCode;

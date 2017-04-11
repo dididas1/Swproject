@@ -33,7 +33,7 @@ public class TableAddress extends JPanel {
 		return new String[]{"우편 번호","시도","도로명"};
 	}
 
-	private Object[][] getRowDate() { 
+	private Object[][] getRowDate() {  //로우데이터 입력
 		Object[][] datas = new Object[list.size()][];
 		for (int i = 0; i < datas.length; i++) {
 			datas[i] = list.get(i).toArray();
@@ -47,11 +47,11 @@ public class TableAddress extends JPanel {
 		return table;
 	}
 	
-	public void setList(List<Address> list) {
+	public void setList(List<Address> list) { //뷰에서 주소값받아옴 (그조는 안쓸듯?)
 		this.list = list;
 	}
 
-	public List<Address> getList(){
+	public List<Address> getList(){  //뷰에서 주소값받아옴 (그조는 안쓸듯?)
 		return list;
 	}
 }

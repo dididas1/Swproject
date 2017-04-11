@@ -38,7 +38,7 @@ public class ViewAddress extends JFrame implements ActionListener {
 	
 	public ViewAddress() {
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		setBounds(100, 100, 500, 800);
+		setBounds(100, 600, 500, 400);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -114,7 +114,7 @@ public class ViewAddress extends JFrame implements ActionListener {
 
 			@Override
 			public void mousePressed(MouseEvent e) {
-				// 입력되어질창 판단
+				//창여러개의 창에서 주소를 쓸경우 입력되어질창 판단
 				if(!(contentClient==null)){
 					ClntSetAddr(getSelectedObject());
 				}
@@ -173,7 +173,7 @@ public class ViewAddress extends JFrame implements ActionListener {
 		}
 	}
 
-	private void btnSearchActionPerformed(ActionEvent e) { //입력 수정 테이블 인덱스 클릭시 수정으로 변함
+	private void btnSearchActionPerformed(ActionEvent e) { // 버튼누르면 주소검색
 		list = AddrService.getInstance().searchSido(new Address((String) pContent.getTfpSiDo().getSelectItem(),pContent.getTfpDoro().getTfValue()));
 		pTable.setList(list);
 		pTable.setTableData();

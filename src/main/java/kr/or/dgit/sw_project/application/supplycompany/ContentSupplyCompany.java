@@ -115,7 +115,7 @@ public class ContentSupplyCompany extends JPanel implements ActionListener {
 	public SupplyCompany getObject(){ //text필드 값받아옴 address수정필요
 		String compCode = tfpSupplyCompanyCode.getTfValue();
 		String compName = tfpSupplyCompanyName.getTfValue();
-		String address = tfpSupplyCompanyAd.getTfValue();
+		String address = tfpSupplyCompanyAd.getTfValue()+ tfadr.getTfValue();
 		String compTel = tfpSupplyCompanyTel.getTfValue();
 		return new SupplyCompany(compCode, compName, address, compTel);
 	}

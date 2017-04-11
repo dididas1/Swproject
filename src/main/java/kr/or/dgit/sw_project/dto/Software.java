@@ -16,6 +16,17 @@ public class Software {
 	public Software() {}
 	
 	
+	
+
+
+	public Software(String swCode, String swName) {
+		super();
+		this.swCode = swCode;
+		this.swName = swName;
+	}
+
+
+
 
 
 	public Software(String swCode) {

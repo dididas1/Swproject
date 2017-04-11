@@ -134,7 +134,7 @@ public class ContentClient extends JPanel implements ActionListener {
 	public Client getObject(){ 
 		String clntCode = tfpClientCode.getTfValue();
 		String clntName = tfpClientName.getTfValue();
-		String clntAddr = tfpClientAddr.getTfValue();
+		String clntAddr = tfpClientAddr.getTfValue()+ tfadr.getTfValue();
 		String clntTel = tfpClientTel.getTfValue();
 		return new Client(clntCode, clntName, clntAddr, clntTel);
 	}

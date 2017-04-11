@@ -20,7 +20,7 @@ public class ViewClientSaleMapperImpl implements ViewClientSaleMapper {
 	@Override
 	public List<ViewClientSale> selectViewClientSaleAll(ViewClientSale viewClientSale) {
 		log.debug("selectViewClientSaleAll()");
-		return sqlSession.selectList(nameSpace + "selectViewClientSaleAll");
+		return sqlSession.selectList(nameSpace + "selectViewClientSaleAll",viewClientSale);
 	}
 
 }

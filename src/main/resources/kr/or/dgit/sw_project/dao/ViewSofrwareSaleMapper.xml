@@ -1,4 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.dgit.sw_project.dao.ViewSofrwareSaleMapper">
+	<resultMap type="ViewSofrwareSale" id="ViewSofrwareSaleResult">
+		<association property="category" resultMap="kr.or.dgit.sw_project.dao.CategoryMapper.CategoryResult"/>
+		<association property="software" resultMap="kr.or.dgit.sw_project.dao.SoftwareMapper.SoftwareResult"/>
+		<association property="sale" resultMap="kr.or.dgit.sw_project.dao.SaleMapper.SaleResult"/>
+		<association property="supplyCompany" resultMap="kr.or.dgit.sw_project.dao.SupplyCompMapper.SupplyCompanyResult"/>
+	</resultMap>
+	
+	
+
+
+	<sql id="selectSql">
+		select * from view_sale_by_software
+	</sql>	
+	<sql id="whereSql">
+		<where>
+			<if test="software != null">
+				sw_name=#{software}
+			</if>
+		</where>
+	</sql>
+	
+	<select id="selectViewSofrwareSaleAll" parameterType="ViewSofrwareSale" resultMap="ViewSofrwareSaleResult">
+		<include refid="selectSql"/>
+		<include refid="whereSql"/>
+	</select>
 </mapper>
