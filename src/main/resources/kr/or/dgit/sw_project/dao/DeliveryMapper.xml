@@ -59,9 +59,9 @@
     </insert>
     
     <!-- Update item -->
-    <update id="UpdateItems">
+    <update id="UpdateItems" parameterType="Delivery">
     	UPDATE delivery
-		SET  del_code=#{delCode}, sw_code=#{swCode}, supply_price=#{supplyPrice}, supply_amount=#{supplyAmount}, order_date=#{orderDate}, del_isExist=#{delIsExist}
+		SET  sw_code=#{software.swCode}, comp_code=#{supplyCompany.compCode}, supply_price=#{supplyPrice}, supply_amount=#{supplyAmount}, order_date=#{orderDate}, del_isExist=true
 		WHERE del_code=#{delCode}
     </update>
     

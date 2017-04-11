@@ -17,6 +17,7 @@ import kr.or.dgit.sw_project.dto.Sale;
 import kr.or.dgit.sw_project.dto.SupplyCompany;
 import kr.or.dgit.sw_project.service.DeliveryService;
 import kr.or.dgit.sw_project.service.SaleService;
+import kr.or.dgit.sw_project.service.SupplyCompService;
 
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -114,7 +115,8 @@ public class ViewDelivery extends JPanel implements ActionListener{
 				//Object[] deliveryObj = getTableData();
 				showFieldFromTable();
 				//pContent.setObject(deliveryObj);
-				btnDelete.setEnabled(true);				
+				btnDelete.setEnabled(true);	
+				btnInsert.setText("수정");
 				super.mouseClicked(e);
 			}			
 
@@ -165,29 +167,32 @@ public class ViewDelivery extends JPanel implements ActionListener{
 		if (arg0.getActionCommand().equals("입력")){
 			if(pContent.isEmptyCheck()||pContent.getTfpCompName().getSelectedIndex()==0
 					||pContent.getTfpDeSwName().getSelectedIndex()==0){
-				JOptionPane.showMessageDialog(null, "입력해야될 값이 있습니다. 확인하세요");
-				return;
+				JOptionPane.showMessageDialog(null, "입력해야될 값이 있습니다. 확인하세요");				
 			}else{
 				DeliveryService.getInstance().insertDeliveryItems(pContent.getObject());
 				list = DeliveryService.getInstance().selectDeliveryByAll(); 
 				pTable.setDeliveryList(list);
 				pTable.loadData();
 				pContent.resetField();
-				pContent.setComboSoftware();
-				return;
+				pContent.setComboSoftware();				
 			}
 			
-		}/*else if(arg0.getActionCommand().equals("수정")){
+		}else if(arg0.getActionCommand().equals("수정")){
 			if(JOptionPane.showConfirmDialog(null, "정말 수정하시겠습니까?")==JOptionPane.YES_OPTION){
 				DeliveryService.getInstance().UpdateItems(pContent.getObject());
+				list = DeliveryService.getInstance().selectDeliveryByAll();
+				pTable.setDeliveryList(list);
 				pTable.loadData();
+				btnInsert.setText("입력");
+				pContent.resetField();
 			}else{
-				JOptionPane.showMessageDialog(null, "빠이염");
+				JOptionPane.showMessageDialog(null, "취소되었습니당");
 				pContent.resetField();
 				btnInsert.setText("입력");
+				btnDelete.setEnabled(false);
 			}
 			
-		}*/
+		}
 		
 	}
 	protected void actionPerformedBtnDelete(ActionEvent arg0) {
