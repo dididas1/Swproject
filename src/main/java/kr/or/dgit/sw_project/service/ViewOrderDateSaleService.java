@@ -1,0 +1,22 @@
+package kr.or.dgit.sw_project.service;
+
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.session.SqlSession;
+
+import kr.or.dgit.sw_project.dao.ViewOrderDateSaleMapper;
+import kr.or.dgit.sw_project.dao.ViewOrderDateSaleMapperImpl;
+import kr.or.dgit.sw_project.dto.ViewOrderDateSale;
+import kr.or.dgit.sw_project.util.MyBatisSqlSessionFactory;
+
+public class ViewOrderDateSaleService {
+
+	public List<ViewOrderDateSale> selectViewOrderDateSaleThisYear(Map<String, Object> param) {
+		try (SqlSession sqlSession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
+			ViewOrderDateSaleMapper viewOrderDateSaleMapper = new ViewOrderDateSaleMapperImpl(sqlSession);
+			return viewOrderDateSaleMapper.selectViewOrderDateSaleThisYear(param);
+			
+		} 
+	}
+}

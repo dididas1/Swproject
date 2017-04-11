@@ -1,4 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.dgit.sw_project.dao.ViewOrderDateSaleMapper">
+	<resultMap type="ViewOrderDateSale" id="ViewOrderDateSaleResult">
+		<association property="sale" resultMap="kr.or.dgit.sw_project.dao.SaleMapper.SaleResult"/>
+		<association property="client" resultMap="kr.or.dgit.sw_project.dao.ClientMapper.ClientResult"/>
+		<association property="software" resultMap="kr.or.dgit.sw_project.dao.SoftwareMapper.SoftwareResult"/>
+	</resultMap>
+	
+	<sql id="selectSql">
+		select * from view_sale_by_orderdate
+	</sql>
+	
+	<select id="selectViewOrderDateSaleThisYear" parameterMap="map" resultMap="ViewOrderDateSaleResult">
+		<include refid="selectSql"/>
+	 	 WHERE YEAR(s.order_date) = "2017";
+	</select>
 </mapper>
+	

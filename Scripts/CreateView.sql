@@ -42,6 +42,8 @@ SELECT sw_code, sw_name, group_name, comp_code, comp_name, total_supply_price, t
 
 	
 
+	
+	
 #### 날짜별 판매현황조회 ####
 -- 날짜 주문번호 상호 품명 수량 입금여부 
 CREATE VIEW view_sale_by_orderdate AS
