@@ -8,7 +8,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.text.View;
 
 import kr.or.dgit.sw_project.dto.ViewCategorySale;
 import kr.or.dgit.sw_project.dto.ViewClientSale;
@@ -114,15 +113,15 @@ public class TableList extends JPanel{
 	}
 	
 	
-	public void setClntTotalLable(int price,int total){
+	public void setClntTotalLable(int price,int total){ // 총합레이블에 세팅
 		viewList.getLblNewLabel().setText(String.format("총판매금액 : %,d   총미수금: %,d", price,total));
 	}
 	
-	public void setSwTotalLable(int totalPrice,int totalSupplyPrice,int margin){
+	public void setSwTotalLable(int totalPrice,int totalSupplyPrice,int margin){ // 총합레이블에 세팅
 		viewList.getLblNewLabel().setText(String.format("총판매금액 : %,d   총공급금액: %,d   총판매이윤: %,d", totalPrice,totalSupplyPrice,margin));
 	}	
 	
-	public void setGroupTotalLable(int totalPrice ,int totalAmount){
+	public void setGroupTotalLable(int totalPrice ,int totalAmount){ // 총합레이블에 세팅
 		viewList.getLblNewLabel().setText(String.format("총판매금액 : %,d   총판매갯수: %,d "  , totalPrice,totalAmount));
 	}	
 	
