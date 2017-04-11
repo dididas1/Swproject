@@ -41,7 +41,7 @@ public class InitSettingService {
 	}
 
 	private void loadTableData(int tables){
-		File file = new File(Config.EXPORT_DIR+""+Config.TABLE_NAME[tables]);
+		File file = new File(Config.IMPORT_DIR+Config.TABLE_NAME[tables]);
 		String sql = "load data local infile '%s' "
 					+"into table "+Config.TABLE_NAME[tables]+" "
 					+"character set 'UTF8' "
@@ -59,14 +59,20 @@ public class InitSettingService {
 			int colCnt = rs.getMetaData().getColumnCount();
 			while(rs.next()){
 				for(int i=1 ; i<=colCnt ; i++){
-					sb.append(rs.getObject(i)+",");
+					Object obj = rs.getObject(i);
+					if(obj.equals(true)){
+						obj=1;
+					}else if(obj.equals(false)){
+						obj=0;
+					}
+					sb.append(obj+",");
 				}
 				sb.replace(sb.length()-1, sb.length(), "");
 				sb.append("\r\n");
 			}
 			System.out.println(sb.toString());
 			
-			try(BufferedOutputStream bw = new BufferedOutputStream(new FileOutputStream(Config.EXPORT_DIR+""+Config.TABLE_NAME[tables]));
+			try(BufferedOutputStream bw = new BufferedOutputStream(new FileOutputStream(Config.EXPORT_DIR+Config.TABLE_NAME[tables]));
 					OutputStreamWriter osw = new OutputStreamWriter(bw, "UTF-8")){
 				osw.write(sb.toString());
 				
