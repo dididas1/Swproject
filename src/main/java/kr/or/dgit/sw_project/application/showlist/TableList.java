@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.View;
 
 import kr.or.dgit.sw_project.dto.ViewCategorySale;
 import kr.or.dgit.sw_project.dto.ViewClientSale;
@@ -16,6 +17,7 @@ import kr.or.dgit.sw_project.dto.ViewSofrwareSale;
 public class TableList extends JPanel{
 	
 	private JTable table;
+	private ViewList viewList;
 	
 	private List<ViewCategorySale> listCategory;
 	private List<ViewClientSale> listClient;
@@ -67,38 +69,62 @@ public class TableList extends JPanel{
 	}
 	
 	private Object[][] getRowDateForCategori() {  //카테고리 row
+		int totalPrice =0;
+	    int totalAmount =0;
 		List<ViewCategorySale> listForTable = new ArrayList<ViewCategorySale>(listCategory);
 		Object[][] datas = new Object[listForTable.size()][];
 		for (int i = 0; i < datas.length; i++) {
 			datas[i] = listForTable.get(i).toArrayForTable();
+			totalPrice+=listForTable.get(i).getcSalePrice();
+			totalAmount+=listForTable.get(i).getcAmount();
 		}
+		setGroupTotalLable(totalPrice, totalAmount);
 		return datas;
 	}
 	
 	
 	private Object[][] getRowDateForClient() {  //클라이언트 row 합계까지
 		int totalPrice=0;
-		int ReceivablePrice=0;
+		int receivablePrice=0;
 		List<ViewClientSale> listForTable = new ArrayList<ViewClientSale>(listClient);
-		Object[][] datas = new Object[listForTable.size()+1][];
+		Object[][] datas = new Object[listForTable.size()][];
 		for (int i = 0; i < datas.length-1; i++) {
 			datas[i] = listForTable.get(i).toArrayForTable();
 			totalPrice+=listForTable.get(i).getSale().getSaleDetail().getTotalSalePrice();
-			ReceivablePrice+=listForTable.get(i).getSale().getSaleDetail().getReceivablePrice();
+			receivablePrice+=listForTable.get(i).getSale().getSaleDetail().getReceivablePrice();
 		}
-			datas[datas.length-1]=new Object[]{"","","","총합계",String.format("%,d", totalPrice),"미수금합계",String.format("%,d", ReceivablePrice)};
+		setClntTotalLable(totalPrice,receivablePrice);
 		return datas;
 	}
 	
 	private Object[][] getRowDateForSoftware() {  //카테고리 row
+		int totalPrice=0;
+		int totalSupplyPrice=0;
+		int margin=0;
 		List<ViewSofrwareSale> listForTable = new ArrayList<ViewSofrwareSale>(listSoftware);
 		Object[][] datas = new Object[listForTable.size()][];
 		for (int i = 0; i < datas.length; i++) {
 			datas[i] = listForTable.get(i).toArrayForTable();
+			totalPrice+=listForTable.get(i).getSale().getSaleDetail().getTotalSalePrice();
+			totalSupplyPrice+=listForTable.get(i).getSale().getSaleDetail().getTotalSupplyPrice();
+			margin+= listForTable.get(i).getSale().getSaleDetail().getMargin();
 		}
+		setSwTotalLable(totalPrice, totalSupplyPrice, margin);
 		return datas;
 	}
 	
+	
+	public void setClntTotalLable(int price,int total){
+		viewList.getLblNewLabel().setText(String.format("총판매금액 : %,d   총미수금: %,d", price,total));
+	}
+	
+	public void setSwTotalLable(int totalPrice,int totalSupplyPrice,int margin){
+		viewList.getLblNewLabel().setText(String.format("총판매금액 : %,d   총공급금액: %,d   총판매이윤: %,d", totalPrice,totalSupplyPrice,margin));
+	}	
+	
+	public void setGroupTotalLable(int totalPrice ,int totalAmount){
+		viewList.getLblNewLabel().setText(String.format("총판매금액 : %,d   총판매갯수: %,d "  , totalPrice,totalAmount));
+	}	
 	
 	public JTable getTable() {
 		return table;
@@ -128,6 +154,8 @@ public class TableList extends JPanel{
 		return listSoftware;
 	}
 	
-	
+	public void setViewList(ViewList viewList){
+		this.viewList= viewList;
+	}
 	
 }

@@ -23,6 +23,7 @@ import kr.or.dgit.sw_project.dto.ViewSofrwareSale;
 import kr.or.dgit.sw_project.service.ViewCategorySaleService;
 import kr.or.dgit.sw_project.service.ViewClientSaleService;
 import kr.or.dgit.sw_project.service.ViewSoftwareSaleService;
+import java.awt.BorderLayout;
 
 public class ViewList extends JPanel implements ActionListener, ItemListener {
 	private ContentList pContent;
@@ -31,6 +32,7 @@ public class ViewList extends JPanel implements ActionListener, ItemListener {
 	private List<ViewCategorySale> listCategory;
 	private List<ViewClientSale> listClinet;
 	private List<ViewSofrwareSale> listSoftware;
+	private JLabel lblTotalLable;
 
 	public ViewList() {
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -73,12 +75,25 @@ public class ViewList extends JPanel implements ActionListener, ItemListener {
 		gbc_pTable.gridx = 0;
 		gbc_pTable.gridy = 2;
 		add(pTable, gbc_pTable);
+		
+		lblTotalLable = new JLabel("");
+		lblTotalLable.setHorizontalAlignment(SwingConstants.RIGHT);
+		pTable.add(lblTotalLable, BorderLayout.SOUTH);
 
 
 		setVisible(true);
+		pTable.setViewList(this);
+	}
+	
+
+	public JLabel getLblNewLabel() {
+		return lblTotalLable;
 	}
 
 
+	public void setTotalLable(int[] total){
+		lblTotalLable.setText(String.format("총합계 : %,d %,d", String.valueOf(total[0])+String.valueOf(total[1])));
+	}
 
 
 	/*************************** Get Data ***************************/  
@@ -160,6 +175,7 @@ public class ViewList extends JPanel implements ActionListener, ItemListener {
 			pTable.setTableDataCategoriOne(listCategory.get(pContent.getTfpGroup().getSelectedIndex()-1));
 			pContent.getTfpClntName().setSelectedItem(0);
 			pContent.getTfpSwName().setSelectedItem(0);
+			lblTotalLable.setText("   ");
 		}
 	}
 
