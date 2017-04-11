@@ -1,15 +1,9 @@
-
 package kr.or.dgit.sw_project.application.delivery;
 
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -17,9 +11,18 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import kr.or.dgit.sw_project.MainTab;
 import kr.or.dgit.sw_project.dto.Delivery;
+import kr.or.dgit.sw_project.dto.JoinFromSale;
+import kr.or.dgit.sw_project.dto.Sale;
+import kr.or.dgit.sw_project.dto.SupplyCompany;
 import kr.or.dgit.sw_project.service.DeliveryService;
+import kr.or.dgit.sw_project.service.SaleService;
+
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.List;
+import java.awt.event.ActionEvent;
 
 public class ViewDelivery extends JPanel implements ActionListener{
 	
@@ -28,10 +31,7 @@ public class ViewDelivery extends JPanel implements ActionListener{
 	private ContentDelivery pContent;
 	private JButton btnDelete;
 	private JButton btnCancle;
-	private MainTab mainTab;
-	
 	private List<Delivery> list;
-	
 	public ViewDelivery() {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0}; //각 열의 최소 넓이  
@@ -112,12 +112,11 @@ public class ViewDelivery extends JPanel implements ActionListener{
 			@Override
 			public void mouseClicked(MouseEvent e) { //table 클릭시 
 				//Object[] deliveryObj = getTableData();
-				tryAgain();
+				showFieldFromTable();
 				//pContent.setObject(deliveryObj);
 				btnDelete.setEnabled(true);				
 				super.mouseClicked(e);
-			}
-						
+			}			
 
 		});
 		list = DeliveryService.getInstance().selectDeliveryByAll();
@@ -125,10 +124,7 @@ public class ViewDelivery extends JPanel implements ActionListener{
 		pTable.loadData();
 		setVisible(true);
 	}
-
-
-
-	public void tryAgain(){
+	public void showFieldFromTable(){
 		String selectedCode = (String) pTable.getTable().getValueAt(pTable.getTable().getSelectedRow(), 0);		
 		int selectedIdx = 0;
 		for(int i=0; i<list.size(); i++){
@@ -136,11 +132,10 @@ public class ViewDelivery extends JPanel implements ActionListener{
 				selectedIdx=i;
 				break;
 			}
-		}
-		
+		}		
 			Delivery delivery = list.get(selectedIdx);
 			pContent.setDeliveryContent(delivery);
-			btnDelete.setEnabled(true);			
+			btnDelete.setEnabled(true);		
 		
 	}
 	private Object[] getTableData() {//each data in the table클릭시 값 넘겨줌
@@ -154,7 +149,6 @@ public class ViewDelivery extends JPanel implements ActionListener{
 		}		
 		return obj;
 	}
-
 	public void actionPerformed(ActionEvent arg0) {
 		if (arg0.getSource() == btnCancle) {
 			actionPerformedBtnCancle(arg0);
@@ -166,7 +160,6 @@ public class ViewDelivery extends JPanel implements ActionListener{
 			actionPerformedBtnInsert(arg0);
 		}
 	}
-	
 	
 	protected void actionPerformedBtnInsert(ActionEvent arg0) {
 		if (arg0.getActionCommand().equals("입력")){
@@ -181,7 +174,6 @@ public class ViewDelivery extends JPanel implements ActionListener{
 				pTable.loadData();
 				pContent.resetField();
 				pContent.setComboSoftware();
-				mainTab.refresh();
 				return;
 			}
 			
@@ -198,7 +190,6 @@ public class ViewDelivery extends JPanel implements ActionListener{
 		}*/
 		
 	}
-	
 	protected void actionPerformedBtnDelete(ActionEvent arg0) {
 		if(JOptionPane.showConfirmDialog(null, "삭제하겠습니까?")==JOptionPane.YES_OPTION){
 			DeliveryService.getInstance().existDeliveryItem(new Delivery(pContent.getTfpDelCode().getTfValue()));
@@ -213,14 +204,9 @@ public class ViewDelivery extends JPanel implements ActionListener{
 			
 		}
 	}
-	
 	protected void actionPerformedBtnCancle(ActionEvent arg0) {
 		pContent.resetField(); //필드초기화
 		btnInsert.setText("입력");
 		btnInsert.setEnabled(true);
-	}
-	
-	public void setMainTab(MainTab mainTab){
-		this.mainTab = mainTab;
 	}
 }

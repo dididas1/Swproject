@@ -32,15 +32,15 @@ public class TableSupplyCompany extends JPanel {
 
 
 
-	/*************************** load Table ***************************/  
+	 
 	public void setTableData(){ //테이블 데이터입력
-		table.setModel(new DefaultTableModel(getRowDate(), getColumm()));
+		table.setModel(new DefaultTableModel(getRowData(), getColumm()));
 	}
 	private Object[] getColumm() { //컬럼입력
-		return new String[]{"공급사코드","공급사명","전화번호","주소"};
+		return new String[]{"공급사코드","공급사명","주소","전화번호"};
 	}
 
-	private Object[][] getRowDate() { //테이블 로우값입력 isExist가 true인 항목에대해서만 값받아옴
+	private Object[][] getRowData() { //테이블 로우값입력 isExist가 true인 항목에대해서만 값받아옴
 		List<SupplyCompany> listForTable = new ArrayList<SupplyCompany>(list);
 		for(int i =0; i<list.size(); i++)
 			System.out.println(list.get(i).toString());
@@ -49,24 +49,21 @@ public class TableSupplyCompany extends JPanel {
 			if (!listForTable.get(i).isCompIsExist()) {
 				listForTable.remove(i);
 			}
-		}
-	
+		}	
 		
 		Object[][] datas = new Object[listForTable.size()][];
 		for (int i = 0; i < datas.length; i++) {
 			datas[i] = listForTable.get(i).toArrayForTable();
 		}
 		return datas;
-	}
-
-	/*****************************************************************/
+	}	
 	
 	public JTable getTable() {
 		return table;
 	}
 	
 	
-	public void setList(List<SupplyCompany> list) {
+	public void setSupplyList(List<SupplyCompany> list) {
 		this.list = list;
 	}
 
