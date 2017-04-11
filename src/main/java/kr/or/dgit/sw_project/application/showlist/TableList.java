@@ -107,7 +107,7 @@ public class TableList extends JPanel{
 		int receivablePrice=0;
 		List<ViewClientSale> listForTable = new ArrayList<ViewClientSale>(listClient);
 		Object[][] datas = new Object[listForTable.size()][];
-		for (int i = 0; i < datas.length-1; i++) {
+		for (int i = 0; i < datas.length; i++) {
 			datas[i] = listForTable.get(i).toArrayForTable();
 			totalPrice+=listForTable.get(i).getSale().getSaleDetail().getTotalSalePrice();
 			receivablePrice+=listForTable.get(i).getSale().getSaleDetail().getReceivablePrice();
@@ -137,7 +137,7 @@ public class TableList extends JPanel{
 		int totalAmount=0;
 		List<ViewOrderDateSale> listForTable = new ArrayList<ViewOrderDateSale>(listDate);
 		Object[][] datas = new Object[listForTable.size()][];
-		for (int i = 0; i < datas.length-1; i++) {
+		for (int i = 0; i < datas.length; i++) {
 			datas[i] = listForTable.get(i).toArrayForTable();
 			totalPrice+=listForTable.get(i).getSale().getSaleDetail().getTotalSalePrice();
 			totalAmount+=listForTable.get(i).getSale().getSaleAmount();

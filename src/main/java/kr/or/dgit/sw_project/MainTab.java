@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.border.EmptyBorder;
@@ -29,13 +30,9 @@ public class MainTab extends JFrame implements ActionListener {
 	private JButton btnSupplyComp;
 	private JButton btnSoftWare;
 	private JButton btnClient;
-	private JMenuItem mnSale;
-	private JMenuItem mnDel;
 	private JPanel pButton;
-	private JMenuItem mnClnt;
 	private JButton btnChart;
 	private JButton btnReport;
-	private JMenuItem mnSup;
 	private JButton btnCategory;
 
 	private ViewSale viewSale;
@@ -44,7 +41,9 @@ public class MainTab extends JFrame implements ActionListener {
 	private JMenuItem mntmInit;
 	private JMenuItem mntmBackup;
 	private JMenuItem mntmRestore;
-	
+	private JMenuItem mntmHelp;
+	private InitSettingService fileSetting = new InitSettingService();
+
 	public MainTab() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 730, 800);
@@ -70,36 +69,11 @@ public class MainTab extends JFrame implements ActionListener {
 		JMenuItem mntmExit = new JMenuItem("종료");
 		mnFile.add(mntmExit);
 
-		JMenu mnCustomMenu = new JMenu("Window");
-		menuBar.add(mnCustomMenu);
-
-		JMenu mnCustom = new JMenu("ShowButton");
-		mnCustomMenu.add(mnCustom);
-
-		mnSale = new JMenuItem("주문관리");
-		mnSale.addActionListener(this);
-
-
-		mnSup = new JMenuItem("공급회사관리");
-		mnSup.addActionListener(this);
-		mnCustom.add(mnSup);
-		mnCustom.add(mnSale);
-
-		mnDel = new JMenuItem("납품관리");
-		mnCustom.add(mnDel);
-
-		JMenuItem mnSw = new JMenuItem("소프트웨어 관리");
-		mnCustom.add(mnSw);
-
-
-		mnClnt = new JMenuItem("고객사관리");
-		mnClnt.addActionListener(this);
-		mnCustom.add(mnClnt);
-
 		JMenu mnHelp = new JMenu("도움말");
 		menuBar.add(mnHelp);
 
-		JMenuItem mntmHelp = new JMenuItem("AboutProject");
+		mntmHelp = new JMenuItem("AboutProject");
+		mntmHelp.addActionListener(this);
 		mnHelp.add(mntmHelp);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -158,15 +132,18 @@ public class MainTab extends JFrame implements ActionListener {
 			btnClient.setEnabled(false);
 		}
 		setVisible(true);
-		
+
 		viewDelivery.setMainTab(MainTab.this);
 	}
 
 	public void refresh(){
 		viewSale.getContent().setSwComboData();
 	}
-	
+
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == mntmHelp) {
+			mntmHelpActionPerformed(e);
+		}
 		if (e.getSource() == mntmRestore) {
 			mntmRestoreActionPerformed(e);
 		}
@@ -207,16 +184,23 @@ public class MainTab extends JFrame implements ActionListener {
 	}
 
 	protected void mntmInitActionPerformed(ActionEvent e) {
-		InitSettingService fileSetting = new InitSettingService();
-		fileSetting.initSetting(0, 1);
+		if(JOptionPane.showConfirmDialog(null, "모든데이터가 삭제됩니다 계속하시겠습니까?")==JOptionPane.YES_OPTION){
+			fileSetting.initSetting(0, 1);
+		}
 	}
 	protected void mntmBackupActionPerformed(ActionEvent e) {
-		InitSettingService fileSetting = new InitSettingService();
-		fileSetting.initSetting(0, 0);
+		if(JOptionPane.showConfirmDialog(null, "백업하시겠습니까?")==JOptionPane.YES_OPTION){
+			fileSetting.initSetting(0, 0);
+		}
 	}
 	protected void mntmRestoreActionPerformed(ActionEvent e) {
-		InitSettingService fileSetting = new InitSettingService();
-		fileSetting.initSetting(1, 1);
+		if(JOptionPane.showConfirmDialog(null, "이전데이터가 삭제되고 저장된데이터가 입력됩니다 계속하시겠습니까?")==JOptionPane.YES_OPTION){
+			fileSetting.initSetting(1, 1);
+		}
+
+	}
+	protected void mntmHelpActionPerformed(ActionEvent e) {
+
 	}
 }
 

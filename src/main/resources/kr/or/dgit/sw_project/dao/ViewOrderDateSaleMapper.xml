@@ -14,7 +14,7 @@
 	<select id="selectViewOrderDateSale" parameterType="map" resultMap="ViewOrderDateSaleResult">
 		<include refid="selectSql"/>
 	WHERE order_date BETWEEN  #{startDate} AND #{endDate} 
-	ORDER BY order_date;
+	ORDER BY order_date desc;
 	</select>
 </mapper>
 	
