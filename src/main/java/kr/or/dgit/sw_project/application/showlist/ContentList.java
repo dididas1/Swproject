@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 
 import erp_myframework.ComboPanel;
+import erp_myframework.DatePanel;
 import kr.or.dgit.sw_project.dto.Category;
 import kr.or.dgit.sw_project.dto.Client;
 import kr.or.dgit.sw_project.dto.Software;
@@ -28,6 +29,9 @@ public class ContentList extends JPanel {
 	private ComboPanel<String> tfpSwName;
 	private ComboPanel<String> tfpClntName;
 	private ComboPanel<String> tfpGroup;
+	private DatePanel tfpDateFirst;
+	private DatePanel tfpDateSecond;
+	private JButton btnDaySearch;
 	
 	public ContentList() {
 		setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
@@ -42,14 +46,14 @@ public class ContentList extends JPanel {
 		tfpSwName.setTitle("품목명");
 		GridBagConstraints gbc_tfpSwName = new GridBagConstraints();
 		gbc_tfpSwName.fill = GridBagConstraints.HORIZONTAL;
-		gbc_tfpSwName.insets = new Insets(0, 0, 0, 0);
+		gbc_tfpSwName.insets = new Insets(0, 0, 5, 5);
 		gbc_tfpSwName.gridx = 1;
 		gbc_tfpSwName.gridy = 1;
 		add(tfpSwName, gbc_tfpSwName);
 		
 		btnSwAllFind = new JButton("전체");
 		GridBagConstraints gbc_btnSwAllFind = new GridBagConstraints();
-		gbc_btnSwAllFind.insets = new Insets(0, 0, 0, 0);
+		gbc_btnSwAllFind.insets = new Insets(0, 0, 5, 5);
 		gbc_btnSwAllFind.gridx = 2;
 		gbc_btnSwAllFind.gridy = 1;
 		add(btnSwAllFind, gbc_btnSwAllFind);
@@ -58,7 +62,7 @@ public class ContentList extends JPanel {
 		tfpClntName = new ComboPanel();
 		tfpClntName.setTitle("고객상호");
 		GridBagConstraints gbc_tfpClntName = new GridBagConstraints();
-		gbc_tfpClntName.insets = new Insets(0, 0, 0, 0);
+		gbc_tfpClntName.insets = new Insets(0, 0, 5, 5);
 		gbc_tfpClntName.fill = GridBagConstraints.HORIZONTAL;
 		gbc_tfpClntName.gridx = 1;
 		gbc_tfpClntName.gridy = 2;
@@ -66,7 +70,7 @@ public class ContentList extends JPanel {
 		
 		btnClntAllFind = new JButton("전체");
 		GridBagConstraints gbc_btnClntAllFind = new GridBagConstraints();
-		gbc_btnClntAllFind.insets = new Insets(0, 0, 0, 0);
+		gbc_btnClntAllFind.insets = new Insets(0, 0, 5, 5);
 		gbc_btnClntAllFind.gridx = 2;
 		gbc_btnClntAllFind.gridy = 2;
 		add(btnClntAllFind, gbc_btnClntAllFind);
@@ -74,7 +78,7 @@ public class ContentList extends JPanel {
 		tfpGroup = new ComboPanel();
 		tfpGroup.setTitle("그룹별");
 		GridBagConstraints gbc_tfpGroup = new GridBagConstraints();
-		gbc_tfpGroup.insets = new Insets(0, 0, 0, 0);
+		gbc_tfpGroup.insets = new Insets(0, 0, 5, 5);
 		gbc_tfpGroup.fill = GridBagConstraints.HORIZONTAL;
 		gbc_tfpGroup.gridx = 1;
 		gbc_tfpGroup.gridy = 3;
@@ -82,7 +86,7 @@ public class ContentList extends JPanel {
 		
 		btnGroupAllFind = new JButton("전체");
 		GridBagConstraints gbc_btnGroupAllFind = new GridBagConstraints();
-		gbc_btnGroupAllFind.insets = new Insets(0, 0, 0, 0);
+		gbc_btnGroupAllFind.insets = new Insets(0, 0, 5, 5);
 		gbc_btnGroupAllFind.gridx = 2;
 		gbc_btnGroupAllFind.gridy = 3;
 		add(btnGroupAllFind, gbc_btnGroupAllFind);
@@ -90,6 +94,31 @@ public class ContentList extends JPanel {
 		setClntComboData();
 		setSwComboData();
 		
+		tfpDateFirst= new DatePanel();
+		tfpDateFirst.setTitle("날짜");
+		GridBagConstraints gbc_tfpDateFirst = new GridBagConstraints();
+		gbc_tfpDateFirst.insets = new Insets(0, 0, 5, 5);
+		gbc_tfpDateFirst.fill = GridBagConstraints.BOTH;
+		gbc_tfpDateFirst.gridx = 1;
+		gbc_tfpDateFirst.gridy = 4;
+		add(tfpDateFirst, gbc_tfpDateFirst);
+		
+		tfpDateSecond = new DatePanel();
+		tfpDateSecond.setTitle("~");
+		GridBagConstraints gbc_tfpDateSecond = new GridBagConstraints();
+		gbc_tfpDateSecond.anchor = GridBagConstraints.NORTH;
+		gbc_tfpDateSecond.insets = new Insets(0, 0, 0, 5);
+		gbc_tfpDateSecond.fill = GridBagConstraints.HORIZONTAL;
+		gbc_tfpDateSecond.gridx = 1;
+		gbc_tfpDateSecond.gridy = 5;
+		add(tfpDateSecond, gbc_tfpDateSecond);
+		
+		btnDaySearch = new JButton("검색");
+		GridBagConstraints gbc_btnDaySearch = new GridBagConstraints();
+		gbc_btnDaySearch.insets = new Insets(0, 0, 0, 5);
+		gbc_btnDaySearch.gridx = 2;
+		gbc_btnDaySearch.gridy = 5;
+		add(btnDaySearch, gbc_btnDaySearch);
 		
 	}
 
@@ -154,8 +183,20 @@ public class ContentList extends JPanel {
 	public ComboPanel<String> getTfpGroup() {
 		return tfpGroup;
 	}
-	
 
+	public DatePanel getTfpDateFirst() {
+		return tfpDateFirst;
+	}
+
+	public DatePanel getTfpDateSecond() {
+		return tfpDateSecond;
+	}
+
+	public JButton getBtnDaySearch() {
+		return btnDaySearch;
+	}
+	
+	
 
 	
 	

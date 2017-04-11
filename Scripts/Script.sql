@@ -60,10 +60,10 @@ INSERT INTO sale(sale_code, clnt_code, sw_code, sale_amount,
    ("SL005","CL004","SW005",250,FALSE,"2010-10-02", 35000  , 50750,   TRUE),
    ("SL006","CL006","SW006",2,  FALSE,"2010-10-02", 1370000, 1918000, TRUE),
    ("SL007","CL003","SW007",20, TRUE, "2010-10-04", 25000  , 40000,   TRUE),
-   ("SL008","CL005","SW008",20, TRUE, "2010-10-04", 30000  , 48000,   TRUE),
-   ("SL009","CL006","SW009",2,  TRUE, "2010-10-04", 32000  , 48000,   TRUE),
-   ("SL010","CL004","SW010",320,TRUE, "2010-10-04", 980000 , 1519000, TRUE),
-   ("SL011","CL004","SW001",100,TRUE, "2010-10-04", 25000  , 40000,   TRUE);
+   ("SL008","CL005","SW008",20, TRUE, "2017-04-10", 30000  , 48000,   TRUE),
+   ("SL009","CL006","SW009",2,  TRUE, "2017-04-11", 32000  , 48000,   TRUE),
+   ("SL010","CL004","SW010",320,TRUE, "2017-04-12", 980000 , 1519000, TRUE),
+   ("SL011","CL004","SW001",100,TRUE, "2017-04-13", 25000  , 40000,   TRUE);
    
    SELECT s.order_date,s.sale_code,cl.clnt_name,sw.sw_name,s.sale_amount,s.isdeposit,sd.total_sale_price ,sw.sale_price FROM sale s 
          JOIN software sw ON s.sw_code = sw.sw_code 

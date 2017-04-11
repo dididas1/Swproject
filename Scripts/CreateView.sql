@@ -59,6 +59,7 @@ SELECT order_date, sale_code, clnt_code, clnt_name, sw_code, sw_name, sale_amoun
    
 SELECT order_date, sale_code, clnt_code, clnt_name, sw_code, sw_name, sale_amount, isdeposit
 	FROM view_sale_by_orderdate 
+	-- 날짜 주문번호 상호 품명 수량 입금여부 
 	WHERE order_date 
 	BETWEEN  #{startDate} AND #{endDate} 
 	ORDER BY order_date;

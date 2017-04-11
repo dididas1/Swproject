@@ -11,11 +11,21 @@ import kr.or.dgit.sw_project.dto.ViewOrderDateSale;
 import kr.or.dgit.sw_project.util.MyBatisSqlSessionFactory;
 
 public class ViewOrderDateSaleService {
+	public static final ViewOrderDateSaleService instence = new ViewOrderDateSaleService();
+	
+	
+	private ViewOrderDateSaleService() {}
+
+
+	public static ViewOrderDateSaleService getInstence() {
+		return instence;
+	}
+
 
 	public List<ViewOrderDateSale> selectViewOrderDateSaleThisYear(Map<String, Object> param) {
 		try (SqlSession sqlSession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
 			ViewOrderDateSaleMapper viewOrderDateSaleMapper = new ViewOrderDateSaleMapperImpl(sqlSession);
-			return viewOrderDateSaleMapper.selectViewOrderDateSaleThisYear(param);
+			return viewOrderDateSaleMapper.selectViewOrderDateSale(param);
 			
 		} 
 	}

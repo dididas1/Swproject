@@ -39,6 +39,15 @@ public class ViewOrderDateSale {
 		this.software = software;
 	}
 	
+	public Object[] toArrayForTable(){
+		return new Object[]{sale.getOrderDate(),sale.getSaleCode(),client.getClntName(),software.getSwName(),
+				String.format("%,d", software.getSalePrice()),String.format("%,d",sale.getSaleAmount()),sale.isDeposit()?"입금완료":"미입금",
+						String.format("%,d",sale.getSaleDetail().getTotalSalePrice())};
+	}
+
+
+	
+	
 	
 	
 	   

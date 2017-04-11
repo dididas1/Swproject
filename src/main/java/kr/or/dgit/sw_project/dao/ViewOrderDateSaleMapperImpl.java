@@ -20,9 +20,9 @@ public class ViewOrderDateSaleMapperImpl implements ViewOrderDateSaleMapper{
 	}
 
 	@Override
-	public List<ViewOrderDateSale> selectViewOrderDateSaleThisYear(Map<String, Object> param) {
-		log.debug("selectViewOrderDateSaleThisYear()");
-		return sqlSession.selectList(nameSpace + "selectViewOrderDateSaleThisYear",param);
+	public List<ViewOrderDateSale> selectViewOrderDateSale(Map<String, Object> param) {
+		log.debug("selectViewOrderDateSale()");
+		return sqlSession.selectList(nameSpace + "selectViewOrderDateSale",param);
 	}
 
 }

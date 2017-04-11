@@ -21,6 +21,7 @@ import kr.or.dgit.sw_project.application.sales.ViewSale;
 import kr.or.dgit.sw_project.application.showlist.ViewList;
 import kr.or.dgit.sw_project.application.software.ViewSoftware;
 import kr.or.dgit.sw_project.application.supplycompany.ViewSupplyCompany;
+import kr.or.dgit.sw_project.initsettingservice.InitSettingService;
 
 public class MainTab extends JFrame implements ActionListener {
 
@@ -40,6 +41,9 @@ public class MainTab extends JFrame implements ActionListener {
 	private ViewSale viewSale;
 	private ViewDelivery viewDelivery;
 	private ViewList viewList;
+	private JMenuItem mntmInit;
+	private JMenuItem mntmBackup;
+	private JMenuItem mntmRestore;
 	
 	public MainTab() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -51,13 +55,16 @@ public class MainTab extends JFrame implements ActionListener {
 		JMenu mnFile = new JMenu("파일");
 		menuBar.add(mnFile);
 
-		JMenuItem mntmInit = new JMenuItem("초기화");
+		mntmInit = new JMenuItem("초기화");
+		mntmInit.addActionListener(this);
 		mnFile.add(mntmInit);
 
-		JMenuItem mntmBackup = new JMenuItem("백업");
+		mntmBackup = new JMenuItem("백업");
+		mntmBackup.addActionListener(this);
 		mnFile.add(mntmBackup);
 
-		JMenuItem mntmRestore = new JMenuItem("복원");
+		mntmRestore = new JMenuItem("복원");
+		mntmRestore.addActionListener(this);
 		mnFile.add(mntmRestore);
 
 		JMenuItem mntmExit = new JMenuItem("종료");
@@ -160,6 +167,15 @@ public class MainTab extends JFrame implements ActionListener {
 	}
 	
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == mntmRestore) {
+			mntmRestoreActionPerformed(e);
+		}
+		if (e.getSource() == mntmBackup) {
+			mntmBackupActionPerformed(e);
+		}
+		if (e.getSource() == mntmInit) {
+			mntmInitActionPerformed(e);
+		}
 		if (e.getSource() == btnClient) {
 			actionPerformedBtnClient(e);
 		}
@@ -190,7 +206,17 @@ public class MainTab extends JFrame implements ActionListener {
 		ViewClient viewclient = new ViewClient();
 	}
 
-	protected void actionPerformedMnSale(ActionEvent e) {
+	protected void mntmInitActionPerformed(ActionEvent e) {
+		InitSettingService fileSetting = new InitSettingService();
+		fileSetting.initSetting(0, 1);
+	}
+	protected void mntmBackupActionPerformed(ActionEvent e) {
+		InitSettingService fileSetting = new InitSettingService();
+		fileSetting.initSetting(0, 0);
+	}
+	protected void mntmRestoreActionPerformed(ActionEvent e) {
+		InitSettingService fileSetting = new InitSettingService();
+		fileSetting.initSetting(1, 1);
 	}
 }
 

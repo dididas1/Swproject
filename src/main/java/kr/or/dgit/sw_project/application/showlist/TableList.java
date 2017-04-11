@@ -4,23 +4,26 @@ import java.awt.BorderLayout;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
 import kr.or.dgit.sw_project.dto.ViewCategorySale;
 import kr.or.dgit.sw_project.dto.ViewClientSale;
+import kr.or.dgit.sw_project.dto.ViewOrderDateSale;
 import kr.or.dgit.sw_project.dto.ViewSofrwareSale;
 
 public class TableList extends JPanel{
 	
 	private JTable table;
-	private ViewList viewList;
-	
+	private JLabel lblTotalLable;
 	private List<ViewCategorySale> listCategory;
 	private List<ViewClientSale> listClient;
 	private List<ViewSofrwareSale> listSoftware;
+	private List<ViewOrderDateSale> listDate;
 	
 	
 	
@@ -33,6 +36,11 @@ public class TableList extends JPanel{
 		table = new JTable();
 		scrollPane.setViewportView(table);
 		
+		lblTotalLable = new JLabel("");
+		lblTotalLable.setHorizontalAlignment(SwingConstants.RIGHT);
+		add(lblTotalLable, BorderLayout.SOUTH);
+
+		
 	}	
 	public void setTableDataForCategori(){  //카테고리 테이블에 입력
 		table.setModel(new DefaultTableModel(getRowDateForCategori(), getColummForCategori()));
@@ -42,8 +50,12 @@ public class TableList extends JPanel{
 		table.setModel(new DefaultTableModel(getRowDateForClient(), getColummForClient()));
 	}
 	
-	public void setTableDataForSoftware(){ //클라이언트 테이블에 입력
+	public void setTableDataForSoftware(){ //소프트웨어 테이블에 입력
 		table.setModel(new DefaultTableModel(getRowDateForSoftware(), getColummForSoftware()));
+	}
+	
+	public void setTableDataForDate(){ //날짜 테이블에 입력
+		table.setModel(new DefaultTableModel(getRowDateForDate(), getColummForDate()));
 	}
 	
 	public void setTableDataCategoriOne(ViewCategorySale viewCategorySale){ //카테고리 선택... 테이블에 입력
@@ -62,10 +74,18 @@ public class TableList extends JPanel{
 		
 	}
 	
-	public Object[] getColummForSoftware() { //클라이언트 Columm
+	public Object[] getColummForSoftware() { //소프트웨어 Columm
 		return new String[]{"판매코드","품목명 ","분류","공급회사명","판매금액","공급금액","판매이윤"};
 		
 	}
+	
+	
+	public Object[] getColummForDate() { //날짜 Columm
+		return new String[]{"날짜","판매코드 ","고객상호명","품목명","판매가격","판매갯수","입금여부","판매금액"};
+		
+	}
+	
+	
 	
 	private Object[][] getRowDateForCategori() {  //카테고리 row
 		int totalPrice =0;
@@ -112,19 +132,34 @@ public class TableList extends JPanel{
 		return datas;
 	}
 	
-	
-	public void setClntTotalLable(int price,int total){ // 총합레이블에 세팅
-		viewList.getLblNewLabel().setText(String.format("총판매금액 : %,d   총미수금: %,d", price,total));
+	private Object[][] getRowDateForDate() {  //날짜 row 합계까지
+		int totalPrice=0;
+		int totalAmount=0;
+		List<ViewOrderDateSale> listForTable = new ArrayList<ViewOrderDateSale>(listDate);
+		Object[][] datas = new Object[listForTable.size()][];
+		for (int i = 0; i < datas.length-1; i++) {
+			datas[i] = listForTable.get(i).toArrayForTable();
+			totalPrice+=listForTable.get(i).getSale().getSaleDetail().getTotalSalePrice();
+			totalAmount+=listForTable.get(i).getSale().getSaleAmount();
+		}
+		setDateTotalLable(totalPrice,totalAmount);
+		return datas;
 	}
 	
-	public void setSwTotalLable(int totalPrice,int totalSupplyPrice,int margin){ // 총합레이블에 세팅
-		viewList.getLblNewLabel().setText(String.format("총판매금액 : %,d   총공급금액: %,d   총판매이윤: %,d", totalPrice,totalSupplyPrice,margin));
+	public void setClntTotalLable(int price,int total){ // 총합라벨세팅 세팅
+		lblTotalLable.setText(String.format("총판매금액 : %,d   총미수금: %,d", price,total));
+	}
+	
+	public void setSwTotalLable(int totalPrice,int totalSupplyPrice,int margin){ // 총합라벨세팅 세팅
+		lblTotalLable.setText(String.format("총판매금액 : %,d   총공급금액: %,d   총판매이윤: %,d", totalPrice,totalSupplyPrice,margin));
 	}	
 	
-	public void setGroupTotalLable(int totalPrice ,int totalAmount){ // 총합레이블에 세팅
-		viewList.getLblNewLabel().setText(String.format("총판매금액 : %,d   총판매갯수: %,d "  , totalPrice,totalAmount));
+	public void setGroupTotalLable(int totalPrice ,int totalAmount){ // 총합라벨세팅 세팅
+		lblTotalLable.setText(String.format("총판매금액 : %,d   총판매갯수: %,d "  , totalPrice,totalAmount));
 	}	
-	
+	public void setDateTotalLable(int totalPrice,int totalAmount){ //총합라벨세팅
+		lblTotalLable.setText(String.format("총판매금액 : %,d   총판매갯수: %,d "  , totalPrice,totalAmount));
+	}
 	public JTable getTable() {
 		return table;
 	}
@@ -141,6 +176,10 @@ public class TableList extends JPanel{
 		this.listSoftware = listSoftware;
 	}
 	
+	public void setDateList(List<ViewOrderDateSale> listDate) {
+		this.listDate = listDate;
+	}
+	
 	public List<ViewCategorySale> getCategryList(){
 		return listCategory;
 	}
@@ -153,8 +192,8 @@ public class TableList extends JPanel{
 		return listSoftware;
 	}
 	
-	public void setViewList(ViewList viewList){
-		this.viewList= viewList;
+	public List<ViewOrderDateSale> getDateList(){
+		return listDate;
 	}
 	
 }

@@ -11,9 +11,10 @@
 		select * from view_sale_by_orderdate
 	</sql>
 	
-	<select id="selectViewOrderDateSaleThisYear" parameterMap="map" resultMap="ViewOrderDateSaleResult">
+	<select id="selectViewOrderDateSale" parameterType="map" resultMap="ViewOrderDateSaleResult">
 		<include refid="selectSql"/>
-	 	 WHERE YEAR(s.order_date) = "2017";
+	WHERE order_date BETWEEN  #{startDate} AND #{endDate} 
+	ORDER BY order_date;
 	</select>
 </mapper>
 	

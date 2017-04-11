@@ -6,5 +6,5 @@ import java.util.Map;
 import kr.or.dgit.sw_project.dto.ViewOrderDateSale;
 
 public interface ViewOrderDateSaleMapper {
-	List<ViewOrderDateSale> selectViewOrderDateSaleThisYear(Map<String, Object> param);
+	List<ViewOrderDateSale> selectViewOrderDateSale(Map<String, Object> param);
 }
