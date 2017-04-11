@@ -246,8 +246,18 @@ public class ContentDelivery extends JPanel {
 					return true;
 				}
 			}
-		}return false;
-
+		}
+		return false;
+	}
+	public boolean isNumberCheck(){
+		if(!(tfpDelAmount.getTfValue().trim().matches(getRegularNumber()))
+			||!(tfpSupplyAmount.getTfValue().trim().matches(getRegularNumber()))){
+			return true;
+		}
+		return false;		
+	}
+	public String getRegularNumber(){ //정규표현식 숫자만
+		return "^[0-9]{1,9}$";
 	}
 	
 	

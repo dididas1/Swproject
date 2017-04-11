@@ -120,7 +120,7 @@ public class ViewSupplyCompany extends JFrame implements ActionListener{
 		pTable.getTable().addMouseListener(new MouseAdapter() {
 
 			@Override
-			public void mouseClicked(MouseEvent e) { //테이블 클릭시 작동				
+			public void mouseClicked(MouseEvent e) { //테이블 클릭하면 동작				
 				Object[] supplyCompanyObj = getTableData();				
 				pContent.setObject(supplyCompanyObj);
 				btnDelete.setEnabled(true);
@@ -158,10 +158,12 @@ public class ViewSupplyCompany extends JFrame implements ActionListener{
 			btnInsertActionPerformed(e);
 		}
 	}
-	private void btnInsertActionPerformed(ActionEvent e) { //입력 수정 테이블 인덱스 클릭시 수정으로 변함
+	private void btnInsertActionPerformed(ActionEvent e) { //입력
 		if(e.getActionCommand().equals("입력")){
 			if(pContent.isEmptyCheck()){
 				JOptionPane.showMessageDialog(null, "입력해야될 값이 있습니다. 확인하세요");
+			}else if(pContent.isPhoneNumberCheck()){
+				JOptionPane.showMessageDialog(null, "전화번호를 다시 확인해주세요");
 			}else{
 				if(JOptionPane.showConfirmDialog(null, "입력하시겠습니까?")==JOptionPane.YES_OPTION){
 					SupplyCompService.getInstance().insertCompItem(pContent.getObject());
@@ -172,7 +174,7 @@ public class ViewSupplyCompany extends JFrame implements ActionListener{
 					
 				}
 			}
-		}else if(e.getActionCommand().equals("수정")){ //수정으로 변경
+		}else if(e.getActionCommand().equals("수정")){ //수정
 			if(JOptionPane.showConfirmDialog(null, "정말 수정하시겠습니까?")==JOptionPane.YES_OPTION){
 				SupplyCompService.getInstance().updateCompItem(pContent.getObject());	
 				list = SupplyCompService.getInstance().selectSupplyCompByAll();
@@ -189,7 +191,7 @@ public class ViewSupplyCompany extends JFrame implements ActionListener{
 		}
 	}
 
-	private void btnDeleteActionPerformed(ActionEvent e) { //논리삭제구현
+	private void btnDeleteActionPerformed(ActionEvent e) { //논리삭제
 		System.out.println("=========");
 		if(JOptionPane.showConfirmDialog(null, "삭제하겠습니까?")==JOptionPane.YES_OPTION){
 			SupplyCompService.getInstance().existCompItem(new SupplyCompany(pContent.getTfpSupplyCompanyCode().getTfValue()));
@@ -211,7 +213,7 @@ public class ViewSupplyCompany extends JFrame implements ActionListener{
 		//btnDelete.setEnabled(false);
 	}
 
-	awegwgerwg
+	
 	
 
 

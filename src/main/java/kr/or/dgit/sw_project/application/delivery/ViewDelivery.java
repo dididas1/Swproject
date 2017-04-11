@@ -11,6 +11,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import org.hamcrest.core.IsNull;
+
 import kr.or.dgit.sw_project.dto.Delivery;
 import kr.or.dgit.sw_project.dto.JoinFromSale;
 import kr.or.dgit.sw_project.dto.Sale;
@@ -126,7 +128,7 @@ public class ViewDelivery extends JPanel implements ActionListener{
 		pTable.loadData();
 		setVisible(true);
 	}
-	public void showFieldFromTable(){
+	public void showFieldFromTable(){//table 클릭시 필드에 table 값 띄우기
 		String selectedCode = (String) pTable.getTable().getValueAt(pTable.getTable().getSelectedRow(), 0);		
 		int selectedIdx = 0;
 		for(int i=0; i<list.size(); i++){
@@ -168,6 +170,8 @@ public class ViewDelivery extends JPanel implements ActionListener{
 			if(pContent.isEmptyCheck()||pContent.getTfpCompName().getSelectedIndex()==0
 					||pContent.getTfpDeSwName().getSelectedIndex()==0){
 				JOptionPane.showMessageDialog(null, "입력해야될 값이 있습니다. 확인하세요");				
+			}else if(pContent.isNumberCheck()){
+				JOptionPane.showMessageDialog(null, "숫자만 입력하세요(납품가격,납품수량)");
 			}else{
 				DeliveryService.getInstance().insertDeliveryItems(pContent.getObject());
 				list = DeliveryService.getInstance().selectDeliveryByAll(); 

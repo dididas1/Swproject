@@ -76,7 +76,7 @@ public class ContentSupplyCompany extends JPanel implements ActionListener {
 		gbc_tfpSupplyCompanyAd.gridy = 4;
 		add(tfpSupplyCompanyAd, gbc_tfpSupplyCompanyAd);
 		
-		button = new JButton("우편번호검색");
+		button = new JButton("도로명주소검색");
 		button.addActionListener(this);
 		GridBagConstraints gbc_button = new GridBagConstraints();
 		gbc_button.insets = new Insets(0, 0, 5, 5);
@@ -150,7 +150,15 @@ public class ContentSupplyCompany extends JPanel implements ActionListener {
 		tfpSupplyCompanyAd.setTfValue(String.valueOf(supplyCompanyObj[2]));	
 		tfpSupplyCompanyTel.setTfValue(String.valueOf(supplyCompanyObj[3]));	
 	}
-	
+	public boolean isPhoneNumberCheck(){//전화번호 체크
+		if(!tfpSupplyCompanyTel.getTfValue().trim().matches(getRegularPhone())){
+			return true;
+		}
+		return false;
+	}
+	public String getRegularPhone(){
+		return "^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}$";
+	}
 	public boolean isEmptyCheck(){ // 공백체크
 		for(Component c: getComponents()){
 			if(c instanceof TextFieldPanel){
@@ -159,16 +167,16 @@ public class ContentSupplyCompany extends JPanel implements ActionListener {
 					return true;
 				}
 			}
-		}return false;
-		
+		}
+		return false;		
 	}
-	public void actionPerformed(ActionEvent e) {
+	public void actionPerformed(ActionEvent e) {//주소검색
 		if (e.getSource() == button) {
 			buttonActionPerformed(e);
 		}
 	}
-	//어드레스창열기
-	protected void buttonActionPerformed(ActionEvent e) {
+	
+	protected void buttonActionPerformed(ActionEvent e) {//주소검색
 		viewAddress.setCompDao(this);
 		viewAddress.setVisible(true);
 	}
