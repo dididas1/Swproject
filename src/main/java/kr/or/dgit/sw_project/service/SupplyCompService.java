@@ -15,7 +15,7 @@ public class SupplyCompService {
 		return instance;
 	}
 	
-	public List<SupplyCompany> selectSupplyCompByAll() {
+	public List<SupplyCompany> selectSupplyCompByAll() {//supplyCompany 테이블 모든값
 		try (SqlSession sqlSession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
 			SupplyCompMapper supplyCompMapper = new SupplyCompMapperImpl(sqlSession);
 			return supplyCompMapper.selectSupplyCompByAll();
@@ -23,14 +23,14 @@ public class SupplyCompService {
 	}
 	
 
-	public SupplyCompany selectCompByNo(SupplyCompany supplyCompany) {
+	public SupplyCompany selectCompByNo(SupplyCompany supplyCompany) {//code통해 검색
 		try (SqlSession sqlSession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
 			SupplyCompMapper supplyCompMapper = new SupplyCompMapperImpl(sqlSession);
 			return supplyCompMapper.selectCompByNo(supplyCompany);
 		} 
 	}
 
-	public int insertCompItem(SupplyCompany supplyCompany) {
+	public int insertCompItem(SupplyCompany supplyCompany) {//db table에 입력
 		try (SqlSession sqlSession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
 			SupplyCompMapper supplyCompMapper = new SupplyCompMapperImpl(sqlSession);
 			int res= supplyCompMapper.insertCompItem(supplyCompany);
@@ -39,7 +39,7 @@ public class SupplyCompService {
 		} 
 	}
 
-	public int updateCompItem(SupplyCompany supplyCompany) {
+	public int updateCompItem(SupplyCompany supplyCompany) {//db table값수정
 		try (SqlSession sqlSession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
 			SupplyCompMapper supplyCompMapper = new SupplyCompMapperImpl(sqlSession);
 			int res= supplyCompMapper.updateCompItem(supplyCompany);
@@ -48,7 +48,7 @@ public class SupplyCompService {
 		} 
 	}
 
-	public int existCompItem(SupplyCompany supplyCompany) {
+	public int existCompItem(SupplyCompany supplyCompany) {//논리삭제 db에서 exist칼럼 true로 변경 
 		try (SqlSession sqlSession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
 			SupplyCompMapper supplyCompMapper = new SupplyCompMapperImpl(sqlSession);
 			int res= supplyCompMapper.existCompItem(supplyCompany);

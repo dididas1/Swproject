@@ -33,24 +33,22 @@ public class TableSupplyCompany extends JPanel {
 
 
 	 
-	public void setTableData(){ //테이블 데이터입력
+	public void setTableData(){ //set table
 		table.setModel(new DefaultTableModel(getRowData(), getColumm()));
 	}
-	private Object[] getColumm() { //컬럼입력
+	private Object[] getColumm() { //column
 		return new String[]{"공급사코드","공급사명","주소","전화번호"};
 	}
 
-	private Object[][] getRowData() { //테이블 로우값입력 isExist가 true인 항목에대해서만 값받아옴
+	private Object[][] getRowData() { //table row isCompIsExist가 true인 것만
 		List<SupplyCompany> listForTable = new ArrayList<SupplyCompany>(list);
 		for(int i =0; i<list.size(); i++)
-			System.out.println(list.get(i).toString());
-			
+			System.out.println(list.get(i).toString());			
 		for (int i = listForTable.size()-1; i >= 0; i--) {
 			if (!listForTable.get(i).isCompIsExist()) {
 				listForTable.remove(i);
 			}
-		}	
-		
+		}			
 		Object[][] datas = new Object[listForTable.size()][];
 		for (int i = 0; i < datas.length; i++) {
 			datas[i] = listForTable.get(i).toArrayForTable();

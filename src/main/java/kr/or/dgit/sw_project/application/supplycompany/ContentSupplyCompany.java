@@ -170,6 +170,7 @@ public class ContentSupplyCompany extends JPanel implements ActionListener {
 		}
 		return false;		
 	}
+	
 	public void actionPerformed(ActionEvent e) {//주소검색
 		if (e.getSource() == button) {
 			buttonActionPerformed(e);

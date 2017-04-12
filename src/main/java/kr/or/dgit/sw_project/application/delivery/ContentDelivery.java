@@ -150,14 +150,14 @@ public class ContentDelivery extends JPanel {
 			tfpDelCode.setTfValue("DL001");
 		}else{			
 			tfpDelCode.setTfValue(String.format(getDeliveryCode(), list.size()+1));
-			tfpDelCode.getTf().setFocusable(false);
+			tfpDelCode.getTf().setEditable(false);
 		}
 	
 	}
 	private String getDeliveryCode() {		//ref coffee
 		return "DL%03d";
 	}
-	public void setComboSoftware(){//combopanel에 소프트웨어 띄우기
+	public void setComboSoftware(){//combopanel에 소프트웨어
 		tfpDeSwName.getTf().removeAllItems();
 		swList = SoftwareService.getInstance().selectSoftwareByAll();
 		Vector<String> v = new Vector<>();	
@@ -168,7 +168,7 @@ public class ContentDelivery extends JPanel {
 		}
 		tfpDeSwName.setComboData(v);	
 	}
-	private void setComboSupplyCompany() {//combopanel에 공급회사 띄우기
+	private void setComboSupplyCompany() {//combopanel에 공급회사
 		tfpCompName.getTf().removeAllItems();
 		compList = SupplyCompService.getInstance().selectSupplyCompByAll();
 		Vector<String> v = new Vector<>();	
@@ -209,9 +209,9 @@ public class ContentDelivery extends JPanel {
 		tfpCompName.setSelectedItem(delivery.getSupplyCompany().getCompName());		
 		tfpDeSwName.setSelectedItem(delivery.getSoftware().getSwName()+ String.format(" (재고: %s)", delivery.getSoftware().getSwInven()));
 		//System.out.println(delivery.getSoftware().getSwInven());
-		System.out.println(SoftwareService.getInstance().selectSoftwareByAll());
+		//System.out.println(SoftwareService.getInstance().selectSoftwareByAll());
 		tfpSupplyAmount.setTfValue(String.valueOf(delivery.getSupplyPrice()));
-		System.out.println("====================");
+		//System.out.println("====================");
 		tfpDelAmount.setTfValue(String.valueOf(delivery.getSupplyAmount()));		
 		tfpDelOrderDate.setTfDate(delivery.getOrderDate());	
 	}
@@ -249,7 +249,7 @@ public class ContentDelivery extends JPanel {
 		}
 		return false;
 	}
-	public boolean isNumberCheck(){
+	public boolean isNumberCheck(){//숫자 입력해야될곳에 제대로 입력되있는지
 		if(!(tfpDelAmount.getTfValue().trim().matches(getRegularNumber()))
 			||!(tfpSupplyAmount.getTfValue().trim().matches(getRegularNumber()))){
 			return true;

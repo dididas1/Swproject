@@ -129,9 +129,9 @@ public class ViewSupplyCompany extends JFrame implements ActionListener{
 			}
 
 		});
-		list = SupplyCompService.getInstance().selectSupplyCompByAll();
+		list = SupplyCompService.getInstance().selectSupplyCompByAll();//supplyCompany테이블 모든값 가지고옴
 		pTable.setSupplyList(list);
-		pTable.setTableData();
+		pTable.setTableData();//table에 db에 있는 row,colum들 보여주기
 		setVisible(true);
 	}
 	private Object[] getTableData() {//each data in the table클릭시 값 넘겨줌
@@ -148,19 +148,19 @@ public class ViewSupplyCompany extends JFrame implements ActionListener{
 	
 
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == btnCancle) {
+		if (e.getSource() == btnCancle) {//취소버튼
 			btnCancleActionPerformed(e);
 		}
-		if (e.getSource() == btnDelete) {
+		if (e.getSource() == btnDelete) {//삭제버튼
 			btnDeleteActionPerformed(e);
 		}
-		if (e.getSource() == btnInsert) {
+		if (e.getSource() == btnInsert) {//입력버튼(테이블 클릭시 수정으로 바뀜)
 			btnInsertActionPerformed(e);
 		}
 	}
 	private void btnInsertActionPerformed(ActionEvent e) { //입력
 		if(e.getActionCommand().equals("입력")){
-			if(pContent.isEmptyCheck()){
+			if(pContent.isEmptyCheck()){//공백 체크
 				JOptionPane.showMessageDialog(null, "입력해야될 값이 있습니다. 확인하세요");
 			}else if(pContent.isPhoneNumberCheck()){
 				JOptionPane.showMessageDialog(null, "전화번호를 다시 확인해주세요");
@@ -174,25 +174,29 @@ public class ViewSupplyCompany extends JFrame implements ActionListener{
 					
 				}
 			}
-		}else if(e.getActionCommand().equals("수정")){ //수정
-			if(JOptionPane.showConfirmDialog(null, "정말 수정하시겠습니까?")==JOptionPane.YES_OPTION){
-				SupplyCompService.getInstance().updateCompItem(pContent.getObject());	
-				list = SupplyCompService.getInstance().selectSupplyCompByAll();
-				pTable.setSupplyList(list);
-				pTable.setTableData();
-				btnInsert.setText("입력");
-				pContent.resetField();
+		}else if(e.getActionCommand().equals("수정")){ //수정			
+			if(pContent.isPhoneNumberCheck()){//정규식 사용해 숫자 입력되있는지 체크
+				JOptionPane.showMessageDialog(null, "전화번호를 다시 확인해주세요");
 			}else{
-				JOptionPane.showMessageDialog(null, "취소되었습니당.");
-				pContent.resetField();
-				btnInsert.setText("입력");
-				btnDelete.setEnabled(false);
-			}
+				if(JOptionPane.showConfirmDialog(null, "정말 수정하시겠습니까?")==JOptionPane.YES_OPTION){
+					SupplyCompService.getInstance().updateCompItem(pContent.getObject());	
+					list = SupplyCompService.getInstance().selectSupplyCompByAll();
+					pTable.setSupplyList(list);
+					pTable.setTableData();
+					btnInsert.setText("입력");
+					pContent.resetField();//필드초기화
+				}else{
+					JOptionPane.showMessageDialog(null, "취소되었습니당.");
+					pContent.resetField();//필드초기화
+					btnInsert.setText("입력");
+					btnDelete.setEnabled(false);
+				}
+			}			
 		}
 	}
 
-	private void btnDeleteActionPerformed(ActionEvent e) { //논리삭제
-		System.out.println("=========");
+	private void btnDeleteActionPerformed(ActionEvent e) { //실제 db의 값을 삭제하는것이 아닌 논리삭제
+		//System.out.println("=========");
 		if(JOptionPane.showConfirmDialog(null, "삭제하겠습니까?")==JOptionPane.YES_OPTION){
 			SupplyCompService.getInstance().existCompItem(new SupplyCompany(pContent.getTfpSupplyCompanyCode().getTfValue()));
 			list=SupplyCompService.getInstance().selectSupplyCompByAll();
@@ -200,17 +204,16 @@ public class ViewSupplyCompany extends JFrame implements ActionListener{
 			pTable.setTableData();
 			pContent.resetField();
 			btnInsert.setText("입력");
-			//btnDelete.setEnabled(false);
+			btnDelete.setEnabled(false);
 		}else{
-				JOptionPane.showMessageDialog(null, "취소되었습니다");
-			
+			JOptionPane.showMessageDialog(null, "취소되었습니다");			
 		}
 	}
 	
 	private void btnCancleActionPerformed(ActionEvent e) { //취소버튼
-		pContent.resetField();
+		pContent.resetField();//필드초기화
 		btnInsert.setText("입력");
-		//btnDelete.setEnabled(false);
+		btnDelete.setEnabled(false);
 	}
 
 	
