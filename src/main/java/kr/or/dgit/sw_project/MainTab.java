@@ -3,6 +3,7 @@ package kr.or.dgit.sw_project;
 
 import java.awt.BorderLayout;
 import java.awt.Desktop;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -17,6 +18,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import kr.or.dgit.sw_project.application.category.ViewCategory;
 import kr.or.dgit.sw_project.application.chart.ViewChart;
@@ -29,7 +32,7 @@ import kr.or.dgit.sw_project.application.software.ViewSoftware;
 import kr.or.dgit.sw_project.application.supplycompany.ViewSupplyCompany;
 import kr.or.dgit.sw_project.initsetting.InitSettingService;
 
-public class MainTab extends JFrame implements ActionListener {
+public class MainTab extends JFrame implements ActionListener, ChangeListener {
 
 	private JMenuItem mnSale;
 	private JMenuItem mnDel;
@@ -38,23 +41,26 @@ public class MainTab extends JFrame implements ActionListener {
 	private JMenuItem mntmInit;
 	private JMenuItem mntmBackup;
 	private JMenuItem mntmRestore;
-	
+
 	private JPanel contentPane;
 	private JPanel pButton;
-	
+
 	private JButton btnChart;
 	private JButton btnReport;
 	private JButton btnShowList;
-	
+
 	private ViewSale viewSale;
 	private ViewDelivery viewDelivery;
 	private ViewClient viewClient;
 	private ViewSupplyCompany viewSupplyCompany;
 	private ViewSoftware viewSoftware;
-	
+
 	private ViewCategory viewCategory;
 	private InitSettingService fileSetting = new InitSettingService();
-	
+	private JTabbedPane tabbedPane;
+	private ViewList viewList;
+	private ViewChart viewChart;
+
 	public MainTab() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(0, 0, 1200, 900);
@@ -114,7 +120,8 @@ public class MainTab extends JFrame implements ActionListener {
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.addChangeListener(this);
 		contentPane.add(tabbedPane, BorderLayout.CENTER);
 
 		tabbedPane.add("주문 관리",viewSale = new ViewSale());
@@ -123,14 +130,14 @@ public class MainTab extends JFrame implements ActionListener {
 		tabbedPane.add("고객 관리",viewClient = new ViewClient());
 		tabbedPane.add("공급사 관리",viewSupplyCompany = new ViewSupplyCompany());
 		tabbedPane.add("S/W분류 관리",viewCategory = new ViewCategory());
-		
+
 		JPanel pButton = new JPanel();
 		contentPane.add(pButton, BorderLayout.NORTH);
 
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.WEST);
 		panel.setLayout(new BorderLayout(0, 0));
-		
+
 		btnShowList = new JButton("거래내역 확인");
 		btnShowList.addActionListener(this);
 		pButton.add(btnShowList);
@@ -147,15 +154,11 @@ public class MainTab extends JFrame implements ActionListener {
 			btnChart.setEnabled(false);
 			btnReport.setEnabled(false);
 		}
-		
+
 		setVisible(true);
-		viewDelivery.setMainTab(MainTab.this);
 	}
 
-	public void refresh(){
-		viewSale.getContent().setSwComboData();
-	}
-	
+
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnChart) {
 			actionPerformedBtnChart(e);
@@ -176,30 +179,36 @@ public class MainTab extends JFrame implements ActionListener {
 			actionPerformedBtnReport(e);
 		}
 	}
+
+
 	protected void actionPerformedBtnShowList(ActionEvent e) {
-		ViewList viewList = new ViewList();
+		viewList = new ViewList();
+		viewList.getContentList().setCategoryComboData();
+		viewList.getContentList().setClntComboData();
+		viewList.getContentList().setSwComboData();
+		
 	}
-	
+
 	protected void actionPerformedBtnSupplyComp(ActionEvent e) {
-		ViewSupplyCompany viewSupplyCompany = new ViewSupplyCompany(); 
+		viewSupplyCompany = new ViewSupplyCompany(); 
 	}
 
 	protected void actionPerformedBtnSoftWare(ActionEvent e) {
-		ViewSoftware viewSoftware = new ViewSoftware();
+		viewSoftware = new ViewSoftware();
 	}
 
 	protected void actionPerformedBtnCategory(ActionEvent e) {
-		ViewCategory viewCategory = new ViewCategory();
+		viewCategory = new ViewCategory();
 	}
 
 	protected void actionPerformedBtnClient(ActionEvent e) {
-		ViewClient viewclient = new ViewClient();
+		viewClient = new ViewClient();
 	}
-	
+
 	protected void actionPerformedBtnChart(ActionEvent e) {
-		ViewChart viewChart = new ViewChart(); 
+		viewChart = new ViewChart(); 
 	}
-	
+
 	protected void actionPerformedBtnReport(ActionEvent e) {
 		String path = "D:\\Chart.xls";
 		GenerateExcel generateExcel = new GenerateExcel(path); 
@@ -219,6 +228,38 @@ public class MainTab extends JFrame implements ActionListener {
 	}
 	protected void actionPerformedMntmRestore(ActionEvent e) {
 		fileSetting.initSetting(1, 1);
+	}
+
+
+
+	public void stateChanged(ChangeEvent e) {
+		if (e.getSource() == tabbedPane) {
+			// 선택된 탭의 idx를 넘겨줌
+			stateChangedThis(tabbedPane.getSelectedIndex());
+		}
+
+	}
+
+	private void stateChangedThis(int idx) { //텝바뀔때마다 리스트갱신
+		if (tabbedPane.getTitleAt(idx).equals("주문 관리")) {
+			viewSale.getContentSale().setClntComboData();
+			viewSale.getContentSale().setSwComboData();
+			viewSale.getTableSale().setTableData();
+		} else if (tabbedPane.getTitleAt(idx).equals("납품 관리")) {
+			viewDelivery.getpContentDelivery().setComboSoftware();
+			viewDelivery.getpContentDelivery().setComboSupplyCompany();
+			viewDelivery.getpTableDelivery().loadData();
+		} else if (tabbedPane.getTitleAt(idx).equals("소프트웨어 관리")) {
+			viewSoftware.getpContentSoftware().setComboBox();
+			viewSoftware.getpTableSoftware().setTableData();
+
+		}
+
+	}
+
+
+	protected void tabbedPaneStateChanged(ChangeEvent e) {
+
 	}
 }
 

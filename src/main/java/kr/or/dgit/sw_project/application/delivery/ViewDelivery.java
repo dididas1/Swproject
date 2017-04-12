@@ -36,7 +36,6 @@ public class ViewDelivery extends JPanel implements ActionListener{
 	private JButton btnDelete;
 	private JButton btnCancle;
 	private List<Delivery> list;
-	private MainTab mainTab;
 	
 	
 	public ViewDelivery() {
@@ -238,8 +237,12 @@ public class ViewDelivery extends JPanel implements ActionListener{
 		pContent.getTfpSupplyAmount().getTf().setEditable(true);
 		
 	}
-	public void setMainTab(MainTab mainTab) {
-		this.mainTab=mainTab;
-		
+	public ContentDelivery getpContentDelivery() {
+		return pContent;
 	}
+	public TableDelivery getpTableDelivery() {
+		return pTable;
+	}
+	
+	
 }

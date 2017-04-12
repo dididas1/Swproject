@@ -245,7 +245,12 @@ public class ViewSale extends JPanel implements ActionListener{
 		list = JoinFromSaleService.getInstance().selectJoinFromSaleByAll();
 	}
 
-	public ContentSale getContent() {
+	public ContentSale getContentSale() {
 		return pContent;
 	}
+
+	public TableSale getTableSale() {
+		return pTable;
+	}
+	
 }

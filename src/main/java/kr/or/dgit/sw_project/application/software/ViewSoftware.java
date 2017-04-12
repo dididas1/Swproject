@@ -33,7 +33,7 @@ public class ViewSoftware extends JPanel implements ActionListener {
 	private JButton btnInsert;
 	private JButton btnCancle;
 	private JButton btnDelete;
-	
+
 	public ViewSoftware() {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0}; //각 열의 최소 넓이  
@@ -41,7 +41,7 @@ public class ViewSoftware extends JPanel implements ActionListener {
 		gridBagLayout.columnWeights = new double[]{1.0, Double.MIN_VALUE}; //각 열의 가중치
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0}; //각 행의 가중치
 		setLayout(gridBagLayout);
-		
+
 		JLabel label = new JLabel("소프트웨어 관리");
 		label.setEnabled(false);
 		label.setHorizontalAlignment(SwingConstants.CENTER);
@@ -53,7 +53,7 @@ public class ViewSoftware extends JPanel implements ActionListener {
 		gbc_label.gridy = 0;
 		gbc_label.gridwidth = 5;
 		add(label, gbc_label);
-		
+
 		pContent = new ContentSoftware();
 		GridBagConstraints gbc_pContent = new GridBagConstraints();
 		gbc_pContent.insets = new Insets(10, 10, 10, 10);
@@ -61,7 +61,7 @@ public class ViewSoftware extends JPanel implements ActionListener {
 		gbc_pContent.gridx = 0;
 		gbc_pContent.gridy = 1;
 		add(pContent, gbc_pContent);
-		
+
 		JPanel pButton = new JPanel();
 		GridBagConstraints gbc_pButton = new GridBagConstraints();
 		gbc_pButton.insets = new Insets(0, 0, 0, 0);
@@ -69,14 +69,14 @@ public class ViewSoftware extends JPanel implements ActionListener {
 		gbc_pButton.gridx = 0;
 		gbc_pButton.gridy = 2;
 		add(pButton, gbc_pButton);
-		
+
 		GridBagLayout gbl_pButton = new GridBagLayout();
 		gbl_pButton.columnWidths = new int[] {100, 100, 100};
 		gbl_pButton.rowHeights = new int[]{55, 0};
 		gbl_pButton.columnWeights = new double[]{0.0, 0.0, 0.0};
 		gbl_pButton.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		pButton.setLayout(gbl_pButton);
-		
+
 		btnInsert = new JButton("입력");
 		btnInsert.addActionListener(this);
 		GridBagConstraints gbc_btnInsert = new GridBagConstraints();
@@ -85,7 +85,7 @@ public class ViewSoftware extends JPanel implements ActionListener {
 		gbc_btnInsert.gridx = 0;
 		gbc_btnInsert.gridy = 0;
 		pButton.add(btnInsert, gbc_btnInsert);
-		
+
 		btnCancle = new JButton("취소");
 		btnCancle.addActionListener(this);
 		GridBagConstraints gbc_btnCancle = new GridBagConstraints();
@@ -94,7 +94,7 @@ public class ViewSoftware extends JPanel implements ActionListener {
 		gbc_btnCancle.gridx = 1;
 		gbc_btnCancle.gridy = 0;
 		pButton.add(btnCancle, gbc_btnCancle);
-		
+
 		btnDelete = new JButton("삭제");
 		btnDelete.addActionListener(this);
 		btnDelete.setEnabled(false);
@@ -103,7 +103,7 @@ public class ViewSoftware extends JPanel implements ActionListener {
 		gbc_btnDelete.gridx = 2;
 		gbc_btnDelete.gridy = 0;
 		pButton.add(btnDelete, gbc_btnDelete);
-		
+
 		pTable = new TableSoftware();
 		GridBagConstraints gbc_pTable = new GridBagConstraints();
 		gbc_pTable.fill = GridBagConstraints.BOTH;
@@ -111,7 +111,6 @@ public class ViewSoftware extends JPanel implements ActionListener {
 		gbc_pTable.gridy = 3;
 		add(pTable, gbc_pTable);
 		pTable.getTable().addMouseListener(new MouseAdapter() {
-
 			@Override
 			public void mouseClicked(MouseEvent e) { //테이블 클릭시 작동
 				Object[] swObj = getSoftwareDataObject();
@@ -127,7 +126,7 @@ public class ViewSoftware extends JPanel implements ActionListener {
 		pTable.setTableData();
 		setVisible(true);
 	}
-	
+
 	public boolean isRegKey(){// 예외처리(공백, 정규표현식)
 		boolean isRegKey = true;
 		if(pContent.isWsCheck()){
@@ -139,7 +138,7 @@ public class ViewSoftware extends JPanel implements ActionListener {
 		}
 		return isRegKey;
 	}
-	
+
 	public Object[] getSoftwareDataObject() { //클릭된 인덱스의 값을 받아와 오브젝트 배열에 넣고 리턴
 		int cCnt = pTable.getTable().getColumnCount();
 		int selIns = pTable.getTable().getSelectedRow();
@@ -149,7 +148,7 @@ public class ViewSoftware extends JPanel implements ActionListener {
 		}
 		return softwareObj;
 	}
-	
+
 	public void setSwCodes() { //테이블에 있는 모든 제품코드를 오브젝트 배열에 넣고 리턴
 		int swcCnt = pTable.getTable().getRowCount();
 		Object[] swCodes = new Object[swcCnt];
@@ -158,7 +157,7 @@ public class ViewSoftware extends JPanel implements ActionListener {
 		}
 		pContent.swCodeReset(swCodes);
 	}
-	
+
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnDelete) {
 			actionPerformedBtnDelete(e);
@@ -219,4 +218,14 @@ public class ViewSoftware extends JPanel implements ActionListener {
 		btnDelete.setEnabled(false);
 		pContent.getSwCode();
 	}
+
+	public ContentSoftware getpContentSoftware() {
+		return pContent;
+	}
+
+	public TableSoftware getpTableSoftware() {
+		return pTable;
+	}
+	
+	
 }

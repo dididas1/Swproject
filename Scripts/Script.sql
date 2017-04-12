@@ -5,3 +5,9 @@ SELECT c.group_code, c.group_name,
 					JOIN sale s ON sw.sw_code=s.sw_code
 					JOIN view_sale_detail sd ON sd.sale_code = s.sale_code
 	GROUP BY c.group_code;
+	select * from software;
+		SELECT * FROM software sw
+				  left outer JOIN category cat ON sw.group_code = cat.group_code
+				  left outer JOIN sale s ON sw.sw_code = s.sw_code
+				  left outer JOIN client cl ON cl.clnt_code = s.clnt_code
+				  group by sw.sw_code;

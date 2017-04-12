@@ -168,7 +168,7 @@ public class ContentDelivery extends JPanel {
 		}
 		tfpDeSwName.setComboData(v);	
 	}
-	private void setComboSupplyCompany() {//combopanel에 공급회사
+	public void setComboSupplyCompany() {//combopanel에 공급회사
 		tfpCompName.getTf().removeAllItems();
 		compList = SupplyCompService.getInstance().selectSupplyCompByAll();
 		Vector<String> v = new Vector<>();	
@@ -259,6 +259,7 @@ public class ContentDelivery extends JPanel {
 	public String getRegularNumber(){ //정규표현식 숫자만
 		return "^[0-9]{1,9}$";
 	}
+	
 	
 	
 }

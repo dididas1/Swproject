@@ -217,4 +217,12 @@ public class ViewList extends JFrame implements ActionListener, ItemListener {
 			pContent.getTfpGroup().setSelectedItem(0);
 		}
 	}
+
+
+
+	public ContentList getContentList() {
+		return pContent;
+	}
+	
+	
 }

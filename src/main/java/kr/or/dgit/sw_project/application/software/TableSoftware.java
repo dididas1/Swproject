@@ -43,9 +43,6 @@ public class TableSoftware extends JPanel {
 	public Object[][] getRowdata() { //하나의 소프트웨어 목록을 가져와 테이블에 입력준비
 		List<JoinFromSoftware> listForTable= JoinFromSoftwareService.getInstance().selectJoinFromSoftwareByAll();
 		
-		for(int i =0; i<listForTable.size(); i++)
-			System.out.println(listForTable.get(i).toString());
-			
 		
 		for (int i = listForTable.size()-1; i >= 0; i--) {
 			if (!listForTable.get(i).getSoftware().isSwIsSale()) {
