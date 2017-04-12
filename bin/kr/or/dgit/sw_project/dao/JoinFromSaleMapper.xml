@@ -3,11 +3,11 @@
 <mapper	namespace="kr.or.dgit.sw_project.dao.JoinFromSaleMapper">
    
 	<resultMap type="JoinFromSale" id="JoinFromSaleResult">
-       	<association property="sale" resultMap="kr.or.dgit.sw_project.dao.SaleMapper.SaleResult"/>
-    	<association property="client" resultMap="kr.or.dgit.sw_project.dao.ClientMapper.ClientResult"/>
-    	<association property="software" resultMap="kr.or.dgit.sw_project.dao.SoftwareMapper.SoftwareResult"/>
-    	<association property="category" resultMap="kr.or.dgit.sw_project.dao.CategoryMapper.CategoryResult"/>
-    	<association property="saleDetail" resultMap="kr.or.dgit.sw_project.dao.SaleDetailMapper.SaleDetailResult"/>
+       	<association property="sale" 		resultMap="kr.or.dgit.sw_project.dao.SaleMapper.SaleResult"/>
+    	<association property="client" 		resultMap="kr.or.dgit.sw_project.dao.ClientMapper.ClientResult"/>
+    	<association property="software" 	resultMap="kr.or.dgit.sw_project.dao.SoftwareMapper.SoftwareResult"/>
+    	<association property="category" 	resultMap="kr.or.dgit.sw_project.dao.CategoryMapper.CategoryResult"/>
+    	<association property="saleDetail" 	resultMap="kr.or.dgit.sw_project.dao.SaleDetailMapper.SaleDetailResult"/>
     </resultMap>
     
 	<!-- Select SQL -->

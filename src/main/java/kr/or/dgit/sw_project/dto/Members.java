@@ -9,6 +9,11 @@ public class Members {
 	private Boolean memIsExist;
 
 	public Members() {}
+	
+	public Members(String memId) {
+		this.memId = memId;
+	}
+
 	public Members(String memId, String memPassword) {
 		this.memId = memId;
 		this.memPassword = memPassword;
@@ -21,7 +26,7 @@ public class Members {
 		this.memPassword = memPassword;
 		this.memMail = memMail;
 	}
-
+	
 	public String getMemId() {
 		return memId;
 	}

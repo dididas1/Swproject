@@ -1,66 +1,174 @@
-   
-   INSERT INTO client(clnt_code, clnt_name, clnt_addr, clnt_tel, clnt_isExist) VALUES
-   ("CL001", "재밌는 게임방",      "서울시 동대문구 연희동",  "02-111-1111", TRUE),
-   ("CL002", "좋은 게임방",       "서울시 관악구 봉천동",    "02-222-2222", FALSE),
-   ("CL003", "친구 게임방",      "천안시 동남구 신부동",    "041-333-3333",FALSE),
-   ("CL004", "충청남도 교육청",   "대전광역시 중구 과례2길", "042-444-4444",FALSE),
-   ("CL005", "대전광역시 교육청", "대전광역시 서구 향촌길",  "042-555-5555",FALSE),
-   ("CL006", "아산시스템",         "충청남도 아산시 배방면",  "041-777-7777",FALSE);
+USE sw_erp;
+-- 공급회사
+CREATE TABLE supply_company (
+	compNo   VARCHAR(6)  NOT NULL,
+	compName VARCHAR(20) NOT NULL,
+	compAddr VARCHAR(50) NULL,
+	compTel  VARCHAR(15) NULL,
+	PRIMARY KEY (compNo)
+);
 
+-- 고객현황
+CREATE TABLE client (
+	clntNo   VARCHAR(6)  NOT NULL,
+	clntName VARCHAR(20) NOT NULL,
+	clntAddr VARCHAR(50) NULL,
+	clntTel  VARCHAR(15) NULL,
+	PRIMARY KEY (clntNo)
+);
+
+-- 소프트웨어
+CREATE TABLE software (
+	swNo          VARCHAR(6)  NOT NULL, 
+	swGroup       VARCHAR(10) NULL, 
+	swName        VARCHAR(50) NOT NULL, 
+	swSupplyPrice INTEGER     NOT NULL, 
+	swPrice       INTEGER     NOT NULL, 
+	supplyComp    VARCHAR(6)  NOT NULL, 
+	PRIMARY KEY (swNo), 
+	FOREIGN KEY (supplyComp) REFERENCES supply_company (compNo) 
+		ON UPDATE CASCADE
+);
+
+
+-- 판매현황
+CREATE TABLE sale (
+	saleNo        VARCHAR(6)  NOT NULL,
+	clntNo        VARCHAR(6)  NOT NULL,
+	swNo          VARCHAR(6)  NOT NULL,
+	sellingAmount INTEGER NOT NULL,
+	isDeposit     BOOLEAN NOT NULL,
+	orderDate     DATE    NOT NULL,
+	PRIMARY KEY (saleNo),
+	FOREIGN KEY (clntNo) REFERENCES client (clntNo)
+		ON UPDATE CASCADE, 
+	FOREIGN KEY (swNo)   REFERENCES software (swNo)
+		ON UPDATE CASCADE
+);
+
+DROP TABLE sale;
+DROP TABLE software;
+DROP TABLE supply_company;
+DROP TABLE client;
+
+-- compNo, compName, compAddr, compTel
 -- 공급회사 샘플데이터 입력
-INSERT INTO supply_company(comp_code, comp_name, comp_addr, comp_tel, comp_isExist) VALUES
-   ("SC001", "알럽소프트",   "경기도 부천시 계산동",            "02-930-4551", TRUE),
-   ("SC002", "인디넷",       "경기도 수원시 제포동",            "032-579-4512",FALSE),
-   ("SC003", "참빛소프트",   "경기도 파주군 은빛아파트",        "032-501-4503",FALSE),
-   ("SC004", "소프트마켓",   "서울특별시 관진구 자양동",        "02-802-4564", FALSE),
-   ("SC005", "크라이스",     "경기도 고양시 대자동 서영아파트", "032-659-3215",FALSE),
-   ("SC006", "프로그램캠프", "경기도 부천시 오정구",            "032-659-3215",TRUE);
+INSERT INTO supply_company (compNo, compName, compAddr, compTel) VALUES
+	("SC001", "알럽소프트",   "경기도 부천시 계산동", 			"02-930-4551"),
+	("SC002", "인디넷", 	  "경기도 수원시 제포동", 			"032-579-4512"),
+	("SC003", "참빛소프트",   "경기도 파주군 은빛아파트", 		"032-501-4503"),
+	("SC004", "소프트마켓",   "서울특별시 관진구 자양동", 		"02-802-4564"),
+	("SC005", "크라이스", 	  "경기도 고양시 대자동 서영아파트","032-659-3215"),
+	("SC006", "프로그램캠프", "경기도 부천시 오정구", 			"032-659-3215");
 
--- 분류 입력
-INSERT INTO category(group_code, group_name) VALUES
-   ("GM", "게임"),
-   ("OF", "사무"),
-   ("GR", "그래픽"),
-   ("ED", "교육");
-   
+-- swNo, swGroup, swName, swSupplyPrice, swPrice, supplyComp    
 -- 소프트웨어 샘플데이터 입력
-INSERT INTO software(sw_code,group_code,sw_name,sale_price,sw_inven,sw_issale,sw_img) VALUES
-   ("SW001","GM", "바람의제국",40000,   2000,  true,"dgit"),
-   ("SW002","OF", "국제무역",    48000,   500,   false,"dgit"),
-   ("SW003","GM", "FIFA2015",   40500,     1000 , false,"dgit"),
-   ("SW004","GM", "삼국지",   48000,     400,   false,"dgit"),
-   ("SW005","GM", "아마겟돈",   50750,     1000,  false,"dgit"),
-   ("SW006","OF", "한컴오피스",1918000, 2000,  false,"dgit"),
-   ("SW007","GR", "포토샵",   1519000, 400,   false,"dgit"),
-   ("SW008","ED", "오토캐드",   978000,    2,       false,"dgit"),
-   ("SW009","GM", "인디자인",    218040,    4000,  false,"dgit"),
-   ("SW010","OF", "windows10",   333450,    40000, true,"dgit");
- 
--- 납품현황입력
-INSERT INTO delivery(del_code, comp_code, sw_code, supply_price, supply_amount, order_date, del_isExist) VALUES
-   ("DL001", "SC001", "SW001", 20000, 100, now(), TRUE),
-   ("DL002", "SC002", "SW002", 30000, 200, now(), FALSE),
-   ("DL003", "SC003", "SW003", 30000, 100, now(), FALSE),
-   ("DL004", "SC004", "SW004", 17000, 150, now(), FALSE),
-   ("DL005", "SC005", "SW005", 25000, 200, now(), TRUE),
-   ("DL006", "SC006", "SW006", 2000,  100, now(), FALSE),
-   ("DL007", "SC001", "SW007", 5000,  200, now(), FALSE),
-   ("DL008", "SC002", "SW008", 30000, 100, now(), FALSE),
-   ("DL009", "SC003", "SW009", 17000, 150, now(), FALSE),
-   ("DL010", "SC004", "SW010", 25000, 200, now(), FALSE),
-   ("DL011", "SC001", "SW001", 25000, 200, now(), TRUE);
+INSERT INTO software (swNo, swGroup, swName, swSupplyPrice, swPrice, supplyComp) VALUES
+	("SW001","게임",  "바람의 제국", 25000  , 40000,  "SC001"),
+	("SW002","사무",  "국제무역",	 30000  , 48000,  "SC002"),
+	("SW003","게임",  "FIFA2015",	 27000  , 40500,  "SC003"),
+	("SW004","게임",  "삼국지",		 32000  , 48000,  "SC004"),
+	("SW005","게임",  "아마겟돈",	 35000  , 50750,  "SC005"),
+	("SW006","사무",  "한컴오피스",	 1370000, 1918000,"SC006"),
+	("SW007","그래픽","포토샵",		 980000 , 1519000,"SC003"),
+	("SW008","그래픽","오토캐드2015",2340000, 3978000,"SC004"),
+	("SW009","그래픽","인디자인",	 1380000, 2180400,"SC001"),
+	("SW010","사무",  "Window10",	 2470000, 3334500,"SC002");
 
--- 거래내역 샘플데이터 입력
-INSERT INTO sale(sale_code, clnt_code, sw_code, sale_amount, 
-            isdeposit, order_date, supply_price, sale_price, sale_isExist) VALUES  
-   ("SL001","CL001","SW001",25, TRUE, "2009-12-13", 25000  , 40000,   TRUE),
-   ("SL002","CL003","SW002",25, TRUE, "2010-09-13", 30000  , 48000,   FALSE),
-   ("SL003","CL002","SW003",20, TRUE, "2010-09-11", 27000  , 40500,   FALSE),
-   ("SL004","CL001","SW004",25, TRUE, "2010-10-02", 32000  , 48000,   FALSE),
-   ("SL005","CL004","SW005",250,FALSE,"2010-10-02", 35000  , 50750,   FALSE),
-   ("SL006","CL006","SW006",2,  FALSE,"2010-10-02", 1370000, 1918000, TRUE),
-   ("SL007","CL003","SW007",20, TRUE, "2010-10-04", 25000  , 40000,   FALSE),
-   ("SL008","CL005","SW008",20, TRUE, "2010-10-04", 30000  , 48000,   FALSE),
-   ("SL009","CL006","SW009",2,  TRUE, "2010-10-04", 32000  , 48000,   FALSE),
-   ("SL010","CL004","SW010",320,TRUE, "2010-10-04", 980000 , 1519000, FALSE),
-   ("SL011","CL004","SW001",100,TRUE, "2010-10-04", 25000  , 40000,   TRUE);
+	
+-- clntNo, clntName, clntAddr, clntTel
+-- 고객 현황 샘플데이터 입력
+INSERT INTO client (clntNo, clntName, clntAddr, clntTel) VALUES
+	("CL001", "재밌는 게임방", 	   "서울시 동대문구 연희동",  "02-111-1111"),
+	("CL002", "좋은 게임방", 	   "서울시 관악구 봉천동",    "02-222-2222"),
+	("CL003", "친구 게임방", 	   "천안시 동남구 신부동",    "041-333-3333"),
+	("CL004", "충청남도 교육청",   "대전광역시 중구 과례2길", "042-444-4444"),
+	("CL005", "대전광역시 교육청", "대전광역시 서구 향촌길",  "042-555-5555"),
+	("CL006", "아산시스템", 	   "충청남도 아산시 배방면",  "041-777-7777");
+
+
+-- saleNo, clntNo, swNo, sellingAmount, isDeposit, orderDate
+-- 판매 현황 샘플데이터 입력
+INSERT INTO sale (saleNo, clntNo, swNo, sellingAmount, isDeposit, orderDate) VALUES
+	("SL001","CL001","SW001",25, true, "2009-12-13"),
+	("SL002","CL003","SW005",25, true, "2010-09-13"),
+	("SL003","CL002","SW004",20, true, "2010-09-11"),
+	("SL004","CL001","SW004",25, true, "2010-10-02"),
+	("SL005","CL004","SW009",250,false,"2010-10-02"),
+	("SL006","CL006","SW009",2,  false,"2010-10-02"),
+	("SL007","CL003","SW001",20, true, "2010-10-04"),
+	("SL008","CL005","SW007",20, true, "2010-10-04"),
+	("SL009","CL006","SW007",2,  true, "2010-10-04"),
+	("SL010","CL004","SW006",320,true, "2010-10-04");
+
+-- 공급회사 테이블
+SELECT compNo, compName, compAddr, compTel FROM supply_company; 
+
+-- 소프트웨어 테이블
+SELECT swNo, swGroup, swName, swSupplyPrice, swPrice, compName FROM software, supply_company
+	WHERE supplyComp=compNo ORDER BY swNo; 
+
+-- 고객현황 테이블
+SELECT clntNo, clntName, clntAddr, clntTel FROM client;
+
+-- 판매현황 테이블
+-- SELECT saleNo, clntName, swName, sellingAmount, isDeposit, orderDate FROM sale s, client c, software sw
+-- 	WHERE s.clntNo = c.clntNo AND s.swNo = sw.swNo ORDER BY saleNo;
+
+-- 판매현황 테이블
+SELECT saleNo, clntName, swName, sellingAmount, isDeposit, orderDate 
+FROM sale s JOIN client c ON s.clntNo = c.clntNo
+			JOIN software sw ON s.swNo = sw.swNo 
+			ORDER BY saleNo; 
+
+-- 고객별 판매현황 조회
+SELECT clntName, swName, sellingAmount, isDeposit, swPrice, 
+		@saleprice := sellingAmount*swPrice salePrice, 
+		@receivable := @saleprice*!isDeposit receivablePrice
+	FROM sale s, client c, software sw
+	WHERE s.clntNo = c.clntNo AND s.swNo = sw.swNo ORDER BY salePrice DESC;
+	
+-- S/W별 판매현황 조회 프로그램
+-- 날짜별 판매현황 조회
+
+SELECT * FROM sale;
+SELECT * FROM software;
+SELECT * FROM supply_company;
+SELECT * FROM client;
+
+
+/* * * * * * * * * * * * * * * * * * * TRIGGER * * * * * * * * * * * * * * * * * * */
+
+DROP TABLE sale_detail;
+DROP TRIGGER tri_sale_insert_after;
+
+CREATE TABLE sale_detail(
+   saleNo 		VARCHAR(6),
+   sellingPrice INTEGER,
+   supplyPrice 	INTEGER,
+   salePrice 	INTEGER,
+   outstanding 	INTEGER,
+   tax 			INTEGER,
+   totalPrice 	INTEGER
+);
+
+CREATE TRIGGER tri_sale_insert_after
+AFTER INSERT ON sale
+FOR EACH ROW 
+BEGIN SET
+	/*판매 금액*/	@sellingPrice	= (SELECT swPrice FROM software s WHERE s.swNo=NEW.swNo) * NEW.sellingAmount,
+	/*공급 금액*/	@supplyPrice	= (SELECT swSupplyPrice FROM software s WHERE s.swNo=NEW.swNo) * NEW.sellingAmount,
+	/*매출금*/		@salePrice 		= @sellingPrice - @supplyPrice,
+	/*미수금*/		@outstanding 	= @sellingPrice * NEW.isDeposit,
+	/*세금*/		@tax 			= @sellingPrice * 0.1,
+	/*총 납부금액*/	@totalPrice 	= @sellingPrice + @tax
+	INSERT INTO sale_detail VALUES (NEW.saleNo, @sellingPrice, @supplyPrice, @salePrice, @outstanding, @tax, @totalPrice);
+END ;
+
+sale은 거래내역.
+거래 후에 sale에 데이터가 입력됨.
+sale(sale_detail)에 데이터가 입력된 후에는 software의 값(단가, 공급금액)이 변할 때
+	->	sale(sale_detail)의 데이터가 변하지 않아야함.
+	
+	
+/* * * * * * * * * * * * * * * * * * * E  N  D * * * * * * * * * * * * * * * * * * */

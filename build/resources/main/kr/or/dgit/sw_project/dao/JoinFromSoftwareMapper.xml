@@ -36,8 +36,7 @@
     
     <select id="selectJoinFromSoftwareByCode" resultMap="JoinFromSoftwareResult">
     	<include refid="selectSQL" />
-		WHERE sw_code = #{swCode}
-		GROUP BY sw.sw_code
+		WHERE sw_code = #{swCode} 
     </select>
 </mapper>
 
