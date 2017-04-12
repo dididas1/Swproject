@@ -141,11 +141,11 @@ public class ViewClient extends JPanel implements ActionListener {
 				break;
 			}
 		}
-		
+		btnInsert.setText("수정");
 		Client client = list.get(selectedIdx);
 		pContent.setContent(client);
 		btnDelete.setEnabled(true);
-		btnInsert.setText("수정");
+		
 	}
 	/*************************** actionPerformed ***************************/  
 

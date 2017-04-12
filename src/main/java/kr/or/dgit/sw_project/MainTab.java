@@ -53,8 +53,8 @@ public class MainTab extends JFrame implements ActionListener, ChangeListener {
 	private ViewCategory viewCategory;
 	private InitSettingService fileSetting = new InitSettingService();
 	private JTabbedPane tabbedPane;
-	private ViewList viewList;
-	private ViewChart viewChart;
+	private ViewList viewList = new ViewList();
+	private ViewChart viewChart = new ViewChart();
 
 	public MainTab() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -153,7 +153,8 @@ public class MainTab extends JFrame implements ActionListener, ChangeListener {
 
 
 	protected void actionPerformedBtnShowList(ActionEvent e) {
-		viewList = new ViewList();
+		viewList.setVisible(false);
+		viewList.setVisible(true);
 		
 	}
 
@@ -174,7 +175,8 @@ public class MainTab extends JFrame implements ActionListener, ChangeListener {
 	}
 
 	protected void actionPerformedBtnChart(ActionEvent e) {
-		viewChart = new ViewChart(); 
+		viewChart.setVisible(false);
+		viewChart.setVisible(true);
 	}
 
 	protected void actionPerformedBtnReport(ActionEvent e) {

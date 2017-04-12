@@ -34,9 +34,9 @@ public class ViewSale extends JPanel implements ActionListener{
 	private JButton btnInsert;
 	private JButton btnCancle;
 	private JButton btnDelete;
-	
+
 	private List<JoinFromSale> list;
-	
+
 	public ViewSale() {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0}; //각 열의 최소 넓이  
@@ -44,7 +44,7 @@ public class ViewSale extends JPanel implements ActionListener{
 		gridBagLayout.columnWeights = new double[]{1.0, Double.MIN_VALUE}; //각 열의 가중치
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0}; //각 행의 가중치
 		setLayout(gridBagLayout);
-		
+
 		JLabel label = new JLabel("주문 관리");
 		label.setEnabled(false);
 		label.setHorizontalAlignment(SwingConstants.CENTER);
@@ -56,7 +56,7 @@ public class ViewSale extends JPanel implements ActionListener{
 		gbc_label.gridy = 0;
 		gbc_label.gridwidth = 5;
 		add(label, gbc_label);
-		
+
 		pContent = new ContentSale();
 		GridBagConstraints gbc_pContent = new GridBagConstraints();
 		gbc_pContent.insets = new Insets(10, 10, 10, 10);
@@ -64,7 +64,7 @@ public class ViewSale extends JPanel implements ActionListener{
 		gbc_pContent.gridx = 0;
 		gbc_pContent.gridy = 1;
 		add(pContent, gbc_pContent);
-		
+
 		pButton = new JPanel();
 		GridBagConstraints gbc_pButton = new GridBagConstraints();
 		gbc_pButton.insets = new Insets(0, 0, 0, 0);
@@ -72,14 +72,14 @@ public class ViewSale extends JPanel implements ActionListener{
 		gbc_pButton.gridx = 0;
 		gbc_pButton.gridy = 2;
 		add(pButton, gbc_pButton);
-		
+
 		GridBagLayout gbl_pButton = new GridBagLayout();
 		gbl_pButton.columnWidths = new int[] {100, 100, 100};
 		gbl_pButton.rowHeights = new int[]{55, 0};
 		gbl_pButton.columnWeights = new double[]{0.0, 0.0, 0.0};
 		gbl_pButton.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		pButton.setLayout(gbl_pButton);
-		
+
 		btnInsert = new JButton("입력");
 		btnInsert.addActionListener(this);
 		GridBagConstraints gbc_btnInsert = new GridBagConstraints();
@@ -88,7 +88,7 @@ public class ViewSale extends JPanel implements ActionListener{
 		gbc_btnInsert.gridx = 0;
 		gbc_btnInsert.gridy = 0;
 		pButton.add(btnInsert, gbc_btnInsert);
-		
+
 		btnCancle = new JButton("취소");
 		btnCancle.addActionListener(this);
 		GridBagConstraints gbc_btnCancle = new GridBagConstraints();
@@ -97,7 +97,7 @@ public class ViewSale extends JPanel implements ActionListener{
 		gbc_btnCancle.gridx = 1;
 		gbc_btnCancle.gridy = 0;
 		pButton.add(btnCancle, gbc_btnCancle);
-		
+
 		btnDelete = new JButton("삭제");
 		btnDelete.addActionListener(this);
 		GridBagConstraints gbc_btnDelete = new GridBagConstraints();
@@ -105,7 +105,7 @@ public class ViewSale extends JPanel implements ActionListener{
 		gbc_btnDelete.gridx = 2;
 		gbc_btnDelete.gridy = 0;
 		pButton.add(btnDelete, gbc_btnDelete);
-		
+
 		pTable = new TableSale();
 		GridBagConstraints gbc_pTable = new GridBagConstraints();
 		gbc_pTable.fill = GridBagConstraints.BOTH;
@@ -122,18 +122,18 @@ public class ViewSale extends JPanel implements ActionListener{
 				pContent.getDpOrderDate().getDateCombobox().setEditable(false);
 				super.mousePressed(e);
 			}
-			
+
 		});
-		
+
 		getDataFromDB();
 		pTable.setList(list);
 		pTable.setTableData();
 		setVisible(true);
 	}
-	
+
 	private void selectedRow() {
 		String selectedCode = (String) pTable.getTable().getValueAt(pTable.getTable().getSelectedRow(), 0);
-		
+
 		int selectedIdx = 0;
 		for(int i=0; i<list.size(); i++){
 			if(list.get(i).getSale().getSaleCode().equals(selectedCode)){
@@ -141,21 +141,21 @@ public class ViewSale extends JPanel implements ActionListener{
 				break;
 			}
 		}
-		
-			JoinFromSale sale = list.get(selectedIdx);
-			pContent.setSaleContent(sale);
-			btnDelete.setEnabled(true);
-			btnInsert.setText("수정");
-		
+
+		JoinFromSale sale = list.get(selectedIdx);
+		pContent.setSaleContent(sale);
+		btnDelete.setEnabled(true);
+		btnInsert.setText("수정");
+
 	}
-	
+
 	public void contentAble(){
 		pContent.getTfpSwName().getTf().setEnabled(true);
 		pContent.getTfpClntName().getTf().setEnabled(true);
 		pContent.getTfpSaleAmount().getTf().setEditable(true);
 		pContent.getDpOrderDate().getDateCombobox().setEditable(true);
 	}
-	
+
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnCancle) {
@@ -164,7 +164,7 @@ public class ViewSale extends JPanel implements ActionListener{
 		if (e.getSource() == btnInsert) {
 			btnInsertActionPerformed(e);
 		}
-				
+
 		if (e.getSource() == btnDelete) {
 			btnDeleteActionPerformed(e);
 		}
@@ -176,19 +176,23 @@ public class ViewSale extends JPanel implements ActionListener{
 				JOptionPane.showMessageDialog(null, "입력되지 않은정보가 있습니다");
 				return;
 			}else{
-				if(JOptionPane.showConfirmDialog(null, "입력하시겠습니까?")==JOptionPane.YES_OPTION){
-					List<Software> listSw=SoftwareService.getInstance().selectSoftwareByAll();
-					if(Integer.parseInt(pContent.getTfpSaleAmount().getTfValue())>listSw.get(pContent.getTfpSwName().getSelectedIndex()-1).getSwInven()){
-						JOptionPane.showMessageDialog(null, "재고가부족합니다");
-						return;
+				if(isRegKey()){
 					}else{
-						SaleService.getInstance().insertSaleItem(pContent.getObject());
-						setTable();
-						pContent.initSetting();
-						pContent.setSwComboData();
-						return;
+					if(JOptionPane.showConfirmDialog(null, "입력하시겠습니까?")==JOptionPane.YES_OPTION){
+						List<Software> listSw=SoftwareService.getInstance().selectSoftwareByAll();
+						if(Integer.parseInt(pContent.getTfpSaleAmount().getTfValue())>listSw.get(pContent.getTfpSwName().getSelectedIndex()-1).getSwInven()){
+							JOptionPane.showMessageDialog(null, "재고가부족합니다");
+							return;
+						}else{
+							SaleService.getInstance().insertSaleItem(pContent.getObject());
+							setTable();
+							pContent.initSetting();
+							pContent.setSwComboData();
+							return;
 					}
-					
+				}
+				
+
 				}
 			}
 		}else if(e.getActionCommand().equals("수정")){ //수정으로 변경
@@ -219,21 +223,21 @@ public class ViewSale extends JPanel implements ActionListener{
 			btnDelete.setEnabled(false);
 			contentAble();
 		}else{
-				JOptionPane.showMessageDialog(null, "취소되었습니다");
-			
+			JOptionPane.showMessageDialog(null, "취소되었습니다");
+
 		}
 	}
-	
+
 	private void actionPerformedBtnCancle(ActionEvent e) { //취소버튼
 		pContent.initSetting();
 		btnInsert.setText("입력");
 		btnInsert.setEnabled(true);
 		btnDelete.setEnabled(false);
 		contentAble();
-		
+
 	}
 	/***********************************************************************/
-	
+
 	/*************************** Get Data ***************************/  
 	public void setTable(){ //Table 로드
 		getDataFromDB();
@@ -241,7 +245,17 @@ public class ViewSale extends JPanel implements ActionListener{
 		pTable.setTableData();
 		pContent.initSetting();
 	}
-	
+
+	public boolean isRegKey(){// 예외처리(공백, 정규표현식)
+		boolean isRegKey = true;
+		if(pContent.isPatternCheck()){
+			JOptionPane.showMessageDialog(null, "판매가격은 숫자만 입력 가능합니다.(9자리 미만)");
+		}else{
+			isRegKey = false;
+		}
+		return isRegKey;
+	}
+
 	private void getDataFromDB(){ //list에 데이터베이스에서 가져온 값을 입력
 		list = JoinFromSaleService.getInstance().selectJoinFromSaleByAll();
 	}
@@ -253,5 +267,5 @@ public class ViewSale extends JPanel implements ActionListener{
 	public TableSale getTableSale() {
 		return pTable;
 	}
-	
+
 }

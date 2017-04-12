@@ -171,19 +171,22 @@ public class ViewDelivery extends JPanel implements ActionListener{
 	
 	protected void actionPerformedBtnInsert(ActionEvent arg0) {
 		if (arg0.getActionCommand().equals("입력")){
-			if(pContent.isEmptyCheck()||pContent.getTfpCompName().getSelectedIndex()==0
-					||pContent.getTfpDeSwName().getSelectedIndex()==0){//textfield와 combopanel emptycheck
-				JOptionPane.showMessageDialog(null, "입력해야될 값이 있습니다. 확인하세요");				
-			}else if(pContent.isNumberCheck()){
-				JOptionPane.showMessageDialog(null, "숫자만 입력하세요(납품가격,납품수량)");
-			}else{
-				DeliveryService.getInstance().insertDeliveryItems(pContent.getObject());//마이바티스통해 db에 insert
-				list = DeliveryService.getInstance().selectDeliveryByAll(); //delivery테이블 모든값
-				pTable.setDeliveryList(list);
-				pTable.loadData();//table에 db에 있는 row,colum들 보여주기
-				pContent.resetField();//필드초기화
-				pContent.setComboSoftware();//combopanel의 software에 바뀐재고를 위해		
+			if(JOptionPane.showConfirmDialog(null, "입력하시겠습니까?")==JOptionPane.YES_OPTION){
+				if(pContent.isEmptyCheck()||pContent.getTfpCompName().getSelectedIndex()==0
+						||pContent.getTfpDeSwName().getSelectedIndex()==0){//textfield와 combopanel emptycheck
+					JOptionPane.showMessageDialog(null, "입력해야될 값이 있습니다. 확인하세요");				
+				}else if(pContent.isNumberCheck()){
+					JOptionPane.showMessageDialog(null, "숫자만 입력하세요(납품가격,납품수량)");
+				}else{
+					DeliveryService.getInstance().insertDeliveryItems(pContent.getObject());//마이바티스통해 db에 insert
+					list = DeliveryService.getInstance().selectDeliveryByAll(); //delivery테이블 모든값
+					pTable.setDeliveryList(list);
+					pTable.loadData();//table에 db에 있는 row,colum들 보여주기
+					pContent.resetField();//필드초기화
+					pContent.setComboSoftware();//combopanel의 software에 바뀐재고를 위해		
+				}
 			}
+			
 			
 		}else if(arg0.getActionCommand().equals("수정")){	//조작할수 있으니 보류	
 			JOptionPane.showMessageDialog(null, "수정할수없습니다");

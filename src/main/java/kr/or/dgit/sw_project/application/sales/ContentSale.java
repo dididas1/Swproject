@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Vector;
+import java.util.regex.Pattern;
 
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
@@ -195,6 +196,14 @@ public class ContentSale extends JPanel {
 				}
 			}
 		}return false;
+	}
+	
+	public boolean isPatternCheck(){// 판매가란에 숫자만(9자리 미만)입력 하였는지 체크
+		boolean isPtenCh = false;
+		if(Pattern.matches("^[0-9]{1,9}$", tfpSaleAmount.getTfValue())==false){
+			isPtenCh = true;
+		}
+		return isPtenCh;
 	}
 
 	public TextFieldPanel getTfpSaleCode() {

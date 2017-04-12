@@ -35,7 +35,6 @@ public class ViewChart extends JFrame{
 				initFX(jfxPanel);
 			}
 		});
-		setVisible(true);
 	}
 
 	private void initFX(JFXPanel fxPanel) {

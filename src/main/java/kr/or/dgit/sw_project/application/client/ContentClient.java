@@ -6,6 +6,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -128,6 +129,7 @@ public class ContentClient extends JPanel implements ActionListener {
 		tfpClientName.setTfValue("");
 		tfpClientAddr.setTfValue("");
 		tfpClientTel.setTfValue("");
+		tfadr.setTfValue("");
 		tfpClientName.requestFocus();
 	}
 	
@@ -143,7 +145,14 @@ public class ContentClient extends JPanel implements ActionListener {
 		tfpClientCode.setTfValue(clinet.getClntCode());
 		tfpClientName.setTfValue(clinet.getClntName());
 		tfpClientTel.setTfValue(clinet.getClntTel());
-		tfpClientAddr.setTfValue(clinet.getClntAddr());
+		String[] str= clinet.getClntAddr().split(" ");
+		System.out.println(Arrays.toString(str));
+		for(int i=3;i<str.length-2;i++){
+			System.out.println(str[i]);
+		}
+		tfpClientAddr.setTfValue(str[0]+str[1]+str[2]);
+		
+		
 	}
 	
 
