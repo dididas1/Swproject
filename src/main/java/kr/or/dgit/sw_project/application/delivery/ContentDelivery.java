@@ -154,7 +154,7 @@ public class ContentDelivery extends JPanel {
 		}
 	
 	}
-	private String getDeliveryCode() {		//ref coffee
+	private String getDeliveryCode() {		//delivery코드          ref cof
 		return "DL%03d";
 	}
 	public void setComboSoftware(){//combopanel에 소프트웨어
@@ -168,7 +168,7 @@ public class ContentDelivery extends JPanel {
 		}
 		tfpDeSwName.setComboData(v);	
 	}
-	private void setComboSupplyCompany() {//combopanel에 공급회사
+	public void setComboSupplyCompany() {//combopanel에 공급회사
 		tfpCompName.getTf().removeAllItems();
 		compList = SupplyCompService.getInstance().selectSupplyCompByAll();
 		Vector<String> v = new Vector<>();	
