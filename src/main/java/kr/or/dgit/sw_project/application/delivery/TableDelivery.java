@@ -4,6 +4,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 
 import kr.or.dgit.sw_project.dto.Delivery;
 import kr.or.dgit.sw_project.service.DeliveryService;
@@ -32,11 +33,10 @@ public class TableDelivery extends JPanel {
 		
 		//loadData();
 	}
-
-
 	public void loadData() {//set table
 		// TODO Auto-generated method stub
 		table.setModel(new DefaultTableModel(getRowData(),getColumn()));
+		tableSetWidth(100,120,120,80,80,90);
 	}	
 	protected Object[][] getRowData(){//table의 row isDelIsExist가 true인것만
 		List<Delivery> delivery = new ArrayList<Delivery>(deliveryList);
@@ -67,5 +67,12 @@ public class TableDelivery extends JPanel {
 
 	protected String[] getColumn(){//table column
 		return new String[]{"납품번호","납품회사","품목명","공급가격","납품수량","납품일자"};
+	}
+	
+	protected void tableSetWidth(int... width) { //테이블 너비
+		TableColumnModel tcm = table.getColumnModel();
+		for (int i = 0; i < width.length; i++) {
+			tcm.getColumn(i).setPreferredWidth(width[i]);
+		}
 	}
 }

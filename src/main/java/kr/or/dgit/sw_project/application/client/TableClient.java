@@ -27,13 +27,12 @@ public class TableClient extends JPanel {
 		table = new JTable();
 		scrollPane.setViewportView(table);
 		
-		//
 	}	
 	
 	/*************************** load Table ***************************/  
 	public void setTableData(){ //테이블 데이터입력
 		table.setModel(new DefaultTableModel(getRowDate(), getColumm()));
-		
+		tableSetWidth(50,100,150,200);
 	}
 	
 	private Object[] getColumm() { //컬럼입력
@@ -72,15 +71,6 @@ public class TableClient extends JPanel {
 		return list;
 	}
 	
-	protected void tableCellAlignment(int align, int... idx) { //테이블 정렬
-		DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer();
-		dtcr.setHorizontalAlignment(align);
-		TableColumnModel tcm = table.getColumnModel();
-		for (int i = 0; i < idx.length; i++) {
-			tcm.getColumn(idx[i]).setCellRenderer(dtcr);
-		}
-
-	}
 	
 	protected void tableSetWidth(int... width) { //테이블 너비
 		TableColumnModel tcm = table.getColumnModel();

@@ -3,6 +3,7 @@ package kr.or.dgit.sw_project.application.showlist;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.Vector;
 
@@ -11,16 +12,15 @@ import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 
 import erp_myframework.ComboPanel;
+import erp_myframework.DatePanel;
 import kr.or.dgit.sw_project.dto.Category;
 import kr.or.dgit.sw_project.dto.Client;
 import kr.or.dgit.sw_project.dto.Software;
 import kr.or.dgit.sw_project.service.CategoryService;
 import kr.or.dgit.sw_project.service.ClientService;
 import kr.or.dgit.sw_project.service.SoftwareService;
-import javax.swing.JLabel;
-import erp_myframework.DatePanel;
 
-public class ContentList extends JPanel {
+public class ContentList extends JPanel{
 	private JButton btnGroupAllFind;
 	private JButton btnSwAllFind;
 	private JButton btnClntAllFind;
@@ -32,6 +32,7 @@ public class ContentList extends JPanel {
 	private ComboPanel<String> tfpGroup;
 	private DatePanel panel;
 	private DatePanel panel_1;
+	private JButton btnDate;
 	
 	public ContentList() {
 		setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
@@ -108,6 +109,13 @@ public class ContentList extends JPanel {
 		gbc_panel_1.gridx = 1;
 		gbc_panel_1.gridy = 5;
 		add(panel_1, gbc_panel_1);
+		
+		btnDate = new JButton("검색");
+		GridBagConstraints gbc_btnDate = new GridBagConstraints();
+		gbc_btnDate.insets = new Insets(0, 0, 5, 5);
+		gbc_btnDate.gridx = 2;
+		gbc_btnDate.gridy = 5;
+		add(btnDate, gbc_btnDate);
 		setCategoryComboData();
 		setClntComboData();
 		setSwComboData();
@@ -174,10 +182,13 @@ public class ContentList extends JPanel {
 	public ComboPanel<String> getTfpGroup() {
 		return tfpGroup;
 	}
+
+	public JButton getBtnDate() {
+		return btnDate;
+	}
 	
 
 
-	
 	
 	
 }

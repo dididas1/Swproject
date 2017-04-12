@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 
 import kr.or.dgit.sw_project.dto.JoinFromSale;
 
@@ -27,6 +28,7 @@ public class TableSale extends JPanel {
 	/*************************** load Table ***************************/  
 	public void setTableData(){ //테이블 데이터입력
 		table.setModel(new DefaultTableModel(getRowDate(), getColumm()));
+		tableSetWidth(100,120,120,80,80,120,90,80);
 	}
 	private Object[] getColumm() { //컬럼입력
 		return new String[]{"판매코드","고객상호명","품목명","판매가격","주문갯수","총액","주문일자","입금여부"};
@@ -62,5 +64,12 @@ public class TableSale extends JPanel {
 
 	public List<JoinFromSale> getList(){
 		return list;
+	}
+	
+	protected void tableSetWidth(int... width) { //테이블 너비
+		TableColumnModel tcm = table.getColumnModel();
+		for (int i = 0; i < width.length; i++) {
+			tcm.getColumn(i).setPreferredWidth(width[i]);
+		}
 	}
 }

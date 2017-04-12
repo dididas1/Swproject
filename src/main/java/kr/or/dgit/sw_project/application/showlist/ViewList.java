@@ -55,6 +55,7 @@ public class ViewList extends JPanel implements ActionListener, ItemListener {
 		add(label, gbc_label);
 
 		pContent = new ContentList();
+		pContent.getBtnDate().addActionListener(this);
 		pContent.getTfpSwName().getTf().addItemListener(this);
 		pContent.getTfpClntName().getTf().addItemListener(this);
 		pContent.getTfpGroup().getTf().addItemListener(this);
@@ -123,6 +124,9 @@ public class ViewList extends JPanel implements ActionListener, ItemListener {
 
 
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == pContent.getBtnDate()) {
+			actionPerformedPContentBtnDate(e);
+		}
 		if (e.getSource() == pContent.getBtnGroupAllFind()) {
 			actionPerformedPContentBtnGroupAllFind(e);
 		}
@@ -203,5 +207,7 @@ public class ViewList extends JPanel implements ActionListener, ItemListener {
 			pContent.getTfpClntName().setSelectedItem(0);
 			pContent.getTfpGroup().setSelectedItem(0);
 		}
+	}
+	protected void actionPerformedPContentBtnDate(ActionEvent e) {
 	}
 }
