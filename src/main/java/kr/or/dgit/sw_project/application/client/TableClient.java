@@ -70,4 +70,14 @@ public class TableClient extends JPanel {
 	public List<Client> getList(){
 		return list;
 	}
+	
+	
+	protected void tableSetWidth(int... width) { //테이블 너비
+		TableColumnModel tcm = table.getColumnModel();
+		for (int i = 0; i < width.length; i++) {
+			tcm.getColumn(i).setPreferredWidth(width[i]);
+		}
+	}
+	
+
 }

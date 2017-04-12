@@ -13,15 +13,14 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 
-import erp_myframework.PasswordPanel;
 import erp_myframework.TextFieldPanel;
 import kr.or.dgit.sw_project.dto.Members;
 import kr.or.dgit.sw_project.service.MemberShipService;
 
 public class ContentMemberShip extends JPanel implements KeyListener {
 	private TextFieldPanel tfpMemberID;
-	private PasswordPanel tfpPassword;
-	private PasswordPanel tfpCheckPassword;
+	private TextFieldPanel tfpPassword;
+	private TextFieldPanel tfpCheckPassword;
 	private TextFieldPanel tfpMemberName;
 	private TextFieldPanel tfpEmail;
 	private JLabel lblShowMessage;
@@ -58,8 +57,8 @@ public class ContentMemberShip extends JPanel implements KeyListener {
 		gbc_tfpMemberName.gridy = 1;
 		add(tfpMemberName, gbc_tfpMemberName);
 		
-		tfpPassword = new PasswordPanel();
-		tfpPassword.getPw().addKeyListener(this);
+		tfpPassword = new TextFieldPanel();
+		tfpPassword.getTf().addKeyListener(this);
 		tfpPassword.setTitle("비밀번호");
 		GridBagConstraints gbc_tfpPassword = new GridBagConstraints();
 		gbc_tfpPassword.fill = GridBagConstraints.HORIZONTAL;
@@ -68,8 +67,8 @@ public class ContentMemberShip extends JPanel implements KeyListener {
 		gbc_tfpPassword.gridy = 2;
 		add(tfpPassword, gbc_tfpPassword);
 		
-		tfpCheckPassword = new PasswordPanel();
-		tfpCheckPassword.getPw().addKeyListener(this);
+		tfpCheckPassword = new TextFieldPanel();
+		tfpCheckPassword.getTf().addKeyListener(this);
 		tfpCheckPassword.setTitle("비밀번호 확인");
 		GridBagConstraints gbc_tfpCheckPassword = new GridBagConstraints();
 		gbc_tfpCheckPassword.insets = new Insets(0, 0, 5, 5);
@@ -101,8 +100,8 @@ public class ContentMemberShip extends JPanel implements KeyListener {
 	
 	public void clear(){
 		tfpMemberID.setTfValue("");
-		tfpPassword.setPwValue("");
-		tfpCheckPassword.setPwValue("");
+		tfpPassword.setTfValue("");
+		tfpCheckPassword.setTfValue("");
 		tfpMemberName.setTfValue("");
 		tfpEmail.setTfValue("");
 		tfpMemberID.requestFocus();
@@ -110,8 +109,8 @@ public class ContentMemberShip extends JPanel implements KeyListener {
 	
 	public Members getObject(){ //text필드 값받아옴 
 		String memId = tfpMemberID.getTfValue();
-		String memName = String.valueOf(tfpPassword.getPwValue());
-		String memPassword = String.valueOf(tfpCheckPassword.getPwValue());
+		String memName = tfpPassword.getTfValue();
+		String memPassword = tfpCheckPassword.getTfValue();
 		String memMail = tfpMemberName.getTfValue();
 		return new Members(memId, memName, memPassword, memMail);
 	}
@@ -128,7 +127,7 @@ public class ContentMemberShip extends JPanel implements KeyListener {
 	}
 
 	public boolean isPasswordEquals() { //password가 일치하는지 확인
-		if(String.valueOf(tfpPassword.getPwValue()).equals(String.valueOf(tfpCheckPassword.getPwValue())))
+		if(tfpPassword.getTfValue().equals(tfpCheckPassword.getTfValue()))
 			return true;
 		return false;
 	}
