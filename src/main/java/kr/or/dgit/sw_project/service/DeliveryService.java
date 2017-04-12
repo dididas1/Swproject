@@ -24,7 +24,7 @@ public class DeliveryService {
 			return deliveryMapper.selectDeliveryByAll();
 		} 
 	}
-	public int insertDeliveryItems(Delivery delivery){
+	public int insertDeliveryItems(Delivery delivery){//db입력
 		try(SqlSession sqlSession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();){
 			DeliveryMapper deliveryMapper = new DeliveryMapperImpl(sqlSession);
 			int res = deliveryMapper.insertDeliveryItems(delivery);
@@ -33,7 +33,7 @@ public class DeliveryService {
 		}
 		
 	}
-	public int UpdateItems(Delivery delivery) {
+	public int UpdateItems(Delivery delivery) {//db table값수정
 		try (SqlSession sqlSession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
 			DeliveryMapper deliveryMapper = new DeliveryMapperImpl(sqlSession);
 			int res= deliveryMapper.UpdateItems(delivery);
@@ -41,7 +41,7 @@ public class DeliveryService {
 			return res;
 		} 
 	}
-	public int existDeliveryItem(Delivery delivery) {
+	public int existDeliveryItem(Delivery delivery) {//논리삭제 db에서 exist칼럼 true로 변경 
 		try (SqlSession sqlSession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
 			DeliveryMapper deliveryMapper = new DeliveryMapperImpl(sqlSession);
 			int res= deliveryMapper.existDeliveryItem(delivery);
@@ -49,7 +49,7 @@ public class DeliveryService {
 			return res;
 		} 
 	}
-	public String lastDeliveryCode() {
+	public String lastDeliveryCode() {//필요없어짐
 		try (SqlSession sqlSession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
 			DeliveryMapper deliveryMapper = new DeliveryMapperImpl(sqlSession);
 			return deliveryMapper.lastDeliveryCode();

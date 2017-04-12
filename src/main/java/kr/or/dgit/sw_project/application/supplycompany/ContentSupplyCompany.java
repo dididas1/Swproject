@@ -13,7 +13,9 @@ import javax.swing.border.EtchedBorder;
 
 import erp_myframework.TextFieldPanel;
 import kr.or.dgit.sw_project.application.address.ViewAddress;
+import kr.or.dgit.sw_project.dto.Delivery;
 import kr.or.dgit.sw_project.dto.SupplyCompany;
+import kr.or.dgit.sw_project.service.DeliveryService;
 import kr.or.dgit.sw_project.service.SupplyCompService;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -74,7 +76,7 @@ public class ContentSupplyCompany extends JPanel implements ActionListener {
 		gbc_tfpSupplyCompanyAd.gridy = 4;
 		add(tfpSupplyCompanyAd, gbc_tfpSupplyCompanyAd);
 		
-		button = new JButton("우편번호검색");
+		button = new JButton("도로명주소검색");
 		button.addActionListener(this);
 		GridBagConstraints gbc_button = new GridBagConstraints();
 		gbc_button.insets = new Insets(0, 0, 5, 5);
@@ -91,7 +93,8 @@ public class ContentSupplyCompany extends JPanel implements ActionListener {
 		gbc_tfadr.gridy = 5;
 		add(tfadr, gbc_tfadr);
 		
-		initSetting();
+		
+		resetField();
 		
 		
 	}
@@ -103,31 +106,60 @@ public class ContentSupplyCompany extends JPanel implements ActionListener {
 	public TextFieldPanel getTfadr() {
 		return tfadr;
 	}
+	
 
-	public void initSetting(){ //코드 자동세팅 다른필드 초기화
-		List<SupplyCompany> list =SupplyCompService.getInstance().selectSupplyCompByAll();
-		tfpSupplyCompanyCode.setTfValue(String.format("SC%03d", list.size()+1));
+	public TextFieldPanel getTfpSupplyCompanyCode() {
+		return tfpSupplyCompanyCode;
+	}
+
+	public void resetField(){ //필드 초기화
+		setDeliveryCode();				
 		tfpSupplyCompanyName.setTfValue("");
 		tfpSupplyCompanyAd.setTfValue("");
 		tfpSupplyCompanyTel.setTfValue("");
+		tfadr.setTfValue("");
 		tfpSupplyCompanyName.requestFocus();
 	}
-	public SupplyCompany getObject(){ //text필드 값받아옴 address수정필요
+	private void setDeliveryCode() {//맨 마지막 코드 다음꺼로 세팅
+		
+		List<SupplyCompany> list =SupplyCompService.getInstance().selectSupplyCompByAll();
+		if(list.size()==0){
+			tfpSupplyCompanyCode.setTfValue("SC001");
+		}else{			
+			tfpSupplyCompanyCode.setTfValue(String.format(getSupplyCompanyCode(), list.size()+1));
+			tfpSupplyCompanyCode.getTf().setFocusable(false);
+		}
+	
+	}
+	private String getSupplyCompanyCode() {		//ref coffee
+		return "SC%03d";
+	}
+	public SupplyCompany getObject(){ //fu....입력값들
 		String compCode = tfpSupplyCompanyCode.getTfValue();
 		String compName = tfpSupplyCompanyName.getTfValue();
-		String address = tfpSupplyCompanyAd.getTfValue()+ tfadr.getTfValue();
+		String address = tfpSupplyCompanyAd.getTfValue()+" "+tfadr.getTfValue();
 		String compTel = tfpSupplyCompanyTel.getTfValue();
 		return new SupplyCompany(compCode, compName, address, compTel);
 	}
 	
-	public void setObject(SupplyCompany supplyCompany){ //text필드에 값세팅
-		tfpSupplyCompanyCode.setTfValue(supplyCompany.getCompCode());
-		tfpSupplyCompanyName.setTfValue(supplyCompany.getCompName());
-		tfpSupplyCompanyAd.setTfValue(supplyCompany.getAddress());
-		tfpSupplyCompanyTel.setTfValue(supplyCompany.getCompTel());
-	}
 	
-	public boolean isEmptyCheck(){ // 빈공간체크
+	public void setObject(Object[] supplyCompanyObj) {//테이블의 값들 필드에 들고오기
+		// TODO Auto-generated method stub
+		tfpSupplyCompanyCode.setTfValue(String.valueOf(supplyCompanyObj[0]));			
+		tfpSupplyCompanyName.setTfValue(String.valueOf(supplyCompanyObj[1]));	
+		tfpSupplyCompanyAd.setTfValue(String.valueOf(supplyCompanyObj[2]));	
+		tfpSupplyCompanyTel.setTfValue(String.valueOf(supplyCompanyObj[3]));	
+	}
+	public boolean isPhoneNumberCheck(){//전화번호 체크
+		if(!tfpSupplyCompanyTel.getTfValue().trim().matches(getRegularPhone())){
+			return true;
+		}
+		return false;
+	}
+	public String getRegularPhone(){
+		return "^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}$";
+	}
+	public boolean isEmptyCheck(){ // 공백체크
 		for(Component c: getComponents()){
 			if(c instanceof TextFieldPanel){
 				TextFieldPanel tfp= (TextFieldPanel) c;
@@ -135,16 +167,17 @@ public class ContentSupplyCompany extends JPanel implements ActionListener {
 					return true;
 				}
 			}
-		}return false;
-		
+		}
+		return false;		
 	}
-	public void actionPerformed(ActionEvent e) {
+	
+	public void actionPerformed(ActionEvent e) {//주소검색
 		if (e.getSource() == button) {
 			buttonActionPerformed(e);
 		}
 	}
-	//어드레스창열기
-	protected void buttonActionPerformed(ActionEvent e) {
+	
+	protected void buttonActionPerformed(ActionEvent e) {//주소검색
 		viewAddress.setCompDao(this);
 		viewAddress.setVisible(true);
 	}
