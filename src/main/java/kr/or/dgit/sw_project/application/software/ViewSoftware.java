@@ -27,27 +27,20 @@ import java.util.Map;
 import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
-public class ViewSoftware extends JFrame implements ActionListener {
-	private JPanel contentPane;
+public class ViewSoftware extends JPanel implements ActionListener {
 	private ContentSoftware pContent;
 	private TableSoftware pTable;
 	private JButton btnInsert;
 	private JButton btnCancle;
 	private JButton btnDelete;
+	
 	public ViewSoftware() {
-		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		setBounds(100, 100, 500, 800);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
-		setContentPane(contentPane);
-		
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0}; //각 열의 최소 넓이  
 		gridBagLayout.rowHeights = new int[]{0, 0, 0}; //각 행의 최소 넓이
 		gridBagLayout.columnWeights = new double[]{1.0, Double.MIN_VALUE}; //각 열의 가중치
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0}; //각 행의 가중치
-		getContentPane().setLayout(gridBagLayout);
+		setLayout(gridBagLayout);
 		
 		JLabel label = new JLabel("소프트웨어 관리");
 		label.setEnabled(false);
@@ -59,7 +52,7 @@ public class ViewSoftware extends JFrame implements ActionListener {
 		gbc_label.gridx = 0;
 		gbc_label.gridy = 0;
 		gbc_label.gridwidth = 5;
-		getContentPane().add(label, gbc_label);
+		add(label, gbc_label);
 		
 		pContent = new ContentSoftware();
 		GridBagConstraints gbc_pContent = new GridBagConstraints();
@@ -67,7 +60,7 @@ public class ViewSoftware extends JFrame implements ActionListener {
 		gbc_pContent.fill = GridBagConstraints.NONE;
 		gbc_pContent.gridx = 0;
 		gbc_pContent.gridy = 1;
-		getContentPane().add(pContent, gbc_pContent);
+		add(pContent, gbc_pContent);
 		
 		JPanel pButton = new JPanel();
 		GridBagConstraints gbc_pButton = new GridBagConstraints();
@@ -75,7 +68,7 @@ public class ViewSoftware extends JFrame implements ActionListener {
 		gbc_pButton.fill = GridBagConstraints.NONE;
 		gbc_pButton.gridx = 0;
 		gbc_pButton.gridy = 2;
-		getContentPane().add(pButton, gbc_pButton);
+		add(pButton, gbc_pButton);
 		
 		GridBagLayout gbl_pButton = new GridBagLayout();
 		gbl_pButton.columnWidths = new int[] {100, 100, 100};
@@ -116,7 +109,7 @@ public class ViewSoftware extends JFrame implements ActionListener {
 		gbc_pTable.fill = GridBagConstraints.BOTH;
 		gbc_pTable.gridx = 0;
 		gbc_pTable.gridy = 3;
-		getContentPane().add(pTable, gbc_pTable);
+		add(pTable, gbc_pTable);
 		pTable.getTable().addMouseListener(new MouseAdapter() {
 
 			@Override
