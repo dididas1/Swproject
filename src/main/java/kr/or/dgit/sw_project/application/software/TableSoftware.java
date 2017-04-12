@@ -37,15 +37,12 @@ public class TableSoftware extends JPanel {
 	
 	public Object[] getColumm() { //컬럼값입력
 		return new String[]{"제품번호","분류명","제품명","판매가격","재고량"};
-		
 	}
 	
 	public Object[][] getRowdata() { //하나의 소프트웨어 목록을 가져와 테이블에 입력준비
-		List<JoinFromSoftware> listForTable= JoinFromSoftwareService.getInstance().selectJoinFromSoftwareByAll();
-		
+		List<JoinFromSoftware> listForTable = JoinFromSoftwareService.getInstance().selectJoinFromSoftwareByAll();
 		for(int i =0; i<listForTable.size(); i++)
 			System.out.println(listForTable.get(i).toString());
-			
 		
 		for (int i = listForTable.size()-1; i >= 0; i--) {
 			if (!listForTable.get(i).getSoftware().isSwIsSale()) {

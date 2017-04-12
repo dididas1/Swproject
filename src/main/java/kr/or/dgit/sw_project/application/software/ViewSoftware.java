@@ -112,11 +112,11 @@ public class ViewSoftware extends JPanel implements ActionListener {
 		add(pTable, gbc_pTable);
 		pTable.getTable().addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) { //테이블 클릭시 작동
+			public void mousePressed(MouseEvent e) { //테이블 클릭시 작동
 				Object[] swObj = getSoftwareDataObject();
-				pContent.setObject(swObj);
 				btnDelete.setEnabled(true);
 				btnInsert.setText("수정");
+				pContent.setObject(swObj);
 				super.mouseClicked(e);
 			}
 		});
@@ -127,7 +127,7 @@ public class ViewSoftware extends JPanel implements ActionListener {
 		setVisible(true);
 	}
 
-	public boolean isRegKey(){// 예외처리(공백, 정규표현식)
+	public boolean isRegKey(){ //예외처리(공백, 정규표현식)
 		boolean isRegKey = true;
 		if(pContent.isWsCheck()){
 			JOptionPane.showMessageDialog(null, "공백이 있습니다");
@@ -169,6 +169,7 @@ public class ViewSoftware extends JPanel implements ActionListener {
 			actionPerformedBtnInsert(e);
 		}
 	}
+	
 	protected void actionPerformedBtnInsert(ActionEvent e) {
 		if(isRegKey()){}
 		else{
@@ -177,6 +178,7 @@ public class ViewSoftware extends JPanel implements ActionListener {
 				if(ok==0){
 					pContent.insertObject();
 					pTable.setTableData();
+					System.out.println("입력완료");
 					pContent.initSetting();
 					pContent.getSwCode();
 				}else{
@@ -197,6 +199,7 @@ public class ViewSoftware extends JPanel implements ActionListener {
 			}
 		}
 	}
+	
 	protected void actionPerformedBtnDelete(ActionEvent e) {
 		int ok=JOptionPane.showConfirmDialog(null, "삭제하겠습니까?");
 		if(ok==0){
@@ -212,6 +215,7 @@ public class ViewSoftware extends JPanel implements ActionListener {
 			JOptionPane.showMessageDialog(null, "취소되었습니다");
 		}
 	}
+	
 	protected void actionPerformedBtnCancle(ActionEvent e) {
 		pContent.initSetting();
 		btnInsert.setText("입력");

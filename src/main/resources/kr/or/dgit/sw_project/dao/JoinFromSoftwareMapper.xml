@@ -15,13 +15,12 @@
 	<!-- Select SQL -->
     <sql id="selectSQL">
 		SELECT * FROM software sw
-				JOIN delivery del ON sw.sw_code = del.sw_code
-				JOIN supply_company sc ON sc.comp_code = del.comp_code
-				JOIN category cat ON sw.group_code = cat.group_code
-				JOIN sale s ON sw.sw_code = s.sw_code
-				JOIN view_sale_detail sd ON s.sale_code = sd.sale_code
-				JOIN client cl ON cl.clnt_code = s.clnt_code
-			GROUP BY s.sale_code
+				LEFT OUTER JOIN delivery del ON sw.sw_code = del.sw_code
+				LEFT OUTER JOIN supply_company sc ON sc.comp_code = del.comp_code
+				LEFT OUTER JOIN category cat ON sw.group_code = cat.group_code
+				LEFT OUTER JOIN sale s ON sw.sw_code = s.sw_code
+				LEFT OUTER JOIN view_sale_detail sd ON s.sale_code = sd.sale_code
+				LEFT OUTER JOIN client cl ON cl.clnt_code = s.clnt_code
 	</sql>
 
     <!-- Select By All --> 
@@ -33,6 +32,11 @@
     <select id="selectJoinFromSoftwareByAllOrderByClntName" resultMap="JoinFromSoftwareResult">
     	<include refid="selectSQL" />
     	ORDER BY comp_name;
+    </select>
+    
+    <select id="selectJoinFromSoftwareByCode" resultMap="JoinFromSoftwareResult">
+    	<include refid="selectSQL" />
+		WHERE sw_code = #{swCode} 
     </select>
 </mapper>
 
