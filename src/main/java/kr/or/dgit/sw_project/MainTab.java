@@ -201,17 +201,12 @@ public class MainTab extends JFrame implements ActionListener, ChangeListener {
 		fileSetting.initSetting(1, 1);
 		allRefresh();
 	}
-	
-
-
 	public void stateChanged(ChangeEvent e) {
 		if (e.getSource() == tabbedPane) {
 			// 선택된 탭의 idx를 넘겨줌
 			stateChangedThis(tabbedPane.getSelectedIndex());
 		}
-
 	}
-
 	private void stateChangedThis(int idx) { //텝바뀔때마다 리스트갱신
 		if (tabbedPane.getTitleAt(idx).equals("주문 관리")) {
 			viewSale.getContentSale().setClntComboData();
@@ -224,9 +219,7 @@ public class MainTab extends JFrame implements ActionListener, ChangeListener {
 		} else if (tabbedPane.getTitleAt(idx).equals("소프트웨어 관리")) {
 			viewSoftware.getpContentSoftware().setComboBox();
 			viewSoftware.getpTableSoftware().setTableData();
-
 		}
-
 	}
 	public void allRefresh(){
 		viewCategory.getTableCategory().setTableData();
@@ -236,9 +229,7 @@ public class MainTab extends JFrame implements ActionListener, ChangeListener {
 		viewSale.setTable();
 		viewSoftware.getpContentSoftware().getSwCode();
 	}
-
 	protected void tabbedPaneStateChanged(ChangeEvent e) {
-
 	}
 }
 

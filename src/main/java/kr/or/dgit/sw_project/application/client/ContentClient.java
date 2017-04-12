@@ -146,8 +146,8 @@ public class ContentClient extends JPanel implements ActionListener {
 		tfpClientName.setTfValue(clinet.getClntName());
 		tfpClientTel.setTfValue(clinet.getClntTel());
 		String[] str= clinet.getClntAddr().split(" ");
-		System.out.println(Arrays.toString(str));
-		for(int i=3;i<str.length-2;i++){
+		System.out.println(str.length);
+		for(int i=0;i<str.length;i++){
 			System.out.println(str[i]);
 		}
 		tfpClientAddr.setTfValue(str[0]+str[1]+str[2]);
