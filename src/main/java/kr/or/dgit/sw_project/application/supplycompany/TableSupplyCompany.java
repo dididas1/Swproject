@@ -42,8 +42,7 @@ public class TableSupplyCompany extends JPanel {
 
 	private Object[][] getRowData() { //table row isCompIsExist가 true인 것만
 		List<SupplyCompany> listForTable = new ArrayList<SupplyCompany>(list);
-		for(int i =0; i<list.size(); i++)
-			System.out.println(list.get(i).toString());			
+
 		for (int i = listForTable.size()-1; i >= 0; i--) {
 			if (!listForTable.get(i).isCompIsExist()) {
 				listForTable.remove(i);

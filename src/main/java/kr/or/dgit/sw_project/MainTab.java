@@ -1,5 +1,6 @@
 package kr.or.dgit.sw_project;
 
+
 import java.awt.BorderLayout;
 import java.awt.Desktop;
 import java.awt.event.ActionEvent;
@@ -176,7 +177,7 @@ public class MainTab extends JFrame implements ActionListener {
 		}
 	}
 	protected void actionPerformedBtnShowList(ActionEvent e) {
-		ViewList viewList = new ViewList(); 
+		ViewList viewList = new ViewList();
 	}
 	
 	protected void actionPerformedBtnSupplyComp(ActionEvent e) {

@@ -9,12 +9,14 @@
 	</resultMap>
 	
 	<sql id="selectSql">
-		select * from view_sale_by_software
+		select sale_code,sw_code,sw_name, group_name , comp_name,sale_isExist,	 total_supply_price,	sale_isExist,  
+		total_sale_price, margin from view_sale_by_software	
+		group by sale_code
 	</sql>	
 	<sql id="whereSql">
 		<where>
-			<if test="software.swName != null">
-				sw_name=#{software}
+			<if test="swName != null">
+				sw_name=#{swName}
 			</if>
 		</where>
 	</sql>
@@ -23,8 +25,10 @@
 		<include refid="selectSql"/>
 	</select>
 	
-	<select id="selectViewsoftwareSaleBySwName" resultMap="ViewSofrwareSaleResult">
-		<include refid="selectSql"/>
+	<select id="selectViewsoftwareSaleBySwName" parameterType="ViewSofrwareSale" resultMap="ViewSofrwareSaleResult">
+		select sale_code,sw_code,sw_name, group_name , comp_name,sale_isExist,	 total_supply_price,	  sale_isExist,
+		total_sale_price, margin from view_sale_by_software	
 		where sw_name=#{software.swName}
+		group by sale_code
 	</select>
 </mapper>

@@ -13,8 +13,8 @@ CREATE VIEW view_sale_detail AS
 	
 #### 고객별 판매현황조회 ####
 -- 고객상호명 품목명 주문수량 입금여부 단가 매출금 미수금
-CREATE VIEW view_client_sale AS 
-SELECT cl.clnt_code, cl.clnt_name, sw.sw_code, sw.sw_name, s.sale_amount, s.isdeposit, s.sale_price,
+CREATE VIEW view_sale_by_client AS 
+SELECT distinct s.sale_code,cl.clnt_code, cl.clnt_name, sw.sw_code, sw.sw_name, s.sale_amount, s.isdeposit, s.sale_price,
 /*매출금*/	sd.total_sale_price, 
 /*미수금*/	sd.receivablePrice
 	FROM client cl JOIN sale s ON cl.clnt_code = s.clnt_code 

@@ -20,11 +20,5 @@
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>org.eclipse.buildship.core.gradleprojectnature</nature>
 		<nature>org.jkiss.dbeaver.DBeaverNature</nature>
-<<<<<<< HEAD
-=======
-		<nature>com.jaspersoft.studio.babel.editor.rbeNature</nature>
-=======
->>>>>>> refs/remotes/origin/zkm
->>>>>>> branch 'dididas_gitfuck' of https://github.com/dididas1/Swproject.git
 	</natures>
 </projectDescription>

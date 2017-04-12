@@ -7,12 +7,12 @@
 		<association property="software"	resultMap="kr.or.dgit.sw_project.dao.SoftwareMapper.SoftwareResult" />
 	</resultMap>
 	<sql id="selectSql">
-		select * from view_client_sale
+		select * from view_sale_by_client
 	</sql>
 	<sql id="whereSql">
 		<where>
-			<if test="client.clntName != null">
-				clnt_name=#{client.clntName};
+			<if test="clntName != null">
+				clnt_name=#{clntName}
 			</if>
 		</where>
 	</sql>
@@ -20,8 +20,9 @@
 		<include refid="selectSql"/>
 	</select>
 	
-	<select id="selectViewClientSaleClntName" resultMap="ViewClintSaleResult" >
+	<select id="selectViewClientSaleClntName" parameterType="ViewClientSale" resultMap="ViewClintSaleResult" >
 		<include refid="selectSql"/>
-		<include refid="whereSql"/>
+		where clnt_name=#{client.clntName}
+		order by clnt_code
 	</select>
 </mapper>

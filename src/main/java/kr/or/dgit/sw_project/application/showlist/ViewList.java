@@ -1,5 +1,6 @@
 package kr.or.dgit.sw_project.application.showlist;
 
+import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -8,11 +9,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
@@ -21,11 +23,12 @@ import kr.or.dgit.sw_project.dto.Client;
 import kr.or.dgit.sw_project.dto.Software;
 import kr.or.dgit.sw_project.dto.ViewCategorySale;
 import kr.or.dgit.sw_project.dto.ViewClientSale;
+import kr.or.dgit.sw_project.dto.ViewOrderDateSale;
 import kr.or.dgit.sw_project.dto.ViewSofrwareSale;
 import kr.or.dgit.sw_project.service.ViewCategorySaleService;
 import kr.or.dgit.sw_project.service.ViewClientSaleService;
+import kr.or.dgit.sw_project.service.ViewOrderDateSaleService;
 import kr.or.dgit.sw_project.service.ViewSoftwareSaleService;
-import java.awt.BorderLayout;
 
 public class ViewList extends JFrame implements ActionListener, ItemListener {
 	private ContentList pContent;
@@ -34,7 +37,7 @@ public class ViewList extends JFrame implements ActionListener, ItemListener {
 	private List<ViewCategorySale> listCategory;
 	private List<ViewClientSale> listClinet;
 	private List<ViewSofrwareSale> listSoftware;
-	private JLabel lblTotalLable;
+	private List<ViewOrderDateSale> listDate;
 	private JPanel contentPane;
 
 	public ViewList() {
@@ -50,7 +53,7 @@ public class ViewList extends JFrame implements ActionListener, ItemListener {
 		gridBagLayout.rowHeights = new int[]{0, 0, 0}; //각 행의 최소 넓이
 		gridBagLayout.columnWeights = new double[]{1.0, 0.0}; //각 열의 가중치
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 1.0}; //각 행의 가중치
-		setLayout(gridBagLayout);
+		getContentPane().setLayout(gridBagLayout);
 		
 		JLabel label = new JLabel("거래내역 확인");
 		label.setEnabled(false);
@@ -65,6 +68,7 @@ public class ViewList extends JFrame implements ActionListener, ItemListener {
 		contentPane.add(label, gbc_label);
 
 		pContent = new ContentList();
+		pContent.getBtnDaySearch().addActionListener(this);
 		pContent.getTfpSwName().getTf().addItemListener(this);
 		pContent.getTfpClntName().getTf().addItemListener(this);
 		pContent.getTfpGroup().getTf().addItemListener(this);
@@ -88,22 +92,11 @@ public class ViewList extends JFrame implements ActionListener, ItemListener {
 		gbc_pTable.gridy = 2;
 		contentPane.add(pTable, gbc_pTable);
 		
-		lblTotalLable = new JLabel("");
-		lblTotalLable.setHorizontalAlignment(SwingConstants.RIGHT);
-		pTable.add(lblTotalLable, BorderLayout.SOUTH);
 
 		setVisible(true);
-		pTable.setViewList(this);
 	}
 	
 
-	public JLabel getLblNewLabel() {
-		return lblTotalLable;
-	}
-
-	public void setTotalLable(int[] total){
-		lblTotalLable.setText(String.format("총합계 : %,d %,d", String.valueOf(total[0])+String.valueOf(total[1])));
-	}
 
 	/*************************** Get Data ***************************/  
 	private void setTable(){ //Table 로드
@@ -124,9 +117,16 @@ public class ViewList extends JFrame implements ActionListener, ItemListener {
 	private void getDataFromDBSoftware(){ //list에 데이터베이스에서 가져온 값을 입력 클라이언트
 		listSoftware = ViewSoftwareSaleService.getInstence().selectViewSofrwareSaleAll();
 	}
+	
+	private void getDataFromDBDate(Map<String, Object> param){ //list에 데이터베이스에서 가져온 값을 입력 클라이언트
+		listDate = ViewOrderDateSaleService.getInstence().selectViewOrderDateSaleThisYear(param);
+	}
 
 	/****************************************************************/
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == pContent.getBtnDaySearch()) {
+			pContentBtnDaySearchActionPerformed(e);
+		}
 		if (e.getSource() == pContent.getBtnGroupAllFind()) {
 			actionPerformedPContentBtnGroupAllFind(e);
 		}
@@ -161,6 +161,16 @@ public class ViewList extends JFrame implements ActionListener, ItemListener {
 		pTable.setTableDataForCategori();
 		pContent.getTfpGroup().setSelectedItem(0);
 	}
+	
+
+	protected void pContentBtnDaySearchActionPerformed(ActionEvent e) { //날짜검색
+		Map<String, Object> param= new HashMap<>();
+		param.put("startDate", pContent.getTfpDateFirst().getTfDate());
+		param.put("endDate", pContent.getTfpDateSecond().getTfDate());
+		getDataFromDBDate(param);
+		pTable.setDateList(listDate);
+		pTable.setTableDataForDate();
+	}
 
 	public void itemStateChanged(ItemEvent e) {
 		if (e.getSource() == pContent.getTfpSwName().getTf()) {
@@ -181,7 +191,6 @@ public class ViewList extends JFrame implements ActionListener, ItemListener {
 			pTable.setTableDataCategoriOne(listCategory.get(pContent.getTfpGroup().getSelectedIndex()-1));
 			pContent.getTfpClntName().setSelectedItem(0);
 			pContent.getTfpSwName().setSelectedItem(0);
-			lblTotalLable.setText("   ");
 		}
 	}
 
