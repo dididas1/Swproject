@@ -11,3 +11,4 @@ SELECT c.group_code, c.group_name,
 				  left outer JOIN sale s ON sw.sw_code = s.sw_code
 				  left outer JOIN client cl ON cl.clnt_code = s.clnt_code
 				  group by sw.sw_code;
+select * from address;

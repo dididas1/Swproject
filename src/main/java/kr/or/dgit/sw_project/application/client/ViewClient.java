@@ -212,14 +212,25 @@ public class ViewClient extends JPanel implements ActionListener {
 	
 	
 	/*************************** Get Data ***************************/  
-	private void setTable(){ //Table 로드
+	public void setTable(){ //Table 로드
 		getDataFromDB();
 		pTable.setList(list);
 		pTable.setTableData();
+		pContent.initSetting();
 	}
 	
 	private void getDataFromDB(){ //list에 데이터베이스에서 가져온 값을 입력
 		list = ClientService.getInstance().selectClientByAll();
 	}
 	/****************************************************************/
+
+	public TableClient getTableClient() {
+		return pTable;
+	}
+
+	public ContentClient getContentClient() {
+		return pContent;
+	}
+	
+	
 }

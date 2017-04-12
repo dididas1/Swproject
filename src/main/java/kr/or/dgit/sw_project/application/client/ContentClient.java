@@ -32,7 +32,7 @@ public class ContentClient extends JPanel implements ActionListener {
 	public ContentClient() {
 		setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[] {300, 50, 50};
+		gridBagLayout.columnWidths = new int[] {450, 50, 50};
 		gridBagLayout.rowHeights = new int[] {30, 30, 30, 30, 30, 30};
 		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0};
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
@@ -76,7 +76,7 @@ public class ContentClient extends JPanel implements ActionListener {
 		gbc_tfpClientAddr.gridy = 4;
 		add(tfpClientAddr, gbc_tfpClientAddr);
 		
-		button = new JButton("우편번호 검색");
+		button = new JButton("도로명주소검색");
 		button.addActionListener(this);
 		GridBagConstraints gbc_button = new GridBagConstraints();
 		gbc_button.insets = new Insets(0, 0, 5, 5);

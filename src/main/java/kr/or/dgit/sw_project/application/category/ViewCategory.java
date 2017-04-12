@@ -122,7 +122,7 @@ public class ViewCategory extends JPanel implements ActionListener{
 			}
 
 		});
-
+		
 		pTable.setTableData();
 		setVisible(true);
 	}
@@ -217,4 +217,14 @@ public class ViewCategory extends JPanel implements ActionListener{
 		btnInsert.setText("입력");
 		btnDelete.setEnabled(false);
 	}
+
+	public ContentCategory getContentCategory() {
+		return pContent;
+	}
+
+	public TableCategory getTableCategory() {
+		return pTable;
+	}
+	
+	
 }

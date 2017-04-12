@@ -129,9 +129,7 @@ public class ViewDelivery extends JPanel implements ActionListener{
 			}			
 
 		});
-		list = DeliveryService.getInstance().selectDeliveryByAll();//delivery테이블 모든값 가지고옴
-		pTable.setDeliveryList(list);
-		pTable.loadData();//table에 db에 있는 row,colum들 보여주기
+		setTable();
 		setVisible(true);
 	}
 	public void showFieldFromTable(){//table 클릭시 필드에 선택된table 값 띄우기 (ref)
@@ -237,6 +235,14 @@ public class ViewDelivery extends JPanel implements ActionListener{
 		pContent.getTfpSupplyAmount().getTf().setEditable(true);
 		
 	}
+	
+	public void setTable(){
+		list = DeliveryService.getInstance().selectDeliveryByAll();//delivery테이블 모든값 가지고옴
+		pTable.setDeliveryList(list);
+		pTable.loadData();//table에 db에 있는 row,colum들 보여주기
+		pContent.setDeliveryCode();
+	}
+	
 	public ContentDelivery getpContentDelivery() {
 		return pContent;
 	}

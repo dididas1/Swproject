@@ -121,9 +121,7 @@ public class ViewSupplyCompany extends JPanel implements ActionListener{
 			}
 
 		});
-		list = SupplyCompService.getInstance().selectSupplyCompByAll();//supplyCompany테이블 모든값 가지고옴
-		pTable.setSupplyList(list);
-		pTable.setTableData();//table에 db에 있는 row,colum들 보여주기
+		setTable();
 		setVisible(true);
 	}
 	private Object[] getTableData() {//each data in the table클릭시 값 넘겨줌
@@ -206,6 +204,21 @@ public class ViewSupplyCompany extends JPanel implements ActionListener{
 		pContent.resetField();//필드초기화
 		btnInsert.setText("입력");
 		btnDelete.setEnabled(false);
+	}
+	
+	public void setTable(){
+		list = SupplyCompService.getInstance().selectSupplyCompByAll();//supplyCompany테이블 모든값 가지고옴
+		pTable.setSupplyList(list);
+		pTable.setTableData();//table에 db에 있는 row,colum들 보여주기
+		pContent.setDeliveryCode();
+	}
+	
+	
+	public ContentSupplyCompany ContentSupplyCompany() {
+		return pContent;
+	}
+	public TableSupplyCompany getTableSupplyCompany() {
+		return pTable;
 	}
 
 	

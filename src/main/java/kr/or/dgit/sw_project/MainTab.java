@@ -33,11 +33,6 @@ import kr.or.dgit.sw_project.application.supplycompany.ViewSupplyCompany;
 import kr.or.dgit.sw_project.initsetting.InitSettingService;
 
 public class MainTab extends JFrame implements ActionListener, ChangeListener {
-
-	private JMenuItem mnSale;
-	private JMenuItem mnDel;
-	private JMenuItem mnClnt;
-	private JMenuItem mnSup;
 	private JMenuItem mntmInit;
 	private JMenuItem mntmBackup;
 	private JMenuItem mntmRestore;
@@ -85,30 +80,6 @@ public class MainTab extends JFrame implements ActionListener, ChangeListener {
 
 		JMenuItem mntmExit = new JMenuItem("종료");
 		mnFile.add(mntmExit);
-
-		JMenu mnCustomMenu = new JMenu("Window");
-		menuBar.add(mnCustomMenu);
-
-		JMenu mnCustom = new JMenu("ShowButton");
-		mnCustomMenu.add(mnCustom);
-
-		mnSale = new JMenuItem("주문관리");
-		mnSale.addActionListener(this);
-
-		mnSup = new JMenuItem("공급회사관리");
-		mnSup.addActionListener(this);
-		mnCustom.add(mnSup);
-		mnCustom.add(mnSale);
-
-		mnDel = new JMenuItem("납품관리");
-		mnCustom.add(mnDel);
-
-		JMenuItem mnSw = new JMenuItem("소프트웨어 관리");
-		mnCustom.add(mnSw);
-
-		mnClnt = new JMenuItem("고객사관리");
-		mnClnt.addActionListener(this);
-		mnCustom.add(mnClnt);
 
 		JMenu mnHelp = new JMenu("도움말");
 		menuBar.add(mnHelp);
@@ -183,9 +154,6 @@ public class MainTab extends JFrame implements ActionListener, ChangeListener {
 
 	protected void actionPerformedBtnShowList(ActionEvent e) {
 		viewList = new ViewList();
-		viewList.getContentList().setCategoryComboData();
-		viewList.getContentList().setClntComboData();
-		viewList.getContentList().setSwComboData();
 		
 	}
 
@@ -222,14 +190,16 @@ public class MainTab extends JFrame implements ActionListener, ChangeListener {
 	}
 	protected void actionPerformedMntmInit(ActionEvent e) {
 		fileSetting.initSetting(0, 1);
+		allRefresh();
 	}
 	protected void actionPerformedMntmBackup(ActionEvent e) {
 		fileSetting.initSetting(0, 0);
 	}
 	protected void actionPerformedMntmRestore(ActionEvent e) {
 		fileSetting.initSetting(1, 1);
+		allRefresh();
 	}
-
+	
 
 
 	public void stateChanged(ChangeEvent e) {
@@ -256,7 +226,14 @@ public class MainTab extends JFrame implements ActionListener, ChangeListener {
 		}
 
 	}
-
+	public void allRefresh(){
+		viewCategory.getTableCategory().setTableData();
+		viewClient.setTable();
+		viewSupplyCompany.setTable();
+		viewDelivery.setTable();
+		viewSale.setTable();
+		viewSoftware.getpContentSoftware().getSwCode();
+	}
 
 	protected void tabbedPaneStateChanged(ChangeEvent e) {
 

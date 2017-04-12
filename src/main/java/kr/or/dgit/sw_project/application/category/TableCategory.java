@@ -30,6 +30,7 @@ public class TableCategory extends JPanel {
 
 	public void setTableData(){ //테이블 데이터입력
 		table.setModel(new DefaultTableModel(getRowdata(), getColumm()));
+		
 	}
 	
 	public Object[] getColumm() { //컬럼값입력

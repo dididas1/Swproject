@@ -33,7 +33,7 @@ public class ContentSupplyCompany extends JPanel implements ActionListener {
 	public ContentSupplyCompany() {
 		setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[] {300, 50, 50};
+		gridBagLayout.columnWidths = new int[] {450, 50, 50};
 		gridBagLayout.rowHeights = new int[] {30, 30, 30, 30, 30, 30, 20};
 		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0};
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
@@ -120,7 +120,7 @@ public class ContentSupplyCompany extends JPanel implements ActionListener {
 		tfadr.setTfValue("");
 		tfpSupplyCompanyName.requestFocus();
 	}
-	private void setDeliveryCode() {//맨 마지막 코드 다음꺼로 세팅
+	public void setDeliveryCode() {//맨 마지막 코드 다음꺼로 세팅
 		
 		List<SupplyCompany> list =SupplyCompService.getInstance().selectSupplyCompByAll();
 		if(list.size()==0){
@@ -181,4 +181,6 @@ public class ContentSupplyCompany extends JPanel implements ActionListener {
 		viewAddress.setCompDao(this);
 		viewAddress.setVisible(true);
 	}
+	
+	
 }

@@ -34,6 +34,8 @@ public class InitSettingService {
 					System.err.println("Trigger 생성완료");	
 				}
 				dao.getUpdateResult(Config.CREATE_ADMIN);
+				loadPostData();
+				createIndex();
 				
 				if(swt==1){// 복원
 					for(int i=0 ; i<Config.TABLE_NAME.length ; i++){
@@ -131,4 +133,28 @@ public class InitSettingService {
 			JdbcUtil.close(stmt);
 		}
 	}
+	
+	private void loadPostData(){
+		File file = new File(Config.ADDRESS_IMPORT_DIR);
+		File[] fileNames = file.listFiles();
+		String sql = "LOAD data LOCAL INFILE '%s' INTO table  address   character set 'euckr'  fields TERMINATED by '|' IGNORE 1 lines "
+				+ "(@zipcode, @sido, @d, @sigungu , @d, @d, @d, @d, @doro, @d, @d, @building1, @building2, @d, @d, @d, @d, @d, @d ,@d, @d, @d, @d, @d, @d, @d) "
+				+ "set zipcode=@zipcode, sido=@sido, sigungu=@sigungu, doro=@doro, building1=@building1, building2=@building2";
+		for(File f:fileNames){
+			executeImportData(String.format(sql,f.getAbsolutePath().replace("\\", "/")), f.getName());
+		}
+	}
+	
+	private void createIndex() {
+		System.out.printf("Index 생성 중 ~~!%n");
+		for (int i = 0; i < Config.CREATE_INDEX.length; i++) {
+			try {
+				Dao.getInstance().getUpdateResult(Config.CREATE_INDEX[i]);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}	
+		System.out.printf("Index 생성 완료 ~~!%n");
+	}
+	
 }
