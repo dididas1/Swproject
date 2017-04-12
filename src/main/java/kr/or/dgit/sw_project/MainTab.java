@@ -23,6 +23,7 @@ import kr.or.dgit.sw_project.application.sales.ViewSale;
 import kr.or.dgit.sw_project.application.showlist.ViewList;
 import kr.or.dgit.sw_project.application.software.ViewSoftware;
 import kr.or.dgit.sw_project.application.supplycompany.ViewSupplyCompany;
+import kr.or.dgit.sw_project.initsetting.InitSettingService;
 
 public class MainTab extends JFrame implements ActionListener {
 
@@ -43,6 +44,10 @@ public class MainTab extends JFrame implements ActionListener {
 	private ViewDelivery viewDelivery;
 	private ViewList viewList;
 	private JButton btnReport_1;
+	private JMenuItem mntmInit;
+	private JMenuItem mntmBackup;
+	private JMenuItem mntmRestore;
+	private InitSettingService fileSetting = new InitSettingService();
 	
 	public MainTab() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -54,13 +59,16 @@ public class MainTab extends JFrame implements ActionListener {
 		JMenu mnFile = new JMenu("파일");
 		menuBar.add(mnFile);
 
-		JMenuItem mntmInit = new JMenuItem("초기화");
+		mntmInit = new JMenuItem("초기화");
+		mntmInit.addActionListener(this);
 		mnFile.add(mntmInit);
 
-		JMenuItem mntmBackup = new JMenuItem("백업");
+		mntmBackup = new JMenuItem("백업");
+		mntmBackup.addActionListener(this);
 		mnFile.add(mntmBackup);
 
-		JMenuItem mntmRestore = new JMenuItem("복원");
+		mntmRestore = new JMenuItem("복원");
+		mntmRestore.addActionListener(this);
 		mnFile.add(mntmRestore);
 
 		JMenuItem mntmExit = new JMenuItem("종료");
@@ -164,6 +172,15 @@ public class MainTab extends JFrame implements ActionListener {
 	}
 	
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == mntmRestore) {
+			actionPerformedMntmRestore(e);
+		}
+		if (e.getSource() == mntmBackup) {
+			actionPerformedMntmBackup(e);
+		}
+		if (e.getSource() == mntmInit) {
+			actionPerformedMntmInit(e);
+		}
 		if (e.getSource() == btnReport_1) {
 			actionPerformedBtnReport(e);
 		}
@@ -205,6 +222,15 @@ public class MainTab extends JFrame implements ActionListener {
 		GenerateExcel generateExcel = new GenerateExcel(path); 
 		generateExcel.CreateExcel();
 		JOptionPane.showMessageDialog(null, path+"파일이 생성되었습니다.");
+	}
+	protected void actionPerformedMntmInit(ActionEvent e) {
+		fileSetting.initSetting(0, 1);
+	}
+	protected void actionPerformedMntmBackup(ActionEvent e) {
+		fileSetting.initSetting(0, 0);
+	}
+	protected void actionPerformedMntmRestore(ActionEvent e) {
+		fileSetting.initSetting(1, 1);
 	}
 }
 
