@@ -18,32 +18,32 @@ public class SupplyCompMapperImpl implements SupplyCompMapper{
 	}
 
 	@Override
-	public List<SupplyCompany> selectSupplyCompByAll() {
+	public List<SupplyCompany> selectSupplyCompByAll() {//all
 		log.debug("selectSupplyCompByAll()");
 		return sqlSession.selectList(nameSpace + "selectSupplyCompByAll");
 	}
 
 	@Override
-	public SupplyCompany selectCompByNo(SupplyCompany supplyCompany) {
+	public SupplyCompany selectCompByNo(SupplyCompany supplyCompany) {//code select
 		log.debug("selectCompByNo()");
 		return sqlSession.selectOne(nameSpace + "selectCompByNo", supplyCompany);
 	}
 
 	@Override
-	public int insertCompItem(SupplyCompany supplyCompany) {
+	public int insertCompItem(SupplyCompany supplyCompany) {//db table입력
 		log.debug("insertCompItem()");
 		return sqlSession.insert(nameSpace + "insertCompItem",supplyCompany);
 	}
 
 	@Override
-	public int updateCompItem(SupplyCompany supplyCompany) {
+	public int updateCompItem(SupplyCompany supplyCompany) {//db table 값수정
 		log.debug("updateCompItem()");
 		return sqlSession.update(nameSpace + "updateCompItem",supplyCompany);
 	}
 
 	@Override
-	public int existCompItem(SupplyCompany supplyCompany) {
+	public int existCompItem(SupplyCompany supplyCompany) {//논리삭제 db에서 exist칼럼 true로 변경 
 		log.debug("existCompItem()");
-		return sqlSession.update(nameSpace + "selectSupplyCompByAll",supplyCompany);
+		return sqlSession.update(nameSpace + "existCompItem",supplyCompany);
 	}
 }
