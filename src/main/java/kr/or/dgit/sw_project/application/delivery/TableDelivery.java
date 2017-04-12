@@ -34,11 +34,11 @@ public class TableDelivery extends JPanel {
 	}
 
 
-	public void loadData() {
+	public void loadData() {//set table
 		// TODO Auto-generated method stub
 		table.setModel(new DefaultTableModel(getRowData(),getColumn()));
 	}	
-	protected Object[][] getRowData(){
+	protected Object[][] getRowData(){//table의 row isDelIsExist가 true인것만
 		List<Delivery> delivery = new ArrayList<Delivery>(deliveryList);
 		for(int i =0; i<deliveryList.size(); i++)
 			System.out.println(deliveryList.get(i).toString());
@@ -48,13 +48,9 @@ public class TableDelivery extends JPanel {
 				delivery.remove(i);
 			}
 		}
-		Object[][] datas = new Object[delivery.size()][];
-		
-		for(int i=0; i<datas.length; i++){
-			
-				datas[i] = delivery.get(i).toArray();
-			
-			
+		Object[][] datas = new Object[delivery.size()][];		
+		for(int i=0; i<datas.length; i++){			
+				datas[i] = delivery.get(i).toArray();			
 		}
 		return datas;
 	}
@@ -69,7 +65,7 @@ public class TableDelivery extends JPanel {
 	}
 
 
-	protected String[] getColumn(){
+	protected String[] getColumn(){//table column
 		return new String[]{"납품번호","납품회사","품목명","공급가격","납품수량","납품일자"};
 	}
 }

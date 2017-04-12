@@ -33,7 +33,6 @@ public class TableSoftware extends JPanel {
 
 	public void setTableData(){ //테이블 데이터입력
 		table.setModel(new DefaultTableModel(getRowdata(), getColumm()));
-		tableCellAlignment();
 	}
 	
 	public Object[] getColumm() { //컬럼값입력
@@ -59,23 +58,5 @@ public class TableSoftware extends JPanel {
 			datas[i] = listForTable.get(i).toSoftLists();
 		}
 		return datas;
-	}
-
-	
-	
-	public void tableCellAlignment(){// (제품코드, 분류명, 제품명 : 가운데정렬), (공급가격,판매가격 : 왼쪽정렬)
-		DefaultTableCellRenderer dtcr1 = new DefaultTableCellRenderer();
-		DefaultTableCellRenderer dtcr2 = new DefaultTableCellRenderer();
-		dtcr1.setHorizontalAlignment(SwingConstants.TRAILING);
-		dtcr2.setHorizontalAlignment(SwingConstants.CENTER);
-		
-		TableColumnModel tcm = table.getColumnModel();
-		for(int i=0 ; i<tcm.getColumnCount() ; i++){
-			if(i>2){
-				tcm.getColumn(i).setCellRenderer(dtcr1);
-			}else{
-				tcm.getColumn(i).setCellRenderer(dtcr2);
-			}
-		}
 	}
 }

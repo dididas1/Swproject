@@ -18,31 +18,31 @@ public class DeliveryMapperImpl implements DeliveryMapper{
 	}
 
 	@Override
-	public List<Delivery> selectDeliveryByAll() {
+	public List<Delivery> selectDeliveryByAll() {//all
 		log.debug("selectDeliveryByAll()");
 		return sqlSession.selectList(nameSpace + "selectDeliveryByAll");
 	}
 
 	@Override
-	public int insertDeliveryItems(Delivery delivery) {
+	public int insertDeliveryItems(Delivery delivery) {//db table입력
 		log.debug("insertDeliveryItems()");		
 		return sqlSession.insert(nameSpace + "insertDeliveryItems", delivery);
 	}
 
 	@Override
-	public String lastDeliveryCode() {
+	public String lastDeliveryCode() {//마지막코드를 위한거 (필요없어짐)
 		log.debug("lastDeliveryCode()");
 		return sqlSession.selectOne(nameSpace + "lastDeliveryCode");
 	}
 
 	@Override
-	public int existDeliveryItem(Delivery delivery) {
+	public int existDeliveryItem(Delivery delivery) {//논리삭제 db에서 exist칼럼 true로 변경 
 		log.debug("existDeliveryItem()");		
 		return sqlSession.update(nameSpace + "existDeliveryItem", delivery);
 	}
 
 	@Override
-	public int UpdateItems(Delivery delivery) {
+	public int UpdateItems(Delivery delivery) {//db table 값수정
 		log.debug("UpdateItems()");		
 		return sqlSession.update(nameSpace + "UpdateItems", delivery);
 	}

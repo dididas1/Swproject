@@ -30,4 +30,9 @@
     	<include refid="selectSQL" />
     		WHERE YEAR(s.order_date) = #{date}
     </select>
+    
+    <select id="selectJoinFromSaleByAllOrderByOrderDate" resultMap="JoinFromSaleResult">
+    	<include refid="selectSQL" />
+    		order by order_date desc
+    </select>
 </mapper>

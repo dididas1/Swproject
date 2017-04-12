@@ -1,8 +1,11 @@
 package kr.or.dgit.sw_project;
 
 import java.awt.BorderLayout;
+import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -18,35 +21,42 @@ import kr.or.dgit.sw_project.application.category.ViewCategory;
 import kr.or.dgit.sw_project.application.chart.ViewChart;
 import kr.or.dgit.sw_project.application.client.ViewClient;
 import kr.or.dgit.sw_project.application.delivery.ViewDelivery;
+import kr.or.dgit.sw_project.application.excel.GenerateExcel;
 import kr.or.dgit.sw_project.application.sales.ViewSale;
 import kr.or.dgit.sw_project.application.showlist.ViewList;
 import kr.or.dgit.sw_project.application.software.ViewSoftware;
 import kr.or.dgit.sw_project.application.supplycompany.ViewSupplyCompany;
-import kr.or.dgit.sw_project.initsettingservice.InitSettingService;
+import kr.or.dgit.sw_project.initsetting.InitSettingService;
 
 public class MainTab extends JFrame implements ActionListener {
 
-	private JPanel contentPane;
-	private JButton btnSupplyComp;
-	private JButton btnSoftWare;
-	private JButton btnClient;
-	private JPanel pButton;
-	private JButton btnChart;
-	private JButton btnReport;
-	private JButton btnCategory;
-
-	private ViewSale viewSale;
-	private ViewDelivery viewDelivery;
-	private ViewList viewList;
+	private JMenuItem mnSale;
+	private JMenuItem mnDel;
+	private JMenuItem mnClnt;
+	private JMenuItem mnSup;
 	private JMenuItem mntmInit;
 	private JMenuItem mntmBackup;
 	private JMenuItem mntmRestore;
-	private JMenuItem mntmHelp;
+	
+	private JPanel contentPane;
+	private JPanel pButton;
+	
+	private JButton btnChart;
+	private JButton btnReport;
+	private JButton btnShowList;
+	
+	private ViewSale viewSale;
+	private ViewDelivery viewDelivery;
+	private ViewClient viewClient;
+	private ViewSupplyCompany viewSupplyCompany;
+	private ViewSoftware viewSoftware;
+	
+	private ViewCategory viewCategory;
 	private InitSettingService fileSetting = new InitSettingService();
-
+	
 	public MainTab() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 730, 800);
+		setBounds(0, 0, 1200, 900);
 
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -69,11 +79,34 @@ public class MainTab extends JFrame implements ActionListener {
 		JMenuItem mntmExit = new JMenuItem("종료");
 		mnFile.add(mntmExit);
 
+		JMenu mnCustomMenu = new JMenu("Window");
+		menuBar.add(mnCustomMenu);
+
+		JMenu mnCustom = new JMenu("ShowButton");
+		mnCustomMenu.add(mnCustom);
+
+		mnSale = new JMenuItem("주문관리");
+		mnSale.addActionListener(this);
+
+		mnSup = new JMenuItem("공급회사관리");
+		mnSup.addActionListener(this);
+		mnCustom.add(mnSup);
+		mnCustom.add(mnSale);
+
+		mnDel = new JMenuItem("납품관리");
+		mnCustom.add(mnDel);
+
+		JMenuItem mnSw = new JMenuItem("소프트웨어 관리");
+		mnCustom.add(mnSw);
+
+		mnClnt = new JMenuItem("고객사관리");
+		mnClnt.addActionListener(this);
+		mnCustom.add(mnClnt);
+
 		JMenu mnHelp = new JMenu("도움말");
 		menuBar.add(mnHelp);
 
-		mntmHelp = new JMenuItem("AboutProject");
-		mntmHelp.addActionListener(this);
+		JMenuItem mntmHelp = new JMenuItem("AboutProject");
 		mnHelp.add(mntmHelp);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -85,88 +118,67 @@ public class MainTab extends JFrame implements ActionListener {
 
 		tabbedPane.add("주문 관리",viewSale = new ViewSale());
 		tabbedPane.add("납품 관리",viewDelivery = new ViewDelivery());
-		tabbedPane.add("거래내역 확인",viewList = new ViewList());
-		//new ViewChart();
-		tabbedPane.add("판매 현황 차트", new ViewChart());
-
+		tabbedPane.add("소프트웨어 관리",viewSoftware = new ViewSoftware());
+		tabbedPane.add("고객 관리",viewClient = new ViewClient());
+		tabbedPane.add("공급사 관리",viewSupplyCompany = new ViewSupplyCompany());
+		tabbedPane.add("S/W분류 관리",viewCategory = new ViewCategory());
+		
 		JPanel pButton = new JPanel();
 		contentPane.add(pButton, BorderLayout.NORTH);
 
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.WEST);
 		panel.setLayout(new BorderLayout(0, 0));
+		
+		btnShowList = new JButton("거래내역 확인");
+		btnShowList.addActionListener(this);
+		pButton.add(btnShowList);
 
-
-		btnSupplyComp = new JButton("공급사 관리");
-		btnSupplyComp.addActionListener(this);
-		pButton.add(btnSupplyComp);
-
-		btnSoftWare = new JButton("S/W 관리");
-		btnSoftWare.addActionListener(this);
-		pButton.add(btnSoftWare);
-
-		btnCategory = new JButton("S/W 분류 관리");
-		btnCategory.addActionListener(this);
-		pButton.add(btnCategory);
-
-		btnClient = new JButton("고객 관리");
-		btnClient.addActionListener(this);
-		pButton.add(btnClient);
-
-		btnChart = new JButton("통계차트");
-
-		btnReport = new JButton("보고서");
-
-
-		JButton btnChart = new JButton("통계차트");
+		btnChart = new JButton("판매 현황 차트");
+		btnChart.addActionListener(this);
 		pButton.add(btnChart);
 
-		JButton btnReport = new JButton("보고서");
+		btnReport = new JButton("엑셀파일 생성");
+		btnReport.addActionListener(this);
 		pButton.add(btnReport);
 
 		if(MainApp.permission.equals("personnel")){
 			btnChart.setEnabled(false);
 			btnReport.setEnabled(false);
-			btnSupplyComp.setEnabled(false);
-			btnSoftWare.setEnabled(false);
-			btnClient.setEnabled(false);
 		}
+		
 		setVisible(true);
-
 		viewDelivery.setMainTab(MainTab.this);
 	}
 
 	public void refresh(){
 		viewSale.getContent().setSwComboData();
 	}
-
+	
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == mntmHelp) {
-			mntmHelpActionPerformed(e);
+		if (e.getSource() == btnChart) {
+			actionPerformedBtnChart(e);
+		}
+		if (e.getSource() == btnShowList) {
+			actionPerformedBtnShowList(e);
 		}
 		if (e.getSource() == mntmRestore) {
-			mntmRestoreActionPerformed(e);
+			actionPerformedMntmRestore(e);
 		}
 		if (e.getSource() == mntmBackup) {
-			mntmBackupActionPerformed(e);
+			actionPerformedMntmBackup(e);
 		}
 		if (e.getSource() == mntmInit) {
-			mntmInitActionPerformed(e);
+			actionPerformedMntmInit(e);
 		}
-		if (e.getSource() == btnClient) {
-			actionPerformedBtnClient(e);
-		}
-		if (e.getSource() == btnSoftWare) {
-			actionPerformedBtnSoftWare(e);
-		}
-		if (e.getSource() == btnCategory) {
-			actionPerformedBtnCategory(e);
-		}
-		if (e.getSource() == btnSupplyComp) {
-			actionPerformedBtnSupplyComp(e);
+		if (e.getSource() == btnReport) {
+			actionPerformedBtnReport(e);
 		}
 	}
-
+	protected void actionPerformedBtnShowList(ActionEvent e) {
+		ViewList viewList = new ViewList(); 
+	}
+	
 	protected void actionPerformedBtnSupplyComp(ActionEvent e) {
 		ViewSupplyCompany viewSupplyCompany = new ViewSupplyCompany(); 
 	}
@@ -182,25 +194,30 @@ public class MainTab extends JFrame implements ActionListener {
 	protected void actionPerformedBtnClient(ActionEvent e) {
 		ViewClient viewclient = new ViewClient();
 	}
-
-	protected void mntmInitActionPerformed(ActionEvent e) {
-		if(JOptionPane.showConfirmDialog(null, "모든데이터가 삭제됩니다 계속하시겠습니까?")==JOptionPane.YES_OPTION){
-			fileSetting.initSetting(0, 1);
+	
+	protected void actionPerformedBtnChart(ActionEvent e) {
+		ViewChart viewChart = new ViewChart(); 
+	}
+	
+	protected void actionPerformedBtnReport(ActionEvent e) {
+		String path = "D:\\Chart.xls";
+		GenerateExcel generateExcel = new GenerateExcel(path); 
+		generateExcel.CreateExcel();
+		JOptionPane.showMessageDialog(null, path+"파일이 생성되었습니다.");
+		try {
+			Desktop.getDesktop().edit(new File("D:\\Chart.xls"));
+		} catch (IOException e1) {
+			e1.printStackTrace();
 		}
 	}
-	protected void mntmBackupActionPerformed(ActionEvent e) {
-		if(JOptionPane.showConfirmDialog(null, "백업하시겠습니까?")==JOptionPane.YES_OPTION){
-			fileSetting.initSetting(0, 0);
-		}
+	protected void actionPerformedMntmInit(ActionEvent e) {
+		fileSetting.initSetting(0, 1);
 	}
-	protected void mntmRestoreActionPerformed(ActionEvent e) {
-		if(JOptionPane.showConfirmDialog(null, "이전데이터가 삭제되고 저장된데이터가 입력됩니다 계속하시겠습니까?")==JOptionPane.YES_OPTION){
-			fileSetting.initSetting(1, 1);
-		}
-
+	protected void actionPerformedMntmBackup(ActionEvent e) {
+		fileSetting.initSetting(0, 0);
 	}
-	protected void mntmHelpActionPerformed(ActionEvent e) {
-
+	protected void actionPerformedMntmRestore(ActionEvent e) {
+		fileSetting.initSetting(1, 1);
 	}
 }
 

@@ -73,3 +73,25 @@ SELECT DISTINCT
          order by sw.sw_code
          
 SELECT * FROM software;
+
+SELECT DISTINCT sw.sw_code, cat.group_name, sw.sw_name, sw.sale_price ,sw.sw_inven,sw.sw_issale
+	FROM software sw
+	LEFT OUTER JOIN category cat ON sw.group_code = cat.group_code
+	order by sw.sw_code;
+	
+SELECT * FROM software sw
+		JOIN delivery del ON sw.sw_code = del.sw_code
+		JOIN supply_company sc ON sc.comp_code = del.comp_code
+		JOIN category cat ON sw.group_code = cat.group_code
+		JOIN sale s ON sw.sw_code = s.sw_code
+		JOIN view_sale_detail sd ON s.sale_code = sd.sale_code
+		JOIN client cl ON cl.clnt_code = s.clnt_code
+	GROUP BY s.sale_code
+	ORDER BY comp_name;
+	
+	SELECT * FROM sale s 
+			JOIN software sw ON s.sw_code = sw.sw_code 
+			JOIN view_sale_detail sd ON s.sale_code = sd.sale_code 
+			JOIN client cl ON cl.clnt_code = s.clnt_code 
+			JOIN category cat ON sw.group_code = cat.group_code 
+			ORDER BY order_date desc;

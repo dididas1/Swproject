@@ -15,9 +15,15 @@ public class ViewSoftwareSaleService {
 	
 	private ViewSoftwareSaleService() {}
 
+		
+
+
 	public static ViewSoftwareSaleService getInstence() {
 		return instence;
 	}
+
+
+
 
 	public List<ViewSofrwareSale> selectViewSofrwareSaleAll() {
 		try (SqlSession sqlSession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {

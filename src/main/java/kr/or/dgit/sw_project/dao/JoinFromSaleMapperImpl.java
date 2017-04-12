@@ -29,4 +29,10 @@ public class JoinFromSaleMapperImpl implements JoinFromSaleMapper{
 		log.debug("selectJoinFromSaleByYear()");
 		return sqlSession.selectList(nameSpace + "selectJoinFromSaleByYear", date);
 	}
+
+	@Override
+	public List<JoinFromSale> selectJoinFromSaleByAllOrderByOrderDate() {
+		log.debug("selectJoinFromSaleByAllOrderByOrderDate()");
+		return sqlSession.selectList(nameSpace + "selectJoinFromSaleByAllOrderByOrderDate");
+	}
 }

@@ -3,6 +3,7 @@ package kr.or.dgit.sw_project.dto;
 public class JoinFromSoftware {
 	private Software software;
 	private SupplyCompany supplyCompany;
+	private Client client;
 	private Category category;
 	private Delivery delivery;
 	private Sale sale;
@@ -11,6 +12,16 @@ public class JoinFromSoftware {
 	
 	public JoinFromSoftware() {
 	}
+
+	public Client getClient() {
+		return client;
+	}
+
+	public void setClient(Client client) {
+		this.client = client;
+	}
+
+
 
 	public Software getSoftware() {
 		return software;
@@ -62,8 +73,8 @@ public class JoinFromSoftware {
 
 	@Override
 	public String toString() {
-		return String.format("%s, %s, %s, %s, %s, %s",
-			software, supplyCompany, category, delivery, sale, saleDetail);
+		return String.format("%s, %s, $s, %s, %s, %s, %s",
+			software, supplyCompany, client, category, delivery, sale, saleDetail);
 	}
 	
 	public Object[] toSoftLists() {

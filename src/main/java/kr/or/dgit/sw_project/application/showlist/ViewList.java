@@ -8,46 +8,51 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 
 import kr.or.dgit.sw_project.dto.Client;
 import kr.or.dgit.sw_project.dto.Software;
 import kr.or.dgit.sw_project.dto.ViewCategorySale;
 import kr.or.dgit.sw_project.dto.ViewClientSale;
-import kr.or.dgit.sw_project.dto.ViewOrderDateSale;
 import kr.or.dgit.sw_project.dto.ViewSofrwareSale;
 import kr.or.dgit.sw_project.service.ViewCategorySaleService;
 import kr.or.dgit.sw_project.service.ViewClientSaleService;
-import kr.or.dgit.sw_project.service.ViewOrderDateSaleService;
 import kr.or.dgit.sw_project.service.ViewSoftwareSaleService;
 import java.awt.BorderLayout;
 
-public class ViewList extends JPanel implements ActionListener, ItemListener {
+public class ViewList extends JFrame implements ActionListener, ItemListener {
 	private ContentList pContent;
 	private TableList pTable;
 
 	private List<ViewCategorySale> listCategory;
 	private List<ViewClientSale> listClinet;
 	private List<ViewSofrwareSale> listSoftware;
-	private List<ViewOrderDateSale> listDate;
-	
+	private JLabel lblTotalLable;
+	private JPanel contentPane;
 
 	public ViewList() {
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		setBounds(0, 0, 1200, 900);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setLayout(new BorderLayout(0, 0));
+		setContentPane(contentPane);
+		
 		GridBagLayout gridBagLayout = new GridBagLayout();
-	      gridBagLayout.columnWidths = new int[]{0, 0}; //각 열의 최소 넓이  
-	      gridBagLayout.rowHeights = new int[]{0, 0, 0}; //각 행의 최소 넓이
-	      gridBagLayout.columnWeights = new double[]{0.0, 0.0}; //각 열의 가중치
-	      gridBagLayout.rowWeights = new double[]{0.0, 0.0, 1.0}; //각 행의 가중치
-	      setLayout(gridBagLayout);
-
-		JLabel label = new JLabel("소프트웨어 관리");
+		gridBagLayout.columnWidths = new int[]{0, 0}; //각 열의 최소 넓이  
+		gridBagLayout.rowHeights = new int[]{0, 0, 0}; //각 행의 최소 넓이
+		gridBagLayout.columnWeights = new double[]{1.0, 0.0}; //각 열의 가중치
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 1.0}; //각 행의 가중치
+		setLayout(gridBagLayout);
+		
+		JLabel label = new JLabel("거래내역 확인");
 		label.setEnabled(false);
 		label.setHorizontalAlignment(SwingConstants.CENTER);
 		label.setFont(new Font("\uC778\uD130\uD30C\uD06C\uACE0\uB515 B", label.getFont().getStyle(), label.getFont().getSize() + 5));
@@ -57,22 +62,23 @@ public class ViewList extends JPanel implements ActionListener, ItemListener {
 		gbc_label.gridx = 0;
 		gbc_label.gridy = 0;
 		gbc_label.gridwidth = 5;
-		add(label, gbc_label);
+		contentPane.add(label, gbc_label);
 
 		pContent = new ContentList();
-		pContent.getBtnDaySearch().addActionListener(this);
 		pContent.getTfpSwName().getTf().addItemListener(this);
 		pContent.getTfpClntName().getTf().addItemListener(this);
 		pContent.getTfpGroup().getTf().addItemListener(this);
+		
 		pContent.getBtnGroupAllFind().addActionListener(this);
 		pContent.getBtnSwAllFind().addActionListener(this);
 		pContent.getBtnClntAllFind().addActionListener(this);
+		
 		GridBagConstraints gbc_pContent = new GridBagConstraints();
 		gbc_pContent.insets = new Insets(10, 10, 30, 10);
 		gbc_pContent.fill = GridBagConstraints.NONE;
 		gbc_pContent.gridx = 0;
 		gbc_pContent.gridy = 1;
-		add(pContent, gbc_pContent);
+		contentPane.add(pContent, gbc_pContent);
 
 		pTable = new TableList();
 		GridBagConstraints gbc_pTable = new GridBagConstraints();
@@ -80,17 +86,24 @@ public class ViewList extends JPanel implements ActionListener, ItemListener {
 		gbc_pTable.fill = GridBagConstraints.BOTH;
 		gbc_pTable.gridx = 0;
 		gbc_pTable.gridy = 2;
-		add(pTable, gbc_pTable);
+		contentPane.add(pTable, gbc_pTable);
 		
-
+		lblTotalLable = new JLabel("");
+		lblTotalLable.setHorizontalAlignment(SwingConstants.RIGHT);
+		pTable.add(lblTotalLable, BorderLayout.SOUTH);
 
 		setVisible(true);
+		pTable.setViewList(this);
 	}
 	
 
+	public JLabel getLblNewLabel() {
+		return lblTotalLable;
+	}
 
-
-
+	public void setTotalLable(int[] total){
+		lblTotalLable.setText(String.format("총합계 : %,d %,d", String.valueOf(total[0])+String.valueOf(total[1])));
+	}
 
 	/*************************** Get Data ***************************/  
 	private void setTable(){ //Table 로드
@@ -111,17 +124,9 @@ public class ViewList extends JPanel implements ActionListener, ItemListener {
 	private void getDataFromDBSoftware(){ //list에 데이터베이스에서 가져온 값을 입력 클라이언트
 		listSoftware = ViewSoftwareSaleService.getInstence().selectViewSofrwareSaleAll();
 	}
-	private void getDataFromDBDate(Map<String, Object> param){ //list에 데이터베이스에서 가져온 값을 입력 클라이언트
-		listDate = ViewOrderDateSaleService.getInstence().selectViewOrderDateSaleThisYear(param);
-	}
+
 	/****************************************************************/
-
-
-
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == pContent.getBtnDaySearch()) {
-			pContentBtnDaySearchActionPerformed(e);
-		}
 		if (e.getSource() == pContent.getBtnGroupAllFind()) {
 			actionPerformedPContentBtnGroupAllFind(e);
 		}
@@ -133,6 +138,7 @@ public class ViewList extends JPanel implements ActionListener, ItemListener {
 			actionPerformedPContentBtnClntAllFind(e);
 		}
 	}
+	
 	protected void actionPerformedPContentBtnClntAllFind(ActionEvent e) { //공급사 전체검색
 		getDataFromDBClinet();
 		pTable.setClientList(listClinet);
@@ -148,24 +154,13 @@ public class ViewList extends JPanel implements ActionListener, ItemListener {
 		pContent.getTfpSwName().setSelectedItem(0);
 
 	}
+	
 	protected void actionPerformedPContentBtnGroupAllFind(ActionEvent e) { //카테고리 전체검색
 		getDataFromDBCategory();
 		pTable.setCategryList(listCategory);
 		pTable.setTableDataForCategori();
 		pContent.getTfpGroup().setSelectedItem(0);
 	}
-	
-	protected void pContentBtnDaySearchActionPerformed(ActionEvent e) {
-		Map<String, Object> param= new HashMap<>();
-		param.put("startDate", pContent.getTfpDateFirst().getTfDate());
-		param.put("endDate", pContent.getTfpDateSecond().getTfDate());
-		getDataFromDBDate(param);
-		pTable.setDateList(listDate);
-		pTable.setTableDataForDate();
-		
-		
-	}
-
 
 	public void itemStateChanged(ItemEvent e) {
 		if (e.getSource() == pContent.getTfpSwName().getTf()) {
@@ -177,9 +172,7 @@ public class ViewList extends JPanel implements ActionListener, ItemListener {
 		if (e.getSource() == pContent.getTfpGroup().getTf()) {
 			pContentTfpGroupTfItemStateChanged(e);
 		}
-		
 	}
-
 
 	protected void pContentTfpGroupTfItemStateChanged(ItemEvent e) { // 카테고리 콤보박스선택
 		if(pContent.getTfpGroup().getSelectedIndex()!=0){
@@ -188,6 +181,7 @@ public class ViewList extends JPanel implements ActionListener, ItemListener {
 			pTable.setTableDataCategoriOne(listCategory.get(pContent.getTfpGroup().getSelectedIndex()-1));
 			pContent.getTfpClntName().setSelectedItem(0);
 			pContent.getTfpSwName().setSelectedItem(0);
+			lblTotalLable.setText("   ");
 		}
 	}
 
@@ -214,5 +208,4 @@ public class ViewList extends JPanel implements ActionListener, ItemListener {
 			pContent.getTfpGroup().setSelectedItem(0);
 		}
 	}
-	
 }

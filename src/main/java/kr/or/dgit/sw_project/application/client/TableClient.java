@@ -2,16 +2,17 @@ package kr.or.dgit.sw_project.application.client;
 
 import java.awt.BorderLayout;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 
 import kr.or.dgit.sw_project.dto.Client;
-import kr.or.dgit.sw_project.service.ClientService;
 
 public class TableClient extends JPanel {
 	private JTable table;
@@ -25,6 +26,8 @@ public class TableClient extends JPanel {
 		
 		table = new JTable();
 		scrollPane.setViewportView(table);
+		
+		//
 	}	
 	
 	/*************************** load Table ***************************/  
@@ -40,7 +43,6 @@ public class TableClient extends JPanel {
 		List<Client> listForTable = new ArrayList<Client>(list);
 		for(int i =0; i<list.size(); i++)
 			System.out.println(list.get(i).toString());
-			
 		
 		for (int i = listForTable.size()-1; i >= 0; i--) {
 			if (!listForTable.get(i).isClntIsExist()) {

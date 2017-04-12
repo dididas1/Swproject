@@ -19,6 +19,7 @@ import javax.swing.border.EmptyBorder;
 
 import de.javasoft.plaf.synthetica.SyntheticaAluOxideLookAndFeel;
 import de.javasoft.plaf.synthetica.SyntheticaLookAndFeel;
+import erp_myframework.PasswordPanel;
 import erp_myframework.TextFieldPanel;
 import kr.or.dgit.sw_project.application.chart.SaleChart;
 import kr.or.dgit.sw_project.application.membership.ViewMemberShip;
@@ -33,7 +34,7 @@ public class MainApp extends JFrame implements ActionListener {
 	private JPanel contentPane;
 	private JButton btnLogIn;
 	private TextFieldPanel panelID;
-	private TextFieldPanel panelPassword;
+	private PasswordPanel panelPassword;
 	private JButton btnSignIn;
 	private JButton btnExit;
 	public static void main(String[] args) {
@@ -57,7 +58,8 @@ public class MainApp extends JFrame implements ActionListener {
 
 	public MainApp() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		//1920, 1080 
+		setBounds(750, 350, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(80, 80, 80, 120));
 		setContentPane(contentPane);
@@ -70,7 +72,7 @@ public class MainApp extends JFrame implements ActionListener {
 		
 		panelID = new TextFieldPanel();
 		panelID.setTitle("ID");
-		panelID.setTfValue("dididas");
+		panelID.setTfValue("admin");
 		GridBagConstraints gbc_panelID = new GridBagConstraints();
 		gbc_panelID.insets = new Insets(0, 0, 5, 0);
 		gbc_panelID.fill = GridBagConstraints.BOTH;
@@ -78,9 +80,9 @@ public class MainApp extends JFrame implements ActionListener {
 		gbc_panelID.gridy = 0;
 		contentPane.add(panelID, gbc_panelID);
 		
-		panelPassword = new TextFieldPanel();
+		panelPassword = new PasswordPanel();
 		panelPassword.setTitle("Password");
-		panelPassword.setTfValue("1234");
+		panelPassword.setPwValue("1234");
 		GridBagConstraints gbc_panelPassword = new GridBagConstraints();
 		gbc_panelPassword.insets = new Insets(0, 0, 5, 0);
 		gbc_panelPassword.fill = GridBagConstraints.BOTH;
@@ -125,7 +127,8 @@ public class MainApp extends JFrame implements ActionListener {
 	}
 	
 	protected void actionPerformedBtnLogIn(ActionEvent e) {
-		Members user = MemberShipService.getInstance().selectMembersForLogIn(new Members(panelID.getTfValue(),panelPassword.getTfValue()));
+		Members user = MemberShipService.getInstance().selectMembersForLogIn(
+				new Members(panelID.getTfValue(),String.valueOf(panelPassword.getPwValue())));
 		if(user!=null){
 			permission = user.getMemPermission();
 			System.out.println("Permission: "+permission);
