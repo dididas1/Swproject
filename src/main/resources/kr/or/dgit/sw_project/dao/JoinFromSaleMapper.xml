@@ -18,11 +18,15 @@
 			JOIN client cl ON cl.clnt_code = s.clnt_code 
 			JOIN category cat ON sw.group_code = cat.group_code 
 	</sql>
-
+ 
     <!-- Select By All --> 
     <select id="selectJoinFromSaleByAll" resultMap="JoinFromSaleResult">
-    	<include refid="selectSQL" />
-    		order by s.sale_code
+		SELECT * FROM software sw
+			left outer JOIN category cat ON sw.group_code = cat.group_code
+			left outer JOIN sale s ON sw.sw_code = s.sw_code
+			left outer JOIN client cl ON cl.clnt_code = s.clnt_code
+              	group by sw.sw_code
+    			order by s.sale_code
     </select>
     
     <!-- Select By Year --> 

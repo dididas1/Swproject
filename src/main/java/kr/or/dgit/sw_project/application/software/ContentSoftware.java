@@ -6,6 +6,11 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,7 +47,7 @@ public class ContentSoftware extends JPanel implements MouseListener {
 		setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] {160, 300, 50};
-		gridBagLayout.rowHeights = new int[]{0, 30, 30, 30, 30, 0};
+		gridBagLayout.rowHeights = new int[]{10, 30, 30, 30, 30, 10};
 		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0};
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 		setLayout(gridBagLayout);
@@ -86,18 +91,31 @@ public class ContentSoftware extends JPanel implements MouseListener {
 		add(tfpGroupName, gbc_tfpGroupName);
 
 		lblImage = new JLabel("");
-		lblImage.setPreferredSize(new Dimension(130, 130));
-		lblImage.setHorizontalAlignment(SwingConstants.CENTER);
+		lblImage.setPreferredSize(new Dimension(110, 110));
+		lblImage.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblImage.setVerticalAlignment(SwingConstants.CENTER);
 		lblImage.addMouseListener(this);
-		lblImage.setIcon(new ImageIcon("sw_project/src/main/resources/softwareimage/DGIT_Logo.png"));
-
-		lblImage.setIcon(new ImageIcon(ContentSoftware.class.getResource("../../../../../../../../resources/main/softwareimage/DGIT_Logo.png")));
+		
+		byte[] pic = null;
+		ImageIcon icon = new ImageIcon(pic);
+		File file = new File(System.getProperty("user.dir")+"/build/resources/main/softwareimage/크기변환_DGIT_Logo.png"); 
+		try {
+			InputStream inputStream = new FileInputStream(file);
+			pic = new byte[inputStream.available()];
+			inputStream.read(pic);
+			inputStream.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		setImg(pic);
 		GridBagConstraints gbc_lblImage = new GridBagConstraints();
 		gbc_lblImage.fill = GridBagConstraints.BOTH;
 		gbc_lblImage.gridx = 0;
 		gbc_lblImage.gridy = 1;
-		gbc_lblImage.insets = new Insets(0, 70, 0, 0);
+		gbc_lblImage.insets = new Insets(10, 50, 10, 0);
 		gbc_lblImage.gridheight = 4;
 		add(lblImage, gbc_lblImage);
 	}
@@ -199,9 +217,14 @@ public class ContentSoftware extends JPanel implements MouseListener {
 			mousePressedLblImage(e);
 		}
 	}
-	public void mouseReleased(MouseEvent e) {
-	}
+	
+	public void mouseReleased(MouseEvent e) {}
 	protected void mousePressedLblImage(MouseEvent e) {
 		JOptionPane.showMessageDialog(null, "파일추저지롱~");
+	}
+	
+	private void setImg(byte[] pic) {
+		ImageIcon icon = new ImageIcon(pic);
+		lblImage.setIcon(icon);		
 	}
 }
