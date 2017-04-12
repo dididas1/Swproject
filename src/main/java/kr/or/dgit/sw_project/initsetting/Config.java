@@ -108,7 +108,7 @@ public class Config {
 			"create view view_sale_by_software as "
 			+ "SELECT  distinct s.sale_code,sw.sw_code,sw.sw_name, c.group_name , su.comp_name,s.sale_isExist,"
 			+ "/*공급금액*/ (vs.total_supply_price) total_supply_price,"
-			+ "/*판매금액*/ (vs.total_sale_price) total_price,"
+			+ "/*판매금액*/ (vs.total_sale_price) total_sale_price,"
 			+ "/*판매이윤*/ (vs.margin) margin   "
 			+ "FROM sale s   join view_sale_detail vs on s.sale_code= vs.sale_code   "
 			+ "join software sw on s.sw_code= sw.sw_code   "
@@ -171,6 +171,9 @@ public class Config {
 			+ "SELECT c.clnt_code, c.clnt_name, SUM(sale_amount) sale_amount	"
 			+ "FROM sale s JOIN client c ON s.clnt_code=c.clnt_code "
 			+ "GROUP BY c.clnt_name; "
+			
+	
+	
 			
 	};
 	

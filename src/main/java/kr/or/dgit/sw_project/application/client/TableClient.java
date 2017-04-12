@@ -2,16 +2,17 @@ package kr.or.dgit.sw_project.application.client;
 
 import java.awt.BorderLayout;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 
 import kr.or.dgit.sw_project.dto.Client;
-import kr.or.dgit.sw_project.service.ClientService;
 
 public class TableClient extends JPanel {
 	private JTable table;
@@ -25,11 +26,15 @@ public class TableClient extends JPanel {
 		
 		table = new JTable();
 		scrollPane.setViewportView(table);
+		
+		//
 	}	
 	
 	/*************************** load Table ***************************/  
 	public void setTableData(){ //테이블 데이터입력
 		table.setModel(new DefaultTableModel(getRowDate(), getColumm()));
+		tableSetWidth(SwingConstants.CENTER ,0,1,2);
+		tableCellAlignment(50,100,70);
 	}
 	
 	private Object[] getColumm() { //컬럼입력
@@ -40,7 +45,6 @@ public class TableClient extends JPanel {
 		List<Client> listForTable = new ArrayList<Client>(list);
 		for(int i =0; i<list.size(); i++)
 			System.out.println(list.get(i).toString());
-			
 		
 		for (int i = listForTable.size()-1; i >= 0; i--) {
 			if (!listForTable.get(i).isClntIsExist()) {
@@ -68,4 +72,24 @@ public class TableClient extends JPanel {
 	public List<Client> getList(){
 		return list;
 	}
+	
+	protected void tableCellAlignment(int align, int... idx) { //테이블 정렬
+		DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer();
+		dtcr.setHorizontalAlignment(align);
+
+		TableColumnModel tcm = table.getColumnModel();
+		for (int i = 0; i < idx.length; i++) {
+			tcm.getColumn(idx[i]).setCellRenderer(dtcr);
+		}
+
+	}
+	
+	protected void tableSetWidth(int... width) { //테이블 너비
+		TableColumnModel tcm = table.getColumnModel();
+		for (int i = 0; i < width.length; i++) {
+			tcm.getColumn(i).setPreferredWidth(width[i]);
+		}
+	}
+	
+
 }
