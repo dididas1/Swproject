@@ -1,15 +1,9 @@
-
 package kr.or.dgit.sw_project.application.delivery;
 
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -17,9 +11,21 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import kr.or.dgit.sw_project.MainTab;
+import org.hamcrest.core.IsNull;
+
 import kr.or.dgit.sw_project.dto.Delivery;
+import kr.or.dgit.sw_project.dto.JoinFromSale;
+import kr.or.dgit.sw_project.dto.Sale;
+import kr.or.dgit.sw_project.dto.SupplyCompany;
 import kr.or.dgit.sw_project.service.DeliveryService;
+import kr.or.dgit.sw_project.service.SaleService;
+import kr.or.dgit.sw_project.service.SupplyCompService;
+
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.List;
+import java.awt.event.ActionEvent;
 
 public class ViewDelivery extends JPanel implements ActionListener{
 	
@@ -28,10 +34,7 @@ public class ViewDelivery extends JPanel implements ActionListener{
 	private ContentDelivery pContent;
 	private JButton btnDelete;
 	private JButton btnCancle;
-	private MainTab mainTab;
-	
 	private List<Delivery> list;
-	
 	public ViewDelivery() {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0}; //각 열의 최소 넓이  
@@ -110,25 +113,25 @@ public class ViewDelivery extends JPanel implements ActionListener{
 		
 		pTable.getTable().addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) { //table 클릭시 
-				//Object[] deliveryObj = getTableData();
-				tryAgain();
-				//pContent.setObject(deliveryObj);
-				btnDelete.setEnabled(true);				
+			public void mouseClicked(MouseEvent e) { //table 클릭시 동작
+				
+				showFieldFromTable();//table에서 선택된 것 필드에 띄우기				
+				btnDelete.setEnabled(true);	
+				btnInsert.setText("수정");	
+				pContent.getTfpCompName().getTf().setEditable(false);//수정할수없도록
+				pContent.getTfpDeSwName().getTf().setEditable(false);//수정할수없도록
+				pContent.getTfpDelAmount().getTf().setEditable(false);//수정할수없도록
+				pContent.getTfpSupplyAmount().getTf().setEditable(false);//수정할수없도록			
 				super.mouseClicked(e);
-			}
-						
+			}			
 
 		});
-		list = DeliveryService.getInstance().selectDeliveryByAll();
+		list = DeliveryService.getInstance().selectDeliveryByAll();//delivery테이블 모든값 가지고옴
 		pTable.setDeliveryList(list);
-		pTable.loadData();
+		pTable.loadData();//table에 db에 있는 row,colum들 보여주기
 		setVisible(true);
 	}
-
-
-
-	public void tryAgain(){
+	public void showFieldFromTable(){//table 클릭시 필드에 선택된table 값 띄우기 (ref)
 		String selectedCode = (String) pTable.getTable().getValueAt(pTable.getTable().getSelectedRow(), 0);		
 		int selectedIdx = 0;
 		for(int i=0; i<list.size(); i++){
@@ -136,14 +139,13 @@ public class ViewDelivery extends JPanel implements ActionListener{
 				selectedIdx=i;
 				break;
 			}
-		}
-		
-			Delivery delivery = list.get(selectedIdx);
-			pContent.setDeliveryContent(delivery);
-			btnDelete.setEnabled(true);			
+		}		
+		Delivery delivery = list.get(selectedIdx);
+		pContent.setDeliveryContent(delivery);
+		btnDelete.setEnabled(true);		
 		
 	}
-	private Object[] getTableData() {//each data in the table클릭시 값 넘겨줌
+	/*private Object[] getTableData() {//each data in the table클릭시 값 넘겨줌
 		int cnt = pTable.getTable().getColumnCount();
 		System.out.println(cnt);
 		int tableRowData = pTable.getTable().getSelectedRow();
@@ -153,74 +155,83 @@ public class ViewDelivery extends JPanel implements ActionListener{
 			obj[i] = pTable.getTable().getValueAt(tableRowData, i);
 		}		
 		return obj;
-	}
-
+	}*/
 	public void actionPerformed(ActionEvent arg0) {
-		if (arg0.getSource() == btnCancle) {
+		if (arg0.getSource() == btnCancle) {//취소
 			actionPerformedBtnCancle(arg0);
 		}
-		if (arg0.getSource() == btnDelete) {
+		if (arg0.getSource() == btnDelete) {//삭제
 			actionPerformedBtnDelete(arg0);
 		}
-		if (arg0.getSource() == btnInsert) {
+		if (arg0.getSource() == btnInsert) {//입력(테이블 클릭시 수정으로 바뀌지만 조작할수도있으니 보류)
 			actionPerformedBtnInsert(arg0);
 		}
 	}
 	
-	
 	protected void actionPerformedBtnInsert(ActionEvent arg0) {
 		if (arg0.getActionCommand().equals("입력")){
 			if(pContent.isEmptyCheck()||pContent.getTfpCompName().getSelectedIndex()==0
+					||pContent.getTfpDeSwName().getSelectedIndex()==0){//textfield와 combopanel emptycheck
+				JOptionPane.showMessageDialog(null, "입력해야될 값이 있습니다. 확인하세요");				
+			}else if(pContent.isNumberCheck()){
+				JOptionPane.showMessageDialog(null, "숫자만 입력하세요(납품가격,납품수량)");
+			}else{
+				DeliveryService.getInstance().insertDeliveryItems(pContent.getObject());//마이바티스통해 db에 insert
+				list = DeliveryService.getInstance().selectDeliveryByAll(); //delivery테이블 모든값
+				pTable.setDeliveryList(list);
+				pTable.loadData();//table에 db에 있는 row,colum들 보여주기
+				pContent.resetField();//필드초기화
+				pContent.setComboSoftware();//combopanel의 software에 바뀐재고를 위해		
+			}
+			
+		}else if(arg0.getActionCommand().equals("수정")){	//조작할수 있으니 보류	
+			JOptionPane.showMessageDialog(null, "수정할수없습니다");
+			/*if(pContent.isEmptyCheck()||pContent.getTfpCompName().getSelectedIndex()==0
 					||pContent.getTfpDeSwName().getSelectedIndex()==0){
 				JOptionPane.showMessageDialog(null, "입력해야될 값이 있습니다. 확인하세요");
-				return;
+			}else if(pContent.isNumberCheck()){
+				JOptionPane.showMessageDialog(null, "숫자만 입력하세요(납품가격,납품수량)");
 			}else{
-				DeliveryService.getInstance().insertDeliveryItems(pContent.getObject());
-				list = DeliveryService.getInstance().selectDeliveryByAll(); 
-				pTable.setDeliveryList(list);
-				pTable.loadData();
-				pContent.resetField();
-				pContent.setComboSoftware();
-				mainTab.refresh();
-				return;
-			}
-			
-		}/*else if(arg0.getActionCommand().equals("수정")){
-			if(JOptionPane.showConfirmDialog(null, "정말 수정하시겠습니까?")==JOptionPane.YES_OPTION){
-				DeliveryService.getInstance().UpdateItems(pContent.getObject());
-				pTable.loadData();
-			}else{
-				JOptionPane.showMessageDialog(null, "빠이염");
-				pContent.resetField();
-				btnInsert.setText("입력");
-			}
-			
-		}*/
-		
+				if(JOptionPane.showConfirmDialog(null, "정말 수정하시겠습니까?")==JOptionPane.YES_OPTION){
+					DeliveryService.getInstance().UpdateItems(pContent.getObject());
+					list = DeliveryService.getInstance().selectDeliveryByAll();
+					pTable.setDeliveryList(list);
+					pTable.loadData();
+					btnInsert.setText("입력");
+					pContent.resetField();
+					pContent.setComboSoftware();
+				}else{
+					JOptionPane.showMessageDialog(null, "취소되었습니다");
+					pContent.resetField();
+					btnInsert.setText("입력");
+					btnDelete.setEnabled(false);
+				}
+			}			*/
+		}		
 	}
-	
-	protected void actionPerformedBtnDelete(ActionEvent arg0) {
+	protected void actionPerformedBtnDelete(ActionEvent arg0) {//실제 db의 값을 삭제하는것이 아닌 논리삭제
 		if(JOptionPane.showConfirmDialog(null, "삭제하겠습니까?")==JOptionPane.YES_OPTION){
 			DeliveryService.getInstance().existDeliveryItem(new Delivery(pContent.getTfpDelCode().getTfValue()));
 			list = DeliveryService.getInstance().selectDeliveryByAll(); 
 			pTable.setDeliveryList(list);
-			pTable.loadData();
-			pContent.resetField();
-			pContent.setComboSoftware();	
+			pTable.loadData();//테이블 세팅
+			pContent.resetField();//필드초기화
+			pContent.setComboSoftware();//combopanel의 software에 바뀐재고를 위해	
 			
 		}else{
-				JOptionPane.showMessageDialog(null, "취소되었습니다");
+			JOptionPane.showMessageDialog(null, "취소되었습니다");
 			
 		}
 	}
-	
-	protected void actionPerformedBtnCancle(ActionEvent arg0) {
+	protected void actionPerformedBtnCancle(ActionEvent arg0) {//취소버튼클릭시
 		pContent.resetField(); //필드초기화
-		btnInsert.setText("입력");
-		btnInsert.setEnabled(true);
-	}
-	
-	public void setMainTab(MainTab mainTab){
-		this.mainTab = mainTab;
+		btnInsert.setText("입력");//수정버튼이 입력으로
+		btnInsert.setEnabled(true);//입력버튼 다시 작동
+		btnDelete.setEnabled(false);//삭제버튼은 x
+		pContent.getTfpCompName().getTf().setEditable(true);//포함 아래것들은 다시 입력할수있도록 
+		pContent.getTfpDeSwName().getTf().setEditable(true);
+		pContent.getTfpDelAmount().getTf().setEditable(true);
+		pContent.getTfpSupplyAmount().getTf().setEditable(true);
+		
 	}
 }

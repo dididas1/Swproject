@@ -31,6 +31,7 @@ dependencies {
 	compile files('src/main/resources/kr/or/dgit/sw_project/libraries/swingx-1.6.5.jar')
 	compile files('src/main/resources/kr/or/dgit/sw_project/libraries/syntheticaAddons.jar')
 	compile files('src/main/resources/kr/or/dgit/sw_project/libraries/syntheticaAluOxideAddon.jar')
+	compile files('src/main/resources/kr/or/dgit/sw_project/libraries/jfxrt.jar')
 	
 }
 

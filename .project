@@ -24,7 +24,10 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>org.eclipse.buildship.core.gradleprojectnature</nature>
+<<<<<<< HEAD
 		<nature>org.jkiss.dbeaver.DBeaverNature</nature>
 		<nature>com.jaspersoft.studio.babel.editor.rbeNature</nature>
+=======
+>>>>>>> refs/remotes/origin/zkm
 	</natures>
 </projectDescription>

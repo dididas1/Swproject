@@ -164,7 +164,7 @@ public class MainTab extends JFrame implements ActionListener {
 		}
 		setVisible(true);
 		
-		viewDelivery.setMainTab(MainTab.this);
+		//viewDelivery.setMainTab(MainTab.this);
 	}
 
 	public void refresh(){
