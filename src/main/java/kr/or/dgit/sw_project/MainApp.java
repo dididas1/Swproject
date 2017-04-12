@@ -58,7 +58,8 @@ public class MainApp extends JFrame implements ActionListener {
 
 	public MainApp() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		//1920, 1080 
+		setBounds(750, 350, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(80, 80, 80, 120));
 		setContentPane(contentPane);

@@ -1,8 +1,11 @@
 package kr.or.dgit.sw_project;
 
 import java.awt.BorderLayout;
+import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -27,31 +30,33 @@ import kr.or.dgit.sw_project.initsetting.InitSettingService;
 
 public class MainTab extends JFrame implements ActionListener {
 
-	private JPanel contentPane;
-	private JButton btnSupplyComp;
-	private JButton btnSoftWare;
-	private JButton btnClient;
 	private JMenuItem mnSale;
 	private JMenuItem mnDel;
-	private JPanel pButton;
 	private JMenuItem mnClnt;
-	private JButton btnChart;
-	private JButton btnReport;
 	private JMenuItem mnSup;
-	private JButton btnCategory;
-
-	private ViewSale viewSale;
-	private ViewDelivery viewDelivery;
-	private ViewList viewList;
-	private JButton btnReport_1;
 	private JMenuItem mntmInit;
 	private JMenuItem mntmBackup;
 	private JMenuItem mntmRestore;
+	
+	private JPanel contentPane;
+	private JPanel pButton;
+	
+	private JButton btnChart;
+	private JButton btnReport;
+	private JButton btnShowList;
+	
+	private ViewSale viewSale;
+	private ViewDelivery viewDelivery;
+	private ViewClient viewClient;
+	private ViewSupplyCompany viewSupplyCompany;
+	private ViewSoftware viewSoftware;
+	
+	private ViewCategory viewCategory;
 	private InitSettingService fileSetting = new InitSettingService();
 	
 	public MainTab() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 730, 800);
+		setBounds(0, 0, 1200, 900);
 
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -83,7 +88,6 @@ public class MainTab extends JFrame implements ActionListener {
 		mnSale = new JMenuItem("주문관리");
 		mnSale.addActionListener(this);
 
-
 		mnSup = new JMenuItem("공급회사관리");
 		mnSup.addActionListener(this);
 		mnCustom.add(mnSup);
@@ -94,7 +98,6 @@ public class MainTab extends JFrame implements ActionListener {
 
 		JMenuItem mnSw = new JMenuItem("소프트웨어 관리");
 		mnCustom.add(mnSw);
-
 
 		mnClnt = new JMenuItem("고객사관리");
 		mnClnt.addActionListener(this);
@@ -115,55 +118,36 @@ public class MainTab extends JFrame implements ActionListener {
 
 		tabbedPane.add("주문 관리",viewSale = new ViewSale());
 		tabbedPane.add("납품 관리",viewDelivery = new ViewDelivery());
-		tabbedPane.add("거래내역 확인",viewList = new ViewList());
-		//new ViewChart();
-		tabbedPane.add("판매 현황 차트", new ViewChart());
-
+		tabbedPane.add("소프트웨어 관리",viewSoftware = new ViewSoftware());
+		tabbedPane.add("고객 관리",viewClient = new ViewClient());
+		tabbedPane.add("공급사 관리",viewSupplyCompany = new ViewSupplyCompany());
+		tabbedPane.add("S/W분류 관리",viewCategory = new ViewCategory());
+		
 		JPanel pButton = new JPanel();
 		contentPane.add(pButton, BorderLayout.NORTH);
 
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.WEST);
 		panel.setLayout(new BorderLayout(0, 0));
+		
+		btnShowList = new JButton("거래내역 확인");
+		btnShowList.addActionListener(this);
+		pButton.add(btnShowList);
 
-
-		btnSupplyComp = new JButton("공급사 관리");
-		btnSupplyComp.addActionListener(this);
-		pButton.add(btnSupplyComp);
-
-		btnSoftWare = new JButton("S/W 관리");
-		btnSoftWare.addActionListener(this);
-		pButton.add(btnSoftWare);
-
-		btnCategory = new JButton("S/W 분류 관리");
-		btnCategory.addActionListener(this);
-		pButton.add(btnCategory);
-
-		btnClient = new JButton("고객 관리");
-		btnClient.addActionListener(this);
-		pButton.add(btnClient);
-
-		btnChart = new JButton("통계차트");
-
-		btnReport = new JButton("보고서");
-
-
-		JButton btnChart = new JButton("통계차트");
+		btnChart = new JButton("판매 현황 차트");
+		btnChart.addActionListener(this);
 		pButton.add(btnChart);
 
-		btnReport_1 = new JButton("보고서");
-		btnReport_1.addActionListener(this);
-		pButton.add(btnReport_1);
+		btnReport = new JButton("엑셀파일 생성");
+		btnReport.addActionListener(this);
+		pButton.add(btnReport);
 
 		if(MainApp.permission.equals("personnel")){
 			btnChart.setEnabled(false);
-			btnReport_1.setEnabled(false);
-			btnSupplyComp.setEnabled(false);
-			btnSoftWare.setEnabled(false);
-			btnClient.setEnabled(false);
+			btnReport.setEnabled(false);
 		}
-		setVisible(true);
 		
+		setVisible(true);
 		viewDelivery.setMainTab(MainTab.this);
 	}
 
@@ -172,6 +156,12 @@ public class MainTab extends JFrame implements ActionListener {
 	}
 	
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnChart) {
+			actionPerformedBtnChart(e);
+		}
+		if (e.getSource() == btnShowList) {
+			actionPerformedBtnShowList(e);
+		}
 		if (e.getSource() == mntmRestore) {
 			actionPerformedMntmRestore(e);
 		}
@@ -181,23 +171,14 @@ public class MainTab extends JFrame implements ActionListener {
 		if (e.getSource() == mntmInit) {
 			actionPerformedMntmInit(e);
 		}
-		if (e.getSource() == btnReport_1) {
+		if (e.getSource() == btnReport) {
 			actionPerformedBtnReport(e);
 		}
-		if (e.getSource() == btnClient) {
-			actionPerformedBtnClient(e);
-		}
-		if (e.getSource() == btnSoftWare) {
-			actionPerformedBtnSoftWare(e);
-		}
-		if (e.getSource() == btnCategory) {
-			actionPerformedBtnCategory(e);
-		}
-		if (e.getSource() == btnSupplyComp) {
-			actionPerformedBtnSupplyComp(e);
-		}
 	}
-
+	protected void actionPerformedBtnShowList(ActionEvent e) {
+		ViewList viewList = new ViewList(); 
+	}
+	
 	protected void actionPerformedBtnSupplyComp(ActionEvent e) {
 		ViewSupplyCompany viewSupplyCompany = new ViewSupplyCompany(); 
 	}
@@ -213,15 +194,21 @@ public class MainTab extends JFrame implements ActionListener {
 	protected void actionPerformedBtnClient(ActionEvent e) {
 		ViewClient viewclient = new ViewClient();
 	}
-
-	protected void actionPerformedMnSale(ActionEvent e) {
+	
+	protected void actionPerformedBtnChart(ActionEvent e) {
+		ViewChart viewChart = new ViewChart(); 
 	}
 	
 	protected void actionPerformedBtnReport(ActionEvent e) {
-		String path = "D:\\test.xls";
+		String path = "D:\\Chart.xls";
 		GenerateExcel generateExcel = new GenerateExcel(path); 
 		generateExcel.CreateExcel();
 		JOptionPane.showMessageDialog(null, path+"파일이 생성되었습니다.");
+		try {
+			Desktop.getDesktop().edit(new File("D:\\Chart.xls"));
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 	}
 	protected void actionPerformedMntmInit(ActionEvent e) {
 		fileSetting.initSetting(0, 1);
