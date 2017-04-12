@@ -70,15 +70,16 @@ public class Config {
 			+ " FOREIGN KEY (sw_code)       REFERENCES software (sw_code)        ON UPDATE CASCADE );  ",
 			
 			//로그인테이블
-			"CREATE TABLE members(	"
-			+ "mem_id		   VARCHAR(20) NOT NULL,	"
-			+ "mem_name	   VARCHAR(20) NOT NULL,	"
-			+ "mem_password   VARCHAR(20) NOT NULL,	"
-			+ "mem_mail	   VARCHAR(50) NOT NULL,	"
-			+ "mem_permission VARCHAR(10) NOT NULL,	"
-			+ "mem_isExist    BOOLEAN     "
-			+ "NOT NULL,	PRIMARY KEY (mem_id));		"	,
+			"CREATE TABLE members(   "
+			+ "mem_id         VARCHAR(20) NOT NULL,   "
+			+ "mem_name      VARCHAR(20) NOT NULL,   "
+			+ "mem_password   VARCHAR(200) NOT NULL,   "
+			+ "mem_mail      VARCHAR(50) NOT NULL,   "
+			+ "mem_permission VARCHAR(10) NOT NULL,   "
+			+ "mem_isExist    BOOLEAN     NOT NULL,   "
+			+ "PRIMARY KEY (mem_id)); "
 			
+			,			
 			//주소테이블 생성
 			
 			"CREATE TABLE if not exists address ("
@@ -225,4 +226,8 @@ public class Config {
 	};
 						
 	public static final String EXPORT_IMPORT_DIR = System.getProperty("user.dir")+ "\\BackupFiles\\";
+	
+	public static final String CREATE_ADMIN= 
+			"INSERT INTO members(mem_id, mem_name, mem_password, mem_mail, mem_permission, mem_isExist)   "
+			+ " VALUES('admin','admin',password('1234'),'dididas@naver.com', 'manager', TRUE);";
 }

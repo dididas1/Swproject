@@ -21,7 +21,6 @@ public class InitSettingService {
 				dao.getUpdateResult("drop database if exists " + Config.DB_NAME);
 				dao.getUpdateResult("create  database if not exists " +  Config.DB_NAME);
 				dao.getUpdateResult("use " + Config.DB_NAME);
-				
 				for(int i=0;i<Config.CREATE_SQL_TABLE.length;i++){
 					dao.getUpdateResult(Config.CREATE_SQL_TABLE[i]);
 					System.err.println(Config.TABLE_NAME[i]+"Table 생성완료");
@@ -34,6 +33,8 @@ public class InitSettingService {
 					dao.getUpdateResult(Config.CRETE_TRIGGER[i]);
 					System.err.println("Trigger 생성완료");	
 				}
+				dao.getUpdateResult(Config.CREATE_ADMIN);
+				
 				if(swt==1){// 복원
 					for(int i=0 ; i<Config.TABLE_NAME.length ; i++){
 						loadTableData(i); // BackupFiles폴더에 있는 파일들을 가져와 테이블에 삽입
