@@ -128,9 +128,9 @@ public class ContentDelivery extends JPanel {
 		gbc_tfpIsExist.gridy = 3;
 		add(tfpSupplyAmount, gbc_tfpIsExist);
 		
-		setComboSoftware();
-		setComboSupplyCompany();
-		resetField();
+		setComboSoftware();//품목명 combopanel 세팅
+		setComboSupplyCompany();//납품회사 combopanel 세팅
+		resetField();//필드 초기화
 		
 		
 	}
