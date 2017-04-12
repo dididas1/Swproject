@@ -41,10 +41,10 @@ public class ContentSoftware extends JPanel implements MouseListener {
 	public ContentSoftware() {
 		setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[] {300, 70};
-		gridBagLayout.rowHeights = new int[]{160, 30, 30, 30, 20};
-		gridBagLayout.columnWeights = new double[]{0.0, 0.0};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0};
+		gridBagLayout.columnWidths = new int[] {160, 300, 50};
+		gridBagLayout.rowHeights = new int[]{0, 30, 30, 30, 30, 0};
+		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 		setLayout(gridBagLayout);
 		
 		tfpSWCode = new TextFieldPanel();
@@ -57,19 +57,13 @@ public class ContentSoftware extends JPanel implements MouseListener {
 		gbc_tfpSWCode.gridx = 1;
 		gbc_tfpSWCode.gridy = 1;
 		add(tfpSWCode, gbc_tfpSWCode);
-		GridBagConstraints gbc_tfptfpSWCode = new GridBagConstraints(); 
-		gbc_tfptfpSWCode.fill = GridBagConstraints.HORIZONTAL; 
-		gbc_tfptfpSWCode.insets = new Insets(0, 0, 5, 5);
-		gbc_tfptfpSWCode.gridx = 0;
-		gbc_tfptfpSWCode.gridy = 1;
-		add(tfpSWCode, gbc_tfptfpSWCode);
-		
+				
 		tfpSWName = new TextFieldPanel();
 		tfpSWName.setTitle("제품명");
 		GridBagConstraints gbc_tfpSWName = new GridBagConstraints();
 		gbc_tfpSWName.fill = GridBagConstraints.HORIZONTAL;
 		gbc_tfpSWName.insets = new Insets(0, 0, 5, 5);
-		gbc_tfpSWName.gridx = 0;
+		gbc_tfpSWName.gridx = 1;
 		gbc_tfpSWName.gridy = 2;
 		add(tfpSWName, gbc_tfpSWName);
 		
@@ -81,25 +75,20 @@ public class ContentSoftware extends JPanel implements MouseListener {
 		gbc_tfpSwPrice.gridx = 1;
 		gbc_tfpSwPrice.gridy = 3;
 		add(tfpSwPrice, gbc_tfpSwPrice);
-		GridBagConstraints gbc_tfptfpSwPrice = new GridBagConstraints();
-		gbc_tfptfpSwPrice.fill = GridBagConstraints.HORIZONTAL;
-		gbc_tfptfpSwPrice.insets = new Insets(0, 0, 0, 5);
-		gbc_tfptfpSwPrice.gridx = 0;
-		gbc_tfptfpSwPrice.gridy = 3;
-		add(tfpSwPrice, gbc_tfptfpSwPrice);
-		
+				
 		tfpGroupName = new ComboPanel();
 		tfpGroupName.setTitle("분류");
 		GridBagConstraints gbc_tfpGroupName = new GridBagConstraints();
 		gbc_tfpGroupName.insets = new Insets(0, 0, 5, 5);
 		gbc_tfpGroupName.fill = GridBagConstraints.HORIZONTAL;
-		gbc_tfpGroupName.gridx = 0;
+		gbc_tfpGroupName.gridx = 1;
 		gbc_tfpGroupName.gridy = 4;
 		add(tfpGroupName, gbc_tfpGroupName);
 
 		lblImage = new JLabel("");
-		lblImage.setPreferredSize(new Dimension(130, 80));
+		lblImage.setPreferredSize(new Dimension(130, 130));
 		lblImage.setHorizontalAlignment(SwingConstants.CENTER);
+		lblImage.setVerticalAlignment(SwingConstants.CENTER);
 		lblImage.addMouseListener(this);
 		lblImage.setIcon(new ImageIcon("sw_project/src/main/resources/softwareimage/DGIT_Logo.png"));
 
@@ -107,8 +96,9 @@ public class ContentSoftware extends JPanel implements MouseListener {
 		GridBagConstraints gbc_lblImage = new GridBagConstraints();
 		gbc_lblImage.fill = GridBagConstraints.BOTH;
 		gbc_lblImage.gridx = 0;
-		gbc_lblImage.gridy = 0;
-		gbc_lblImage.insets = new Insets(15, 70, 15, 0);
+		gbc_lblImage.gridy = 1;
+		gbc_lblImage.insets = new Insets(0, 70, 0, 0);
+		gbc_lblImage.gridheight = 4;
 		add(lblImage, gbc_lblImage);
 	}
 	

@@ -135,7 +135,6 @@ public class MainApp extends JFrame implements ActionListener {
 			MainTab tabbedSale = new MainTab();
 			dispose();
 		}else{
-			MainTab tabbedSale = new MainTab();
 			JOptionPane.showMessageDialog(null, "회원 정보가 존재하지 않습니다.");
 		}
 	}
