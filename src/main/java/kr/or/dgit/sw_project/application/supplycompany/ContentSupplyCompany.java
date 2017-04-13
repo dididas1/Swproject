@@ -120,7 +120,7 @@ public class ContentSupplyCompany extends JPanel implements ActionListener {
       tfadr.setTfValue("");
       tfpSupplyCompanyName.requestFocus();
    }
-   private void setDeliveryCode() {//맨 마지막 코드 다음꺼로 세팅
+   public void setDeliveryCode() {//맨 마지막 코드 다음꺼로 세팅
       
       List<SupplyCompany> list =SupplyCompService.getInstance().selectSupplyCompByAll();
       if(list.size()==0){
