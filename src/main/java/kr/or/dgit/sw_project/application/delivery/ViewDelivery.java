@@ -138,7 +138,7 @@ public class ViewDelivery extends JPanel implements ActionListener{
 			}         
 
 		});
-
+		setTable();
 		setVisible(true);
 	}
 	public void showFieldFromTable(){//table 클릭시 필드에 선택된table 값 띄우기 (ref)
