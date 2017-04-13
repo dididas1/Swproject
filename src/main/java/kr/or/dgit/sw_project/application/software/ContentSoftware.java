@@ -111,7 +111,7 @@ public class ContentSoftware extends JPanel implements MouseListener {
 		lblImage.setPreferredSize(new Dimension(110, 110));
 		lblImage.addMouseListener(this);
 
-		File file = new File(System.getProperty("user.dir")+"/build/resources/main/softwareimage/default.png");
+		File file = new File(System.getProperty("user.dir")+"/build/resources/main/softwareimage/select.png");
 		setImg(file);
 
 		GridBagConstraints gbc_lblImage = new GridBagConstraints();
@@ -182,7 +182,7 @@ public class ContentSoftware extends JPanel implements MouseListener {
 		tfpSWName.setTfValue("");
 		tfpSwPrice.setTfValue("");
 		tfpGroupName.setSelectedItem("선택해주세요");
-		File file = new File(System.getProperty("user.dir")+"/build/resources/main/softwareimage/크기변환_DGIT_Logo.png");
+		File file = new File(System.getProperty("user.dir")+"/build/resources/main/softwareimage/select.png");
 		setImg(file);
 	}
 
