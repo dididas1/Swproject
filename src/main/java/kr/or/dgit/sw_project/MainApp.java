@@ -143,6 +143,6 @@ public class MainApp extends JFrame implements ActionListener {
 	}
 	
 	protected void actionPerformedBtnExit(ActionEvent e) {
-//		JoinOnCard joinOnCard = new JoinOnCard();
+		JoinOnCard joinOnCard = new JoinOnCard();
 	}
 }

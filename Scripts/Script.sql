@@ -186,6 +186,5 @@ sale은 거래내역.
 sale(sale_detail)에 데이터가 입력된 후에는 software의 값(단가, 공급금액)이 변할 때
 	->	sale(sale_detail)의 데이터가 변하지 않아야함.
 	
-	
-/* * * * * * * * * * * * * * * * * * * E  N  D * * * * * * * * * * * * * * * * * * */
+ select * from view_sale_by_orderdate;
 >>>>>>> refs/remotes/origin/luuzun_addImg

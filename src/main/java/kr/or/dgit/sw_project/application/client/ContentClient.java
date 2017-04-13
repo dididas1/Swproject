@@ -136,7 +136,7 @@ public class ContentClient extends JPanel implements ActionListener {
 	public Client getObject(){ 
 		String clntCode = tfpClientCode.getTfValue();
 		String clntName = tfpClientName.getTfValue();
-		String clntAddr = tfpClientAddr.getTfValue()+ tfadr.getTfValue();
+		String clntAddr = tfpClientAddr.getTfValue()+" "+tfadr.getTfValue();
 		String clntTel = tfpClientTel.getTfValue();
 		return new Client(clntCode, clntName, clntAddr, clntTel);
 	}
@@ -146,11 +146,12 @@ public class ContentClient extends JPanel implements ActionListener {
 		tfpClientName.setTfValue(clinet.getClntName());
 		tfpClientTel.setTfValue(clinet.getClntTel());
 		String[] str= clinet.getClntAddr().split(" ");
-		System.out.println(str.length);
-		for(int i=0;i<str.length;i++){
-			System.out.println(str[i]);
-		}
+		String addr="";
 		tfpClientAddr.setTfValue(str[0]+str[1]+str[2]);
+		for(int i=3;i<str.length;i++){
+			addr+=str[i];
+		}
+		tfadr.setTfValue(addr);
 		
 		
 	}

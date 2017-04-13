@@ -144,8 +144,7 @@ public class ViewAddress extends JFrame implements ActionListener {
 	}
 	//클라이언트 텍스트필드에 세팅
 	public void ClntSetAddr(String[] addr){
-		contentClient.getTfpClientAddr().setTfValue(addr[0]);
-		contentClient.getTfadr().setTfValue(addr[1]);
+		contentClient.getTfpClientAddr().setTfValue(addr[0]+addr[1]);
 	}
 	//공급회사 텍스트필드에 세팅
 	public void CompSetAddr(String[] addr){

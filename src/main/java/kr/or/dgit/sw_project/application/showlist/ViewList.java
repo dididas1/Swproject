@@ -94,8 +94,6 @@ public class ViewList extends JFrame implements ActionListener, ItemListener {
 		contentPane.add(pTable, gbc_pTable);
 		
 	}
-	
-
 
 	/*************************** Get Data ***************************/  
 	private void setTable(){ //Table 로드
@@ -217,8 +215,6 @@ public class ViewList extends JFrame implements ActionListener, ItemListener {
 			pContent.getTfpGroup().setSelectedItem(0);
 		}
 	}
-
-
 
 	public ContentList getContentList() {
 		return pContent;
