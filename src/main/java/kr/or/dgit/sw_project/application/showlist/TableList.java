@@ -5,16 +5,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
+import kr.or.dgit.sw_project.dto.JoinFromSale;
 import kr.or.dgit.sw_project.dto.ViewCategorySale;
 import kr.or.dgit.sw_project.dto.ViewClientSale;
 import kr.or.dgit.sw_project.dto.ViewOrderDateSale;
 import kr.or.dgit.sw_project.dto.ViewSofrwareSale;
+import kr.or.dgit.sw_project.service.ViewClientSaleService;
 
 public class TableList extends JPanel{
 
@@ -24,6 +27,7 @@ public class TableList extends JPanel{
 	private List<ViewClientSale> listClient;
 	private List<ViewSofrwareSale> listSoftware;
 	private List<ViewOrderDateSale> listDate;
+	private ViewCategorySale viewCategorySale;
 
 
 
@@ -59,10 +63,11 @@ public class TableList extends JPanel{
 	}
 
 	public void setTableDataCategoriOne(ViewCategorySale viewCategorySale){ //카테고리 선택... 테이블에 입력
-		table.setModel(new DefaultTableModel(new Object[][]	{{viewCategorySale.getCategory().getGroupCode(),
-			viewCategorySale.getCategory().getGroupName(),
-			viewCategorySale.getcSalePrice(),
-			viewCategorySale.getcAmount()}}, getColummForCategori()));
+		if(!(viewCategorySale==null)){
+			table.setModel(new DefaultTableModel(new Object[][]{{viewCategorySale.getCategory().getGroupCode(),viewCategorySale.getCategory().getGroupName(),
+				viewCategorySale.getcSalePrice(),viewCategorySale.getcAmount()
+				}}, getColummForCategori()));
+		}
 	}
 
 	public Object[] getColummForCategori() { //카테고리 Columm
@@ -102,19 +107,20 @@ public class TableList extends JPanel{
 		return datas;
 	}
 
-
+	//검색안됨
 	private Object[][] getRowDateForClient() {  //클라이언트 row 합계까지
 		int totalPrice=0;
 		int receivablePrice=0;
-		List<ViewClientSale> listForTable = new ArrayList<ViewClientSale>(listClient);
-		Object[][] datas = new Object[listForTable.size()][];
-
+		List<ViewClientSale> listForTable = new ArrayList<ViewClientSale>(listClient); 
+		
 		for (int i = listForTable.size()-1; i >= 0; i--) {
 			if(!listForTable.get(i).getSale().isSaleIsExist()){
 				listForTable.remove(i);
 			}
 		}
 
+		Object[][] datas = new Object[listForTable.size()][];
+		
 		for (int i = 0; i < datas.length; i++) {
 
 			datas[i] = listForTable.get(i).toArrayForTable();
@@ -130,7 +136,6 @@ public class TableList extends JPanel{
 		int totalSupplyPrice=0;
 		int margin=0;
 		List<ViewSofrwareSale> listForTable = new ArrayList<ViewSofrwareSale>(listSoftware);
-		Object[][] datas = new Object[listForTable.size()][];
 		
 		for (int i = listForTable.size()-1; i >= 0; i--) {
 			if(!listForTable.get(i).getSale().isSaleIsExist()){
@@ -138,9 +143,11 @@ public class TableList extends JPanel{
 			}
 		}
 		
+		Object[][] datas = new Object[listForTable.size()][];
+		
 		for (int i = 0; i < datas.length; i++) {
-			if(listForTable.get(i).getSale().isSaleIsExist())
-				datas[i] = listForTable.get(i).toArrayForTable();
+			System.out.println(i);
+			datas[i] = listForTable.get(i).toArrayForTable();
 			totalPrice+=listForTable.get(i).getSale().getSaleDetail().getTotalSalePrice();
 			totalSupplyPrice+=listForTable.get(i).getSale().getSaleDetail().getTotalSupplyPrice();
 			margin+= listForTable.get(i).getSale().getSaleDetail().getMargin();
@@ -153,19 +160,19 @@ public class TableList extends JPanel{
 		int totalPrice=0;
 		int totalAmount=0;
 		List<ViewOrderDateSale> listForTable = new ArrayList<ViewOrderDateSale>(listDate);
-		Object[][] datas = new Object[listForTable.size()][];
 		
 		for (int i = listForTable.size()-1; i >= 0; i--) {
 			if(!listForTable.get(i).getSale().isSaleIsExist()){
 				listForTable.remove(i);
 			}
 		}
+
+		Object[][] datas = new Object[listForTable.size()][];
 		
 		for (int i = 0; i < datas.length; i++) {
-			if(listForTable.get(i).getSale().isSaleIsExist())
 				datas[i] = listForTable.get(i).toArrayForTable();
-			totalPrice+=listForTable.get(i).getSale().getSaleDetail().getTotalSalePrice();
-			totalAmount+=listForTable.get(i).getSale().getSaleAmount();
+				totalPrice+=listForTable.get(i).getSale().getSaleDetail().getTotalSalePrice();
+				totalAmount+=listForTable.get(i).getSale().getSaleAmount();
 		}
 		setDateTotalLable(totalPrice,totalAmount);
 		return datas;
@@ -219,6 +226,10 @@ public class TableList extends JPanel{
 
 	public List<ViewOrderDateSale> getDateList(){
 		return listDate;
+	}
+	public void setcategoryOne(ViewCategorySale viewCategorySale) {
+		this.viewCategorySale= viewCategorySale;
+		
 	}
 
 }

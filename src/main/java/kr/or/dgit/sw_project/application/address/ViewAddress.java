@@ -117,9 +117,11 @@ public class ViewAddress extends JFrame implements ActionListener {
 				//창여러개의 창에서 주소를 쓸경우 입력되어질창 판단
 				if(!(contentClient==null)){
 					ClntSetAddr(getSelectedObject());
+					setVisible(false);
 				}
 				else if(!(contentSupplyCompany==null)){
 					CompSetAddr(getSelectedObject());
+					setVisible(false);
 				}
 				super.mousePressed(e);
 			}

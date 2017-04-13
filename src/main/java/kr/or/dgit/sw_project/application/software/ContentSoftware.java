@@ -118,21 +118,27 @@ public class ContentSoftware extends JPanel implements MouseListener {
 
 	public boolean isPatternCheck(){// 판매가란에 숫자만(9자리 미만)입력 하였는지 체크
 		boolean isPtenCh = false;
-		if(Pattern.matches("^[0-9]{1,9}$", tfpSwPrice.getTfValue())==false){
+		if(Pattern.matches("^[0-9]{0,9}|([0-9]{0,3},)?([0-9]{0,3},)?[0-9]{0,3}$", tfpSwPrice.getTfValue())==false){
 			isPtenCh = true;
 		}
 		return isPtenCh;
 	}
 
-	public boolean isWsCheck(){// 공백 체크
-		boolean isWsCheck = false;
+
+
+public int isWsCheck(){// 공백 체크
+		int isWsCheck = 0;
 		if(tfpSWName.getTfValue().equals("") ||
-				tfpSwPrice.getTfValue().equals("")||
-				tfpGroupName.getSelectItem()==null){
-			isWsCheck = true;
+		   tfpSwPrice.getTfValue().equals("")){
+			isWsCheck = 1;
+		}else if(tfpGroupName.getSelectItem()=="선택해주세요"){
+			isWsCheck = 2;
 		}
 		return isWsCheck;
 	}
+
+
+
 
 	public void getSwCode(){//소프트웨어 전체 목록, 제품코드를 SW000 으로 자동 내림차순
 		List<JoinFromSoftware> list = JoinFromSoftwareService.getInstance().selectJoinFromSoftwareByAll();
@@ -141,11 +147,13 @@ public class ContentSoftware extends JPanel implements MouseListener {
 	}
 
 	public void setComboBox(){ // 분류 목록에 있는 분류명을 가져와 콤보박스에 삽입
+		tfpGroupName.getTf().removeAllItems();
 		List<Category> list = CategoryService.getInstance().selectCategoryByAll();
 		String[][] getComboObj = new String[list.size()][];
 		String[] comboObj = new String[list.size()];
 		Vector<String> setComboObj = new Vector<>();
 		setComboObj.removeAllElements();
+		setComboObj.add("선택해주세요");
 		for(int i=0 ; i<list.size() ; i++){
 			getComboObj[i] = list.get(i).toArray();
 			comboObj[i] = getComboObj[i][1];
@@ -153,6 +161,9 @@ public class ContentSoftware extends JPanel implements MouseListener {
 		}
 		tfpGroupName.setComboData(setComboObj);
 	}
+
+
+
 
 	public Software getSoftwareCode(){ //제품코드 텍스트에 있는 값을 가져와 리턴
 		String swCode = tfpSWCode.getTfValue();
@@ -163,7 +174,9 @@ public class ContentSoftware extends JPanel implements MouseListener {
 		tfpSWName.requestFocus();
 		tfpSWName.setTfValue("");
 		tfpSwPrice.setTfValue("");
-		tfpGroupName.setSelectedItem(null);
+		tfpGroupName.setSelectedItem("선택해주세요");
+		File file = new File(System.getProperty("user.dir")+"/build/resources/main/softwareimage/크기변환_DGIT_Logo.png");
+		setImg(file);
 	}
 
 	public void setObject(Object[] swObj){ //클릭된 테이블의 인덱스에 있는 컬럼들을 가져와 각각의 입력목록에 삽입
@@ -290,4 +303,6 @@ public class ContentSoftware extends JPanel implements MouseListener {
 		ImageIcon icon = new ImageIcon(pic);
 		lblImage.setIcon(icon);		
 	}
+	
+	
 }

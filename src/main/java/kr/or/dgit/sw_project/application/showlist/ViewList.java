@@ -19,6 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import kr.or.dgit.sw_project.dto.Category;
 import kr.or.dgit.sw_project.dto.Client;
 import kr.or.dgit.sw_project.dto.Software;
 import kr.or.dgit.sw_project.dto.ViewCategorySale;
@@ -184,9 +185,10 @@ public class ViewList extends JFrame implements ActionListener, ItemListener {
 
 	protected void pContentTfpGroupTfItemStateChanged(ItemEvent e) { // 카테고리 콤보박스선택
 		if(pContent.getTfpGroup().getSelectedIndex()!=0){
-			getDataFromDBCategory();
-			pTable.setCategryList(listCategory);
-			pTable.setTableDataCategoriOne(listCategory.get(pContent.getTfpGroup().getSelectedIndex()-1));
+			ViewCategorySale viewCategorySale = new ViewCategorySale();
+			viewCategorySale= ViewCategorySaleService.getInsetence().selectViewCategoryByNo(new ViewCategorySale(new Category(null,(String) pContent.getTfpGroup().getSelectItem())));
+			pTable.setcategoryOne(viewCategorySale);
+			pTable.setTableDataCategoriOne(viewCategorySale);
 			pContent.getTfpClntName().setSelectedItem(0);
 			pContent.getTfpSwName().setSelectedItem(0);
 		}
