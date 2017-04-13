@@ -33,35 +33,37 @@ public class InitSettingService {
 			File[] buFiles = buFile.listFiles(); // BackupFiles 안에 있는 파일들을 배열에 넣음
 			
 			if(init==1){// 초기화
-				dao.getUpdateResult("drop database if exists " + Config.DB_NAME);
-				dao.getUpdateResult("create  database if not exists " +  Config.DB_NAME);
-				dao.getUpdateResult("use " + Config.DB_NAME);
-				for(int i=0;i<Config.CREATE_SQL_TABLE.length;i++){
-					dao.getUpdateResult(Config.CREATE_SQL_TABLE[i]);
-					System.err.println(Config.TABLE_NAME[i]+"Table 생성완료");
-				}
-				for(int i=0;i<Config.CREATE_VIEW.length;i++){
-					dao.getUpdateResult(Config.CREATE_VIEW[i]);
-					System.out.println("View 생성완료");
-				}
-				for(int i=0;i<Config.CRETE_TRIGGER.length;i++){
-					dao.getUpdateResult(Config.CRETE_TRIGGER[i]);
-					System.err.println("Trigger 생성완료");	
-				}
-				dao.getUpdateResult(Config.CREATE_ADMIN);
-				loadPostData();
-				createIndex();
-				
+				try{
+					if(buFiles.length<1){}
+					dao.getUpdateResult("drop database if exists " + Config.DB_NAME);
+					dao.getUpdateResult("create  database if not exists " +  Config.DB_NAME);
+					dao.getUpdateResult("use " + Config.DB_NAME);
+					for(int i=0;i<Config.CREATE_SQL_TABLE.length;i++){
+						dao.getUpdateResult(Config.CREATE_SQL_TABLE[i]);
+						System.err.println(Config.TABLE_NAME[i]+"Table 생성완료");
+					}
+					for(int i=0;i<Config.CREATE_VIEW.length;i++){
+						dao.getUpdateResult(Config.CREATE_VIEW[i]);
+						System.out.println("View 생성완료");
+					}
+					for(int i=0;i<Config.CRETE_TRIGGER.length;i++){
+						dao.getUpdateResult(Config.CRETE_TRIGGER[i]);
+						System.err.println("Trigger 생성완료");	
+					}
+					dao.getUpdateResult(Config.CREATE_ADMIN);
+					loadPostData();
+					createIndex();
+				}catch(NullPointerException e){
+					JOptionPane.showMessageDialog(null, "복원 파일이 없습니다");
+					init=0;
+					swt=0;
+				}	
 				if(swt==1){// 복원
-					try{if(buFiles.length==0){}}catch(NullPointerException e){
-						for(int i=0 ; i<Config.TABLE_NAME.length ; i++){
-							loadTableData(i); // BackupFiles폴더에 있는 파일들을 가져와 테이블에 삽입
-						}
-						loadImageData();
-						JOptionPane.showMessageDialog(null, "복원 완료");
-					}finally{
-						JOptionPane.showMessageDialog(null, "복원 파일이 없습니다");
-					}	
+					for(int i=0 ; i<Config.TABLE_NAME.length ; i++){
+						loadTableData(i); // BackupFiles폴더에 있는 파일들을 가져와 테이블에 삽입
+					}
+					loadImageData();
+					JOptionPane.showMessageDialog(null, "복원 완료");
 				}
 				if(swt==0 && init==1){
 					JOptionPane.showMessageDialog(null, "초기화 완료");
