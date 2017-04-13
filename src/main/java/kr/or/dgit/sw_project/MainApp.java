@@ -1,6 +1,7 @@
 package kr.or.dgit.sw_project;
 
 import java.awt.EventQueue;
+import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -9,6 +10,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -60,10 +63,25 @@ public class MainApp extends JFrame implements ActionListener {
 
 	public MainApp() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		ImageIcon icon = new ImageIcon(System.getProperty("user.dir")+"/build/resources/main/softwareimage/login.png");
+
 		//1920, 1080 
-		setBounds(750, 350, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(80, 80, 80, 120));
+		setBounds(750, 350, 550, 270);
+		contentPane = new JPanel(){
+            public void paintComponent(Graphics g) {
+                //  Approach 1: Dispaly image at at full size
+                g.drawImage(icon.getImage(), 0, 0, null);
+                //  Approach 2: Scale image to size of component
+                // Dimension d = getSize();
+                // g.drawImage(icon.getImage(), 0, 0, d.width, d.height, null);
+                // Approach 3: Fix the image position in the scroll pane
+                // Point p = scrollPane.getViewport().getViewPosition();
+                // g.drawImage(icon.getImage(), p.x, p.y, null);
+                setOpaque(false);
+                super.paintComponent(g);
+            }
+        };
+		contentPane.setBorder(new EmptyBorder(100, 80, 30, 120));
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[]{0, 0};

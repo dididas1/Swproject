@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -56,10 +57,8 @@ public class ViewList extends JFrame implements ActionListener, ItemListener {
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 1.0}; //각 행의 가중치
 		getContentPane().setLayout(gridBagLayout);
 		
-		JLabel label = new JLabel("거래내역 확인");
-		label.setEnabled(false);
+		JLabel label = new JLabel("");
 		label.setHorizontalAlignment(SwingConstants.CENTER);
-		label.setFont(new Font("\uC778\uD130\uD30C\uD06C\uACE0\uB515 B", label.getFont().getStyle(), label.getFont().getSize() + 5));
 		GridBagConstraints gbc_label = new GridBagConstraints();
 		gbc_label.fill = GridBagConstraints.HORIZONTAL;
 		gbc_label.insets = new Insets(20, 50, 0, 10);
@@ -68,6 +67,9 @@ public class ViewList extends JFrame implements ActionListener, ItemListener {
 		gbc_label.gridwidth = 5;
 		contentPane.add(label, gbc_label);
 
+		ImageIcon icon = new ImageIcon(System.getProperty("user.dir")+"/build/resources/main/softwareimage/list.png");
+		label.setIcon(icon);	
+		
 		pContent = new ContentList();
 		pContent.getBtnDaySearch().addActionListener(this);
 		pContent.getTfpSwName().getTf().addItemListener(this);

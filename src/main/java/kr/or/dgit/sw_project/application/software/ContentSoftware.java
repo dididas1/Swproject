@@ -182,7 +182,7 @@ public class ContentSoftware extends JPanel implements MouseListener {
 		tfpSWName.setTfValue("");
 		tfpSwPrice.setTfValue("");
 		tfpGroupName.setSelectedItem("선택해주세요");
-		File file = new File(System.getProperty("user.dir")+"/build/resources/main/softwareimage/default.png");
+		File file = new File(System.getProperty("user.dir")+"/build/resources/main/softwareimage/크기변환_DGIT_Logo.png");
 		setImg(file);
 	}
 
