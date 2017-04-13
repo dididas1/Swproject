@@ -193,4 +193,13 @@ CREATE TABLE members(
    mem_isExist    BOOLEAN     NOT NULL,
    PRIMARY KEY (mem_id)
 );
+
+SELECT * FROM software sw
+			left outer JOIN category cat ON sw.group_code = cat.group_code
+			left outer JOIN sale s ON sw.sw_code = s.sw_code
+			left outer JOIN client cl ON cl.clnt_code = s.clnt_code
+			left outer join view_sale_detail vd on s.sale_code= vd.sale_code
+              	group by sw.sw_code;
+    			order by s.sale_code;
+
 INSERT INTO members(mem_id, mem_name, mem_password, mem_mail, mem_permission, mem_isExist)  VALUES('admin','admin',password('1234'),'dididas@naver.com', 'manager', TRUE);
