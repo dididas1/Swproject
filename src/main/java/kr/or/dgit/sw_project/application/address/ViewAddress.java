@@ -125,10 +125,8 @@ public class ViewAddress extends JFrame implements ActionListener {
 				}
 				super.mousePressed(e);
 			}
-			
-			
 		});
-		
+
 		list=Collections.EMPTY_LIST;
 		pTable.setList(list);
 		pTable.setTableData();

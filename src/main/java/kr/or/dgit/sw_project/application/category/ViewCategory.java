@@ -225,6 +225,4 @@ public class ViewCategory extends JPanel implements ActionListener{
 	public TableCategory getTableCategory() {
 		return pTable;
 	}
-	
-	
 }

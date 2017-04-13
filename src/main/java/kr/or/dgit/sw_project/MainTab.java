@@ -31,6 +31,7 @@ import kr.or.dgit.sw_project.application.software.ViewSoftware;
 import kr.or.dgit.sw_project.application.supplycompany.ViewSupplyCompany;
 import kr.or.dgit.sw_project.initsetting.InitSettingService;
 import javax.swing.JLabel;
+import javax.swing.SwingConstants;
 
 public class MainTab extends JFrame implements ActionListener, ChangeListener {
 	private JMenuItem mntmInit;
@@ -58,6 +59,7 @@ public class MainTab extends JFrame implements ActionListener, ChangeListener {
 	private JButton btnLogout;
 	private JLabel lblNewLabel;
 	private MainApp mainApp;
+	private JMenuItem mntmExit;
 
 	public MainTab() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -81,7 +83,8 @@ public class MainTab extends JFrame implements ActionListener, ChangeListener {
 		mntmRestore.addActionListener(this);
 		mnFile.add(mntmRestore);
 
-		JMenuItem mntmExit = new JMenuItem("종료");
+		mntmExit = new JMenuItem("종료");
+		mntmExit.addActionListener(this);
 		mnFile.add(mntmExit);
 
 		JMenu mnHelp = new JMenu("도움말");
@@ -105,9 +108,6 @@ public class MainTab extends JFrame implements ActionListener, ChangeListener {
 		tabbedPane.add("공급사 관리",viewSupplyCompany = new ViewSupplyCompany());
 		tabbedPane.add("S/W분류 관리",viewCategory = new ViewCategory());
 		
-		lblNewLabel = new JLabel("New label");
-		viewCategory.getTableCategory().add(lblNewLabel, BorderLayout.SOUTH);
-
 		JPanel pButton = new JPanel();
 		contentPane.add(pButton, BorderLayout.NORTH);
 
@@ -135,11 +135,13 @@ public class MainTab extends JFrame implements ActionListener, ChangeListener {
 			btnChart.setEnabled(false);
 			btnReport.setEnabled(false);
 		}
-
 		setVisible(true);
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == mntmExit) {
+			actionPerformedMntmExit(e);
+		}
 		if (e.getSource() == btnLogout) {
 			actionPerformedBtnLogout(e);
 		}
@@ -260,6 +262,10 @@ public class MainTab extends JFrame implements ActionListener, ChangeListener {
 
 	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
+	}
+	
+	protected void actionPerformedMntmExit(ActionEvent e) {
+		System.exit(0);
 	}
 }
 
