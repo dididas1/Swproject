@@ -21,6 +21,8 @@ public class JoinFromSoftware {
 		this.client = client;
 	}
 
+
+
 	public Software getSoftware() {
 		return software;
 	}
