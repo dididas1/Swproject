@@ -33,7 +33,7 @@ public class ContentMemberShip extends JPanel implements KeyListener {
 		setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] {300, 50};
-		gridBagLayout.rowHeights = new int[] {30, 30, 30, 30, 30, 30};
+		gridBagLayout.rowHeights = new int[] {10, 30, 30, 30, 30, 30, 10};
 		gridBagLayout.columnWeights = new double[]{1.0, 0.0};
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 		setLayout(gridBagLayout);
@@ -45,7 +45,7 @@ public class ContentMemberShip extends JPanel implements KeyListener {
 		gbc_tfpMemberID.fill = GridBagConstraints.HORIZONTAL; 
 		gbc_tfpMemberID.insets = new Insets(0, 0, 5, 5);
 		gbc_tfpMemberID.gridx = 0;
-		gbc_tfpMemberID.gridy = 0;
+		gbc_tfpMemberID.gridy = 1;
 		add(tfpMemberID, gbc_tfpMemberID);
 		
 		tfpMemberName = new TextFieldPanel();
@@ -55,7 +55,7 @@ public class ContentMemberShip extends JPanel implements KeyListener {
 		gbc_tfpMemberName.fill = GridBagConstraints.HORIZONTAL;
 		gbc_tfpMemberName.insets = new Insets(0, 0, 5, 5);
 		gbc_tfpMemberName.gridx = 0;
-		gbc_tfpMemberName.gridy = 1;
+		gbc_tfpMemberName.gridy = 2;
 		add(tfpMemberName, gbc_tfpMemberName);
 		
 		tfpPassword = new PasswordPanel();
@@ -65,7 +65,7 @@ public class ContentMemberShip extends JPanel implements KeyListener {
 		gbc_tfpPassword.fill = GridBagConstraints.HORIZONTAL;
 		gbc_tfpPassword.insets = new Insets(0, 0, 5, 5);
 		gbc_tfpPassword.gridx = 0;
-		gbc_tfpPassword.gridy = 2;
+		gbc_tfpPassword.gridy = 3;
 		add(tfpPassword, gbc_tfpPassword);
 		
 		tfpCheckPassword = new PasswordPanel();
@@ -75,7 +75,7 @@ public class ContentMemberShip extends JPanel implements KeyListener {
 		gbc_tfpCheckPassword.insets = new Insets(0, 0, 5, 5);
 		gbc_tfpCheckPassword.fill = GridBagConstraints.HORIZONTAL;
 		gbc_tfpCheckPassword.gridx = 0;
-		gbc_tfpCheckPassword.gridy = 3;
+		gbc_tfpCheckPassword.gridy = 4;
 		add(tfpCheckPassword, gbc_tfpCheckPassword);
 		
 		tfpEmail= new TextFieldPanel();
@@ -85,7 +85,7 @@ public class ContentMemberShip extends JPanel implements KeyListener {
 		gbc_tfpEmail.fill = GridBagConstraints.HORIZONTAL;
 		gbc_tfpEmail.insets = new Insets(0, 0, 5, 5);
 		gbc_tfpEmail.gridx = 0;
-		gbc_tfpEmail.gridy = 4;
+		gbc_tfpEmail.gridy = 5;
 		add(tfpEmail, gbc_tfpEmail);
 		
 		lblShowMessage = new JLabel("");
@@ -93,7 +93,7 @@ public class ContentMemberShip extends JPanel implements KeyListener {
 		GridBagConstraints gbc_lblShowMessage = new GridBagConstraints();
 		gbc_lblShowMessage.insets = new Insets(0, 0, 5, 5);
 		gbc_lblShowMessage.gridx = 0;
-		gbc_lblShowMessage.gridy = 5;
+		gbc_lblShowMessage.gridy = 6;
 		add(lblShowMessage, gbc_lblShowMessage);
 		
 		list = MemberShipService.getInstance().selectMembersByAll();

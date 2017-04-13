@@ -93,7 +93,6 @@ public class ViewList extends JFrame implements ActionListener, ItemListener {
 		gbc_pTable.gridx = 0;
 		gbc_pTable.gridy = 2;
 		contentPane.add(pTable, gbc_pTable);
-		
 	}
 
 	/*************************** Get Data ***************************/  

@@ -8,7 +8,7 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kr.or.dgit.sw_project.application.chart.SaleChartController">
    <center>
-      <BarChart fx:id="barChart" alternativeColumnFillVisible="true" BorderPane.alignment="CENTER">
+      <BarChart fx:id="barChart" alternativeColumnFillVisible="true" title="고객별 판매 현황" BorderPane.alignment="CENTER">
         <xAxis>
           <CategoryAxis label="Client" side="BOTTOM" fx:id="xAxis">
                <tickLabelFont>
