@@ -125,7 +125,7 @@ public class ViewDelivery extends JPanel implements ActionListener{
 		});
 		pTable.getTable().addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) { //table 클릭시 동작
+			public void mousePressed(MouseEvent e) { //table 클릭시 동작
 
 				showFieldFromTable();//table에서 선택된 것 필드에 띄우기            
 				btnDelete.setEnabled(true);   

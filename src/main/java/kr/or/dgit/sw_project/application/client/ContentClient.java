@@ -154,8 +154,6 @@ public class ContentClient extends JPanel implements ActionListener {
 			addr+=str[i];
 		}
 		tfadr.setTfValue(addr);
-		
-		
 	}
 	
 

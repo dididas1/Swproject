@@ -22,7 +22,7 @@ public class ContentAddress extends JPanel {
 		setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] {300, 50};
-		gridBagLayout.rowHeights = new int[]{10, 30, 30, 30, 10};
+		gridBagLayout.rowHeights = new int[]{10, 30, 30, 10};
 		gridBagLayout.columnWeights = new double[]{0.0, 0.0};
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0};
 		setLayout(gridBagLayout);

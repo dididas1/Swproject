@@ -112,7 +112,7 @@ public class ViewSupplyCompany extends JPanel implements ActionListener{
 		pTable.getTable().addMouseListener(new MouseAdapter() {
 
 			@Override
-			public void mouseClicked(MouseEvent e) { //테이블 클릭하면 동작            
+			public void mousePressed(MouseEvent e) { //테이블 클릭하면 동작            
 				Object[] supplyCompanyObj = getTableData();            
 				pContent.setObject(supplyCompanyObj);
 				btnDelete.setEnabled(true);

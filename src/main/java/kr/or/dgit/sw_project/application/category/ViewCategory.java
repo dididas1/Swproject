@@ -113,7 +113,7 @@ public class ViewCategory extends JPanel implements ActionListener{
 		pTable.getTable().addMouseListener(new MouseAdapter() {
 
 			@Override
-			public void mouseClicked(MouseEvent e) { //테이블 클릭시 작동
+			public void mousePressed(MouseEvent e) { //테이블 클릭시 작동
 				Category su = getCategoryDataObject();
 				pContent.setObject(su);
 				btnDelete.setEnabled(true);
