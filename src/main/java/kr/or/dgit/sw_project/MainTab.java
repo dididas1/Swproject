@@ -21,6 +21,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import kr.or.dgit.sw_project.application.category.ViewCategory;
+import kr.or.dgit.sw_project.application.chart.SaleChartController;
 import kr.or.dgit.sw_project.application.chart.ViewChart;
 import kr.or.dgit.sw_project.application.client.ViewClient;
 import kr.or.dgit.sw_project.application.delivery.ViewDelivery;
@@ -55,12 +56,12 @@ public class MainTab extends JFrame implements ActionListener, ChangeListener {
 	private InitSettingService fileSetting = new InitSettingService();
 	private JTabbedPane tabbedPane;
 	private ViewList viewList = new ViewList();
-	private ViewChart viewChart = new ViewChart();
+	private ViewChart viewChart;
 	private JButton btnLogout;
 	private JLabel lblNewLabel;
 	private MainApp mainApp;
 	private JMenuItem mntmExit;
-
+	
 	public MainTab() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(0, 0, 1200, 900);
@@ -189,7 +190,8 @@ public class MainTab extends JFrame implements ActionListener, ChangeListener {
 		viewClient = new ViewClient();
 	}
 
-	protected void actionPerformedBtnChart(ActionEvent e) {
+	protected void actionPerformedBtnChart(ActionEvent e) { //chart 
+		viewChart= new ViewChart();
 		viewChart.setVisible(false);
 		viewChart.setVisible(true);
 	}

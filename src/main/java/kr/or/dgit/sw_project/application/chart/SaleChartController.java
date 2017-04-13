@@ -21,11 +21,20 @@ public class SaleChartController implements Initializable{
 	private BarChart<String, Integer> barChart;
 	private List<Client> clientNameList;
 	private String[] arrayClientNames;
+	private List<JoinFromSale> list;
+	private int[] arraySaleAmountofThisYear;
+	private int[] arraySaleAmountofOneAgoYear;
+	private int[] arraySaleAmountofTwoAgoYear;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		setData();
+	}
+	
+	public void setData(){
 		clientNameList = ClientService.getInstance().selectClientByAll();
 		arrayClientNames = new String[clientNameList.size()];
+
 		for(int i=0; i<clientNameList.size(); i++){
 			arrayClientNames[i] = clientNameList.get(i).getClntName();
 			System.out.println("Add Client Name :" + arrayClientNames[i]);
@@ -41,13 +50,13 @@ public class SaleChartController implements Initializable{
 		Map<String, Object> oneAgoYear= new HashMap<>();
 		oneAgoYear.put("date",(year-1)+"");
 
-		Map<String, Object> towAgoYear= new HashMap<>();
-		towAgoYear.put("date",(year-2)+"");
+		Map<String, Object> twoAgoYear= new HashMap<>();
+		twoAgoYear.put("date",(year-2)+"");
 
-		int[] arraySaleAmountofThisYear = createArraySaleAmount(towAgoYear);
-		int[] arraySaleAmountofOneAgoYear = createArraySaleAmount(oneAgoYear);
-		int[] arraySaleAmountofTwoAgoYear = createArraySaleAmount(thisYear);
-		
+		arraySaleAmountofThisYear = createArraySaleAmount(twoAgoYear);
+		arraySaleAmountofOneAgoYear = createArraySaleAmount(oneAgoYear);
+		arraySaleAmountofTwoAgoYear = createArraySaleAmount(thisYear);
+
 		//시리즈 생성
 		XYChart.Series series1 = CreateSeries(arrayClientNames, arraySaleAmountofTwoAgoYear);
 		series1.setName("2 Years Ago");
@@ -62,7 +71,7 @@ public class SaleChartController implements Initializable{
 	}
 
 	private int[] createArraySaleAmount(Map<String, Object> thisYear) {
-		List<JoinFromSale> list = JoinFromSaleService.getInstance().selectJoinFromSaleByYear(thisYear);
+		list = JoinFromSaleService.getInstance().selectJoinFromSaleByYear(thisYear);
 		int[] arraySaleAmount = new int[clientNameList.size()];
 
 		for (int i=0; i< list.size(); i++){
