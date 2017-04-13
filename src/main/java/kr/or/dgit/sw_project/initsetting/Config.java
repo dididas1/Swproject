@@ -39,7 +39,7 @@ public class Config {
 			+ " sw_name    VARCHAR(50) NOT NULL,  "
 			+ " sale_price INTEGER     NOT NULL,   "
 			+ "sw_inven   INTEGER     NOT NULL,     "
-			+ "sw_img	   VARCHAR(100) NOT NULL, "
+			+ "	sw_img	   BLOB			NOT NULL, "
 			+ "sw_issale  BOOLEAN     NOT NULL,    "
 			+ "PRIMARY KEY (sw_code),     FOREIGN KEY (group_code)      "
 			+ " REFERENCES category(group_code)        ON UPDATE CASCADE  );    ",

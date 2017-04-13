@@ -6,7 +6,6 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -16,7 +15,6 @@ import javax.swing.border.EtchedBorder;
 
 import erp_myframework.TextFieldPanel;
 import kr.or.dgit.sw_project.application.address.ViewAddress;
-import kr.or.dgit.sw_project.dto.Address;
 import kr.or.dgit.sw_project.dto.Client;
 import kr.or.dgit.sw_project.service.ClientService;
 

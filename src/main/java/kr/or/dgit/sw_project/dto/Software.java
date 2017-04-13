@@ -8,26 +8,18 @@ public class Software {
 	private Category category;
 	private int salePrice;
 	private int swInven;
-	private String swImg;
+	private byte[] swImg;
 	private boolean swIsSale;
 	private Delivery delivery;
 	private Sale sale;
 	
 	public Software() {}
 	
-	
-	
-
-
 	public Software(String swCode, String swName) {
 		super();
 		this.swCode = swCode;
 		this.swName = swName;
 	}
-
-
-
-
 
 	public Software(String swCode) {
 		this.swCode = swCode;
@@ -77,11 +69,11 @@ public class Software {
 		this.swInven = swInven;
 	}
 	
-	public String getSwImg() {
+	public byte[] getSwImg() {
 		return swImg;
 	}
 	
-	public void setSwImg(String swImg) {
+	public void setSwImg(byte[] swImg) {
 		this.swImg = swImg;
 	}
 	

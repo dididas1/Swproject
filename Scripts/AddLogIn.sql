@@ -7,7 +7,6 @@ CREATE TABLE members(
 	mem_isExist    BOOLEAN     NOT NULL,
 	PRIMARY KEY (mem_id)
 );
-DROP TABLE members;
 
 -- Permission: personnel, manager
 -- mem_id, mem_name, mem_password, mem_mail, mem_permission, mem_isExist
@@ -16,6 +15,10 @@ INSERT INTO members(mem_id, mem_name, mem_password, mem_mail, mem_permission, me
 
 INSERT INTO members(mem_id, mem_name, mem_password, mem_mail, mem_permission, mem_isExist)
 	VALUES("dididas","이승우",password("1234"),"dididas@naver.com", "manager", TRUE);
+
+INSERT INTO members(mem_id, mem_name, mem_password, mem_mail, mem_permission, mem_isExist)
+	VALUES("admin","이승우",password("1234"),"dididas@naver.com", "manager", TRUE);
+
 	
 INSERT INTO members(mem_id, mem_name, mem_password, mem_mail, mem_Permission, mem_isExist)   
 VALUES(#(memId),#(memName),#(memPassword),#(memMail), "personnel", #(memIsExist), true);
