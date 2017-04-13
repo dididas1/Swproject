@@ -8,7 +8,7 @@
 	</resultMap>
 	
 	<sql id="selectSql">
-		select * from view_sale_by_orderdate
+		 select order_date, sale_code, clnt_code,clnt_name, sw_code, sw_name ,sale_price, sale_amount, isdeposit, total_sale_price,sale_isExist from view_sale_by_orderdate
 	</sql>
 	
 	<select id="selectViewOrderDateSale" parameterType="map" resultMap="ViewOrderDateSaleResult">

@@ -184,6 +184,18 @@ SELECT * FROM category;
 select * from members;
 drop table members;
 
+	select order_date, sale_code, clnt_code,clnt_name, sw_code, sw_name,sale_price, sale_amount, isdeposit, total_sale_price from view_sale_by_orderdate;
+	
+	select * from view_sale_by_orderdate;
+		//기간별판매현황조회
+			CREATE VIEW view_sale_by_orderdate AS 
+			
+			SELECT s.order_date, s.sale_code, cl.clnt_code, cl.clnt_name, sw.sw_code, sw.sw_name,sw.sale_price, s.sale_amount, s.isdeposit,vd.total_sale_price,s.sale_isExist
+			 FROM sale s JOIN client cl ON s.clnt_code = cl.clnt_code   
+		     JOIN view_sale_detail vd on s.sale_code= vd.sale_code
+			 JOIN software sw ON s.sw_code = sw.sw_code; 		
+
+			 
 CREATE TABLE members(
    mem_id         VARCHAR(20) NOT NULL,
    mem_name      VARCHAR(20) NOT NULL,
@@ -193,4 +205,21 @@ CREATE TABLE members(
    mem_isExist    BOOLEAN     NOT NULL,
    PRIMARY KEY (mem_id)
 );
+
+SELECT * FROM software sw
+			left outer JOIN category cat ON sw.group_code = cat.group_code
+			left outer JOIN sale s ON sw.sw_code = s.sw_code
+			left outer JOIN client cl ON cl.clnt_code = s.clnt_code
+			left outer join view_sale_detail vd on s.sale_code= vd.sale_code
+             group by s.sale_code;
+
+select * from sale;
+SELECT * FROM software sw
+			left outer JOIN category cat ON sw.group_code = cat.group_code
+			left outer JOIN sale s ON sw.sw_code = s.sw_code
+			left outer JOIN client cl ON cl.clnt_code = s.clnt_code
+			left outer join view_sale_detail vd on s.sale_code= vd.sale_code
+              	group by sw.sw_code;
+    			order by s.sale_code;
+
 INSERT INTO members(mem_id, mem_name, mem_password, mem_mail, mem_permission, mem_isExist)  VALUES('admin','admin',password('1234'),'dididas@naver.com', 'manager', TRUE);

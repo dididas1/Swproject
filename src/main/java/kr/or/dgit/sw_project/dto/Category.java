@@ -53,7 +53,7 @@ public class Category {
 		return String.format("%s, %s, %s", groupCode, groupName, software);
 	}
 	public String toCombobox(){
-		return String.format("%s %s", groupCode,groupName);
+		return String.format("%s", groupName);
 	}
 	
 	public String[] toArray() {

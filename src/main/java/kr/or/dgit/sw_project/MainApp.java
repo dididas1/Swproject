@@ -21,7 +21,6 @@ import de.javasoft.plaf.synthetica.SyntheticaAluOxideLookAndFeel;
 import de.javasoft.plaf.synthetica.SyntheticaLookAndFeel;
 import erp_myframework.PasswordPanel;
 import erp_myframework.TextFieldPanel;
-import kr.or.dgit.sw_project.application.chart.SaleChart;
 import kr.or.dgit.sw_project.application.membership.ViewMemberShip;
 import kr.or.dgit.sw_project.dto.Members;
 import kr.or.dgit.sw_project.service.MemberShipService;
@@ -36,7 +35,7 @@ public class MainApp extends JFrame implements ActionListener {
 	private TextFieldPanel panelID;
 	private PasswordPanel panelPassword;
 	private JButton btnSignIn;
-	private JButton btnExit;
+	private JButton btnBarCode;
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -107,13 +106,13 @@ public class MainApp extends JFrame implements ActionListener {
 		btnSignIn.addActionListener(this);
 		panelButton.add(btnSignIn);
 		
-		btnExit = new JButton("Exit");
-		btnExit.addActionListener(this);
-		panelButton.add(btnExit);
+		btnBarCode = new JButton("Card");
+		btnBarCode.addActionListener(this);
+		panelButton.add(btnBarCode);
 	}
 	
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == btnExit) {
+		if (e.getSource() == btnBarCode) {
 			actionPerformedBtnExit(e);
 		}
 		
@@ -144,7 +143,6 @@ public class MainApp extends JFrame implements ActionListener {
 	}
 	
 	protected void actionPerformedBtnExit(ActionEvent e) {
-		SaleChart saleChartTab = new SaleChart();
-		saleChartTab.showChart();
+//		JoinOnCard joinOnCard = new JoinOnCard();
 	}
 }

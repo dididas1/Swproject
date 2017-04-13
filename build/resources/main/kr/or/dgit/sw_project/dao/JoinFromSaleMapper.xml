@@ -3,11 +3,11 @@
 <mapper	namespace="kr.or.dgit.sw_project.dao.JoinFromSaleMapper">
    
 	<resultMap type="JoinFromSale" id="JoinFromSaleResult">
-       	<association property="sale" resultMap="kr.or.dgit.sw_project.dao.SaleMapper.SaleResult"/>
-    	<association property="client" resultMap="kr.or.dgit.sw_project.dao.ClientMapper.ClientResult"/>
-    	<association property="software" resultMap="kr.or.dgit.sw_project.dao.SoftwareMapper.SoftwareResult"/>
-    	<association property="category" resultMap="kr.or.dgit.sw_project.dao.CategoryMapper.CategoryResult"/>
-    	<association property="saleDetail" resultMap="kr.or.dgit.sw_project.dao.SaleDetailMapper.SaleDetailResult"/>
+       	<association property="sale" 		resultMap="kr.or.dgit.sw_project.dao.SaleMapper.SaleResult"/>
+    	<association property="client" 		resultMap="kr.or.dgit.sw_project.dao.ClientMapper.ClientResult"/>
+    	<association property="software" 	resultMap="kr.or.dgit.sw_project.dao.SoftwareMapper.SoftwareResult"/>
+    	<association property="category" 	resultMap="kr.or.dgit.sw_project.dao.CategoryMapper.CategoryResult"/>
+    	<association property="saleDetail" 	resultMap="kr.or.dgit.sw_project.dao.SaleDetailMapper.SaleDetailResult"/>
     </resultMap>
     
 	<!-- Select SQL -->
@@ -18,11 +18,15 @@
 			JOIN client cl ON cl.clnt_code = s.clnt_code 
 			JOIN category cat ON sw.group_code = cat.group_code 
 	</sql>
-
+ 
     <!-- Select By All --> 
     <select id="selectJoinFromSaleByAll" resultMap="JoinFromSaleResult">
-    	<include refid="selectSQL" />
-    		order by s.sale_code
+	SELECT * FROM software sw
+			left outer JOIN category cat ON sw.group_code = cat.group_code
+			left outer JOIN sale s ON sw.sw_code = s.sw_code
+			left outer JOIN client cl ON cl.clnt_code = s.clnt_code
+			left outer join view_sale_detail vd on s.sale_code= vd.sale_code
+                group by s.sale_code;
     </select>
     
     <!-- Select By Year --> 
@@ -34,5 +38,6 @@
     <select id="selectJoinFromSaleByAllOrderByOrderDate" resultMap="JoinFromSaleResult">
     	<include refid="selectSQL" />
     		order by order_date desc
+
     </select>
 </mapper>

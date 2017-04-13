@@ -3,7 +3,6 @@ package kr.or.dgit.sw_project;
 
 import java.awt.BorderLayout;
 import java.awt.Desktop;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -213,8 +212,8 @@ public class MainTab extends JFrame implements ActionListener, ChangeListener {
 			viewSale.getContentSale().setSwComboData();
 			viewSale.getTableSale().setTableData();
 		} else if (tabbedPane.getTitleAt(idx).equals("납품 관리")) {
-			viewDelivery.getpContentDelivery().setComboSoftware();
-			viewDelivery.getpContentDelivery().setComboSupplyCompany();
+			viewDelivery.getContentDelivery().setComboSoftware();
+			viewDelivery.getContentDelivery().setComboSupplyCompany();
 			viewDelivery.getpTableDelivery().loadData();
 		} else if (tabbedPane.getTitleAt(idx).equals("소프트웨어 관리")) {
 			viewSoftware.getpContentSoftware().setComboBox();
@@ -224,7 +223,7 @@ public class MainTab extends JFrame implements ActionListener, ChangeListener {
 	public void allRefresh(){
 		viewCategory.getTableCategory().setTableData();
 		viewClient.setTable();
-		viewSupplyCompany.setTable();
+		viewSupplyCompany.getpTable().setTableData();;
 		viewDelivery.setTable();
 		viewSale.setTable();
 		viewSoftware.getpContentSoftware().getSwCode();

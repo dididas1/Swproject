@@ -12,7 +12,7 @@
 
 
 	<sql id="selectSql">
-		select * from view_sale_by_category;
+		select * from view_sale_by_category
 	</sql>
 
 	<sql id="whereSql">
@@ -27,6 +27,6 @@
 	
 	<select id="selectViewCategoryByNo" resultMap="ViewCategorySaleResult" parameterType="ViewCategorySale">
 		<include refid="selectSql"/>
-		<include refid="whereSql"/>
+		where group_name=#{category.groupName}
 	</select>
 </mapper>

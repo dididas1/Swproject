@@ -39,7 +39,7 @@ public class Config {
 			+ " sw_name    VARCHAR(50) NOT NULL,  "
 			+ " sale_price INTEGER     NOT NULL,   "
 			+ "sw_inven   INTEGER     NOT NULL,     "
-			+ "sw_img	   VARCHAR(100) NOT NULL, "
+			+ "	sw_img	   BLOB			NOT NULL, "
 			+ "sw_issale  BOOLEAN     NOT NULL,    "
 			+ "PRIMARY KEY (sw_code),     FOREIGN KEY (group_code)      "
 			+ " REFERENCES category(group_code)        ON UPDATE CASCADE  );    ",
@@ -129,10 +129,13 @@ public class Config {
 			
 			
 			//기간별판매현황조회
-			"CREATE VIEW view_sale_by_orderdate AS "
-			+ "SELECT distinct s.sale_code, s.order_date,  cl.clnt_code, cl.clnt_name, sw.sw_code, sw.sw_name, s.sale_amount, s.isdeposit, s.sale_isExist	"
-			+ "FROM sale s JOIN client cl ON s.clnt_code = cl.clnt_code   				"
-			+ "JOIN software sw ON s.sw_code = sw.sw_code; "		,
+			"	CREATE VIEW view_sale_by_orderdate AS 			"
+			+ "SELECT s.order_date, s.sale_code, cl.clnt_code, "
+			+ "cl.clnt_name, sw.sw_code, sw.sw_name,sw.sale_price, s.sale_amount, s.isdeposit,vd.total_sale_price,s.sale_isExist		 "
+			+ "FROM sale s JOIN client cl ON s.clnt_code = cl.clnt_code  		     "
+			+ "JOIN view_sale_detail vd on s.sale_code= vd.sale_code			 "
+			+ "JOIN software sw ON s.sw_code = sw.sw_code; 		 "			,
+			
 			
 			//카테고리별판매현황조회
 			

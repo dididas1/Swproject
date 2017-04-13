@@ -9,7 +9,7 @@
 	</resultMap>
 	
 	<sql id="selectSql">
-		select sale_code,sw_code,sw_name, group_name , comp_name,sale_isExist,	 total_supply_price,	sale_isExist,  
+		select sale_code,sw_code,sw_name, group_name , comp_name,sale_isExist,	 total_supply_price,sale_isExist,  
 		total_sale_price, margin from view_sale_by_software	
 		group by sale_code
 	</sql>	
