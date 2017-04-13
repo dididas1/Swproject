@@ -38,7 +38,7 @@ public class ViewAddress extends JFrame implements ActionListener {
 	
 	public ViewAddress() {
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		setBounds(100, 600, 500, 400);
+		setBounds(500, 100, 500, 400);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
