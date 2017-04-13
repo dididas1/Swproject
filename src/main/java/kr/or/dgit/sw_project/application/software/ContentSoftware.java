@@ -118,18 +118,19 @@ public class ContentSoftware extends JPanel implements MouseListener {
 
 	public boolean isPatternCheck(){// 판매가란에 숫자만(9자리 미만)입력 하였는지 체크
 		boolean isPtenCh = false;
-		if(Pattern.matches("^[0-9]{1,9}$", tfpSwPrice.getTfValue())==false){
+		if(Pattern.matches("^[0-9]{0,9}|([0-9]{0,3},)?([0-9]{0,3},)?[0-9]{0,3}$", tfpSwPrice.getTfValue())==false){
 			isPtenCh = true;
 		}
 		return isPtenCh;
 	}
 
-	public boolean isWsCheck(){// 공백 체크
-		boolean isWsCheck = false;
+	public int isWsCheck(){// 공백 체크
+		int isWsCheck = 0;
 		if(tfpSWName.getTfValue().equals("") ||
-				tfpSwPrice.getTfValue().equals("")||
-				tfpGroupName.getSelectItem()==null){
-			isWsCheck = true;
+		   tfpSwPrice.getTfValue().equals("")){
+			isWsCheck = 1;
+		}else if(tfpGroupName.getSelectItem()=="선택해주세요"){
+			isWsCheck = 2;
 		}
 		return isWsCheck;
 	}
@@ -141,11 +142,13 @@ public class ContentSoftware extends JPanel implements MouseListener {
 	}
 
 	public void setComboBox(){ // 분류 목록에 있는 분류명을 가져와 콤보박스에 삽입
+		tfpGroupName.getTf().removeAllItems();
 		List<Category> list = CategoryService.getInstance().selectCategoryByAll();
 		String[][] getComboObj = new String[list.size()][];
 		String[] comboObj = new String[list.size()];
 		Vector<String> setComboObj = new Vector<>();
 		setComboObj.removeAllElements();
+		setComboObj.add("선택해주세요");
 		for(int i=0 ; i<list.size() ; i++){
 			getComboObj[i] = list.get(i).toArray();
 			comboObj[i] = getComboObj[i][1];
@@ -163,7 +166,7 @@ public class ContentSoftware extends JPanel implements MouseListener {
 		tfpSWName.requestFocus();
 		tfpSWName.setTfValue("");
 		tfpSwPrice.setTfValue("");
-		tfpGroupName.setSelectedItem(null);
+		tfpGroupName.setSelectedItem("선택해주세요");
 	}
 
 	public void setObject(Object[] swObj){ //클릭된 테이블의 인덱스에 있는 컬럼들을 가져와 각각의 입력목록에 삽입

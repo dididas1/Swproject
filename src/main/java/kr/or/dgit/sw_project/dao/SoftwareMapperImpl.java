@@ -23,6 +23,12 @@ public class SoftwareMapperImpl implements SoftwareMapper{
 		log.debug("selectSoftwareByAll()");
 		return sqlSession.selectList(nameSpace + "selectSoftwareByAll");
 	}
+	
+	@Override
+	public List<Software> selectSoftwareByImg() {
+		log.debug("selectSoftwareByImg()");
+		return sqlSession.selectList(nameSpace + "selectSoftwareByImg");
+	}
 
 	@Override
 	public int insertSoftwareItem(Map<String, Object> item) {
@@ -57,6 +63,6 @@ public class SoftwareMapperImpl implements SoftwareMapper{
 	@Override
 	public int existSoftwareItem(Software software) {
 		log.debug("ExistSoftwareItem()");
-		return sqlSession.selectOne(nameSpace + "ExistSoftwareItem", software);
+		return sqlSession.update(nameSpace + "ExistSoftwareItem", software);
 	}
 }

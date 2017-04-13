@@ -2,21 +2,36 @@ package kr.or.dgit.sw_project.initsetting;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.swing.JOptionPane;
+
+import kr.or.dgit.sw_project.dto.JoinFromSoftware;
+import kr.or.dgit.sw_project.dto.Software;
+import kr.or.dgit.sw_project.service.JoinFromSoftwareService;
+import kr.or.dgit.sw_project.service.SoftwareService;
 
 public class InitSettingService {
 	public void initSetting(int swt, int init) {
 		Dao dao = Dao.getInstance();
 		try {
+			File buFile = new File(Config.EXPORT_IMPORT_DIR);// 현재 작업하고 있는 프로젝트 경로안의 BackupFiles폴더
+			File[] buFiles = buFile.listFiles(); // BackupFiles 안에 있는 파일들을 배열에 넣음
+			
 			if(init==1){// 초기화
 				dao.getUpdateResult("drop database if exists " + Config.DB_NAME);
 				dao.getUpdateResult("create  database if not exists " +  Config.DB_NAME);
@@ -38,23 +53,25 @@ public class InitSettingService {
 				createIndex();
 				
 				if(swt==1){// 복원
-					for(int i=0 ; i<Config.TABLE_NAME.length ; i++){
-						loadTableData(i); // BackupFiles폴더에 있는 파일들을 가져와 테이블에 삽입
-					}
-					JOptionPane.showMessageDialog(null, "복원 완료");
+					try{if(buFiles.length==0){}}catch(NullPointerException e){
+						for(int i=0 ; i<Config.TABLE_NAME.length ; i++){
+							loadTableData(i); // BackupFiles폴더에 있는 파일들을 가져와 테이블에 삽입
+						}
+						loadImageData();
+						JOptionPane.showMessageDialog(null, "복원 완료");
+					}finally{
+						JOptionPane.showMessageDialog(null, "복원 파일이 없습니다");
+					}	
 				}
 				if(swt==0 && init==1){
 					JOptionPane.showMessageDialog(null, "초기화 완료");
 				}
 			}else{
-				File file = new File(Config.EXPORT_IMPORT_DIR);// 현재 작업하고 있는 프로젝트 경로안의 BackupFiles폴더
-				File[] fies = file.listFiles(); // BackupFiles 안에 있는 파일들을 배열에 넣음
-				
-				if(file.exists()==false){ // 폴더 존재여부
-					file.mkdir(); // 없다면 폴더생성
+				if(buFile.exists()==false){ // 폴더 존재여부
+					buFile.mkdir(); // 없다면 폴더생성
 				}
 				try{ // BackupFiles 안에 파일이 하나도 없는지 체크
-					for(File f : fies){ // BackupFiles 안에 있는 파일들을 하나씩 검사
+					for(File f : buFiles){ // BackupFiles 안에 있는 파일들을 하나씩 검사
 						if(f.exists()){ // 안에 파일이 존재한다면
 							f.delete(); // 파일을 지움
 						}
@@ -64,7 +81,8 @@ public class InitSettingService {
 					for(int i=0 ; i<Config.CREATE_SQL_TABLE.length ; i++){
 						BackupTableData(i); // BackupFiles에 있는 파일안의 데이터를 가져와 DB테이블에 삽입
 					}
-					JOptionPane.showMessageDialog(null, "백업 완료");
+					BackupImageData();
+					JOptionPane.showMessageDialog(null, "백업 완료");	
 				}
 			}
 		} catch (Exception e) {
@@ -116,6 +134,70 @@ public class InitSettingService {
 		}
 	}
 	
+	public void BackupImageData(){ // 소프트웨어 이미지 백업
+		List<Software> swImgs = SoftwareService.getInstance().selectSoftwareByImg();
+		List<JoinFromSoftware> listForTable = JoinFromSoftwareService.getInstance().selectJoinFromSoftwareByAll();
+		
+		File buImgFile = new File(Config.EXPORT_IMAGES_DIR);
+		File[] buImgFiles = buImgFile.listFiles();
+		
+		if(buImgFile.exists()==false){
+			buImgFile.mkdir();
+		}
+		try{
+			for(File f : buImgFiles){
+				if(f.exists()){
+					f.delete();
+				}
+			}
+		}catch(NullPointerException e){
+		}finally{
+			try {
+				int j = 0;
+				for(Software sw : swImgs){		
+					for (int i=1+j ; i<=listForTable.size();) {
+						if (listForTable.get(i-1).getSoftware().isSwIsSale()) {
+							OutputStream os = new FileOutputStream(Config.EXPORT_IMAGES_DIR+""+String.format("SW%03d", i));
+							os.write(sw.getSwImg());
+							os.close();
+						}
+						break;
+					}
+					j++;
+				}
+			} catch (FileNotFoundException e1) {
+				e1.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public void loadImageData(){ // 소프트웨어 이미지 복원
+		byte[] pic = null;
+		File file = new File(Config.EXPORT_IMAGES_DIR);
+		File[] files = file.listFiles();
+		
+		for(int i=0 ; i<files.length ; i++){
+			try {
+				InputStream is = new FileInputStream(files[i]);
+				pic = new byte[is.available()];
+				is.read(pic);
+				is.close();
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			Map<String, Object> updateSoftware = new HashMap<String, Object>();
+			
+			updateSoftware.put("swCode", files[i].getAbsolutePath().substring((files[i].getAbsolutePath().lastIndexOf("\\")+1)));
+			updateSoftware.put("swImg", pic);
+			SoftwareService.getInstance().updateSoftwareItem(updateSoftware);
+		}
+	}
+	
 	protected void executeImportData(String sql, String tableName) {
 		Statement stmt = null;
 		try {
@@ -156,5 +238,4 @@ public class InitSettingService {
 		}	
 		System.out.printf("Index 생성 완료 ~~!%n");
 	}
-	
 }

@@ -41,6 +41,10 @@
 		<include refid="whereSQL"/>
 	</select>
 	
+	<select id="selectSoftwareByImg" resultMap="SoftwareResult">
+		select sw_img from software
+	</select>
+	
 	<!-- insert item -->
 	<insert id="insertSoftwareItem" parameterType="hashmap">
 		INSERT INTO software(sw_code, group_code, sw_name, sale_price, sw_inven, sw_img, sw_issale)
@@ -55,6 +59,7 @@
 			<if test="swName != null">sw_name=#{swName},</if>
 			<if test="salePrice != null">sale_price=#{salePrice},</if>
 			<if test="swInven != null">sw_inven=#{swInven},</if>
+			<if test="swImg != null">sw_img=#{swImg}</if>
 			<if test="swIsSale != null">sw_issale=#{swIsSale},</if>
 		</set>
 		<include refid="whereSQL"/>

@@ -55,6 +55,7 @@ public class MainTab extends JFrame implements ActionListener, ChangeListener {
 	private JTabbedPane tabbedPane;
 	private ViewList viewList = new ViewList();
 	private ViewChart viewChart = new ViewChart();
+	private JMenuItem mntmTest;
 
 	public MainTab() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -80,6 +81,10 @@ public class MainTab extends JFrame implements ActionListener, ChangeListener {
 
 		JMenuItem mntmExit = new JMenuItem("종료");
 		mnFile.add(mntmExit);
+		
+		mntmTest = new JMenuItem("TEST");
+		mntmTest.addActionListener(this);
+		mnFile.add(mntmTest);
 
 		JMenu mnHelp = new JMenu("도움말");
 		menuBar.add(mnHelp);
@@ -131,6 +136,9 @@ public class MainTab extends JFrame implements ActionListener, ChangeListener {
 
 
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == mntmTest) {
+			actionPerformedMntmTest(e);
+		}
 		if (e.getSource() == btnChart) {
 			actionPerformedBtnChart(e);
 		}
@@ -230,6 +238,9 @@ public class MainTab extends JFrame implements ActionListener, ChangeListener {
 		viewSoftware.getpContentSoftware().getSwCode();
 	}
 	protected void tabbedPaneStateChanged(ChangeEvent e) {
+	}
+	protected void actionPerformedMntmTest(ActionEvent e) {
+		fileSetting.initSetting(0, 3);
 	}
 }
 

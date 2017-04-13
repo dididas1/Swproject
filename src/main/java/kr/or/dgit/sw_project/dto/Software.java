@@ -118,4 +118,9 @@ public class Software {
 	public String toCombobox(){
 		return String.format("%s (재고: %s)", swName,swInven);
 	}
+
+	public byte[] toArray() {
+		return swImg;
+		
+	}
 }
