@@ -57,6 +57,6 @@ public class SoftwareMapperImpl implements SoftwareMapper{
 	@Override
 	public int existSoftwareItem(Software software) {
 		log.debug("ExistSoftwareItem()");
-		return sqlSession.selectOne(nameSpace + "ExistSoftwareItem", software);
+		return sqlSession.update(nameSpace + "ExistSoftwareItem", software);
 	}
 }
