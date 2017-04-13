@@ -55,7 +55,7 @@ public class ContentAddress extends JPanel {
 		gbc_panel.insets = new Insets(0, 0, 5, 5);
 		gbc_panel.fill = GridBagConstraints.BOTH;
 		gbc_panel.gridx = 0;
-		gbc_panel.gridy = 3;
+		gbc_panel.gridy = 2;
 		add(tfpDoro, gbc_panel);
 	}
 

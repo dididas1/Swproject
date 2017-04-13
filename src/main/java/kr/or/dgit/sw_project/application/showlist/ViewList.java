@@ -77,6 +77,7 @@ public class ViewList extends JFrame implements ActionListener, ItemListener {
 		pContent.getBtnGroupAllFind().addActionListener(this);
 		pContent.getBtnSwAllFind().addActionListener(this);
 		pContent.getBtnClntAllFind().addActionListener(this);
+		pContent.getBtnDateAllFind().addActionListener(this);
 		
 		GridBagConstraints gbc_pContent = new GridBagConstraints();
 		gbc_pContent.insets = new Insets(10, 10, 30, 10);
@@ -115,6 +116,10 @@ public class ViewList extends JFrame implements ActionListener, ItemListener {
 		listSoftware = ViewSoftwareSaleService.getInstence().selectViewSofrwareSaleAll();
 	}
 	
+	private void getDataFromDBDateAll(){ //list에 데이터베이스에서 가져온 값을 입력 날짜별
+		listDate = ViewOrderDateSaleService.getInstence().selectViewOrderDateAll();
+	}
+	
 	private void getDataFromDBDate(Map<String, Object> param){ //list에 데이터베이스에서 가져온 값을 입력 클라이언트
 		listDate = ViewOrderDateSaleService.getInstence().selectViewOrderDateSaleThisYear(param);
 	}
@@ -134,14 +139,23 @@ public class ViewList extends JFrame implements ActionListener, ItemListener {
 		if (e.getSource() == pContent.getBtnClntAllFind()) {
 			actionPerformedPContentBtnClntAllFind(e);
 		}
+		
+		if (e.getSource() == pContent.getBtnDateAllFind()) {
+			actionPerformedPContentBtnDateAllFind(e);
+		}
 	}
 	
+	private void actionPerformedPContentBtnDateAllFind(ActionEvent e) { //날짜 전체검색
+		getDataFromDBDateAll();
+		pTable.setDateList(listDate);
+		pTable.setTableDataForDate();
+	}
+
 	protected void actionPerformedPContentBtnClntAllFind(ActionEvent e) { //공급사 전체검색
 		getDataFromDBClinet();
 		pTable.setClientList(listClinet);
 		pTable.setTableDataForClient();
 		pContent.getTfpClntName().setSelectedItem(0);
-
 	}
 
 	protected void actionPerformedPContentBtnSwAllFind(ActionEvent e) {
@@ -220,5 +234,7 @@ public class ViewList extends JFrame implements ActionListener, ItemListener {
 		return pContent;
 	}
 	
+	/***********************/
 	
+	/***********************/
 }
