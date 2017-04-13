@@ -114,6 +114,22 @@ public class ViewDelivery extends JPanel implements ActionListener{
 		gbc_pTable.gridy = 3;
 		add(pTable, gbc_pTable);
 		
+		/*pContent.getTfpDeSwName().getTf().addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) { //품목명 comboPanel 클릭시 동작				
+				pContent.setComboSoftware();		
+				super.mouseClicked(e);
+			}			
+
+		});
+		pContent.getTfpCompName().getTf().addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) { //공급회사 comboPanel 클릭시 동작			
+				pContent.setComboSupplyCompany();		
+				super.mouseClicked(e);
+			}			
+
+		});*/
 		pTable.getTable().addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) { //table 클릭시 동작
@@ -188,7 +204,7 @@ public class ViewDelivery extends JPanel implements ActionListener{
 			}
 			
 			
-		}else if(arg0.getActionCommand().equals("수정")){	//조작할수 있으니 보류	
+		}else if(arg0.getActionCommand().equals("수정")){	//조작할수 있으니 보류	???
 			JOptionPane.showMessageDialog(null, "수정할수없습니다");
 			/*if(pContent.isEmptyCheck()||pContent.getTfpCompName().getSelectedIndex()==0
 					||pContent.getTfpDeSwName().getSelectedIndex()==0){

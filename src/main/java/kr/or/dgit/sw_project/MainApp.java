@@ -21,7 +21,6 @@ import de.javasoft.plaf.synthetica.SyntheticaAluOxideLookAndFeel;
 import de.javasoft.plaf.synthetica.SyntheticaLookAndFeel;
 import erp_myframework.PasswordPanel;
 import erp_myframework.TextFieldPanel;
-import kr.or.dgit.sw_project.application.chart.SaleChart;
 import kr.or.dgit.sw_project.application.membership.ViewMemberShip;
 import kr.or.dgit.sw_project.dto.Members;
 import kr.or.dgit.sw_project.service.MemberShipService;
@@ -144,6 +143,6 @@ public class MainApp extends JFrame implements ActionListener {
 	}
 	
 	protected void actionPerformedBtnExit(ActionEvent e) {
-		JoinOnCard joinOnCard = new JoinOnCard();
+//		JoinOnCard joinOnCard = new JoinOnCard();
 	}
 }
