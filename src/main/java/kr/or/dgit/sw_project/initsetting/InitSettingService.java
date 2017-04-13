@@ -27,66 +27,74 @@ import kr.or.dgit.sw_project.service.SoftwareService;
 
 public class InitSettingService {
 	public void initSetting(int swt, int init) {
-		Dao dao = Dao.getInstance();
-		try {
-			File buFile = new File(Config.EXPORT_IMPORT_DIR);// 현재 작업하고 있는 프로젝트 경로안의 BackupFiles폴더
-			File[] buFiles = buFile.listFiles(); // BackupFiles 안에 있는 파일들을 배열에 넣음
-			
-			if(init==1){// 초기화
-				try{
-					if(buFiles.length<1){}
-					dao.getUpdateResult("drop database if exists " + Config.DB_NAME);
-					dao.getUpdateResult("create  database if not exists " +  Config.DB_NAME);
-					dao.getUpdateResult("use " + Config.DB_NAME);
-					for(int i=0;i<Config.CREATE_SQL_TABLE.length;i++){
-						dao.getUpdateResult(Config.CREATE_SQL_TABLE[i]);
-						System.err.println(Config.TABLE_NAME[i]+"Table 생성완료");
-					}
-					for(int i=0;i<Config.CREATE_VIEW.length;i++){
-						dao.getUpdateResult(Config.CREATE_VIEW[i]);
-						System.out.println("View 생성완료");
-					}
-					for(int i=0;i<Config.CRETE_TRIGGER.length;i++){
-						dao.getUpdateResult(Config.CRETE_TRIGGER[i]);
-						System.err.println("Trigger 생성완료");	
-					}
-					dao.getUpdateResult(Config.CREATE_ADMIN);
-					loadPostData();
-					createIndex();
+		File buFile = new File(Config.EXPORT_IMPORT_DIR);// 현재 작업하고 있는 프로젝트 경로안의 BackupFiles폴더
+		File[] buFiles = buFile.listFiles(); // BackupFiles 안에 있는 파일들을 배열에 넣음
+		
+		if(init==1){// 초기화
+			if(swt==1){
+				try{if(buFiles.length<1){}
+				initSet();
 				}catch(NullPointerException e){
 					JOptionPane.showMessageDialog(null, "복원 파일이 없습니다");
 					init=0;
 					swt=0;
-				}	
-				if(swt==1){// 복원
-					for(int i=0 ; i<Config.TABLE_NAME.length ; i++){
-						loadTableData(i); // BackupFiles폴더에 있는 파일들을 가져와 테이블에 삽입
-					}
-					loadImageData();
-					JOptionPane.showMessageDialog(null, "복원 완료");
-				}
-				if(swt==0 && init==1){
-					JOptionPane.showMessageDialog(null, "초기화 완료");
-				}
-			}else{
-				if(buFile.exists()==false){ // 폴더 존재여부
-					buFile.mkdir(); // 없다면 폴더생성
-				}
-				try{ // BackupFiles 안에 파일이 하나도 없는지 체크
-					for(File f : buFiles){ // BackupFiles 안에 있는 파일들을 하나씩 검사
-						if(f.exists()){ // 안에 파일이 존재한다면
-							f.delete(); // 파일을 지움
-						}
-					}
-				}catch(NullPointerException e){
-				}finally{
-					for(int i=0 ; i<Config.CREATE_SQL_TABLE.length ; i++){
-						BackupTableData(i); // BackupFiles에 있는 파일안의 데이터를 가져와 DB테이블에 삽입
-					}
-					BackupImageData();
-					JOptionPane.showMessageDialog(null, "백업 완료");	
 				}
 			}
+			if(swt==1){// 복원
+				for(int i=0 ; i<Config.TABLE_NAME.length ; i++){
+					loadTableData(i); // BackupFiles폴더에 있는 파일들을 가져와 테이블에 삽입
+				}
+				try{loadImageData();}catch(NullPointerException e){
+				}finally{
+					JOptionPane.showMessageDialog(null, "복원 완료");
+				}
+			}
+			if(swt==0 && init==1){
+				initSet();
+				JOptionPane.showMessageDialog(null, "초기화 완료");
+			}
+		}else{
+			if(buFile.exists()==false){ // 폴더 존재여부
+				buFile.mkdir(); // 없다면 폴더생성
+			}
+			try{ // BackupFiles 안에 파일이 하나도 없는지 체크
+				for(File f : buFiles){ // BackupFiles 안에 있는 파일들을 하나씩 검사
+					if(f.exists()){ // 안에 파일이 존재한다면
+						f.delete(); // 파일을 지움
+					}
+				}
+			}catch(NullPointerException e){
+			}finally{
+				for(int i=0 ; i<Config.CREATE_SQL_TABLE.length ; i++){
+					BackupTableData(i); // BackupFiles에 있는 파일안의 데이터를 가져와 DB테이블에 삽입
+				}
+				BackupImageData();
+				JOptionPane.showMessageDialog(null, "백업 완료");	
+			}
+		}
+	}
+	
+	public void initSet(){
+		try {
+			Dao dao = Dao.getInstance();
+			dao.getUpdateResult("drop database if exists " + Config.DB_NAME);
+			dao.getUpdateResult("create  database if not exists " +  Config.DB_NAME);
+			dao.getUpdateResult("use " + Config.DB_NAME);
+			for(int i=0;i<Config.CREATE_SQL_TABLE.length;i++){
+				dao.getUpdateResult(Config.CREATE_SQL_TABLE[i]);
+				System.err.println(Config.TABLE_NAME[i]+"Table 생성완료");
+			}
+			for(int i=0;i<Config.CREATE_VIEW.length;i++){
+				dao.getUpdateResult(Config.CREATE_VIEW[i]);
+				System.out.println("View 생성완료");
+			}
+			for(int i=0;i<Config.CRETE_TRIGGER.length;i++){
+				dao.getUpdateResult(Config.CRETE_TRIGGER[i]);
+				System.err.println("Trigger 생성완료");	
+			}
+			dao.getUpdateResult(Config.CREATE_ADMIN);
+			loadPostData();
+			createIndex();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -179,7 +187,7 @@ public class InitSettingService {
 		byte[] pic = null;
 		File file = new File(Config.EXPORT_IMAGES_DIR);
 		File[] files = file.listFiles();
-		
+			
 		for(int i=0 ; i<files.length ; i++){
 			try {
 				InputStream is = new FileInputStream(files[i]);
