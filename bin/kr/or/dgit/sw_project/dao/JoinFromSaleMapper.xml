@@ -22,11 +22,12 @@
     <!-- Select By All --> 
     <select id="selectJoinFromSaleByAll" resultMap="JoinFromSaleResult">
 	SELECT * FROM software sw
-			left outer JOIN category cat ON sw.group_code = cat.group_code
-			left outer JOIN sale s ON sw.sw_code = s.sw_code
-			left outer JOIN client cl ON cl.clnt_code = s.clnt_code
-			left outer join view_sale_detail vd on s.sale_code= vd.sale_code
-                group by s.sale_code;
+			 JOIN category cat ON sw.group_code = cat.group_code
+			 JOIN sale s ON sw.sw_code = s.sw_code
+			 JOIN client cl ON cl.clnt_code = s.clnt_code
+			 join view_sale_detail vd on s.sale_code= vd.sale_code
+             group by s.sale_code
+             order by s.sale_code desc;             
     </select>
     
     <!-- Select By Year --> 

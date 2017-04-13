@@ -1,4 +1,5 @@
-<<<<<<< HEAD
+select * from sale;
+select * from software;
 SELECT c.group_code, c.group_name,
 /*총판매가격*/ (sd.total_sale_price) c_salePrice, 
 /*총판매수량*/ (s.sale_amount) c_amount
@@ -13,6 +14,15 @@ SELECT c.group_code, c.group_name,
 				  left outer JOIN client cl ON cl.clnt_code = s.clnt_code
 				  group by sw.sw_code;
 select * from address;
+
+select * from sale;
+
+SELECT * FROM software sw
+			 JOIN category cat ON sw.group_code = cat.group_code
+			 JOIN sale s ON sw.sw_code = s.sw_code
+			 JOIN client cl ON cl.clnt_code = s.clnt_code
+			 join view_sale_detail vd on s.sale_code= vd.sale_code
+                group by s.sale_code;
 =======
 USE sw_erp;
 -- 공급회사

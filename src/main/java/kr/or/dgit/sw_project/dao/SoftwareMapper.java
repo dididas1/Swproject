@@ -13,5 +13,6 @@ public interface SoftwareMapper {
 	int swCodeReset(Map<String, Object> item);
 	int deleteSoftwareItem(Software item);
 	int existSoftwareItem (Software item);
+	List<Software> selectSoftwareByImg();
 	
 }

@@ -124,24 +124,22 @@ public class ViewSale extends JPanel implements ActionListener{
 			}
 
 		});
-
-		getDataFromDB();
-		pTable.setList(list);
-		pTable.setTableData();
+		setTable();
 		setVisible(true);
 	}
 
 	private void selectedRow() {
 		String selectedCode = (String) pTable.getTable().getValueAt(pTable.getTable().getSelectedRow(), 0);
-
 		int selectedIdx = 0;
+		System.out.println(list.toString());
 		for(int i=0; i<list.size(); i++){
 			if(list.get(i).getSale().getSaleCode().equals(selectedCode)){
 				selectedIdx=i;
+				System.out.println(selectedIdx);
 				break;
 			}
 		}
-
+		
 		JoinFromSale sale = list.get(selectedIdx);
 		pContent.setSaleContent(sale);
 		btnDelete.setEnabled(true);

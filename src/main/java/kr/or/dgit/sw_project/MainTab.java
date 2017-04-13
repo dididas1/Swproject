@@ -154,6 +154,9 @@ public class MainTab extends JFrame implements ActionListener, ChangeListener {
 	protected void actionPerformedBtnShowList(ActionEvent e) {
 		viewList.setVisible(false);
 		viewList.setVisible(true);
+		viewList.getContentList().setCategoryComboData();
+		viewList.getContentList().setClntComboData();
+		viewList.getContentList().setSwComboData();
 		
 	}
 
@@ -231,7 +234,9 @@ public class MainTab extends JFrame implements ActionListener, ChangeListener {
 		viewSale.getContentSale().initSetting();
 		viewSale.setTable();
 		viewSoftware.getpTableSoftware().setTableData();
+		viewSoftware.getpContentSoftware().initSetting();
 		viewSoftware.getpContentSoftware().getSwCode();
+		
 	}
 	
 	protected void tabbedPaneStateChanged(ChangeEvent e) {

@@ -59,4 +59,11 @@ public class SoftwareMapperImpl implements SoftwareMapper{
 		log.debug("ExistSoftwareItem()");
 		return sqlSession.update(nameSpace + "ExistSoftwareItem", software);
 	}
+	
+	@Override
+	public List<Software> selectSoftwareByImg() {
+		log.debug("selectSoftwareByImg()");
+		return sqlSession.selectList(nameSpace + "selectSoftwareByImg");
+	}
+
 }

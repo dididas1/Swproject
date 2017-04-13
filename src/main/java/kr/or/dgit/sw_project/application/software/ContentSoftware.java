@@ -126,10 +126,10 @@ public class ContentSoftware extends JPanel implements MouseListener {
 
 
 
-public int isWsCheck(){// 공백 체크
+	public int isWsCheck(){// 공백 체크
 		int isWsCheck = 0;
 		if(tfpSWName.getTfValue().equals("") ||
-		   tfpSwPrice.getTfValue().equals("")){
+				tfpSwPrice.getTfValue().equals("")){
 			isWsCheck = 1;
 		}else if(tfpGroupName.getSelectItem()=="선택해주세요"){
 			isWsCheck = 2;
@@ -303,6 +303,6 @@ public int isWsCheck(){// 공백 체크
 		ImageIcon icon = new ImageIcon(pic);
 		lblImage.setIcon(icon);		
 	}
-	
-	
+
+
 }
