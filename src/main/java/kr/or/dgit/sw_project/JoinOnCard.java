@@ -20,6 +20,7 @@ public class JoinOnCard extends JFrame implements KeyListener {
 
 	private JPanel contentPane;
 	private TextFieldPanel tfpBarcode;
+	private MainApp mainApp;
 
 	public JoinOnCard() {
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
@@ -61,6 +62,8 @@ public class JoinOnCard extends JFrame implements KeyListener {
 			if(user!=null){
 				MainApp.permission = user.getMemPermission();
 				MainTab tabbedSale = new MainTab();
+				tabbedSale.setMainApp(mainApp);
+				tfpBarcode.setTfValue("");
 				dispose();
 			}else{
 				JOptionPane.showMessageDialog(null, "회원 정보가 존재하지 않습니다.");
@@ -71,4 +74,8 @@ public class JoinOnCard extends JFrame implements KeyListener {
 	public void keyReleased(KeyEvent e) {}
 	protected void keyTypedPanelTf(KeyEvent e) {}
 	public void keyTyped(KeyEvent e) {}
+	
+	public void setMainApp(MainApp mainApp) {
+		this.mainApp = mainApp;
+	}
 }

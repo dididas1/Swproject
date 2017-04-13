@@ -36,14 +36,17 @@ public class MainApp extends JFrame implements ActionListener {
 	private PasswordPanel panelPassword;
 	private JButton btnSignIn;
 	private JButton btnBarCode;
+	private static MainApp frame;
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
+
 			public void run() {
 				try {  
 					try {
 						UIManager.setLookAndFeel(new SyntheticaAluOxideLookAndFeel());
 						SyntheticaLookAndFeel.setFont("Gulim", 12);
-						MainApp frame = new MainApp();
+						frame = new MainApp();
 						frame.setVisible(true);
 					} catch (UnsupportedLookAndFeelException | ParseException e) {
 						e.printStackTrace();
@@ -109,6 +112,10 @@ public class MainApp extends JFrame implements ActionListener {
 		panelButton.add(btnBarCode);
 	}
 	
+	public void showMainApp(){
+		frame.setVisible(true);
+	}
+	
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnBarCode) {
 			actionPerformedBtnExit(e);
@@ -130,6 +137,8 @@ public class MainApp extends JFrame implements ActionListener {
 			permission = user.getMemPermission();
 			System.out.println("Permission: "+permission);
 			MainTab tabbedSale = new MainTab();
+			tabbedSale.setMainApp(MainApp.this);
+			panelPassword.setPwValue("");
 			dispose();
 		}else{
 			JOptionPane.showMessageDialog(null, "회원 정보가 존재하지 않습니다.");
@@ -142,5 +151,8 @@ public class MainApp extends JFrame implements ActionListener {
 	
 	protected void actionPerformedBtnExit(ActionEvent e) {
 		JoinOnCard joinOnCard = new JoinOnCard();
+		panelPassword.setPwValue("");
+		joinOnCard.setMainApp(MainApp.this);
+		dispose();
 	}
 }

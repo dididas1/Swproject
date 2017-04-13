@@ -30,6 +30,7 @@ import kr.or.dgit.sw_project.application.showlist.ViewList;
 import kr.or.dgit.sw_project.application.software.ViewSoftware;
 import kr.or.dgit.sw_project.application.supplycompany.ViewSupplyCompany;
 import kr.or.dgit.sw_project.initsetting.InitSettingService;
+import javax.swing.JLabel;
 
 public class MainTab extends JFrame implements ActionListener, ChangeListener {
 	private JMenuItem mntmInit;
@@ -54,6 +55,9 @@ public class MainTab extends JFrame implements ActionListener, ChangeListener {
 	private JTabbedPane tabbedPane;
 	private ViewList viewList = new ViewList();
 	private ViewChart viewChart = new ViewChart();
+	private JButton btnLogout;
+	private JLabel lblNewLabel;
+	private MainApp mainApp;
 
 	public MainTab() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -100,6 +104,9 @@ public class MainTab extends JFrame implements ActionListener, ChangeListener {
 		tabbedPane.add("고객 관리",viewClient = new ViewClient());
 		tabbedPane.add("공급사 관리",viewSupplyCompany = new ViewSupplyCompany());
 		tabbedPane.add("S/W분류 관리",viewCategory = new ViewCategory());
+		
+		lblNewLabel = new JLabel("New label");
+		viewCategory.getTableCategory().add(lblNewLabel, BorderLayout.SOUTH);
 
 		JPanel pButton = new JPanel();
 		contentPane.add(pButton, BorderLayout.NORTH);
@@ -119,6 +126,10 @@ public class MainTab extends JFrame implements ActionListener, ChangeListener {
 		btnReport = new JButton("엑셀파일 생성");
 		btnReport.addActionListener(this);
 		pButton.add(btnReport);
+		
+		btnLogout = new JButton("로그아웃");
+		btnLogout.addActionListener(this);
+		pButton.add(btnLogout);
 
 		if(MainApp.permission.equals("personnel")){
 			btnChart.setEnabled(false);
@@ -128,8 +139,10 @@ public class MainTab extends JFrame implements ActionListener, ChangeListener {
 		setVisible(true);
 	}
 
-
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnLogout) {
+			actionPerformedBtnLogout(e);
+		}
 		if (e.getSource() == btnChart) {
 			actionPerformedBtnChart(e);
 		}
@@ -150,14 +163,12 @@ public class MainTab extends JFrame implements ActionListener, ChangeListener {
 		}
 	}
 
-
 	protected void actionPerformedBtnShowList(ActionEvent e) {
 		viewList.setVisible(false);
 		viewList.setVisible(true);
 		viewList.getContentList().setCategoryComboData();
 		viewList.getContentList().setClntComboData();
 		viewList.getContentList().setSwComboData();
-		
 	}
 
 	protected void actionPerformedBtnSupplyComp(ActionEvent e) {
@@ -240,6 +251,15 @@ public class MainTab extends JFrame implements ActionListener, ChangeListener {
 	}
 	
 	protected void tabbedPaneStateChanged(ChangeEvent e) {
+	}
+	
+	protected void actionPerformedBtnLogout(ActionEvent e) {
+		dispose();
+		mainApp.showMainApp();
+	}
+
+	public void setMainApp(MainApp mainApp) {
+		this.mainApp = mainApp;
 	}
 }
 
