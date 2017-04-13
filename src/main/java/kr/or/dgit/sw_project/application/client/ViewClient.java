@@ -181,6 +181,7 @@ public class ViewClient extends JPanel implements ActionListener {
 				setTable();
 				btnInsert.setText("입력");
 				pContent.initSetting();
+				
 			}else{
 				JOptionPane.showMessageDialog(null, "취소되었습니다");
 				pContent.initSetting();

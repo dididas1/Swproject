@@ -115,7 +115,7 @@ public class ContentClient extends JPanel implements ActionListener {
 		if(list.size()==0){
 			tfpClientCode.setTfValue("CL001");
 		}else{
-			list.get(list.size() - 1).getClntCode();
+			list.get(list.size()-1).getClntCode();
 			String value = String.format("CL%03d",
 			Integer.parseInt(list.get(list.size() - 1).getClntCode().substring(2)) + 1);
 
