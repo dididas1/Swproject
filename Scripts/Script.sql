@@ -23,7 +23,7 @@ CREATE TABLE supply_company (
 	compTel  VARCHAR(15) NULL,
 	PRIMARY KEY (compNo)
 );
-
+select * from sale;
 -- 고객현황
 CREATE TABLE client (
 	clntNo   VARCHAR(6)  NOT NULL,

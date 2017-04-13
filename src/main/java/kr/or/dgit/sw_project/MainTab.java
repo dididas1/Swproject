@@ -221,14 +221,17 @@ public class MainTab extends JFrame implements ActionListener, ChangeListener {
 		}
 	}
 	public void allRefresh(){
-		viewCategory= new ViewCategory();
-		viewSupplyCompany= new ViewSupplyCompany();
-		viewClient= new ViewClient();
-		viewSale = new ViewSale();
-		viewDelivery = new ViewDelivery();
-		viewChart = new ViewChart();
-		viewSoftware = new ViewSoftware();
-		viewList= new ViewList();
+		viewCategory.getTableCategory().setTableData();
+		viewClient.setTable();
+		viewClient.getContentClient().initSetting();
+		viewSupplyCompany.setTable();
+		viewSupplyCompany.getpContentSupplyCompany().setDeliveryCode();
+		viewDelivery.setTable();
+		viewDelivery.getContentDelivery().setDeliveryCode();
+		viewSale.getContentSale().initSetting();
+		viewSale.setTable();
+		viewSoftware.getpTableSoftware().setTableData();
+		viewSoftware.getpContentSoftware().getSwCode();
 	}
 	
 	protected void tabbedPaneStateChanged(ChangeEvent e) {

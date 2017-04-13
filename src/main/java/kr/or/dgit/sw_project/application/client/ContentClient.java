@@ -13,6 +13,8 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableColumnModel;
 
 import erp_myframework.TextFieldPanel;
 import kr.or.dgit.sw_project.application.address.ViewAddress;
@@ -147,7 +149,7 @@ public class ContentClient extends JPanel implements ActionListener {
 		tfpClientTel.setTfValue(clinet.getClntTel());
 		String[] str= clinet.getClntAddr().split(" ");
 		String addr="";
-		tfpClientAddr.setTfValue(str[0]+str[1]+str[2]);
+		tfpClientAddr.setTfValue(str[0]+" "+str[1]+" "+str[2]+" ");
 		for(int i=3;i<str.length;i++){
 			addr+=str[i];
 		}
@@ -176,5 +178,12 @@ public class ContentClient extends JPanel implements ActionListener {
 	protected void actionPerformedButton(ActionEvent e) {
 		viewaddrss.setClntDao(this);
 		viewaddrss.setVisible(true);
+	}
+	
+	public void tableCellAlignment(int align, int... idx) {
+		DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer();
+		dtcr.setHorizontalAlignment(align);
+
+		
 	}
 }
