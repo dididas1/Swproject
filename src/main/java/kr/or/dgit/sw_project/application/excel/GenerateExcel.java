@@ -166,7 +166,6 @@ public class GenerateExcel {
 			// 데이터 삽입
 			for(int i=0; i < dataListForClient.size(); i++){
 				JoinFromSoftware joinFromSoftware = dataListForClient.get(i);
-				System.out.println(joinFromSoftware.getSupplyCompany());
 				Label[] labelArr = {
 						new Label(0, i+2, joinFromSoftware.getSupplyCompany().getCompName()),
 						new Label(1, i+2, joinFromSoftware.getSale().getOrderDate()),
@@ -178,6 +177,7 @@ public class GenerateExcel {
 						new Label(7, i+2, String.format("%,d",joinFromSoftware.getSaleDetail().getTax())),
 						new Label(8, i+2, String.format("%,d",joinFromSoftware.getSaleDetail().getTaxSaleprice()))
 				};
+				System.out.println(labelArr);
 				for(int j=0; j <labelArr.length; j++){
 					sheetForClient.addCell(labelArr[j]);
 					labelArr[j].setCellFormat(textFormat);	
