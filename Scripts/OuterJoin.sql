@@ -37,10 +37,16 @@ SELECT sw.sw_name, del.del_code, s.sale_code, cat.group_name, sc.comp_name, sd.t
 	JOIN sale s ON sw.sw_code = s.sw_code
 	JOIN view_sale_detail sd ON s.sale_code = sd.sale_code;
 	
-SELECT * FROM software
-	;
+SELECT * FROM software	;
 	
-	
+	SELECT * FROM software sw
+				LEFT OUTER JOIN delivery del ON sw.sw_code = del.sw_code
+				LEFT OUTER JOIN supply_company sc ON sc.comp_code = del.comp_code
+				LEFT OUTER JOIN category cat ON sw.group_code = cat.group_code
+				LEFT OUTER JOIN sale s ON sw.sw_code = s.sw_code
+				LEFT OUTER JOIN view_sale_detail sd ON s.sale_code = sd.sale_code
+				LEFT OUTER JOIN client cl ON cl.clnt_code = s.clnt_code
+				GROUP BY sw.sw_code;
 
 SELECT DISTINCT 
 		s.sale_code, s.clnt_code, s.sw_code,s.sale_amount, s.isdeposit,s.order_date, s.supply_price, s.sale_price, s.sale_isExist,

@@ -28,4 +28,11 @@ public class JoinFromSoftwareService {
 			return joinFromSoftwareMapper.selectJoinFromSoftwareByAllOrderByClntName();
 		} 
 	}
+	
+	public JoinFromSoftware selectJoinFromSoftwareByCode(String swCode) {
+		try (SqlSession sqlSession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
+			JoinFromSoftwareMapper joinFromSoftwareMapper = new JoinFromSoftwareMapperImpl(sqlSession);
+			return joinFromSoftwareMapper.selectJoinFromSoftwareByCode(swCode);
+		} 
+	}
 }

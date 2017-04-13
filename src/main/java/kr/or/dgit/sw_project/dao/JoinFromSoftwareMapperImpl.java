@@ -28,4 +28,10 @@ public class JoinFromSoftwareMapperImpl implements JoinFromSoftwareMapper{
 		log.debug("selectJoinFromSoftwareByAllOrderByClntName()");
 		return sqlSession.selectList(nameSpace + "selectJoinFromSoftwareByAllOrderByClntName");
 	}
+
+	@Override
+	public JoinFromSoftware selectJoinFromSoftwareByCode(String swCode) {
+		log.debug("selectJoinFromSoftwareByCode()");
+		return sqlSession.selectOne(nameSpace + "selectJoinFromSoftwareByCode", swCode);
+	}
 }
