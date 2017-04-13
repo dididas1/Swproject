@@ -64,6 +64,7 @@ public class JoinOnCard extends JFrame implements KeyListener {
 				dispose();
 			}else{
 				JOptionPane.showMessageDialog(null, "회원 정보가 존재하지 않습니다.");
+				tfpBarcode.setTfValue("");
 			}
 		}
 	}
