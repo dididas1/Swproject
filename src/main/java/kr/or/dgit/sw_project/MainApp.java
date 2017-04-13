@@ -71,7 +71,6 @@ public class MainApp extends JFrame implements ActionListener {
 		
 		panelID = new TextFieldPanel();
 		panelID.setTitle("ID");
-		panelID.setTfValue("admin");
 		GridBagConstraints gbc_panelID = new GridBagConstraints();
 		gbc_panelID.insets = new Insets(0, 0, 5, 0);
 		gbc_panelID.fill = GridBagConstraints.BOTH;
@@ -81,7 +80,6 @@ public class MainApp extends JFrame implements ActionListener {
 		
 		panelPassword = new PasswordPanel();
 		panelPassword.setTitle("Password");
-		panelPassword.setPwValue("1234");
 		GridBagConstraints gbc_panelPassword = new GridBagConstraints();
 		gbc_panelPassword.insets = new Insets(0, 0, 5, 0);
 		gbc_panelPassword.fill = GridBagConstraints.BOTH;
