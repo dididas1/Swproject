@@ -77,9 +77,12 @@ public class InitSettingService {
 	public void initSet(){
 		try {
 			Dao dao = Dao.getInstance();
-			dao.getUpdateResult("drop database if exists " + Config.DB_NAME);
-			dao.getUpdateResult("create  database if not exists " +  Config.DB_NAME);
-			dao.getUpdateResult("use " + Config.DB_NAME);
+			System.out.println("Database Create Start");
+			dao.getUpdateResult("drop database if exists " + Config.MY_DB_NAME);
+			System.out.println("Exist Database Drop");
+			dao.getUpdateResult("create database if not exists " +  Config.MY_DB_NAME);
+			System.out.println("Database 생성 완료");
+			dao.getUpdateResult("use " + Config.MY_DB_NAME);
 			for(int i=0;i<Config.CREATE_SQL_TABLE.length;i++){
 				dao.getUpdateResult(Config.CREATE_SQL_TABLE[i]);
 				System.err.println(Config.TABLE_NAME[i]+"Table 생성완료");
@@ -113,7 +116,7 @@ public class InitSettingService {
 	
 	public void BackupTableData(int tables){// 파일 백업
 		String sql = "select * from "+Config.TABLE_NAME[tables];
-		Connection con = DBCon.getConnection(Config.URL+Config.DB_NAME,Config.USER,Config.PWD );
+		Connection con = DBCon.getConnection(Config.URL+Config.MY_DB_NAME,Config.USER,Config.PWD );
 		try(PreparedStatement pstmt = con.prepareStatement(sql); ResultSet rs = pstmt.executeQuery();){
 			StringBuilder sb = new StringBuilder();
 			int colCnt = rs.getMetaData().getColumnCount();
@@ -211,7 +214,7 @@ public class InitSettingService {
 	protected void executeImportData(String sql, String tableName) {
 		Statement stmt = null;
 		try {
-			Connection con = DBCon.getConnection(Config.URL+Config.DB_NAME,Config.USER,Config.PWD);
+			Connection con = DBCon.getConnection(Config.URL+Config.MY_DB_NAME,Config.USER,Config.PWD);
 			stmt = con.createStatement();
 			stmt.execute(sql);
 			System.out.println(sql);

@@ -26,6 +26,7 @@ import erp_myframework.PasswordPanel;
 import erp_myframework.TextFieldPanel;
 import kr.or.dgit.sw_project.application.membership.ViewMemberShip;
 import kr.or.dgit.sw_project.dto.Members;
+import kr.or.dgit.sw_project.initsetting.InitSettingService;
 import kr.or.dgit.sw_project.service.MemberShipService;
 
 @SuppressWarnings("serial")
@@ -40,6 +41,7 @@ public class MainApp extends JFrame implements ActionListener {
 	private JButton btnSignIn;
 	private JButton btnBarCode;
 	private static MainApp frame;
+	private JButton btnNewButton;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -116,18 +118,21 @@ public class MainApp extends JFrame implements ActionListener {
 		contentPane.add(panelButton, gbc_panelButton);
 		panelButton.setLayout(new GridLayout(1, 0, 0, 0));
 		
-		btnLogIn = new JButton("Log-In");
+		btnLogIn = new JButton("로그인");
 		btnLogIn.addActionListener(this);
-			
 		panelButton.add(btnLogIn);
 		
-		btnSignIn = new JButton("Sign-In");
+		btnSignIn = new JButton("회원가입");
 		btnSignIn.addActionListener(this);
 		panelButton.add(btnSignIn);
 		
-		btnBarCode = new JButton("Card");
+		btnBarCode = new JButton("사원증");
 		btnBarCode.addActionListener(this);
 		panelButton.add(btnBarCode);
+		
+		btnNewButton = new JButton("초기화");
+		btnNewButton.addActionListener(this);
+		panelButton.add(btnNewButton);
 	}
 	
 	public void showMainApp(){
@@ -135,6 +140,9 @@ public class MainApp extends JFrame implements ActionListener {
 	}
 	
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnNewButton) {
+			actionPerformedBtnNewButton(e);
+		}
 		if (e.getSource() == btnBarCode) {
 			actionPerformedBtnExit(e);
 		}
@@ -172,5 +180,14 @@ public class MainApp extends JFrame implements ActionListener {
 		panelPassword.setPwValue("");
 		joinOnCard.setMainApp(MainApp.this);
 		dispose();
+	}
+	protected void actionPerformedBtnNewButton(ActionEvent e) {
+		String str = JOptionPane.showInputDialog("비밀번호를 입력해 주세요");
+		if(str.equals("1234")){
+			InitSettingService fileSetting = new InitSettingService();
+			fileSetting.initSetting(0, 1);
+		}else{
+			JOptionPane.showMessageDialog(null, "비밀번호가 일치하지 않습니다");
+		}
 	}
 }
