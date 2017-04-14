@@ -11,6 +11,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -45,10 +46,8 @@ public class ViewSale extends JPanel implements ActionListener{
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0}; //각 행의 가중치
 		setLayout(gridBagLayout);
 
-		JLabel label = new JLabel("주문 관리");
-		label.setEnabled(false);
+		JLabel label = new JLabel("");
 		label.setHorizontalAlignment(SwingConstants.CENTER);
-		label.setFont(new Font("\uC778\uD130\uD30C\uD06C\uACE0\uB515 B", label.getFont().getStyle(), label.getFont().getSize() + 5));
 		GridBagConstraints gbc_label = new GridBagConstraints();
 		gbc_label.fill = GridBagConstraints.HORIZONTAL;
 		gbc_label.insets = new Insets(20, 50, 0, 10);
@@ -57,6 +56,9 @@ public class ViewSale extends JPanel implements ActionListener{
 		gbc_label.gridwidth = 5;
 		add(label, gbc_label);
 
+		ImageIcon icon = new ImageIcon(System.getProperty("user.dir")+"/build/resources/main/softwareimage/sale.png");
+		label.setIcon(icon);	
+		
 		pContent = new ContentSale();
 		GridBagConstraints gbc_pContent = new GridBagConstraints();
 		gbc_pContent.insets = new Insets(10, 10, 10, 10);
@@ -124,24 +126,22 @@ public class ViewSale extends JPanel implements ActionListener{
 			}
 
 		});
-
-		getDataFromDB();
-		pTable.setList(list);
-		pTable.setTableData();
+		setTable();
 		setVisible(true);
 	}
 
 	private void selectedRow() {
 		String selectedCode = (String) pTable.getTable().getValueAt(pTable.getTable().getSelectedRow(), 0);
-
 		int selectedIdx = 0;
+		System.out.println(list.toString());
 		for(int i=0; i<list.size(); i++){
 			if(list.get(i).getSale().getSaleCode().equals(selectedCode)){
 				selectedIdx=i;
+				System.out.println(selectedIdx);
 				break;
 			}
 		}
-
+		
 		JoinFromSale sale = list.get(selectedIdx);
 		pContent.setSaleContent(sale);
 		btnDelete.setEnabled(true);

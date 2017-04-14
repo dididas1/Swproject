@@ -20,13 +20,18 @@ public class ViewOrderDateSaleService {
 	public static ViewOrderDateSaleService getInstence() {
 		return instence;
 	}
-
-
+	
+	public List<ViewOrderDateSale> selectViewOrderDateAll() {
+		try (SqlSession sqlSession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
+			ViewOrderDateSaleMapper viewOrderDateSaleMapper = new ViewOrderDateSaleMapperImpl(sqlSession);
+			return viewOrderDateSaleMapper.selectViewOrderDateAll();
+		} 
+	}
+	
 	public List<ViewOrderDateSale> selectViewOrderDateSaleThisYear(Map<String, Object> param) {
 		try (SqlSession sqlSession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
 			ViewOrderDateSaleMapper viewOrderDateSaleMapper = new ViewOrderDateSaleMapperImpl(sqlSession);
 			return viewOrderDateSaleMapper.selectViewOrderDateSale(param);
-			
 		} 
 	}
 }

@@ -31,3 +31,5 @@ INSERT INTO members(mem_id, mem_name, mem_password, mem_mail, mem_permission, me
 VALUES(#(memId),#(memName),#(memPassword),#(memMail), personnel, #(memIsExist), true);
 
 select * from members;
+
+select * FROM client;

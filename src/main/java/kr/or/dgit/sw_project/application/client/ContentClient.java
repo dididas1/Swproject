@@ -13,6 +13,8 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableColumnModel;
 
 import erp_myframework.TextFieldPanel;
 import kr.or.dgit.sw_project.application.address.ViewAddress;
@@ -34,9 +36,9 @@ public class ContentClient extends JPanel implements ActionListener {
 		setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] {450, 50, 50};
-		gridBagLayout.rowHeights = new int[] {30, 30, 30, 30, 30, 30};
+		gridBagLayout.rowHeights = new int[] {10, 30, 30, 30, 30, 30, 10};
 		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 		setLayout(gridBagLayout);
 		
 		tfpClientCode = new TextFieldPanel();
@@ -113,7 +115,7 @@ public class ContentClient extends JPanel implements ActionListener {
 		if(list.size()==0){
 			tfpClientCode.setTfValue("CL001");
 		}else{
-			list.get(list.size() - 1).getClntCode();
+			list.get(list.size()-1).getClntCode();
 			String value = String.format("CL%03d",
 			Integer.parseInt(list.get(list.size() - 1).getClntCode().substring(2)) + 1);
 
@@ -136,7 +138,7 @@ public class ContentClient extends JPanel implements ActionListener {
 	public Client getObject(){ 
 		String clntCode = tfpClientCode.getTfValue();
 		String clntName = tfpClientName.getTfValue();
-		String clntAddr = tfpClientAddr.getTfValue()+ tfadr.getTfValue();
+		String clntAddr = tfpClientAddr.getTfValue()+" "+tfadr.getTfValue();
 		String clntTel = tfpClientTel.getTfValue();
 		return new Client(clntCode, clntName, clntAddr, clntTel);
 	}
@@ -146,13 +148,12 @@ public class ContentClient extends JPanel implements ActionListener {
 		tfpClientName.setTfValue(clinet.getClntName());
 		tfpClientTel.setTfValue(clinet.getClntTel());
 		String[] str= clinet.getClntAddr().split(" ");
-		System.out.println(str.length);
-		for(int i=0;i<str.length;i++){
-			System.out.println(str[i]);
+		String addr="";
+		tfpClientAddr.setTfValue(str[0]+" "+str[1]+" "+str[2]+" ");
+		for(int i=3;i<str.length;i++){
+			addr+=str[i];
 		}
-		tfpClientAddr.setTfValue(str[0]+str[1]+str[2]);
-		
-		
+		tfadr.setTfValue(addr);
 	}
 	
 
@@ -175,5 +176,12 @@ public class ContentClient extends JPanel implements ActionListener {
 	protected void actionPerformedButton(ActionEvent e) {
 		viewaddrss.setClntDao(this);
 		viewaddrss.setVisible(true);
+	}
+	
+	public void tableCellAlignment(int align, int... idx) {
+		DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer();
+		dtcr.setHorizontalAlignment(align);
+
+		
 	}
 }

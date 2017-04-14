@@ -54,11 +54,14 @@
 		#{swImg}, true)
 	</insert>
 
+
+
 	<!-- update item -->
 	<update id="updateSoftwareItem" parameterType="hashmap">
 		UPDATE software
 		<set>
-			<if test="groupName != null">group_code=(select group_code from category where group_name = #{groupName}),</if>
+			<if test="groupName != null">group_code=(select group_code from category where
+				group_name = #{groupName}),</if>
 			<if test="swName != null">sw_name=#{swName},</if>
 			<if test="salePrice != null">sale_price=#{salePrice},</if>
 			<if test="swImg != null">sw_img=#{swImg},</if>
@@ -69,6 +72,11 @@
 		<include refid="whereSQL" />
 	</update>
 
+	<select id="selectSoftwareByImg" resultMap="SoftwareResult">
+		select sw_img from
+		software
+	</select>
+	
 	<!-- swCode의 내림차순패턴이 하나 비었을때 앞당김 -->
 	<update id="swCodeReset" parameterType="map">
 		update software set

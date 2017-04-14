@@ -32,6 +32,7 @@ public class ContentList extends JPanel {
 	private DatePanel tfpDateFirst;
 	private DatePanel tfpDateSecond;
 	private JButton btnDaySearch;
+	private JButton btnDateAllFind;
 	
 	public ContentList() {
 		setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
@@ -103,6 +104,13 @@ public class ContentList extends JPanel {
 		gbc_tfpDateFirst.gridy = 4;
 		add(tfpDateFirst, gbc_tfpDateFirst);
 		
+		btnDateAllFind = new JButton("전체");
+		GridBagConstraints gbc_btnDateAllFind = new GridBagConstraints();
+		gbc_btnDateAllFind.insets = new Insets(0, 0, 5, 5);
+		gbc_btnDateAllFind.gridx = 2;
+		gbc_btnDateAllFind.gridy = 4;
+		add(btnDateAllFind, gbc_btnDateAllFind);
+		
 		tfpDateSecond = new DatePanel();
 		tfpDateSecond.setTitle("~");
 		GridBagConstraints gbc_tfpDateSecond = new GridBagConstraints();
@@ -160,6 +168,10 @@ public class ContentList extends JPanel {
 		
 	}
 
+	public JButton getBtnDateAllFind() {
+		return btnDateAllFind;
+	}
+	
 	public JButton getBtnGroupAllFind() {
 		return btnGroupAllFind;
 	}

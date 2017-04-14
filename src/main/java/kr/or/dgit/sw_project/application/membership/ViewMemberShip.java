@@ -8,6 +8,7 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -39,7 +40,7 @@ public class ViewMemberShip extends JFrame implements ActionListener {
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0}; //각 행의 가중치
 		getContentPane().setLayout(gridBagLayout);
 
-		JLabel label = new JLabel("회원 가입");
+		JLabel label = new JLabel("");
 		label.setEnabled(false);
 		label.setHorizontalAlignment(SwingConstants.CENTER);
 		label.setFont(new Font("\uC778\uD130\uD30C\uD06C\uACE0\uB515 B", label.getFont().getStyle(), label.getFont().getSize() + 5));
@@ -50,6 +51,9 @@ public class ViewMemberShip extends JFrame implements ActionListener {
 		gbc_label.gridy = 0;
 		gbc_label.gridwidth = 5;
 		getContentPane().add(label, gbc_label);
+		
+		ImageIcon icon = new ImageIcon(System.getProperty("user.dir")+"/build/resources/main/softwareimage/sign.png");
+		label.setIcon(icon);	
 		
 		pContent = new ContentMemberShip();
 		GridBagConstraints gbc_pContent = new GridBagConstraints();

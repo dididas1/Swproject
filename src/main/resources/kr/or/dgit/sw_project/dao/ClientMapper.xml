@@ -28,7 +28,6 @@
     <!-- Select By All --> 
     <select id="selectClientByAll" resultMap="ClientResult">
     	<include refid="selectSQL" />
-    	where clnt_isExist= true
     	ORDER BY clnt_code
     </select>
     

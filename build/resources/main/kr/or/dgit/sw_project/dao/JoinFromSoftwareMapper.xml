@@ -33,8 +33,14 @@
     </select>
     
     <select id="selectJoinFromSoftwareByAllOrderByClntName" resultMap="JoinFromSoftwareResult">
-    	<include refid="selectSQL" />
-    	ORDER BY comp_name;
+	SELECT * FROM software sw
+				JOIN delivery del ON sw.sw_code = del.sw_code
+				JOIN supply_company sc ON sc.comp_code = del.comp_code
+				JOIN category cat ON sw.group_code = cat.group_code
+				JOIN sale s ON sw.sw_code = s.sw_code
+				JOIN view_sale_detail sd ON s.sale_code = sd.sale_code
+				JOIN client cl ON cl.clnt_code = s.clnt_code
+			ORDER BY comp_name;
     </select>
     
     <select id="selectJoinFromSoftwareByCode" resultMap="JoinFromSoftwareResult">
@@ -42,6 +48,7 @@
 		WHERE sw.sw_code = #{swCode} 
 		group by sw.sw_code
     </select>
+    
 </mapper>
 
 

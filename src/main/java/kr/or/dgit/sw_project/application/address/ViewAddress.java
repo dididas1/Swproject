@@ -9,9 +9,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.util.Collections;
 import java.util.List;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -38,7 +40,7 @@ public class ViewAddress extends JFrame implements ActionListener {
 	
 	public ViewAddress() {
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		setBounds(100, 600, 500, 400);
+		setBounds(500, 100, 500, 400);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -51,10 +53,8 @@ public class ViewAddress extends JFrame implements ActionListener {
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0}; //각 행의 가중치
 		getContentPane().setLayout(gridBagLayout);
 
-		JLabel label = new JLabel("우편번호 검색");
-		label.setEnabled(false);
+		JLabel label = new JLabel("");
 		label.setHorizontalAlignment(SwingConstants.CENTER);
-		label.setFont(new Font("\uC778\uD130\uD30C\uD06C\uACE0\uB515 B", label.getFont().getStyle(), label.getFont().getSize() + 5));
 		GridBagConstraints gbc_label = new GridBagConstraints();
 		gbc_label.fill = GridBagConstraints.HORIZONTAL;
 		gbc_label.insets = new Insets(20, 50, 0, 10);
@@ -62,6 +62,9 @@ public class ViewAddress extends JFrame implements ActionListener {
 		gbc_label.gridy = 0;
 		gbc_label.gridwidth = 5;
 		getContentPane().add(label, gbc_label);
+		
+		ImageIcon icon = new ImageIcon(System.getProperty("user.dir")+"/build/resources/main/softwareimage/zipcode.png");
+		label.setIcon(icon);	
 		
 		pContent = new ContentAddress();
 		GridBagConstraints gbc_pContent = new GridBagConstraints();
@@ -125,10 +128,8 @@ public class ViewAddress extends JFrame implements ActionListener {
 				}
 				super.mousePressed(e);
 			}
-			
-			
 		});
-		
+
 		list=Collections.EMPTY_LIST;
 		pTable.setList(list);
 		pTable.setTableData();
@@ -144,8 +145,7 @@ public class ViewAddress extends JFrame implements ActionListener {
 	}
 	//클라이언트 텍스트필드에 세팅
 	public void ClntSetAddr(String[] addr){
-		contentClient.getTfpClientAddr().setTfValue(addr[0]);
-		contentClient.getTfadr().setTfValue(addr[1]);
+		contentClient.getTfpClientAddr().setTfValue(addr[0]+addr[1]);
 	}
 	//공급회사 텍스트필드에 세팅
 	public void CompSetAddr(String[] addr){

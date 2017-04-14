@@ -206,6 +206,8 @@ CREATE TABLE members(
    PRIMARY KEY (mem_id)
 );
 
+drop database if exists sw_project;
+
 SELECT * FROM software sw
 			left outer JOIN category cat ON sw.group_code = cat.group_code
 			left outer JOIN sale s ON sw.sw_code = s.sw_code

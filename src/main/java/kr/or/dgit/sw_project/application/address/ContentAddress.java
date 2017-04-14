@@ -17,13 +17,12 @@ public class ContentAddress extends JPanel {
 
 	private ComboPanel<String> tfpSiDo;
 	private TextFieldPanel tfpDoro;
-	private PasswordPanel passwordPanel;
 
 	public ContentAddress() {
 		setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] {300, 50};
-		gridBagLayout.rowHeights = new int[]{10, 30, 30, 30, 10};
+		gridBagLayout.rowHeights = new int[]{10, 30, 30, 10};
 		gridBagLayout.columnWeights = new double[]{0.0, 0.0};
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0};
 		setLayout(gridBagLayout);
@@ -56,7 +55,7 @@ public class ContentAddress extends JPanel {
 		gbc_panel.insets = new Insets(0, 0, 5, 5);
 		gbc_panel.fill = GridBagConstraints.BOTH;
 		gbc_panel.gridx = 0;
-		gbc_panel.gridy = 3;
+		gbc_panel.gridy = 2;
 		add(tfpDoro, gbc_panel);
 	}
 
@@ -75,19 +74,4 @@ public class ContentAddress extends JPanel {
 		tfpDoro.setTfValue("");
 	}
 
-	// 콤보박스에서 아이템선택하면 String 값으로 가져와서 검색후 시군구 콤보박스에 add아이템  안씀 주석...
-	/*public void setCobobox(String Comboitems){
-		tfpSiGunGu.getTf().removeAllItems();
-		Vector<String> cbSiGunGu= new Vector<>();
-		List<Address> list = AddrService.getInstance().selectSigungu(new Address(Comboitems));
-		cbSiGunGu.add("선택해주세요");
-		for(int i=0;i<list.size();i++){
-			if(list.get(i).getSigungu()==list.get(i).getSigungu()){
-				cbSiGunGu.add(list.get(i).toCobodata());
-			}
-			
-		}
-		tfpSiGunGu.setComboData(cbSiGunGu);
-	}
-*/
 }

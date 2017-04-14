@@ -21,6 +21,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import kr.or.dgit.sw_project.application.category.ViewCategory;
+import kr.or.dgit.sw_project.application.chart.SaleChartController;
 import kr.or.dgit.sw_project.application.chart.ViewChart;
 import kr.or.dgit.sw_project.application.client.ViewClient;
 import kr.or.dgit.sw_project.application.delivery.ViewDelivery;
@@ -30,6 +31,8 @@ import kr.or.dgit.sw_project.application.showlist.ViewList;
 import kr.or.dgit.sw_project.application.software.ViewSoftware;
 import kr.or.dgit.sw_project.application.supplycompany.ViewSupplyCompany;
 import kr.or.dgit.sw_project.initsetting.InitSettingService;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
 
 public class MainTab extends JFrame implements ActionListener, ChangeListener {
 	private JMenuItem mntmInit;
@@ -53,8 +56,12 @@ public class MainTab extends JFrame implements ActionListener, ChangeListener {
 	private InitSettingService fileSetting = new InitSettingService();
 	private JTabbedPane tabbedPane;
 	private ViewList viewList = new ViewList();
-	private ViewChart viewChart = new ViewChart();
-
+	private ViewChart viewChart;
+	private JButton btnLogout;
+	private JLabel lblNewLabel;
+	private MainApp mainApp;
+	private JMenuItem mntmExit;
+	
 	public MainTab() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(0, 0, 1200, 900);
@@ -77,7 +84,8 @@ public class MainTab extends JFrame implements ActionListener, ChangeListener {
 		mntmRestore.addActionListener(this);
 		mnFile.add(mntmRestore);
 
-		JMenuItem mntmExit = new JMenuItem("종료");
+		mntmExit = new JMenuItem("종료");
+		mntmExit.addActionListener(this);
 		mnFile.add(mntmExit);
 
 		JMenu mnHelp = new JMenu("도움말");
@@ -100,7 +108,7 @@ public class MainTab extends JFrame implements ActionListener, ChangeListener {
 		tabbedPane.add("고객 관리",viewClient = new ViewClient());
 		tabbedPane.add("공급사 관리",viewSupplyCompany = new ViewSupplyCompany());
 		tabbedPane.add("S/W분류 관리",viewCategory = new ViewCategory());
-
+		
 		JPanel pButton = new JPanel();
 		contentPane.add(pButton, BorderLayout.NORTH);
 
@@ -119,17 +127,25 @@ public class MainTab extends JFrame implements ActionListener, ChangeListener {
 		btnReport = new JButton("엑셀파일 생성");
 		btnReport.addActionListener(this);
 		pButton.add(btnReport);
+		
+		btnLogout = new JButton("로그아웃");
+		btnLogout.addActionListener(this);
+		pButton.add(btnLogout);
 
 		if(MainApp.permission.equals("personnel")){
 			btnChart.setEnabled(false);
 			btnReport.setEnabled(false);
 		}
-
 		setVisible(true);
 	}
 
-
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == mntmExit) {
+			actionPerformedMntmExit(e);
+		}
+		if (e.getSource() == btnLogout) {
+			actionPerformedBtnLogout(e);
+		}
 		if (e.getSource() == btnChart) {
 			actionPerformedBtnChart(e);
 		}
@@ -150,11 +166,12 @@ public class MainTab extends JFrame implements ActionListener, ChangeListener {
 		}
 	}
 
-
 	protected void actionPerformedBtnShowList(ActionEvent e) {
 		viewList.setVisible(false);
 		viewList.setVisible(true);
-		
+		viewList.getContentList().setCategoryComboData();
+		viewList.getContentList().setClntComboData();
+		viewList.getContentList().setSwComboData();
 	}
 
 	protected void actionPerformedBtnSupplyComp(ActionEvent e) {
@@ -173,7 +190,8 @@ public class MainTab extends JFrame implements ActionListener, ChangeListener {
 		viewClient = new ViewClient();
 	}
 
-	protected void actionPerformedBtnChart(ActionEvent e) {
+	protected void actionPerformedBtnChart(ActionEvent e) { //chart 
+		viewChart= new ViewChart();
 		viewChart.setVisible(false);
 		viewChart.setVisible(true);
 	}
@@ -223,12 +241,33 @@ public class MainTab extends JFrame implements ActionListener, ChangeListener {
 	public void allRefresh(){
 		viewCategory.getTableCategory().setTableData();
 		viewClient.setTable();
-		viewSupplyCompany.getpTable().setTableData();;
+		viewClient.getContentClient().initSetting();
+		viewSupplyCompany.setTable();
+		viewSupplyCompany.getpContentSupplyCompany().setDeliveryCode();
 		viewDelivery.setTable();
+		viewDelivery.getContentDelivery().setDeliveryCode();
+		viewSale.getContentSale().initSetting();
 		viewSale.setTable();
+		viewSoftware.getpTableSoftware().setTableData();
+		viewSoftware.getpContentSoftware().initSetting();
 		viewSoftware.getpContentSoftware().getSwCode();
+		
 	}
+	
 	protected void tabbedPaneStateChanged(ChangeEvent e) {
+	}
+	
+	protected void actionPerformedBtnLogout(ActionEvent e) {
+		dispose();
+		mainApp.showMainApp();
+	}
+
+	public void setMainApp(MainApp mainApp) {
+		this.mainApp = mainApp;
+	}
+	
+	protected void actionPerformedMntmExit(ActionEvent e) {
+		System.exit(0);
 	}
 }
 

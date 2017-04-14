@@ -141,7 +141,7 @@ public class ContentDelivery extends JPanel {
       tfpSupplyAmount.setTfValue("");
    }
    
-   private void setDeliveryCode() {//맨 마지막 코드 다음꺼로 세팅
+   public void setDeliveryCode() {//맨 마지막 코드 다음꺼로 세팅
       
       List<Delivery> list = DeliveryService.getInstance().selectDeliveryByAll();
       if(list.size()==0){

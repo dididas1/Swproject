@@ -68,6 +68,7 @@ public class TableList extends JPanel{
 				viewCategorySale.getcSalePrice(),viewCategorySale.getcAmount()
 				}}, getColummForCategori()));
 		}
+		lblTotalLable.setText("  ");
 	}
 
 	public Object[] getColummForCategori() { //카테고리 Columm

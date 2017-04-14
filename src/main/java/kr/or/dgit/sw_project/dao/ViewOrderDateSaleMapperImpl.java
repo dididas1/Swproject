@@ -25,4 +25,10 @@ public class ViewOrderDateSaleMapperImpl implements ViewOrderDateSaleMapper{
 		return sqlSession.selectList(nameSpace + "selectViewOrderDateSale",param);
 	}
 
+	@Override
+	public List<ViewOrderDateSale> selectViewOrderDateAll() {
+		log.debug("selectViewOrderDateAll()");
+		return sqlSession.selectList(nameSpace + "selectViewOrderDateAll");
+	}
+
 }

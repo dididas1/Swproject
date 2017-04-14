@@ -23,6 +23,13 @@ public class SoftwareService {
 		} 
 	}
 	
+	public List<Software> selectSoftwareByImg() {
+		try (SqlSession sqlSession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
+			SoftwareMapper softwareMapper = new SoftwareMapperImpl(sqlSession);
+			return softwareMapper.selectSoftwareByImg();
+		} 
+	}
+	
 	public int insertSoftwareItem(Map<String, Object> item) {
 		try (SqlSession sqlSession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
 			SoftwareMapper softwareMapper = new SoftwareMapperImpl(sqlSession);

@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -56,10 +57,8 @@ public class ViewList extends JFrame implements ActionListener, ItemListener {
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 1.0}; //각 행의 가중치
 		getContentPane().setLayout(gridBagLayout);
 		
-		JLabel label = new JLabel("거래내역 확인");
-		label.setEnabled(false);
+		JLabel label = new JLabel("");
 		label.setHorizontalAlignment(SwingConstants.CENTER);
-		label.setFont(new Font("\uC778\uD130\uD30C\uD06C\uACE0\uB515 B", label.getFont().getStyle(), label.getFont().getSize() + 5));
 		GridBagConstraints gbc_label = new GridBagConstraints();
 		gbc_label.fill = GridBagConstraints.HORIZONTAL;
 		gbc_label.insets = new Insets(20, 50, 0, 10);
@@ -68,6 +67,9 @@ public class ViewList extends JFrame implements ActionListener, ItemListener {
 		gbc_label.gridwidth = 5;
 		contentPane.add(label, gbc_label);
 
+		ImageIcon icon = new ImageIcon(System.getProperty("user.dir")+"/build/resources/main/softwareimage/list.png");
+		label.setIcon(icon);	
+		
 		pContent = new ContentList();
 		pContent.getBtnDaySearch().addActionListener(this);
 		pContent.getTfpSwName().getTf().addItemListener(this);
@@ -77,6 +79,7 @@ public class ViewList extends JFrame implements ActionListener, ItemListener {
 		pContent.getBtnGroupAllFind().addActionListener(this);
 		pContent.getBtnSwAllFind().addActionListener(this);
 		pContent.getBtnClntAllFind().addActionListener(this);
+		pContent.getBtnDateAllFind().addActionListener(this);
 		
 		GridBagConstraints gbc_pContent = new GridBagConstraints();
 		gbc_pContent.insets = new Insets(10, 10, 30, 10);
@@ -92,10 +95,7 @@ public class ViewList extends JFrame implements ActionListener, ItemListener {
 		gbc_pTable.gridx = 0;
 		gbc_pTable.gridy = 2;
 		contentPane.add(pTable, gbc_pTable);
-		
 	}
-	
-
 
 	/*************************** Get Data ***************************/  
 	private void setTable(){ //Table 로드
@@ -117,6 +117,10 @@ public class ViewList extends JFrame implements ActionListener, ItemListener {
 		listSoftware = ViewSoftwareSaleService.getInstence().selectViewSofrwareSaleAll();
 	}
 	
+	private void getDataFromDBDateAll(){ //list에 데이터베이스에서 가져온 값을 입력 날짜별
+		listDate = ViewOrderDateSaleService.getInstence().selectViewOrderDateAll();
+	}
+	
 	private void getDataFromDBDate(Map<String, Object> param){ //list에 데이터베이스에서 가져온 값을 입력 클라이언트
 		listDate = ViewOrderDateSaleService.getInstence().selectViewOrderDateSaleThisYear(param);
 	}
@@ -136,14 +140,23 @@ public class ViewList extends JFrame implements ActionListener, ItemListener {
 		if (e.getSource() == pContent.getBtnClntAllFind()) {
 			actionPerformedPContentBtnClntAllFind(e);
 		}
+		
+		if (e.getSource() == pContent.getBtnDateAllFind()) {
+			actionPerformedPContentBtnDateAllFind(e);
+		}
 	}
 	
+	private void actionPerformedPContentBtnDateAllFind(ActionEvent e) { //날짜 전체검색
+		getDataFromDBDateAll();
+		pTable.setDateList(listDate);
+		pTable.setTableDataForDate();
+	}
+
 	protected void actionPerformedPContentBtnClntAllFind(ActionEvent e) { //공급사 전체검색
 		getDataFromDBClinet();
 		pTable.setClientList(listClinet);
 		pTable.setTableDataForClient();
 		pContent.getTfpClntName().setSelectedItem(0);
-
 	}
 
 	protected void actionPerformedPContentBtnSwAllFind(ActionEvent e) {
@@ -218,11 +231,11 @@ public class ViewList extends JFrame implements ActionListener, ItemListener {
 		}
 	}
 
-
-
 	public ContentList getContentList() {
 		return pContent;
 	}
 	
+	/***********************/
 	
+	/***********************/
 }

@@ -1,4 +1,5 @@
-<<<<<<< HEAD
+select * from sale;
+select * from software;
 SELECT c.group_code, c.group_name,
 /*총판매가격*/ (sd.total_sale_price) c_salePrice, 
 /*총판매수량*/ (s.sale_amount) c_amount
@@ -13,6 +14,15 @@ SELECT c.group_code, c.group_name,
 				  left outer JOIN client cl ON cl.clnt_code = s.clnt_code
 				  group by sw.sw_code;
 select * from address;
+select * from client;
+select * from sale;
+
+SELECT * FROM software sw
+			 JOIN category cat ON sw.group_code = cat.group_code
+			 JOIN sale s ON sw.sw_code = s.sw_code
+			 JOIN client cl ON cl.clnt_code = s.clnt_code
+			 join view_sale_detail vd on s.sale_code= vd.sale_code
+                group by s.sale_code;
 =======
 USE sw_erp;
 -- 공급회사
@@ -23,7 +33,7 @@ CREATE TABLE supply_company (
 	compTel  VARCHAR(15) NULL,
 	PRIMARY KEY (compNo)
 );
-
+select * from sale;
 -- 고객현황
 CREATE TABLE client (
 	clntNo   VARCHAR(6)  NOT NULL,
@@ -186,6 +196,6 @@ sale은 거래내역.
 sale(sale_detail)에 데이터가 입력된 후에는 software의 값(단가, 공급금액)이 변할 때
 	->	sale(sale_detail)의 데이터가 변하지 않아야함.
 	
-	
-/* * * * * * * * * * * * * * * * * * * E  N  D * * * * * * * * * * * * * * * * * * */
+ select * from view_sale_by_orderdate;
+ select * from supply_company;
 >>>>>>> refs/remotes/origin/luuzun_addImg

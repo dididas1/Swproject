@@ -1,6 +1,7 @@
 package kr.or.dgit.sw_project;
 
 import java.awt.EventQueue;
+import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -9,6 +10,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -23,6 +26,7 @@ import erp_myframework.PasswordPanel;
 import erp_myframework.TextFieldPanel;
 import kr.or.dgit.sw_project.application.membership.ViewMemberShip;
 import kr.or.dgit.sw_project.dto.Members;
+import kr.or.dgit.sw_project.initsetting.InitSettingService;
 import kr.or.dgit.sw_project.service.MemberShipService;
 
 @SuppressWarnings("serial")
@@ -36,14 +40,17 @@ public class MainApp extends JFrame implements ActionListener {
 	private PasswordPanel panelPassword;
 	private JButton btnSignIn;
 	private JButton btnBarCode;
+	private static MainApp frame;
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
+
 			public void run() {
 				try {  
 					try {
 						UIManager.setLookAndFeel(new SyntheticaAluOxideLookAndFeel());
 						SyntheticaLookAndFeel.setFont("Gulim", 12);
-						MainApp frame = new MainApp();
+						frame = new MainApp();
 						frame.setVisible(true);
 					} catch (UnsupportedLookAndFeelException | ParseException e) {
 						e.printStackTrace();
@@ -57,10 +64,25 @@ public class MainApp extends JFrame implements ActionListener {
 
 	public MainApp() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		ImageIcon icon = new ImageIcon(System.getProperty("user.dir")+"/build/resources/main/softwareimage/login.png");
+
 		//1920, 1080 
-		setBounds(750, 350, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(80, 80, 80, 120));
+		setBounds(750, 350, 550, 270);
+		contentPane = new JPanel(){
+            public void paintComponent(Graphics g) {
+                //  Approach 1: Dispaly image at at full size
+                g.drawImage(icon.getImage(), 0, 0, null);
+                //  Approach 2: Scale image to size of component
+                // Dimension d = getSize();
+                // g.drawImage(icon.getImage(), 0, 0, d.width, d.height, null);
+                // Approach 3: Fix the image position in the scroll pane
+                // Point p = scrollPane.getViewport().getViewPosition();
+                // g.drawImage(icon.getImage(), p.x, p.y, null);
+                setOpaque(false);
+                super.paintComponent(g);
+            }
+        };
+		contentPane.setBorder(new EmptyBorder(100, 80, 30, 120));
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[]{0, 0};
@@ -71,7 +93,6 @@ public class MainApp extends JFrame implements ActionListener {
 		
 		panelID = new TextFieldPanel();
 		panelID.setTitle("ID");
-		panelID.setTfValue("admin");
 		GridBagConstraints gbc_panelID = new GridBagConstraints();
 		gbc_panelID.insets = new Insets(0, 0, 5, 0);
 		gbc_panelID.fill = GridBagConstraints.BOTH;
@@ -81,7 +102,6 @@ public class MainApp extends JFrame implements ActionListener {
 		
 		panelPassword = new PasswordPanel();
 		panelPassword.setTitle("Password");
-		panelPassword.setPwValue("1234");
 		GridBagConstraints gbc_panelPassword = new GridBagConstraints();
 		gbc_panelPassword.insets = new Insets(0, 0, 5, 0);
 		gbc_panelPassword.fill = GridBagConstraints.BOTH;
@@ -111,6 +131,10 @@ public class MainApp extends JFrame implements ActionListener {
 		panelButton.add(btnBarCode);
 	}
 	
+	public void showMainApp(){
+		frame.setVisible(true);
+	}
+	
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnBarCode) {
 			actionPerformedBtnExit(e);
@@ -132,6 +156,8 @@ public class MainApp extends JFrame implements ActionListener {
 			permission = user.getMemPermission();
 			System.out.println("Permission: "+permission);
 			MainTab tabbedSale = new MainTab();
+			tabbedSale.setMainApp(MainApp.this);
+			panelPassword.setPwValue("");
 			dispose();
 		}else{
 			JOptionPane.showMessageDialog(null, "회원 정보가 존재하지 않습니다.");
@@ -143,6 +169,11 @@ public class MainApp extends JFrame implements ActionListener {
 	}
 	
 	protected void actionPerformedBtnExit(ActionEvent e) {
-//		JoinOnCard joinOnCard = new JoinOnCard();
+		InitSettingService fileSetting= new InitSettingService();
+		fileSetting.initSetting(0, 1);
+		/*JoinOnCard joinOnCard = new JoinOnCard();
+		panelPassword.setPwValue("");
+		joinOnCard.setMainApp(MainApp.this);
+		dispose();*/
 	}
 }
